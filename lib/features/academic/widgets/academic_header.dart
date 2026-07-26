@@ -17,10 +17,6 @@ class AcademicHeader extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-        ),
       ),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,

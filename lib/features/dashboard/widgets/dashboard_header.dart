@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/routes/route_names.dart';
+import '../../../app/theme/colors.dart';
+import '../../../app/theme/text_styles.dart';
+
 class DashboardHeader extends StatelessWidget {
   const DashboardHeader({super.key});
 
@@ -12,95 +16,102 @@ class DashboardHeader extends StatelessWidget {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xFF3B82F6),
-            Color(0xFF2563EB),
+            AppColors.primaryLight,
+            AppColors.primary,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
         ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CircleAvatar(
-            radius: 28,
-            backgroundColor: Colors.white,
-            child: Icon(
+          Container(
+            width: 56,
+            height: 56,
+            decoration: const BoxDecoration(
+              color: AppColors.white,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
               Icons.person,
-              color: Color(0xFF2563EB),
+              color: AppColors.primary,
             ),
           ),
 
           const SizedBox(width: 16),
 
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Bonjour 👋",
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 13,
+                  style: AppTextStyles.bodySmall.copyWith(
+                    color: AppColors.white.withOpacity(.8),
                   ),
                 ),
 
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
 
-                Text(
+                const Text(
                   "Aymen Bensalem",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
 
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
 
                 Text(
                   "Génie Informatique • 3ème année",
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 13,
+                  style: AppTextStyles.bodySmall.copyWith(
+                    color: AppColors.white.withOpacity(.8),
                   ),
                 ),
               ],
             ),
           ),
 
-          Stack(
-            children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: Colors.white24,
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: const Icon(
-                  Icons.notifications_none,
-                  color: Colors.white,
-                ),
-              ),
-
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Container(
-                  width: 10,
-                  height: 10,
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
+          InkWell(
+            borderRadius: BorderRadius.circular(14),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                RouteNames.notifications,
+              );
+            },
+            child: Stack(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: AppColors.white.withOpacity(.20),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: const Icon(
+                    Icons.notifications_none_rounded,
+                    color: AppColors.white,
                   ),
                 ),
-              ),
-            ],
+
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Container(
+                    width: 10,
+                    height: 10,
+                    decoration: const BoxDecoration(
+                      color: AppColors.error,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
