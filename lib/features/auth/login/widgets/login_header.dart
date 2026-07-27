@@ -26,7 +26,7 @@ class LoginHeader extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(14),
+                padding: const EdgeInsets.all(1),
                 child: Image.asset(
                   "assets/logo/logo.png",
                   fit: BoxFit.contain,
@@ -34,7 +34,7 @@ class LoginHeader extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 14),
+            const SizedBox(height: 20),
 
             const Text(
               "IGT",
@@ -51,7 +51,7 @@ class LoginHeader extends StatelessWidget {
               "Institut de Gestion et de Technologie",
               style: AppTextStyles.bodySmall.copyWith(
                 color: Colors.white70,
-                fontSize: 11,
+                fontSize: 14,
               ),
             ),
           ],

@@ -1,13 +1,13 @@
-class CampusModel {
+class FormationModel {
   final String name;
-  final String address;
-  final String city;
+  final String description;
+  final String campusId;
   final String status;
 
-  const CampusModel({
+  const FormationModel({
     required this.name,
-    required this.address,
-    required this.city,
+    required this.description,
+    required this.campusId,
     required this.status,
   });
 
@@ -15,8 +15,8 @@ class CampusModel {
     return {
       'uid': uid,
       'name': name.trim(),
-      'address': address.trim(),
-      'city': city.trim(),
+      'description': description.trim(),
+      'campusId': campusId,
       'status': status,
     };
   }

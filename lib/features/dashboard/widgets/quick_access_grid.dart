@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/routes/route_names.dart';
 import '../../../app/theme/colors.dart';
 import '../../../app/theme/text_styles.dart';
+import '../../../shared/navigation/navigation_page.dart';
 
 class QuickAccessGrid extends StatelessWidget {
   const QuickAccessGrid({super.key});
@@ -17,53 +17,68 @@ class QuickAccessGrid extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        childAspectRatio: 1.3,
+        childAspectRatio: 1.15,
         children: [
           _Item(
             title: "Résultats",
-            icon: Icons.bar_chart_rounded,
+            imagePath: "assets/images/dashboard/results.png",
             color: const Color(0xFFE8F5E9),
-            iconColor: AppColors.success,
             onTap: () {
-              Navigator.pushNamed(
+              Navigator.pushReplacement(
                 context,
-                RouteNames.academic,
+                MaterialPageRoute(
+                  builder: (_) => const NavigationPage(
+                    initialIndex: 2,
+                  ),
+                ),
               );
             },
           ),
+
           _Item(
             title: "Horaire",
-            icon: Icons.calendar_today_rounded,
+            imagePath: "assets/images/dashboard/schedule.png",
             color: const Color(0xFFE3F2FD),
-            iconColor: AppColors.primary,
             onTap: () {
-              Navigator.pushNamed(
+              Navigator.pushReplacement(
                 context,
-                RouteNames.academic,
+                MaterialPageRoute(
+                  builder: (_) => const NavigationPage(
+                    initialIndex: 2,
+                  ),
+                ),
               );
             },
           ),
+
           _Item(
             title: "Documents",
-            icon: Icons.description_rounded,
+            imagePath: "assets/images/dashboard/documents.png",
             color: const Color(0xFFFFF3E0),
-            iconColor: AppColors.warning,
             onTap: () {
-              Navigator.pushNamed(
+              Navigator.pushReplacement(
                 context,
-                RouteNames.documents,
+                MaterialPageRoute(
+                  builder: (_) => const NavigationPage(
+                    initialIndex: 3,
+                  ),
+                ),
               );
             },
           ),
+
           _Item(
             title: "Actualités",
-            icon: Icons.campaign_rounded,
+            imagePath: "assets/images/dashboard/news.png",
             color: const Color(0xFFF3E5F5),
-            iconColor: Colors.purple,
             onTap: () {
-              Navigator.pushNamed(
+              Navigator.pushReplacement(
                 context,
-                RouteNames.news,
+                MaterialPageRoute(
+                  builder: (_) => const NavigationPage(
+                    initialIndex: 1,
+                  ),
+                ),
               );
             },
           ),
@@ -75,16 +90,14 @@ class QuickAccessGrid extends StatelessWidget {
 
 class _Item extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final String imagePath;
   final Color color;
-  final Color iconColor;
   final VoidCallback onTap;
 
   const _Item({
     required this.title,
-    required this.icon,
+    required this.imagePath,
     required this.color,
-    required this.iconColor,
     required this.onTap,
   });
 
@@ -92,37 +105,40 @@ class _Item extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
+      borderRadius: BorderRadius.circular(22),
       child: InkWell(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(22),
         onTap: onTap,
         child: Ink(
           decoration: BoxDecoration(
             color: AppColors.card,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(22),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(.05),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 12,
+                offset: const Offset(0, 5),
               ),
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.all(14),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 56,
-                  height: 56,
+                  width: 86,
+                  height: 86,
+                  clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     color: color,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Icon(
-                    icon,
-                    color: iconColor,
-                    size: 28,
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
                   ),
                 ),
 

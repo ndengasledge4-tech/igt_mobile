@@ -1,17 +1,17 @@
-class UserModel {
+class AdministratorModel {
   final String firstName;
   final String lastName;
   final String email;
-  final String phone;
   final String role;
+  final String? campusId;
   final String status;
 
-  const UserModel({
+  const AdministratorModel({
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.phone,
     required this.role,
+    this.campusId,
     required this.status,
   });
 
@@ -22,8 +22,8 @@ class UserModel {
       'lastName': lastName.trim(),
       'fullName': '${firstName.trim()} ${lastName.trim()}',
       'email': email.trim().toLowerCase(),
-      'phone': phone.trim(),
       'role': role,
+      'campusId': campusId,
       'status': status,
     };
   }
