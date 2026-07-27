@@ -2,26 +2,28 @@ import 'package:flutter/material.dart';
 
 import '../../../../app/routes/route_names.dart';
 import '../../../../app/theme/colors.dart';
+import 'password_success_card.dart';
 
-class LoginButton extends StatelessWidget {
-  const LoginButton({super.key});
+class CreatePasswordButton extends StatelessWidget {
+  const CreatePasswordButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 52,
+      height: 55,
       child: ElevatedButton(
         onPressed: () {
-          // TODO :
-          // 1. Vérifier les identifiants auprès de l'API
-          // 2. Si le compte n'est pas activé :
-          // Navigator.pushReplacementNamed(context, RouteNames.activation);
-          //
-          // 3. Si le compte est activé :
-          Navigator.pushReplacementNamed(
-            context,
-            RouteNames.navigation,
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) {
+              return const Dialog(
+                backgroundColor: Colors.transparent,
+                insetPadding: EdgeInsets.all(24),
+                child: PasswordSuccessCard(),
+              );
+            },
           );
         },
         style: ElevatedButton.styleFrom(
@@ -33,7 +35,7 @@ class LoginButton extends StatelessWidget {
           ),
         ),
         child: const Text(
-          "Se connecter",
+          "Créer mon mot de passe",
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,

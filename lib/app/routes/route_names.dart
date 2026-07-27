@@ -3,7 +3,9 @@ abstract final class RouteNames {
 
   static const splash = '/';
   static const onboarding = '/onboarding';
+  static const activation = "/activation";
   static const login = '/login';
+  static const createPassword = "/create-password";
   static const forgotPassword = '/forgot-password';
 
   static const dashboard = '/dashboard';

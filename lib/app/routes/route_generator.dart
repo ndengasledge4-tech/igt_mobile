@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../features/auth/create_password/create_password_screen.dart';
 import '../../features/auth/forgot_password/forgot_password_page.dart';
+import '../../features/auth/activation/activation_screen.dart';
 import '../../features/auth/login/login_page.dart';
 import '../../features/auth/onboarding/onboarding_page.dart';
 import '../../features/auth/splash/splash_page.dart';
@@ -36,8 +38,18 @@ class RouteGenerator {
       case RouteNames.onboarding:
         return _page(const OnboardingPage());
 
+      case RouteNames.activation:
+        return MaterialPageRoute(
+          builder: (_) => const ActivationScreen(),
+        );
+
       case RouteNames.login:
         return _page(const LoginPage());
+
+      case RouteNames.createPassword:
+        return MaterialPageRoute(
+          builder: (_) => const CreatePasswordScreen(),
+        );
 
       case RouteNames.forgotPassword:
         return _page(const ForgotPasswordPage());
