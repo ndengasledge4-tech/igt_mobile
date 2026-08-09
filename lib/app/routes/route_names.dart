@@ -1,17 +1,70 @@
 abstract final class RouteNames {
   const RouteNames._();
 
-  // authentification
-  static const splash = '/';
-  static const onboarding = '/onboarding';
-  static const activation = "/activation";
-  static const login = '/login';
-  static const register = '/register';
-  static const waitingValidation = '/waiting-validation';
-  static const createPassword = "/create-password";
-  static const forgotPassword = '/forgot-password';
+  // ============================================================
+  // AUTHENTIFICATION
+  // ============================================================
 
-  // Navigation
-  static const navigation = '/navigation';
+  static const String splash = '/';
+  static const String onboarding = '/onboarding';
+  static const String connexion = '/connexion';
+  static const String creationCompte = '/creation-compte';
+  static const String motDePasseOublie = '/mot-de-passe-oublie';
+  static const String reinitialisation = '/reinitialisation';
 
+  // ============================================================
+  // NAVIGATION PRINCIPALE
+  // ============================================================
+
+  static const String navigation = '/navigation';
+
+  // ============================================================
+  // ACCUEIL
+  // ============================================================
+
+  static const String accueil = '/accueil';
+
+  // ============================================================
+  // ACADEMIE
+  // ============================================================
+
+  static const String academie = '/academie';
+  static const String mesCours = '/mes-cours';
+  static const String semestre = '/semestre';
+  static const String coursDetail = '/cours-detail';
+  static const String mesNotes = '/mes-notes';
+  static const String noteDetail = '/note-detail';
+  static const String mesResultats = '/mes-resultats';
+  static const String resultatDetail = '/resultat-detail';
+  static const String emploiDuTemps = '/emploi-du-temps';
+  static const String emploiDuTempsDetail = '/emploi-du-temps-detail';
+  static const String mesDocuments = '/mes-documents';
+  static const String documentDetail = '/document-detail';
+
+  // ============================================================
+  // ACTUALITE
+  // ============================================================
+
+  static const String actualite = '/actualite';
+  static const String actualiteDetail = '/actualite-detail';
+  static const String evenements = '/evenements';
+
+  // ============================================================
+  // MESSAGERIE
+  // ============================================================
+
+  static const String messagerie = '/messagerie';
+  static const String conversation = '/conversation';
+  static const String nouvelleDemande = '/nouvelle-demande';
+
+  // ============================================================
+  // MON ESPACE
+  // ============================================================
+
+  static const String monEspace = '/mon-espace';
+  static const String profil = '/profil';
+  static const String situationFinanciere = '/situation-financiere';
+  static const String historiquePaiements = '/historique-paiements';
+  static const String parametres = '/parametres';
+  static const String modifierMotDePasse = '/modifier-mot-de-passe';
 }
