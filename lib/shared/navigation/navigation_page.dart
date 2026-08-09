@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../app/theme/colors.dart';
-import '../../features/academic/academic_screen.dart';
-import '../../features/dashboard/dashboard_screen.dart';
-import '../../features/documents/documents_screen.dart';
-import '../../features/news/news_screen.dart';
-import '../../features/profile/profile_screen.dart';
+import '../../features/accueil/pages/accueil_page.dart';
+import '../../features/actualite/pages/actualites_page.dart';
+import '../../features/academie/pages/academie_page.dart';
+import '../../features/mon_espace/pages/mon_espace_page.dart';
+import '../../features/messagerie/pages/messagerie_page.dart';
+
+import 'widgets/app_bottom_navigation.dart';
 
 class NavigationPage extends StatefulWidget {
   final int initialIndex;
@@ -28,12 +29,12 @@ class _NavigationPageState extends State<NavigationPage> {
     _currentIndex = widget.initialIndex;
   }
 
-  static const List<Widget> _pages = [
-    DashboardScreen(),
-    NewsScreen(),
-    AcademicScreen(),
-    DocumentsScreen(),
-    ProfileScreen(),
+  final List<Widget> _pages = const [
+    AccueilPage(),
+    AcademiePage(),
+    ActualitePage(),
+    MessageriePage(),
+    MonEspacePage(),
   ];
 
   @override
@@ -43,77 +44,13 @@ class _NavigationPageState extends State<NavigationPage> {
         index: _currentIndex,
         children: _pages,
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-            top: BorderSide(
-              color: Colors.grey.shade200,
-              width: 1,
-            ),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
-              blurRadius: 12,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          top: false,
-          child: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            selectedItemColor: AppColors.primary,
-            unselectedItemColor: const Color(0xFF98A2B3),
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-            selectedFontSize: 12,
-            unselectedFontSize: 12,
-            selectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.w600,
-            ),
-            unselectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.w400,
-            ),
-            iconSize: 24,
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                activeIcon: Icon(Icons.home),
-                label: "Accueil",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.article_outlined),
-                activeIcon: Icon(Icons.article),
-                label: "Actualités",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.school_outlined),
-                activeIcon: Icon(Icons.school),
-                label: "Académique",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.folder_outlined),
-                activeIcon: Icon(Icons.folder),
-                label: "Documents",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                activeIcon: Icon(Icons.person),
-                label: "Profil",
-              ),
-            ],
-          ),
-        ),
+      bottomNavigationBar: AppBottomNavigation(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }

@@ -12,11 +12,8 @@ class IgtApp extends StatelessWidget {
     return MaterialApp(
       title: 'IGT Campus',
       debugShowCheckedModeBanner: false,
-
       theme: AppTheme.light,
-
       initialRoute: RouteNames.splash,
-
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
