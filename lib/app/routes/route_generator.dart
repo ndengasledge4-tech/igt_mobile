@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 // ============================================================
 // AUTHENTIFICATION
 // ============================================================
-import '../../features/Authentification/pages/splash_page.dart';
-import '../../features/Authentification/pages/onboarding_page.dart';
-import '../../features/Authentification/pages/connexion_page.dart';
-import '../../features/Authentification/pages/creation_compte_page.dart';
-import '../../features/Authentification/pages/mot_de_passe_oublie_page.dart';
-import '../../features/Authentification/pages/reinitialisation_page.dart';
+import '../../features/Authentification/pages/forgot_password/mot_de_passe_oublie_page.dart';
+import '../../features/Authentification/pages/login/connexion_page.dart';
+import '../../features/Authentification/pages/onboarding/onboarding_page.dart';
+import '../../features/Authentification/pages/reinitialisation/reinitialisation_page.dart';
+import '../../features/Authentification/pages/register/creation_compte_page.dart';
+import '../../features/Authentification/pages/splash/splash_page.dart';
+import '../../features/Authentification/pages/waiting_validation/waiting_validation_page.dart';
 
 // ============================================================
 // NAVIGATION PRINCIPALE
@@ -56,34 +57,48 @@ class RouteGenerator {
     // ========================================================
 
       case RouteNames.splash:
-        return _page(
-          const SplashPage(),
+        return MaterialPageRoute(
+          builder: (_) => const SplashPage(),
+          settings: settings,
         );
 
       case RouteNames.onboarding:
-        return _page(
-          const OnboardingPage(),
+        return MaterialPageRoute(
+          builder: (_) => const OnboardingPage(),
+          settings: settings,
         );
 
       case RouteNames.connexion:
-        return _page(
-          const ConnexionPage(),
+        return MaterialPageRoute(
+          builder: (_) => const ConnexionPage(),
+          settings: settings,
         );
 
       case RouteNames.creationCompte:
-        return _page(
-          const CreationComptePage(),
+        return MaterialPageRoute(
+          builder: (_) => const CreationComptePage(),
+          settings: settings,
         );
 
       case RouteNames.motDePasseOublie:
-        return _page(
-          const MotDePasseOubliePage(),
+        return MaterialPageRoute(
+          builder: (_) => const MotDePasseOubliePage(),
+          settings: settings,
         );
 
       case RouteNames.reinitialisation:
-        return _page(
-          const ReinitialisationPage(),
+        return MaterialPageRoute(
+          builder: (_) => const ReinitialisationPage(),
+          settings: settings,
         );
+
+      case RouteNames.waitingValidation:
+        return MaterialPageRoute(
+          builder: (_) => const WaitingValidationPage(),
+          settings: settings,
+        );
+
+
 
     // ========================================================
     // NAVIGATION PRINCIPALE

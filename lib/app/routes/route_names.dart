@@ -11,6 +11,7 @@ abstract final class RouteNames {
   static const String creationCompte = '/creation-compte';
   static const String motDePasseOublie = '/mot-de-passe-oublie';
   static const String reinitialisation = '/reinitialisation';
+  static const String waitingValidation = '/waiting-validation';
 
   // ============================================================
   // NAVIGATION PRINCIPALE

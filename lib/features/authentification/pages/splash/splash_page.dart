@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/routes/route_names.dart';
-import '../../../app/theme/colors.dart';
+import '../../../../../app/routes/route_names.dart';
+import '../../../../../app/theme/colors.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
