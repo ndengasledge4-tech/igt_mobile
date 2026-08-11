@@ -35,4 +35,15 @@ abstract final class AppColors {
   static const Color success = Color(0xFF4CAF78);
   static const Color warning = Color(0xFFE9A23B);
   static const Color error = Color(0xFFD95C5C);
+
+  // Module Actualite
+  static const Color actualiteHeader = Color(0xFF3F8DCD);
+  static const Color actualiteBackground = Color(0xFFF4F7FB);
+  static const Color actualiteCardBorder = Color(0xFFDCE6F1);
+  static const Color actualiteText = Color(0xFF2D3D55);
+  static const Color actualiteMutedText = Color(0xFF7890AA);
+  static const Color actualiteSoftBlue = Color(0xFFEAF6FF);
+  static const Color actualiteSoftRed = Color(0xFFFFECEC);
+  static const Color actualiteSoftGreen = Color(0xFFEFF9F0);
+  static const Color actualiteSoftYellow = Color(0xFFFFF3DC);
 }
