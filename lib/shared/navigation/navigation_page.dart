@@ -13,7 +13,7 @@ class NavigationPage extends StatefulWidget {
 
   const NavigationPage({
     super.key,
-    this.initialIndex = 0,
+    this.initialIndex = 4, // Défini par défaut sur 4 (Mon Espace) pour faciliter les tests du module
   });
 
   @override
