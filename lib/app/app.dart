@@ -13,7 +13,7 @@ class IgtApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       // Démarrage direct sur la navigation pour éviter les crashs de redirection
-      initialRoute: RouteNames.navigation,
+      initialRoute: RouteNames.splash,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
