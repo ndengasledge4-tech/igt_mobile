@@ -148,6 +148,11 @@ class MonEspacePage extends StatelessWidget {
                   chevronColor: AppColors.error,
                   onTap: () {
                     // La navigation vers la déconnexion sera implémentée ultérieurement
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RouteNames.connexion,
+                          (route) => false,
+                    );
                   },
                 ),
               ],
