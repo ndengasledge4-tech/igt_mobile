@@ -69,4 +69,6 @@ abstract final class RouteNames {
   static const String historiquePaiements = '/historique-paiements';
   static const String parametres = '/parametres';
   static const String modifierMotDePasse = '/modifier-mot-de-passe';
+  static const String aide = '/aide';
+  static const String aPropos = '/a-propos';
 }
