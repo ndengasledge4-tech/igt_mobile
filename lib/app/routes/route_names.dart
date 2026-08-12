@@ -41,6 +41,7 @@ abstract final class RouteNames {
   static const String emploiDuTempsDetail = '/emploi-du-temps-detail';
   static const String mesDocuments = '/mes-documents';
   static const String documentDetail = '/document-detail';
+  static const String monParcours = '/mon-parcours';
 
   // ============================================================
   // ACTUALITE
