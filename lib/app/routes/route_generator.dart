@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 // ============================================================
 // AUTHENTIFICATION
 // ============================================================
-import '../../features/authentification/pages/forgot_password/mot_de_passe_oublie_page.dart';
-import '../../features/authentification/pages/login/connexion_page.dart';
-import '../../features/authentification/pages/onboarding/onboarding_page.dart';
-import '../../features/authentification/pages/reinitialisation/reinitialisation_page.dart';
-import '../../features/authentification/pages/register/creation_compte_page.dart';
-import '../../features/authentification/pages/splash/splash_page.dart';
-import '../../features/authentification/pages/waiting_validation/waiting_validation_page.dart';
+import '../../features/Authentification/pages/forgot_password/mot_de_passe_oublie_page.dart';
+import '../../features/Authentification/pages/login/connexion_page.dart';
+import '../../features/Authentification/pages/onboarding/onboarding_page.dart';
+import '../../features/Authentification/pages/reinitialisation/reinitialisation_page.dart';
+import '../../features/Authentification/pages/register/creation_compte_page.dart';
+import '../../features/Authentification/pages/splash/splash_page.dart';
+import '../../features/Authentification/pages/waiting_validation/waiting_validation_page.dart';
 
 // ============================================================
 // NAVIGATION PRINCIPALE
@@ -19,22 +19,22 @@ import '../../shared/navigation/navigation_page.dart';
 // ============================================================
 // ACCUEIL
 // ============================================================
-import '../../features/accueil/pages/accueil_page.dart';
+import '../../features/Accueil/pages/accueil_page.dart';
 
 // ============================================================
 // ACADEMIE
 // ============================================================
-import '../../features/academie/pages/academie_page.dart';
+import '../../features/Academie/pages/academie_page.dart';
 
 // ============================================================
 // ACTUALITE
 // ============================================================
-import '../../features/actualite/pages/actualites_page.dart';
+import '../../features/Actualite/pages/actualites_page.dart';
 
 // ============================================================
 // MESSAGERIE
 // ============================================================
-import '../../features/messagerie/pages/messagerie_page.dart';
+import '../../features/Messagerie/pages/messagerie_page.dart';
 
 // ============================================================
 // MON ESPACE
@@ -53,45 +53,107 @@ import 'route_names.dart';
 class RouteGenerator {
   const RouteGenerator._();
 
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic> generateRoute(
+      RouteSettings settings,
+      ) {
     switch (settings.name) {
-      // AUTHENTIFICATION
+    // ========================================================
+    // AUTHENTIFICATION
+    // ========================================================
+
       case RouteNames.splash:
-        return _page(const SplashPage());
+        return MaterialPageRoute(
+          builder: (_) => const SplashPage(),
+          settings: settings,
+        );
+
       case RouteNames.onboarding:
-        return _page(const OnboardingPage());
+        return MaterialPageRoute(
+          builder: (_) => const OnboardingPage(),
+          settings: settings,
+        );
+
       case RouteNames.connexion:
-        return _page(const ConnexionPage());
+        return MaterialPageRoute(
+          builder: (_) => const ConnexionPage(),
+          settings: settings,
+        );
+
       case RouteNames.creationCompte:
-        return _page(const CreationComptePage());
+        return MaterialPageRoute(
+          builder: (_) => const CreationComptePage(),
+          settings: settings,
+        );
+
       case RouteNames.motDePasseOublie:
-        return _page(const MotDePasseOubliePage());
+        return MaterialPageRoute(
+          builder: (_) => const MotDePasseOubliePage(),
+          settings: settings,
+        );
+
       case RouteNames.reinitialisation:
-        return _page(const ReinitialisationPage());
+        return MaterialPageRoute(
+          builder: (_) => const ReinitialisationPage(),
+          settings: settings,
+        );
+
       case RouteNames.waitingValidation:
-        return _page(const WaitingValidationPage());
+        return MaterialPageRoute(
+          builder: (_) => const WaitingValidationPage(),
+          settings: settings,
+        );
 
-      // NAVIGATION PRINCIPALE
+
+
+    // ========================================================
+    // NAVIGATION PRINCIPALE
+    // ========================================================
+
       case RouteNames.navigation:
-        return _page(const NavigationPage());
+        return _page(
+          const NavigationPage(),
+        );
 
-      // ACCUEIL
+    // ============================================================
+    // ACCUEIL
+    // ============================================================
+
       case RouteNames.accueil:
-        return _page(const AccueilPage());
+        return _page(
+          const AccueilPage(),
+        );
 
-      // ACADEMIE
+
+    // ============================================================
+    // ACADEMIE
+    // ============================================================
       case RouteNames.academie:
-        return _page(const AcademiePage());
+        return _page(
+          const AcademiePage(),
+        );
 
-      // ACTUALITE
+
+    // ============================================================
+    // ACTUALITE
+    // ============================================================
       case RouteNames.actualite:
-        return _page(const ActualitePage());
+        return _page(
+          const ActualitePage(),
+        );
 
-      // MESSAGERIE
+
+    // ============================================================
+    // MESSAGERIE
+    // ============================================================
       case RouteNames.messagerie:
-        return _page(const MessageriePage());
+        return _page(
+          const MessageriePage(),
+        );
 
-      // MON ESPACE
+
+    // ============================================================
+    // MON ESPACE
+    // ============================================================
       case RouteNames.monEspace:
         return _page(const MonEspacePage());
       case RouteNames.profil:
@@ -110,14 +172,23 @@ class RouteGenerator {
     }
   }
 
-  static MaterialPageRoute _page(Widget page) {
-    return MaterialPageRoute(builder: (_) => page);
+  static MaterialPageRoute _page(
+      Widget page,
+      ) {
+    return MaterialPageRoute(
+      builder: (_) => page,
+    );
   }
 
   static MaterialPageRoute _notFound() {
     return MaterialPageRoute(
       builder: (_) => const Scaffold(
-        body: Center(child: Text('404\nPage introuvable', textAlign: TextAlign.center)),
+        body: Center(
+          child: Text(
+            '404\nPage introuvable',
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }
