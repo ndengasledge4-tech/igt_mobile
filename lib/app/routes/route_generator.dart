@@ -27,6 +27,42 @@ import '../../features/Accueil/pages/accueil_page.dart';
 import '../../features/Academie/pages/academie_page.dart';
 
 // ============================================================
+// PARCOURS
+// ============================================================
+import '../../features/academie/pages/MonParcours/mon_parcours_page.dart';
+
+// ============================================================
+// MES RESULTATS
+// ============================================================
+
+import '../../features/academie/pages/MesResultats/mes_resultats_page.dart';
+
+// ============================================================
+// MON EMPLOI DU TEMPS
+// ============================================================
+
+import '../../features/academie/pages/MonEmploiDuTemps/emploi_du_temps_page.dart';
+
+// ============================================================
+// MES COURS
+// ============================================================
+import '../../features/academie/pages/MesCours/mes_cours_page.dart';
+import '../../features/academie/pages/MesCours/semestre_page.dart';
+import '../../features/academie/pages/MesCours/cours_detail_page.dart';
+
+// ============================================================
+// MES DOCUMENTS
+// ============================================================
+import '../../features/academie/pages/MesDocuments/mes_documents_page.dart';
+import '../../features/academie/pages/MesDocuments/document_detail_page.dart';
+
+// ============================================================
+// MES NOTES
+// ============================================================
+import '../../features/academie/pages/MesNotes/mes_notes_page.dart';
+import '../../features/academie/pages/MesNotes/note_detail_page.dart';
+
+// ============================================================
 // ACTUALITE
 // ============================================================
 import '../../features/Actualite/pages/actualites_page.dart';
@@ -127,6 +163,96 @@ class RouteGenerator {
           const AcademiePage(),
         );
 
+    // ============================================================
+    // MON PARCOURS
+    // ============================================================
+      case RouteNames.monParcours:
+        return _page(
+          const MonParcoursPage(),
+        );
+
+    // ============================================================
+    // MES RÉSULTATS
+    // ============================================================
+
+      case RouteNames.mesResultats:
+        return _page(
+          const MesResultatsPage(),
+        );
+
+    // ============================================================
+    // MON EMPLOI DU TEMPS
+    // ============================================================
+      case RouteNames.emploiDuTemps:
+        return _page(
+          const EmploiDuTempsPage(),
+        );
+
+    // ============================================================
+    // MES COURS
+    // ============================================================
+      case RouteNames.mesCours:
+        return _page(
+          const MesCoursPage(),
+        );
+
+     // ============================================================
+    // SEMESTRE
+    // ============================================================
+      case RouteNames.semestre:
+        final arguments =
+        settings.arguments as Map<String, dynamic>;
+
+        return _page(
+          SemestrePage(
+            annee: arguments['annee'],
+            semestres: arguments['semestres'],
+          ),
+        );
+
+     // ============================================================
+     // DÉTAIL DU COURS
+     // ============================================================
+      case RouteNames.coursDetail:
+        final semestre = settings.arguments as String;
+
+        return _page(
+          CoursDetailPage(
+            semestre: semestre,
+          ),
+        );
+
+      // ============================================================
+     // MES DOCUMENTS
+     // ============================================================
+      case RouteNames.mesDocuments:
+        return _page(
+          const MesDocumentsPage(),
+        );
+
+     // ============================================================
+     // DÉTAIL DU DOCUMENT
+     // ============================================================
+      case RouteNames.documentDetail:
+        final arguments =
+        settings.arguments as Map<String, dynamic>;
+
+        return _page(
+          DocumentDetailPage(
+            titre: arguments['titre'],
+            type: arguments['type'],
+            date: arguments['date'],
+            taille: arguments['taille'],
+          ),
+        );
+
+     // ============================================================
+    // MES NOTES
+    // ============================================================
+      case RouteNames.mesNotes:
+        return _page(
+          const MesNotesPage(),
+        );
 
     // ============================================================
     // ACTUALITE
