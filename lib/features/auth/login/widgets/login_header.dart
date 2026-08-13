@@ -11,9 +11,7 @@ class LoginHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 185,
-      decoration: const BoxDecoration(
-        color: AppColors.primary,
-      ),
+      decoration: const BoxDecoration(color: AppColors.primary),
       child: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -27,10 +25,7 @@ class LoginHeader extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(1),
-                child: Image.asset(
-                  "assets/logo/logo.png",
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset("assets/logo/logo.png", fit: BoxFit.contain),
               ),
             ),
 

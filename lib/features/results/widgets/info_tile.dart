@@ -15,10 +15,7 @@ class InfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 6,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -41,10 +38,7 @@ class InfoTile extends StatelessWidget {
                 color: const Color(0xFFEAF2FF),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(
-                icon,
-                color: const Color(0xFF2563EB),
-              ),
+              child: Icon(icon, color: const Color(0xFF2563EB)),
             ),
 
             const SizedBox(width: 16),
@@ -55,10 +49,7 @@ class InfoTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 13,
-                    ),
+                    style: const TextStyle(color: Colors.grey, fontSize: 13),
                   ),
 
                   const SizedBox(height: 4),
@@ -74,10 +65,7 @@ class InfoTile extends StatelessWidget {
               ),
             ),
 
-            const Icon(
-              Icons.chevron_right_rounded,
-              color: Colors.grey,
-            ),
+            const Icon(Icons.chevron_right_rounded, color: Colors.grey),
           ],
         ),
       ),

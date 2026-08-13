@@ -22,10 +22,7 @@ class NotificationEmpty extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            const Text(
-              "Aucune notification",
-              style: AppTextStyles.headline3,
-            ),
+            const Text("Aucune notification", style: AppTextStyles.headline3),
 
             const SizedBox(height: 10),
 

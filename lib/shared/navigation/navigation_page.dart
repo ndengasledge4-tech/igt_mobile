@@ -10,10 +10,7 @@ import '../../features/profile/profile_screen.dart';
 class NavigationPage extends StatefulWidget {
   final int initialIndex;
 
-  const NavigationPage({
-    super.key,
-    this.initialIndex = 0,
-  });
+  const NavigationPage({super.key, this.initialIndex = 0});
 
   @override
   State<NavigationPage> createState() => _NavigationPageState();
@@ -39,18 +36,12 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _pages),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border(
-            top: BorderSide(
-              color: Colors.grey.shade200,
-              width: 1,
-            ),
+            top: BorderSide(color: Colors.grey.shade200, width: 1),
           ),
           boxShadow: [
             BoxShadow(
@@ -73,12 +64,8 @@ class _NavigationPageState extends State<NavigationPage> {
             showUnselectedLabels: true,
             selectedFontSize: 12,
             unselectedFontSize: 12,
-            selectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.w600,
-            ),
-            unselectedLabelStyle: const TextStyle(
-              fontWeight: FontWeight.w400,
-            ),
+            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+            unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),
             iconSize: 24,
             onTap: (index) {
               setState(() {

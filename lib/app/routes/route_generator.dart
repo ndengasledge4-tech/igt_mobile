@@ -39,17 +39,13 @@ class RouteGenerator {
         return _page(const OnboardingPage());
 
       case RouteNames.activation:
-        return MaterialPageRoute(
-          builder: (_) => const ActivationScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const ActivationScreen());
 
       case RouteNames.login:
         return _page(const LoginPage());
 
       case RouteNames.createPassword:
-        return MaterialPageRoute(
-          builder: (_) => const CreatePasswordScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const CreatePasswordScreen());
 
       case RouteNames.forgotPassword:
         return _page(const ForgotPasswordPage());
@@ -61,9 +57,7 @@ class RouteGenerator {
         return _page(const NewsPage());
 
       case RouteNames.newsDetail:
-        return _page(
-          const NewsDetailScreen(),
-        );
+        return _page(const NewsDetailScreen());
 
       case RouteNames.events:
         return _page(const EventsPage());
@@ -74,7 +68,7 @@ class RouteGenerator {
           settings: settings,
         );
 
-    case RouteNames.timetable:
+      case RouteNames.timetable:
         return _page(const TimetablePage());
 
       case RouteNames.results:
@@ -93,18 +87,13 @@ class RouteGenerator {
         return _page(const SettingsPage());
 
       case RouteNames.navigation:
-        return MaterialPageRoute(
-          builder: (_) => const NavigationScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const NavigationScreen());
 
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(
             body: Center(
-              child: Text(
-                '404\nPage introuvable',
-                textAlign: TextAlign.center,
-              ),
+              child: Text('404\nPage introuvable', textAlign: TextAlign.center),
             ),
           ),
         );
@@ -112,8 +101,6 @@ class RouteGenerator {
   }
 
   static MaterialPageRoute _page(Widget page) {
-    return MaterialPageRoute(
-      builder: (_) => page,
-    );
+    return MaterialPageRoute(builder: (_) => page);
   }
 }

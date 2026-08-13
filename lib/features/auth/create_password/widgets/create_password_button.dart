@@ -36,10 +36,7 @@ class CreatePasswordButton extends StatelessWidget {
         ),
         child: const Text(
           "Créer mon mot de passe",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
     );

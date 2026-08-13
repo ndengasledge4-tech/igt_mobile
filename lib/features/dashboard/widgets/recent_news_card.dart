@@ -124,10 +124,7 @@ class RecentNewsCard extends StatelessWidget {
                               color: AppColors.secondaryText,
                             ),
                             const SizedBox(width: 4),
-                            Text(
-                              "$likes",
-                              style: AppTextStyles.caption,
-                            ),
+                            Text("$likes", style: AppTextStyles.caption),
 
                             const SizedBox(width: 14),
 
@@ -137,10 +134,7 @@ class RecentNewsCard extends StatelessWidget {
                               color: AppColors.secondaryText,
                             ),
                             const SizedBox(width: 4),
-                            Text(
-                              "$comments",
-                              style: AppTextStyles.caption,
-                            ),
+                            Text("$comments", style: AppTextStyles.caption),
 
                             const Spacer(),
 

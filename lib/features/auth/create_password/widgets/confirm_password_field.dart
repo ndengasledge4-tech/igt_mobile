@@ -4,12 +4,10 @@ class ConfirmPasswordField extends StatefulWidget {
   const ConfirmPasswordField({super.key});
 
   @override
-  State<ConfirmPasswordField> createState() =>
-      _ConfirmPasswordFieldState();
+  State<ConfirmPasswordField> createState() => _ConfirmPasswordFieldState();
 }
 
-class _ConfirmPasswordFieldState
-    extends State<ConfirmPasswordField> {
+class _ConfirmPasswordFieldState extends State<ConfirmPasswordField> {
   bool _obscure = true;
 
   @override
@@ -32,9 +30,7 @@ class _ConfirmPasswordFieldState
             });
           },
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
       ),
     );
   }

@@ -61,10 +61,7 @@ class ForgotPasswordScreen extends StatelessWidget {
 
               const SizedBox(height: 40),
 
-              const Text(
-                'Adresse e-mail',
-                style: AppTextStyles.title,
-              ),
+              const Text('Adresse e-mail', style: AppTextStyles.title),
 
               const SizedBox(height: 8),
 
@@ -85,15 +82,11 @@ class ForgotPasswordScreen extends StatelessWidget {
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text(
-                          'Lien de réinitialisation envoyé.',
-                        ),
+                        content: Text('Lien de réinitialisation envoyé.'),
                       ),
                     );
                   },
-                  child: const Text(
-                    'Envoyer le lien',
-                  ),
+                  child: const Text('Envoyer le lien'),
                 ),
               ),
 
@@ -106,9 +99,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text(
-                    'Retour à la connexion',
-                  ),
+                  child: const Text('Retour à la connexion'),
                 ),
               ),
             ],

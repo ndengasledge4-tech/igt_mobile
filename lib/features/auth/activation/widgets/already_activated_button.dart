@@ -9,14 +9,9 @@ class AlreadyActivatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.pushReplacementNamed(
-          context,
-          RouteNames.login,
-        );
+        Navigator.pushReplacementNamed(context, RouteNames.login);
       },
-      child: const Text(
-        "J'ai déjà activé mon compte",
-      ),
+      child: const Text("J'ai déjà activé mon compte"),
     );
   }
 }

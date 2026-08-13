@@ -9,10 +9,7 @@ class DetailHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF2F6DB5),
-            Color(0xFF1E5A99),
-          ],
+          colors: [Color(0xFF2F6DB5), Color(0xFF1E5A99)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -60,10 +57,7 @@ class DetailHeader extends StatelessWidget {
 
           const Text(
             "MATH301",
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 14),
           ),
 
           const SizedBox(height: 8),

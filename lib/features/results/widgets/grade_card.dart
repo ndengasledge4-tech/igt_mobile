@@ -24,10 +24,7 @@ class GradeCard extends StatelessWidget {
           children: [
             const Text(
               "Note Finale",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
+              style: TextStyle(color: Colors.grey, fontSize: 14),
             ),
 
             const SizedBox(height: 12),
@@ -44,10 +41,7 @@ class GradeCard extends StatelessWidget {
             const SizedBox(height: 10),
 
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
                 color: const Color(0xFFEAFBF2),
                 borderRadius: BorderRadius.circular(20),
@@ -69,9 +63,7 @@ class GradeCard extends StatelessWidget {
                 value: 15.5 / 20,
                 minHeight: 8,
                 backgroundColor: Colors.grey.shade200,
-                valueColor: const AlwaysStoppedAnimation(
-                  Color(0xFF16A34A),
-                ),
+                valueColor: const AlwaysStoppedAnimation(Color(0xFF16A34A)),
               ),
             ),
 
@@ -80,14 +72,8 @@ class GradeCard extends StatelessWidget {
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "0",
-                  style: TextStyle(color: Colors.grey),
-                ),
-                Text(
-                  "20",
-                  style: TextStyle(color: Colors.grey),
-                ),
+                Text("0", style: TextStyle(color: Colors.grey)),
+                Text("20", style: TextStyle(color: Colors.grey)),
               ],
             ),
           ],

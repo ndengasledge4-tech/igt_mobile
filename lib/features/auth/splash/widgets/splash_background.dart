@@ -8,10 +8,7 @@ class SplashBackground extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image.asset(
-          'assets/images/salles/igt.jpg',
-          fit: BoxFit.cover,
-        ),
+        Image.asset('assets/images/salles/igt.jpg', fit: BoxFit.cover),
 
         Container(
           decoration: const BoxDecoration(

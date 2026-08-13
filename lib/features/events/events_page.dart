@@ -6,12 +6,8 @@ class EventsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Événements"),
-      ),
-      body: const Center(
-        child: Text("Page des événements"),
-      ),
+      appBar: AppBar(title: const Text("Événements")),
+      body: const Center(child: Text("Page des événements")),
     );
   }
 }

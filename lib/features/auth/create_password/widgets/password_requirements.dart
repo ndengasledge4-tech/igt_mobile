@@ -17,12 +17,7 @@ class PasswordRequirements extends StatelessWidget {
             size: 18,
           ),
           const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              text,
-              style: AppTextStyles.bodySmall,
-            ),
-          ),
+          Expanded(child: Text(text, style: AppTextStyles.bodySmall)),
         ],
       ),
     );

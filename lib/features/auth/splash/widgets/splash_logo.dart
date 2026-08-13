@@ -22,20 +22,12 @@ class _SplashLogoState extends State<SplashLogo>
       duration: const Duration(milliseconds: 1200),
     );
 
-    _opacity = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
+    _opacity = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
 
     _scale = Tween<double>(
       begin: .8,
       end: 1,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeOutBack,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
     _controller.forward();
   }
@@ -58,17 +50,11 @@ class _SplashLogoState extends State<SplashLogo>
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(.15),
             shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.white24,
-              width: 2,
-            ),
+            border: Border.all(color: Colors.white24, width: 2),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Image.asset(
-              "assets/logo/logo.png",
-              fit: BoxFit.contain,
-            ),
+            child: Image.asset("assets/logo/logo.png", fit: BoxFit.contain),
           ),
         ),
       ),

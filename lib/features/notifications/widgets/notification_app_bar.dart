@@ -37,15 +37,9 @@ class NotificationAppBar extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
-                Text(
-                  "Notifications",
-                  style: AppTextStyles.headline3,
-                ),
+                Text("Notifications", style: AppTextStyles.headline3),
                 SizedBox(height: 2),
-                Text(
-                  "3 non lues",
-                  style: AppTextStyles.caption,
-                ),
+                Text("3 non lues", style: AppTextStyles.caption),
               ],
             ),
           ),

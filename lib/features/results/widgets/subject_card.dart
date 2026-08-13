@@ -22,8 +22,7 @@ class SubjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final double progress = (grade / 20).clamp(0.0, 1.0);
 
-    final Color gradeColor =
-    grade >= 10 ? const Color(0xFF16A34A) : Colors.red;
+    final Color gradeColor = grade >= 10 ? const Color(0xFF16A34A) : Colors.red;
 
     return Material(
       color: Colors.white,
@@ -34,9 +33,7 @@ class SubjectCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (_) => const SubjectDetailsScreen(),
-            ),
+            MaterialPageRoute(builder: (_) => const SubjectDetailsScreen()),
           );
         },
         child: Padding(
@@ -140,10 +137,7 @@ class SubjectCard extends StatelessWidget {
 
                   const Spacer(),
 
-                  const Icon(
-                    Icons.chevron_right_rounded,
-                    color: Colors.grey,
-                  ),
+                  const Icon(Icons.chevron_right_rounded, color: Colors.grey),
                 ],
               ),
             ],

@@ -85,30 +85,17 @@ class _InfoCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            icon,
-            color: const Color(0xFF2563EB),
-            size: 26,
-          ),
+          Icon(icon, color: const Color(0xFF2563EB), size: 26),
 
           const SizedBox(height: 12),
 
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 13,
-            ),
-          ),
+          Text(title, style: const TextStyle(color: Colors.grey, fontSize: 13)),
 
           const SizedBox(height: 4),
 
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
         ],
       ),

@@ -14,14 +14,9 @@ class ActivateButton extends StatelessWidget {
         onPressed: () {
           // TODO : Vérifier le matricule et le code d'activation
 
-          Navigator.pushReplacementNamed(
-            context,
-              RouteNames.createPassword,
-          );
+          Navigator.pushReplacementNamed(context, RouteNames.createPassword);
         },
-        child: const Text(
-          "Activer mon compte",
-        ),
+        child: const Text("Activer mon compte"),
       ),
     );
   }

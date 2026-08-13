@@ -6,11 +6,7 @@ class ActivationLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Image.asset(
-        "assets/logo/logo.png",
-        width: 110,
-        height: 110,
-      ),
+      child: Image.asset("assets/logo/logo.png", width: 110, height: 110),
     );
   }
 }

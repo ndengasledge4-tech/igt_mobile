@@ -14,7 +14,6 @@ class SubjectDetailsPage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: const [
-
             DetailHeader(),
 
             SizedBox(height: 20),

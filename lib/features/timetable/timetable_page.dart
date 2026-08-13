@@ -38,9 +38,7 @@ class _TimetablePageState extends State<TimetablePage> {
             const SizedBox(height: 20),
 
             Expanded(
-              child: isDaily
-                  ? const DailyTimetable()
-                  : const WeeklyTimetable(),
+              child: isDaily ? const DailyTimetable() : const WeeklyTimetable(),
             ),
           ],
         ),

@@ -22,10 +22,7 @@ class ProfileActionTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 18,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           child: Row(
             children: [
               Container(
@@ -35,10 +32,7 @@ class ProfileActionTile extends StatelessWidget {
                   color: const Color(0xFFEAF2FF),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(
-                  icon,
-                  color: const Color(0xFF2563EB),
-                ),
+                child: Icon(icon, color: const Color(0xFF2563EB)),
               ),
 
               const SizedBox(width: 16),
@@ -53,10 +47,7 @@ class ProfileActionTile extends StatelessWidget {
                 ),
               ),
 
-              const Icon(
-                Icons.chevron_right_rounded,
-                color: Colors.grey,
-              ),
+              const Icon(Icons.chevron_right_rounded, color: Colors.grey),
             ],
           ),
         ),

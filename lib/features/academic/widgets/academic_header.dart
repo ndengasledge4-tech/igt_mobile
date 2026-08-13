@@ -10,10 +10,7 @@ class AcademicHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 30),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF2563EB),
-            Color(0xFF1D4ED8),
-          ],
+          colors: [Color(0xFF2563EB), Color(0xFF1D4ED8)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -36,10 +33,7 @@ class AcademicHeader extends StatelessWidget {
 
           Text(
             "Gérez votre parcours universitaire",
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 15,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 15),
           ),
         ],
       ),

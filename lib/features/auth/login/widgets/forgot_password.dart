@@ -23,10 +23,7 @@ class ForgotPassword extends StatelessWidget {
               alignment: Alignment.centerRight,
             ),
             onPressed: () {
-              Navigator.pushNamed(
-                context,
-                RouteNames.forgotPassword,
-              );
+              Navigator.pushNamed(context, RouteNames.forgotPassword);
             },
             child: const Text(
               "Mot de passe oublié ?",
@@ -42,10 +39,7 @@ class ForgotPassword extends StatelessWidget {
               alignment: Alignment.centerRight,
             ),
             onPressed: () {
-              Navigator.pushNamed(
-                context,
-                RouteNames.activation,
-              );
+              Navigator.pushNamed(context, RouteNames.activation);
             },
             child: const Text(
               "Première connexion ? Activer mon compte",

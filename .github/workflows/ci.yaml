@@ -1,0 +1,81 @@
+name: Flutter CI
+
+on:
+  push:
+    branches:
+      - main
+      - development
+
+  pull_request:
+    branches:
+      - main
+      - development
+
+jobs:
+  analyse_and_test:
+    name: analyze, format & test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: action/checkout@v4
+
+      - name: setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+          chanel: 'stable'
+          cache: true
+
+      - name: flutter version
+        run: flutter --version
+
+      - name: flutter dependencies
+        run: flutter pub get
+
+      - name: Check dart format
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Check Flutter analyses
+        run: flutter analyze
+
+      - name: Run flutter tests
+        run: flutter test
+
+
+  build_android_apk_and_aab:
+    name: production du build android
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: action/checkout@v4
+
+      - name: setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+          chanel: 'stable'
+          cache: true
+
+      - name: flutter dependencies
+        run: flutter pub get
+
+      - name: flutter build apk
+        run: flutter build apk --release
+
+      - name: flutter build aab
+        run: flutter build appbundle --release
+
+      - name: Upload apk on github action
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/apk/release/app-release.apk
+
+      - name: Upload aab on github actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
+

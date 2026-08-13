@@ -26,10 +26,7 @@ class DashboardSummaryCard extends StatelessWidget {
                   children: const [
                     Text(
                       "Moyenne générale",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                     SizedBox(height: 8),
                     Text(
@@ -43,19 +40,12 @@ class DashboardSummaryCard extends StatelessWidget {
                     SizedBox(height: 4),
                     Text(
                       "/20 • Semestre 2",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ],
                 ),
               ),
-              Container(
-                width: 1,
-                height: 60,
-                color: Colors.grey.shade300,
-              ),
+              Container(width: 1, height: 60, color: Colors.grey.shade300),
               const SizedBox(width: 16),
               const Expanded(
                 child: Column(
@@ -63,25 +53,17 @@ class DashboardSummaryCard extends StatelessWidget {
                   children: [
                     Text(
                       "Prochain cours",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                     SizedBox(height: 8),
                     Text(
                       "Algorithmique",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 4),
                     Text(
                       "08:00 • Salle 12",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                   ],
                 ),

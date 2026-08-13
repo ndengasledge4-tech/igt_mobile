@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class LogoutButton extends StatelessWidget {
   final VoidCallback? onTap;
 
-  const LogoutButton({
-    super.key,
-    this.onTap,
-  });
+  const LogoutButton({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +11,9 @@ class LogoutButton extends StatelessWidget {
       width: double.infinity,
       height: 54,
       child: ElevatedButton.icon(
-        onPressed: onTap ??
-                () {
+        onPressed:
+            onTap ??
+            () {
               showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
@@ -35,7 +33,7 @@ class LogoutButton extends StatelessWidget {
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           '/login',
-                              (route) => false,
+                          (route) => false,
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -50,10 +48,7 @@ class LogoutButton extends StatelessWidget {
         icon: const Icon(Icons.logout),
         label: const Text(
           "Déconnexion",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,

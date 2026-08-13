@@ -19,28 +19,16 @@ class ProfileInfoCard extends StatelessWidget {
       ),
       child: Column(
         children: const [
-          _InfoRow(
-            title: "Filière",
-            value: "Génie Informatique",
-          ),
+          _InfoRow(title: "Filière", value: "Génie Informatique"),
           Divider(height: 1),
 
-          _InfoRow(
-            title: "Niveau",
-            value: "3ème Année",
-          ),
+          _InfoRow(title: "Niveau", value: "3ème Année"),
           Divider(height: 1),
 
-          _InfoRow(
-            title: "Campus",
-            value: "Campus Principal, Tunis",
-          ),
+          _InfoRow(title: "Campus", value: "Campus Principal, Tunis"),
           Divider(height: 1),
 
-          _InfoRow(
-            title: "Numéro étudiant",
-            value: "IGT2024-0187",
-          ),
+          _InfoRow(title: "Numéro étudiant", value: "IGT2024-0187"),
           Divider(height: 1),
 
           _InfoRow(
@@ -57,28 +45,19 @@ class _InfoRow extends StatelessWidget {
   final String title;
   final String value;
 
-  const _InfoRow({
-    required this.title,
-    required this.value,
-  });
+  const _InfoRow({required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 16,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       child: Row(
         children: [
           Expanded(
             flex: 2,
             child: Text(
               title,
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
+              style: const TextStyle(color: Colors.grey, fontSize: 14),
             ),
           ),
           Expanded(
@@ -86,10 +65,7 @@ class _InfoRow extends StatelessWidget {
             child: Text(
               value,
               textAlign: TextAlign.end,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
             ),
           ),
         ],

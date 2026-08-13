@@ -19,10 +19,7 @@ class LoginButton extends StatelessWidget {
           // Navigator.pushReplacementNamed(context, RouteNames.activation);
           //
           // 3. Si le compte est activé :
-          Navigator.pushReplacementNamed(
-            context,
-            RouteNames.navigation,
-          );
+          Navigator.pushReplacementNamed(context, RouteNames.navigation);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
@@ -34,10 +31,7 @@ class LoginButton extends StatelessWidget {
         ),
         child: const Text(
           "Se connecter",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
     );

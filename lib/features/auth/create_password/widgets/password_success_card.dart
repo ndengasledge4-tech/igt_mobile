@@ -44,7 +44,7 @@ class PasswordSuccessCard extends StatelessWidget {
 
           const Text(
             "Votre mot de passe a été créé avec succès.\n\n"
-                "Vous pouvez maintenant vous connecter à votre espace étudiant.",
+            "Vous pouvez maintenant vous connecter à votre espace étudiant.",
             style: AppTextStyles.bodySmall,
             textAlign: TextAlign.center,
           ),
@@ -61,7 +61,7 @@ class PasswordSuccessCard extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   RouteNames.login,
-                      (route) => false,
+                  (route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -73,10 +73,7 @@ class PasswordSuccessCard extends StatelessWidget {
               ),
               child: const Text(
                 "Se connecter",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
           ),

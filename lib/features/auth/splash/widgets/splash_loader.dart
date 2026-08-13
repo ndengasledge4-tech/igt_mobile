@@ -10,10 +10,7 @@ class SplashLoader extends StatelessWidget {
         const SizedBox(
           width: 36,
           height: 36,
-          child: CircularProgressIndicator(
-            strokeWidth: 3,
-            color: Colors.white,
-          ),
+          child: CircularProgressIndicator(strokeWidth: 3, color: Colors.white),
         ),
 
         const SizedBox(height: 18),

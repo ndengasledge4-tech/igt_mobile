@@ -5,10 +5,7 @@ import '../../../app/theme/colors.dart';
 class NotificationSubtitle extends StatelessWidget {
   final String subtitle;
 
-  const NotificationSubtitle({
-    super.key,
-    required this.subtitle,
-  });
+  const NotificationSubtitle({super.key, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {

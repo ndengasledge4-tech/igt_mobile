@@ -11,16 +11,11 @@ class NewsCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
         onTap: () {
-          Navigator.pushNamed(
-            context,
-            RouteNames.newsDetail,
-          );
+          Navigator.pushNamed(context, RouteNames.newsDetail);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,9 +93,7 @@ class NewsCard extends StatelessWidget {
                       SizedBox(width: 6),
                       Text(
                         "28 Juillet 2025",
-                        style: TextStyle(
-                          color: AppColors.secondaryText,
-                        ),
+                        style: TextStyle(color: AppColors.secondaryText),
                       ),
                       SizedBox(width: 18),
                       Icon(
@@ -111,9 +104,7 @@ class NewsCard extends StatelessWidget {
                       SizedBox(width: 6),
                       Text(
                         "10h00",
-                        style: TextStyle(
-                          color: AppColors.secondaryText,
-                        ),
+                        style: TextStyle(color: AppColors.secondaryText),
                       ),
                     ],
                   ),
@@ -144,10 +135,7 @@ class NewsCard extends StatelessWidget {
 
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteNames.newsDetail,
-                          );
+                          Navigator.pushNamed(context, RouteNames.newsDetail);
                         },
                         child: const Text("Lire la suite →"),
                       ),

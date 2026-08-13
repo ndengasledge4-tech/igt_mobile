@@ -66,31 +66,21 @@ class AnnouncementCard extends StatelessWidget {
               children: [
                 const Text(
                   "Calendrier des examens du premier semestre",
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
 
                 const SizedBox(height: 10),
 
                 const Text(
                   "Le calendrier officiel des examens est désormais disponible. Consultez les dates et les salles pour chaque filière.",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(color: Colors.grey, height: 1.5),
                 ),
 
                 const SizedBox(height: 16),
 
                 Row(
                   children: const [
-                    Icon(
-                      Icons.calendar_today,
-                      size: 16,
-                      color: Colors.grey,
-                    ),
+                    Icon(Icons.calendar_today, size: 16, color: Colors.grey),
                     SizedBox(width: 6),
                     Text(
                       "20 Juillet 2025",

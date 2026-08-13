@@ -14,10 +14,7 @@ class LoginForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
-        Text(
-          "Bienvenue",
-          style: AppTextStyles.headline2,
-        ),
+        Text("Bienvenue", style: AppTextStyles.headline2),
 
         SizedBox(height: 6),
 

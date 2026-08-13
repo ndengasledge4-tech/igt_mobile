@@ -31,10 +31,7 @@ class AcademicMenu extends StatelessWidget {
             title: "Résultats & Notes",
             subtitle: "Consultez vos notes, moyennes et crédits.",
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                RouteNames.results,
-              );
+              Navigator.pushNamed(context, RouteNames.results);
             },
           ),
 
@@ -47,10 +44,7 @@ class AcademicMenu extends StatelessWidget {
             title: "Emploi du temps",
             subtitle: "Consultez votre planning hebdomadaire.",
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                RouteNames.timetable,
-              );
+              Navigator.pushNamed(context, RouteNames.timetable);
             },
           ),
         ],
@@ -96,11 +90,7 @@ class _AcademicCard extends StatelessWidget {
                   color: background,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Icon(
-                  icon,
-                  color: iconColor,
-                  size: 30,
-                ),
+                child: Icon(icon, color: iconColor, size: 30),
               ),
 
               const SizedBox(width: 16),
@@ -121,19 +111,13 @@ class _AcademicCard extends StatelessWidget {
 
                     Text(
                       subtitle,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 13,
-                      ),
+                      style: const TextStyle(color: Colors.grey, fontSize: 13),
                     ),
                   ],
                 ),
               ),
 
-              const Icon(
-                Icons.chevron_right_rounded,
-                color: Colors.grey,
-              ),
+              const Icon(Icons.chevron_right_rounded, color: Colors.grey),
             ],
           ),
         ),

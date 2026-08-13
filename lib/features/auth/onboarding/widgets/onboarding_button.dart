@@ -7,11 +7,7 @@ class OnboardingButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
 
-  const OnboardingButton({
-    super.key,
-    required this.text,
-    required this.onTap,
-  });
+  const OnboardingButton({super.key, required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +24,7 @@ class OnboardingButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: Text(
-          text,
-          style: AppTextStyles.button,
-        ),
+        child: Text(text, style: AppTextStyles.button),
       ),
     );
   }

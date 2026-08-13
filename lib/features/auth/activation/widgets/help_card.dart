@@ -14,17 +14,11 @@ class HelpCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.card,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColors.border,
-        ),
+        border: Border.all(color: AppColors.border),
       ),
       child: const Column(
         children: [
-          Icon(
-            Icons.support_agent_rounded,
-            size: 40,
-            color: AppColors.primary,
-          ),
+          Icon(Icons.support_agent_rounded, size: 40, color: AppColors.primary),
 
           SizedBox(height: 12),
 
@@ -47,16 +41,9 @@ class HelpCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.email_outlined,
-                size: 18,
-                color: AppColors.primary,
-              ),
+              Icon(Icons.email_outlined, size: 18, color: AppColors.primary),
               SizedBox(width: 8),
-              Text(
-                "scolarite@igt.edu.cd",
-                style: AppTextStyles.body,
-              ),
+              Text("scolarite@igt.edu.cd", style: AppTextStyles.body),
             ],
           ),
 
@@ -65,16 +52,9 @@ class HelpCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.phone_outlined,
-                size: 18,
-                color: AppColors.primary,
-              ),
+              Icon(Icons.phone_outlined, size: 18, color: AppColors.primary),
               SizedBox(width: 8),
-              Text(
-                "+242 00 000 0000",
-                style: AppTextStyles.body,
-              ),
+              Text("+242 00 000 0000", style: AppTextStyles.body),
             ],
           ),
         ],

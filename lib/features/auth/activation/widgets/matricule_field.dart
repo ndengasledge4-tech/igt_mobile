@@ -10,9 +10,7 @@ class MatriculeField extends StatelessWidget {
         labelText: "Matricule",
         hintText: "Ex : 23IGT0015",
         prefixIcon: const Icon(Icons.badge_outlined),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
       ),
     );
   }

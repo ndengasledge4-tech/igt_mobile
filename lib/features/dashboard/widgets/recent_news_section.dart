@@ -26,9 +26,7 @@ class RecentNewsSection extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const NavigationPage(
-                        initialIndex: 1,
-                      ),
+                      builder: (_) => const NavigationPage(initialIndex: 1),
                     ),
                   );
                 },
@@ -45,7 +43,7 @@ class RecentNewsSection extends StatelessWidget {
             tagColor: Colors.orange,
             title: "Calendrier des examens du semestre 2 — Session principale",
             description:
-            "Le calendrier officiel des examens est désormais disponible.",
+                "Le calendrier officiel des examens est désormais disponible.",
             likes: 92,
             comments: 12,
             date: "15 Juillet",
@@ -53,9 +51,7 @@ class RecentNewsSection extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const NavigationPage(
-                    initialIndex: 1,
-                  ),
+                  builder: (_) => const NavigationPage(initialIndex: 1),
                 ),
               );
             },
@@ -67,9 +63,10 @@ class RecentNewsSection extends StatelessWidget {
             image: "assets/images/news/news2.png",
             tag: "Conférence",
             tagColor: Colors.deepPurple,
-            title: "Conférence internationale : Innovation et Intelligence Artificielle",
+            title:
+                "Conférence internationale : Innovation et Intelligence Artificielle",
             description:
-            "Participez à une conférence exceptionnelle réunissant des experts.",
+                "Participez à une conférence exceptionnelle réunissant des experts.",
             likes: 76,
             comments: 8,
             date: "10 Juillet",
@@ -77,9 +74,7 @@ class RecentNewsSection extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const NavigationPage(
-                    initialIndex: 1,
-                  ),
+                  builder: (_) => const NavigationPage(initialIndex: 1),
                 ),
               );
             },

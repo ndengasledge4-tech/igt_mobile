@@ -19,10 +19,7 @@ class ActivationDescription extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.info_outline,
-                color: AppColors.primary,
-              ),
+              Icon(Icons.info_outline, color: AppColors.primary),
               SizedBox(width: 8),
               Text(
                 "Comment activer votre compte ?",
@@ -35,8 +32,8 @@ class ActivationDescription extends StatelessWidget {
 
           Text(
             "Bienvenue sur l'application mobile de l'Institut de Gestion et de Technologie (IGT).\n\n"
-                "Lors de votre première connexion, vous devez activer votre compte étudiant.\n\n"
-                "Munissez-vous de :",
+            "Lors de votre première connexion, vous devez activer votre compte étudiant.\n\n"
+            "Munissez-vous de :",
             style: AppTextStyles.body,
           ),
 
@@ -44,8 +41,7 @@ class ActivationDescription extends StatelessWidget {
 
           Row(
             children: [
-              Icon(Icons.check_circle,
-                  color: AppColors.success, size: 18),
+              Icon(Icons.check_circle, color: AppColors.success, size: 18),
               SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -60,8 +56,7 @@ class ActivationDescription extends StatelessWidget {
 
           Row(
             children: [
-              Icon(Icons.check_circle,
-                  color: AppColors.success, size: 18),
+              Icon(Icons.check_circle, color: AppColors.success, size: 18),
               SizedBox(width: 8),
               Expanded(
                 child: Text(

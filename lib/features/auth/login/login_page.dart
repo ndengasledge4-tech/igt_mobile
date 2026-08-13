@@ -19,9 +19,7 @@ class LoginPage extends StatelessWidget {
             return SingleChildScrollView(
               physics: const ClampingScrollPhysics(),
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: IntrinsicHeight(
                   child: Column(
                     children: const [
@@ -29,20 +27,9 @@ class LoginPage extends StatelessWidget {
 
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(
-                            24,
-                            24,
-                            24,
-                            16,
-                          ),
+                          padding: EdgeInsets.fromLTRB(24, 24, 24, 16),
                           child: Column(
-                            children: [
-                              LoginForm(),
-
-                              Spacer(),
-
-                              LoginFooter(),
-                            ],
+                            children: [LoginForm(), Spacer(), LoginFooter()],
                           ),
                         ),
                       ),

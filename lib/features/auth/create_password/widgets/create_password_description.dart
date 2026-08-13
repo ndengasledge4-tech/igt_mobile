@@ -16,7 +16,7 @@ class CreatePasswordDescription extends StatelessWidget {
       ),
       child: const Text(
         "Votre identité a été vérifiée avec succès.\n\n"
-            "Choisissez maintenant un mot de passe sécurisé que vous utiliserez pour vous connecter à votre espace étudiant.",
+        "Choisissez maintenant un mot de passe sécurisé que vous utiliserez pour vous connecter à votre espace étudiant.",
         style: AppTextStyles.body,
         textAlign: TextAlign.center,
       ),

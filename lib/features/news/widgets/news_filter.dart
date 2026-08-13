@@ -9,10 +9,7 @@ class NewsFilter extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          _chip(
-            label: "Tous",
-            selected: true,
-          ),
+          _chip(label: "Tous", selected: true),
           const SizedBox(width: 10),
           _chip(label: "Événements"),
           const SizedBox(width: 10),
@@ -24,21 +21,13 @@ class NewsFilter extends StatelessWidget {
     );
   }
 
-  Widget _chip({
-    required String label,
-    bool selected = false,
-  }) {
+  Widget _chip({required String label, bool selected = false}) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 10,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
       decoration: BoxDecoration(
         color: selected ? const Color(0xFF3B82F6) : Colors.white,
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(
-          color: const Color(0xFFE5E7EB),
-        ),
+        border: Border.all(color: const Color(0xFFE5E7EB)),
       ),
       child: Text(
         label,

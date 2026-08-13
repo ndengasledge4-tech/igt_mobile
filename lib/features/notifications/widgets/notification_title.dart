@@ -5,10 +5,7 @@ import '../../../app/theme/colors.dart';
 class NotificationTitle extends StatelessWidget {
   final String title;
 
-  const NotificationTitle({
-    super.key,
-    required this.title,
-  });
+  const NotificationTitle({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

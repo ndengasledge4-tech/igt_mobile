@@ -10,11 +10,7 @@ class StudentIdField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
-        const Text(
-          "Numéro étudiant",
-          style: AppTextStyles.title,
-        ),
+        const Text("Numéro étudiant", style: AppTextStyles.title),
 
         const SizedBox(height: 8),
 

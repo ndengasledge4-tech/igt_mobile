@@ -5,10 +5,6 @@ class CreatePasswordLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      "assets/logo/logo.png",
-      width: 100,
-      height: 100,
-    );
+    return Image.asset("assets/logo/logo.png", width: 100, height: 100);
   }
 }

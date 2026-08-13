@@ -27,9 +27,7 @@ class QuickAccessGrid extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const NavigationPage(
-                    initialIndex: 2,
-                  ),
+                  builder: (_) => const NavigationPage(initialIndex: 2),
                 ),
               );
             },
@@ -43,9 +41,7 @@ class QuickAccessGrid extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const NavigationPage(
-                    initialIndex: 2,
-                  ),
+                  builder: (_) => const NavigationPage(initialIndex: 2),
                 ),
               );
             },
@@ -59,9 +55,7 @@ class QuickAccessGrid extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const NavigationPage(
-                    initialIndex: 3,
-                  ),
+                  builder: (_) => const NavigationPage(initialIndex: 3),
                 ),
               );
             },
@@ -75,9 +69,7 @@ class QuickAccessGrid extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const NavigationPage(
-                    initialIndex: 1,
-                  ),
+                  builder: (_) => const NavigationPage(initialIndex: 1),
                 ),
               );
             },

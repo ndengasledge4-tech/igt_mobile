@@ -15,10 +15,7 @@ class DashboardHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            AppColors.primaryLight,
-            AppColors.primary,
-          ],
+          colors: [AppColors.primaryLight, AppColors.primary],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -33,10 +30,7 @@ class DashboardHeader extends StatelessWidget {
               color: AppColors.white,
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.person,
-              color: AppColors.primary,
-            ),
+            child: const Icon(Icons.person, color: AppColors.primary),
           ),
 
           const SizedBox(width: 16),
@@ -78,10 +72,7 @@ class DashboardHeader extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(14),
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                RouteNames.notifications,
-              );
+              Navigator.pushNamed(context, RouteNames.notifications);
             },
             child: Stack(
               children: [

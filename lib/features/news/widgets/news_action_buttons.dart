@@ -14,15 +14,11 @@ class NewsActionButtons extends StatelessWidget {
             height: 48,
             child: OutlinedButton.icon(
               onPressed: () {},
-              icon: const Icon(
-                Icons.favorite_border,
-              ),
+              icon: const Icon(Icons.favorite_border),
               label: const Text("148 J'aime"),
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.secondaryText,
-                side: const BorderSide(
-                  color: AppColors.border,
-                ),
+                side: const BorderSide(color: AppColors.border),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

@@ -10,21 +10,14 @@ class NewsInfoCard extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: AppColors.primary,
-            size: 18,
-          ),
+          Icon(icon, color: AppColors.primary, size: 18),
 
           const SizedBox(width: 10),
 
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                color: AppColors.text,
-                fontSize: 14,
-              ),
+              style: const TextStyle(color: AppColors.text, fontSize: 14),
             ),
           ),
         ],
@@ -42,20 +35,14 @@ class NewsInfoCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          buildItem(
-            Icons.calendar_today_outlined,
-            "28 Juillet 2025 à 10h00",
-          ),
+          buildItem(Icons.calendar_today_outlined, "28 Juillet 2025 à 10h00"),
 
           buildItem(
             Icons.location_on_outlined,
             "Amphithéâtre Principal, Campus IGT",
           ),
 
-          buildItem(
-            Icons.people_outline,
-            "312 étudiants intéressés",
-          ),
+          buildItem(Icons.people_outline, "312 étudiants intéressés"),
         ],
       ),
     );

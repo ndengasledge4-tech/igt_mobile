@@ -25,17 +25,11 @@ class SemesterSummary extends StatelessWidget {
           children: [
             const Row(
               children: [
-                Icon(
-                  Icons.analytics_outlined,
-                  color: Color(0xFF2563EB),
-                ),
+                Icon(Icons.analytics_outlined, color: Color(0xFF2563EB)),
                 SizedBox(width: 10),
                 Text(
                   "Résumé du semestre",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -106,13 +100,7 @@ class _StatCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 13,
-            ),
-          ),
+          Text(title, style: const TextStyle(color: Colors.grey, fontSize: 13)),
         ],
       ),
     );

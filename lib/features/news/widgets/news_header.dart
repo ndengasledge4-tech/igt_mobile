@@ -19,10 +19,7 @@ class NewsHeader extends StatelessWidget {
         SizedBox(height: 6),
         Text(
           "Publications officielles de l'IGT",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.grey),
         ),
       ],
     );

@@ -44,9 +44,7 @@ class DocumentCard extends StatelessWidget {
                   child: Text(
                     type,
                     style: TextStyle(
-                      color: isPdf
-                          ? Colors.red
-                          : Colors.orange,
+                      color: isPdf ? Colors.red : Colors.orange,
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
                     ),
@@ -84,10 +82,7 @@ class DocumentCard extends StatelessWidget {
 
                         const SizedBox(width: 10),
 
-                        const Text(
-                          "•",
-                          style: TextStyle(color: Colors.grey),
-                        ),
+                        const Text("•", style: TextStyle(color: Colors.grey)),
 
                         const SizedBox(width: 10),
 

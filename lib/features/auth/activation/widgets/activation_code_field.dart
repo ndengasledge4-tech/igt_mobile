@@ -10,9 +10,7 @@ class ActivationCodeField extends StatelessWidget {
         labelText: "Code d'activation",
         hintText: "Entrez votre code",
         prefixIcon: const Icon(Icons.verified_user_outlined),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
       ),
     );
   }

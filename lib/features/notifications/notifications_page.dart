@@ -11,7 +11,7 @@ class NotificationsPage extends StatelessWidget {
     {
       "title": "Résultats disponibles",
       "subtitle":
-      "Les notes du contrôle continu N°2 sont maintenant disponibles.",
+          "Les notes du contrôle continu N°2 sont maintenant disponibles.",
       "time": "2h",
       "color": Color(0xFF4CAF50),
       "icon": Icons.monitor_heart_outlined,
@@ -19,8 +19,7 @@ class NotificationsPage extends StatelessWidget {
     },
     {
       "title": "Nouveau document",
-      "subtitle":
-      "Le polycopié d'Algorithmique chapitre 6 a été mis en ligne.",
+      "subtitle": "Le polycopié d'Algorithmique chapitre 6 a été mis en ligne.",
       "time": "5h",
       "color": Color(0xFF4285F4),
       "icon": Icons.description_outlined,
@@ -28,8 +27,7 @@ class NotificationsPage extends StatelessWidget {
     },
     {
       "title": "Nouvelle actualité",
-      "subtitle":
-      "Conférence internationale sur l'IA — Inscriptions ouvertes.",
+      "subtitle": "Conférence internationale sur l'IA — Inscriptions ouvertes.",
       "time": "Hier, 14:30",
       "color": Color(0xFF9C27B0),
       "icon": Icons.campaign_outlined,
@@ -37,8 +35,7 @@ class NotificationsPage extends StatelessWidget {
     },
     {
       "title": "Modification de cours",
-      "subtitle":
-      "Le cours de Mathématiques du lundi 28 juillet est reporté.",
+      "subtitle": "Le cours de Mathématiques du lundi 28 juillet est reporté.",
       "time": "Hier, 09:15",
       "color": Color(0xFFFF9800),
       "icon": Icons.event_outlined,
@@ -47,7 +44,7 @@ class NotificationsPage extends StatelessWidget {
     {
       "title": "Rappel important",
       "subtitle":
-      "La date limite de paiement des frais de scolarité est le 31 juillet 2025.",
+          "La date limite de paiement des frais de scolarité est le 31 juillet 2025.",
       "time": "25 Juil. 2025",
       "color": Color(0xFFE53935),
       "icon": Icons.error_outline,
@@ -56,7 +53,7 @@ class NotificationsPage extends StatelessWidget {
     {
       "title": "Document ajouté",
       "subtitle":
-      "Le calendrier des examens S2 2025 est disponible en téléchargement.",
+          "Le calendrier des examens S2 2025 est disponible en téléchargement.",
       "time": "24 Juil. 2025",
       "color": Color(0xFF4285F4),
       "icon": Icons.insert_drive_file_outlined,
@@ -79,7 +76,7 @@ class NotificationsPage extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 20),
                 itemCount: notifications.length,
                 separatorBuilder: (_, __) =>
-                const Divider(height: 1, color: AppColors.divider),
+                    const Divider(height: 1, color: AppColors.divider),
                 itemBuilder: (context, index) {
                   final item = notifications[index];
 

@@ -4,11 +4,7 @@ class NotificationIcon extends StatelessWidget {
   final IconData icon;
   final Color color;
 
-  const NotificationIcon({
-    super.key,
-    required this.icon,
-    required this.color,
-  });
+  const NotificationIcon({super.key, required this.icon, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +15,7 @@ class NotificationIcon extends StatelessWidget {
         color: color.withOpacity(.12),
         borderRadius: BorderRadius.circular(14),
       ),
-      child: Icon(
-        icon,
-        color: color,
-        size: 22,
-      ),
+      child: Icon(icon, color: color, size: 22),
     );
   }
 }

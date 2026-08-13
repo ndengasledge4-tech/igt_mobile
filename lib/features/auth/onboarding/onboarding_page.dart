@@ -20,22 +20,22 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   final pages = [
     (
-    image: "assets/images/onboarding_1.png",
-    title: "Votre vie académique,\nau même endroit",
-    subtitle:
-    "Accédez facilement aux informations essentielles de votre parcours académique."
+      image: "assets/images/onboarding_1.png",
+      title: "Votre vie académique,\nau même endroit",
+      subtitle:
+          "Accédez facilement aux informations essentielles de votre parcours académique.",
     ),
     (
-    image: "assets/images/onboarding_2.png",
-    title: "Consultez vos\ninformations",
-    subtitle:
-    "Retrouvez vos résultats, votre moyenne, votre emploi du temps et vos documents."
+      image: "assets/images/onboarding_2.png",
+      title: "Consultez vos\ninformations",
+      subtitle:
+          "Retrouvez vos résultats, votre moyenne, votre emploi du temps et vos documents.",
     ),
     (
-    image: "assets/images/onboarding_3.png",
-    title: "Restez informé",
-    subtitle:
-    "Suivez les actualités et les événements officiels de l'Institut de Gestion et de Technologie."
+      image: "assets/images/onboarding_3.png",
+      title: "Restez informé",
+      subtitle:
+          "Suivez les actualités et les événements officiels de l'Institut de Gestion et de Technologie.",
     ),
   ];
 
@@ -56,10 +56,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 children: [
                   OnboardingSkipButton(
                     onTap: () {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        RouteNames.login,
-                      );
+                      Navigator.pushReplacementNamed(context, RouteNames.login);
                     },
                   ),
                 ],
@@ -84,10 +81,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       children: [
                         const Spacer(),
 
-                        Image.asset(
-                          page.image,
-                          width: 190,
-                        ),
+                        Image.asset(page.image, width: 190),
 
                         const SizedBox(height: 42),
 
@@ -124,14 +118,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         const Spacer(),
 
                         OnboardingButton(
-                          text: currentPage == 2
-                              ? "Commencer"
-                              : "Suivant",
+                          text: currentPage == 2 ? "Commencer" : "Suivant",
                           onTap: () {
                             if (currentPage < 2) {
                               _controller.nextPage(
-                                duration:
-                                const Duration(milliseconds: 300),
+                                duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeInOut,
                               );
                             } else {

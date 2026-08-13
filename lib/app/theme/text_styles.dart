@@ -29,10 +29,7 @@ abstract final class AppTextStyles {
     color: AppColors.text,
   );
 
-  static const TextStyle body = TextStyle(
-    fontSize: 16,
-    color: AppColors.text,
-  );
+  static const TextStyle body = TextStyle(fontSize: 16, color: AppColors.text);
 
   static const TextStyle bodySmall = TextStyle(
     fontSize: 14,

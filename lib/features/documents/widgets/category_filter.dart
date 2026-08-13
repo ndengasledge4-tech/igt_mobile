@@ -37,14 +37,9 @@ class _CategoryFilterState extends State<CategoryFilter> {
             },
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: selected
-                    ? const Color(0xFF2F6DB5)
-                    : Colors.white,
+                color: selected ? const Color(0xFF2F6DB5) : Colors.white,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: selected
@@ -57,9 +52,7 @@ class _CategoryFilterState extends State<CategoryFilter> {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  color: selected
-                      ? Colors.white
-                      : Colors.grey.shade700,
+                  color: selected ? Colors.white : Colors.grey.shade700,
                 ),
               ),
             ),
