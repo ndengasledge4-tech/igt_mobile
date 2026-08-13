@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/dimensions.dart';
 import '../../../app/theme/text_styles.dart';
 
 import 'inscription_examen_page.dart';
@@ -8,8 +9,23 @@ import 'journée_portes_ouvertes.dart';
 import 'secretariat_page.dart';
 import 'service_academique.dart';
 
-class AccueilPage extends StatelessWidget {
+// Pages ouvertes par "Voir plus"
+import 'mes_cours_page.dart';
+import 'mes_notes_page.dart';
+import 'actualites_page.dart';
+import 'resultats_page.dart';
+import 'messagerie_page.dart';
+
+class AccueilPage extends StatefulWidget {
   const AccueilPage({super.key});
+
+  @override
+  State<AccueilPage> createState() => _AccueilPageState();
+}
+
+class _AccueilPageState extends State<AccueilPage> {
+  // Variable pour simuler le statut de l'étudiant
+  bool _isStudentInGoodStanding = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,23 +49,26 @@ class AccueilPage extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.fromLTRB(
-                        16,
-                        8,
-                        16,
-                        14,
+                        AppDimensions.md,
+                        AppDimensions.sm,
+                        AppDimensions.md,
+                        AppDimensions.md,
                       ),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: AppColors.primary,
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(22),
-                          bottomRight: Radius.circular(22),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(
+                            AppDimensions.radiusLarge,
+                          ),
+                          bottomRight: Radius.circular(
+                            AppDimensions.radiusLarge,
+                          ),
                         ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
 
-                          // Bonjour + notification
                           Row(
                             mainAxisAlignment:
                             MainAxisAlignment.spaceBetween,
@@ -58,115 +77,249 @@ class AccueilPage extends StatelessWidget {
                               Column(
                                 crossAxisAlignment:
                                 CrossAxisAlignment.start,
-                                children: const [
+                                children: [
+
                                   Text(
-                                    "Bonjour 👋",
-                                    style: TextStyle(
+                                    'Bonjour 👋',
+                                    style:
+                                    AppTextStyles.caption.copyWith(
                                       color: Colors.white,
-                                      fontSize: 12,
                                     ),
                                   ),
 
-                                  SizedBox(height: 2),
+                                  const SizedBox(
+                                    height: AppDimensions.xs,
+                                  ),
 
                                   Text(
-                                    "Jean DUPONT",
-                                    style: TextStyle(
+                                    'Jean DUPONT',
+                                    style:
+                                    AppTextStyles.title.copyWith(
                                       color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
                               ),
 
-                              Container(
-                                width: 36,
-                                height: 36,
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.15),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.notifications_none,
-                                  color: Colors.white,
-                                  size: 21,
+                              // =================================================
+                              // NOTIFICATION
+                              // =================================================
+
+                              GestureDetector(
+                                onTap: () {
+                                  _showNotifications(context);
+                                },
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+
+                                    Container(
+                                      width: 32,
+                                      height: 32,
+                                      decoration: BoxDecoration(
+                                        color:
+                                        Colors.white.withOpacity(0.15),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: const Icon(
+                                        Icons.notifications_none,
+                                        color: Colors.white,
+                                        size: 18,
+                                      ),
+                                    ),
+
+                                    // Badge
+                                    Positioned(
+                                      top: -3,
+                                      right: -3,
+                                      child: Container(
+                                        width: 15,
+                                        height: 15,
+                                        decoration:
+                                        const BoxDecoration(
+                                          color: AppColors.error,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: const Text(
+                                          '3',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
 
-                          const SizedBox(height: 14),
+                          const SizedBox(
+                            height: AppDimensions.md,
+                          ),
 
-                          // =================================================
+                          // =====================================================
                           // CARTE PROFIL
-                          // =================================================
+                          // =====================================================
 
                           Container(
                             width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 10,
+                            padding: const EdgeInsets.all(
+                              AppDimensions.md,
                             ),
                             decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.12),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.radiusMedium,
+                              ),
                               border: Border.all(
                                 color: Colors.white.withOpacity(0.25),
                               ),
                             ),
                             child: Row(
                               children: [
+
                                 Expanded(
                                   child: _infoItem(
-                                    "Matricule",
-                                    "2024IG001",
+                                    'Matricule',
+                                    '2024IG001',
                                   ),
                                 ),
 
                                 Expanded(
                                   child: _infoItem(
-                                    "Formation",
-                                    "Info. de Gestion",
+                                    'Formation',
+                                    'Info. de Gestion',
                                   ),
                                 ),
 
                                 Expanded(
                                   child: _infoItem(
-                                    "Niveau",
-                                    "2ème année",
+                                    'Niveau',
+                                    '2ème année',
                                   ),
                                 ),
 
                                 Expanded(
                                   child: _infoItem(
-                                    "Classe",
-                                    "IG2",
+                                    'Classe',
+                                    'IG2',
                                   ),
                                 ),
                               ],
                             ),
                           ),
+
+                          const SizedBox(height: AppDimensions.xs),
+
+                          // =====================================================
+                          // STATUT ÉTUDIANT
+                          // =====================================================
+
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: AppDimensions.sm,
+                                  vertical: AppDimensions.xs,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: _isStudentInGoodStanding
+                                      ? Colors.green.withOpacity(0.20)
+                                      : Colors.red.withOpacity(0.20),
+                                  borderRadius: BorderRadius.circular(
+                                    AppDimensions.radiusSmall,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      _isStudentInGoodStanding
+                                          ? Icons.check_circle_outline
+                                          : Icons.warning_amber_outlined,
+                                      color: _isStudentInGoodStanding
+                                          ? Colors.green
+                                          : Colors.red,
+                                      size: 16,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      _isStudentInGoodStanding
+                                          ? '✅ En règle'
+                                          : '⚠️ Non en règle',
+                                      style: AppTextStyles.caption.copyWith(
+                                        color: _isStudentInGoodStanding
+                                            ? Colors.green
+                                            : Colors.red,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              // Bouton pour basculer le statut (UI simple)
+                              const SizedBox(width: AppDimensions.sm),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _isStudentInGoodStanding = !_isStudentInGoodStanding;
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: AppDimensions.sm,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.15),
+                                    borderRadius: BorderRadius.circular(
+                                      AppDimensions.radiusSmall,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    _isStudentInGoodStanding ? '🔓' : '🔒',
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
 
-                    const SizedBox(height: 12),
+                    const SizedBox(
+                      height: AppDimensions.md,
+                    ),
 
                     // =====================================================
                     // PROCHAIN COURS
                     // =====================================================
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppDimensions.md,
+                      ),
                       child: Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(
+                          AppDimensions.md,
+                        ),
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.card,
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.radiusMedium,
+                          ),
                           border: Border.all(
-                            color: Colors.grey.shade200,
+                            color: AppColors.border,
                           ),
                         ),
                         child: Row(
@@ -175,95 +328,112 @@ class AccueilPage extends StatelessWidget {
                           children: [
 
                             Container(
-                              width: 34,
-                              height: 34,
+                              width: 40,
+                              height: 40,
                               decoration: BoxDecoration(
-                                color: AppColors.primary.withOpacity(0.08),
+                                color: AppColors.softBlue,
                                 borderRadius:
-                                BorderRadius.circular(8),
+                                BorderRadius.circular(
+                                  AppDimensions.radiusSmall,
+                                ),
                               ),
-                              child: Icon(
+                              alignment: Alignment.center,
+                              child: const Icon(
                                 Icons.calendar_today_outlined,
                                 color: AppColors.primary,
-                                size: 18,
+                                size: AppDimensions.iconSmall,
                               ),
                             ),
 
-                            const SizedBox(width: 10),
+                            const SizedBox(
+                              width: AppDimensions.sm,
+                            ),
 
                             Expanded(
                               child: Column(
                                 crossAxisAlignment:
                                 CrossAxisAlignment.start,
-                                children: const [
+                                children: [
 
                                   Text(
                                     "PROCHAIN COURS - Aujourd'hui",
-                                    style: TextStyle(
-                                      fontSize: 8,
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
+                                    style:
+                                    AppTextStyles.caption.copyWith(
+                                      color:
+                                      AppColors.secondaryText,
                                     ),
                                   ),
 
-                                  SizedBox(height: 2),
+                                  const SizedBox(
+                                    height: AppDimensions.xs,
+                                  ),
 
                                   Text(
-                                    "Algorithmique avancée",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    'Algorithmique avancée',
+                                    style: AppTextStyles.title,
                                   ),
 
-                                  SizedBox(height: 5),
+                                  const SizedBox(
+                                    height: AppDimensions.xs,
+                                  ),
 
                                   Row(
                                     children: [
-                                      Icon(
+
+                                      const Icon(
                                         Icons.access_time,
-                                        size: 11,
-                                        color: Colors.grey,
+                                        size:
+                                        AppDimensions.iconSmall,
+                                        color:
+                                        AppColors.secondaryText,
                                       ),
 
-                                      SizedBox(width: 3),
+                                      const SizedBox(
+                                        width: AppDimensions.xs,
+                                      ),
 
                                       Text(
-                                        "08h00 – 10h00",
-                                        style: TextStyle(
-                                          fontSize: 9,
-                                          color: Colors.grey,
-                                        ),
+                                        '08h00 – 10h00',
+                                        style:
+                                        AppTextStyles.caption,
                                       ),
 
-                                      SizedBox(width: 8),
+                                      const SizedBox(
+                                        width: AppDimensions.sm,
+                                      ),
 
-                                      Icon(
+                                      const Icon(
                                         Icons.location_on_outlined,
-                                        size: 11,
-                                        color: Colors.grey,
+                                        size:
+                                        AppDimensions.iconSmall,
+                                        color:
+                                        AppColors.secondaryText,
                                       ),
 
-                                      SizedBox(width: 2),
+                                      const SizedBox(
+                                        width: AppDimensions.xs,
+                                      ),
 
-                                      Text(
-                                        "Salle A204",
-                                        style: TextStyle(
-                                          fontSize: 9,
-                                          color: Colors.grey,
+                                      Expanded(
+                                        child: Text(
+                                          'Salle A204',
+                                          style:
+                                          AppTextStyles.caption,
+                                          overflow:
+                                          TextOverflow.ellipsis,
                                         ),
                                       ),
                                     ],
                                   ),
 
-                                  SizedBox(height: 3),
+                                  const SizedBox(
+                                    height: AppDimensions.xs,
+                                  ),
 
                                   Text(
-                                    "Prof. Mahamadou COULIBALY",
-                                    style: TextStyle(
-                                      fontSize: 8,
-                                      color: Colors.grey,
-                                    ),
+                                    'Prof. Mahamadou COULIBALY',
+                                    style:
+                                    AppTextStyles.bodySmall,
                                   ),
                                 ],
                               ),
@@ -273,139 +443,284 @@ class AccueilPage extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 13),
+                    const SizedBox(
+                      height: AppDimensions.lg,
+                    ),
 
                     // =====================================================
                     // MES COURS
                     // =====================================================
 
                     _sectionTitle(
-                      "Mes cours",
-                      "Voir plus",
+                      context,
+                      'Mes cours',
+                      'Voir plus',
+                          () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                            const MesCoursPage(),
+                          ),
+                        );
+                      },
                     ),
 
-                    const SizedBox(height: 7),
+                    const SizedBox(
+                      height: AppDimensions.sm,
+                    ),
 
                     SizedBox(
-                      height: 88,
+                      height: 110,
                       child: ListView(
-                        padding:
-                        const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppDimensions.md,
+                        ),
                         scrollDirection: Axis.horizontal,
                         children: [
+
                           _courseCard(
-                            "Algorithmique",
-                            "M. Coulibaly",
-                            "S3",
-                            "4 crédits",
+                            'Algorithmique',
+                            'M. Coulibaly',
+                            'S3',
+                            '4 crédits',
                           ),
+
                           _courseCard(
-                            "Bases de données",
-                            "M. Diallo",
-                            "S3",
-                            "3 crédits",
+                            'Bases de données',
+                            'M. Diallo',
+                            'S3',
+                            '3 crédits',
                           ),
+
                           _courseCard(
-                            "Réseaux",
-                            "M. Traoré",
-                            "S3",
-                            "3 crédits",
+                            'Réseaux',
+                            'M. Traoré',
+                            'S3',
+                            '3 crédits',
                           ),
+
                           _courseCard(
-                            "Génie logiciel",
-                            "M. Koné",
-                            "S3",
-                            "4 crédits",
+                            'Génie logiciel',
+                            'M. Koné',
+                            'S3',
+                            '4 crédits',
                           ),
                         ],
                       ),
                     ),
 
-                    const SizedBox(height: 14),
+                    const SizedBox(
+                      height: AppDimensions.lg,
+                    ),
 
                     // =====================================================
                     // DERNIÈRES NOTES
                     // =====================================================
 
                     _sectionTitle(
-                      "Dernières notes",
-                      "Voir plus",
+                      context,
+                      'Dernières notes',
+                      'Voir plus',
+                          () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                            const MesNotesPage(),
+                          ),
+                        );
+                      },
                     ),
 
-                    const SizedBox(height: 6),
+                    const SizedBox(
+                      height: AppDimensions.sm,
+                    ),
 
                     _noteItem(
-                      "Algorithmique",
-                      "16.5 / 20",
+                      'Algorithmique',
+                      '16.5 / 20',
                       true,
                     ),
 
                     _noteItem(
-                      "Bases de données",
-                      "12 / 20",
+                      'Bases de données',
+                      '12 / 20',
                       false,
                     ),
 
                     _noteItem(
-                      "Réseaux",
-                      "18 / 20",
+                      'Réseaux',
+                      '18 / 20',
                       true,
                     ),
 
-                    const SizedBox(height: 18),
-
-                    // =====================================================
-                    // RÉSULTATS S3
-                    // =====================================================
-
-                    _sectionTitle(
-                      "Résultats S3",
-                      "Voir plus",
+                    const SizedBox(
+                      height: AppDimensions.lg,
                     ),
 
-                    const SizedBox(height: 7),
+                    // =====================================================
+                    // RÉSULTATS S3 (conditionnel)
+                    // =====================================================
 
-                    Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        children: [
-                          _resultCard(
-                            "15.2/20",
-                            "Moyenne",
-                          ),
-                          _resultCard(
-                            "28/30",
-                            "Crédits",
-                          ),
-                          _resultCard(
-                            "Bien",
-                            "Mention",
-                          ),
-                        ],
+                    if (_isStudentInGoodStanding) ...[
+                      _sectionTitle(
+                        context,
+                        'Résultats S3',
+                        'Voir plus',
+                            () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                              const ResultatsPage(),
+                            ),
+                          );
+                        },
                       ),
-                    ),
 
-                    const SizedBox(height: 16),
+                      const SizedBox(
+                        height: AppDimensions.sm,
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppDimensions.md,
+                        ),
+                        child: Row(
+                          children: [
+
+                            _resultCard(
+                              '15.2/20',
+                              'Moyenne',
+                            ),
+
+                            _resultCard(
+                              '28/30',
+                              'Crédits',
+                            ),
+
+                            _resultCard(
+                              'Bien',
+                              'Mention',
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: AppDimensions.lg,
+                      ),
+                    ] else ...[
+                      // =====================================================
+                      // MESSAGE SI NON EN RÈGLE
+                      // =====================================================
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppDimensions.md,
+                        ),
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(
+                            AppDimensions.md,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.card,
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.radiusMedium,
+                            ),
+                            border: Border.all(
+                              color: AppColors.warning.withOpacity(0.3),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+
+                              Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: AppColors.warning.withOpacity(0.10),
+                                  borderRadius: BorderRadius.circular(
+                                    AppDimensions.radiusSmall,
+                                  ),
+                                ),
+                                alignment: Alignment.center,
+                                child: const Icon(
+                                  Icons.lock_outline,
+                                  color: AppColors.warning,
+                                  size: AppDimensions.iconMedium,
+                                ),
+                              ),
+
+                              const SizedBox(
+                                width: AppDimensions.sm,
+                              ),
+
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+
+                                    Text(
+                                      'Résultats indisponibles',
+                                      style: AppTextStyles.title.copyWith(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+
+                                    const SizedBox(
+                                      height: AppDimensions.xs,
+                                    ),
+
+                                    Text(
+                                      'Veuillez régulariser votre situation auprès du service académique pour accéder à vos résultats.',
+                                      style: AppTextStyles.bodySmall,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: AppDimensions.lg,
+                      ),
+                    ],
 
                     // =====================================================
                     // ACTUALITÉS
                     // =====================================================
 
                     _sectionTitle(
-                      "Actualités",
-                      "Voir plus",
+                      context,
+                      'Actualités',
+                      'Voir plus',
+                          () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                            const ActualitesPage(),
+                          ),
+                        );
+                      },
                     ),
 
-                    const SizedBox(height: 7),
+                    const SizedBox(
+                      height: AppDimensions.sm,
+                    ),
 
-                    // INSCRIPTION EXAMENS
                     _newsItem(
                       context,
                       Icons.article_outlined,
-                      "Inscription aux examens",
-                      "Académique",
-                      "Il y a 2h",
+                      'Inscription aux examens',
+                      'Académique',
+                      'Il y a 2h',
                           () {
                         Navigator.push(
                           context,
@@ -417,13 +732,12 @@ class AccueilPage extends StatelessWidget {
                       },
                     ),
 
-                    // JOURNÉE PORTES OUVERTES
                     _newsItem(
                       context,
                       Icons.event_available_outlined,
-                      "Journée portes ouvertes",
-                      "Événement",
-                      "Hier",
+                      'Journée portes ouvertes',
+                      'Événement',
+                      'Hier',
                           () {
                         Navigator.push(
                           context,
@@ -435,26 +749,39 @@ class AccueilPage extends StatelessWidget {
                       },
                     ),
 
-                    const SizedBox(height: 16),
+                    const SizedBox(
+                      height: AppDimensions.lg,
+                    ),
 
                     // =====================================================
                     // MESSAGES RÉCENTS
                     // =====================================================
 
                     _sectionTitle(
-                      "Messages récents",
-                      "Voir plus",
+                      context,
+                      'Messages récents',
+                      'Voir plus',
+                          () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                            const MessageriePage(),
+                          ),
+                        );
+                      },
                     ),
 
-                    const SizedBox(height: 7),
+                    const SizedBox(
+                      height: AppDimensions.sm,
+                    ),
 
-                    // SECRÉTARIAT
                     _messageItem(
                       context,
-                      "S",
-                      "Secrétariat",
-                      "Votre dossier est prêt",
-                      "10h30",
+                      'S',
+                      'Secrétariat',
+                      'Votre dossier est prêt',
+                      '10h30',
                       true,
                           () {
                         Navigator.push(
@@ -467,13 +794,12 @@ class AccueilPage extends StatelessWidget {
                       },
                     ),
 
-                    // SERVICE ACADÉMIQUE
                     _messageItem(
                       context,
-                      "SA",
-                      "Service académique",
-                      "Nouvelle information disponible",
-                      "Hier",
+                      'SA',
+                      'Service académique',
+                      'Nouvelle information disponible',
+                      'Hier',
                       false,
                           () {
                         Navigator.push(
@@ -486,13 +812,208 @@ class AccueilPage extends StatelessWidget {
                       },
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(
+                      height: AppDimensions.xl,
+                    ),
                   ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // ===========================================================
+  // NOTIFICATIONS
+  // ===========================================================
+
+  static void _showNotifications(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.background,
+      isScrollControlled: true,
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(
+            AppDimensions.radiusLarge,
+          ),
+          topRight: Radius.circular(
+            AppDimensions.radiusLarge,
+          ),
+        ),
+      ),
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.75,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppDimensions.lg,
+                AppDimensions.md,
+                AppDimensions.lg,
+                AppDimensions.lg,
+              ),
+              child: Column(
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
+                children: [
+
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                    children: [
+
+                      Text(
+                        'Notifications',
+                        style:
+                        AppTextStyles.headline3,
+                      ),
+
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          color:
+                          AppColors.secondaryText,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: AppDimensions.sm,
+                  ),
+
+                  _notificationItem(
+                    Icons.article_outlined,
+                    'Inscription aux examens',
+                    'Les inscriptions sont ouvertes.',
+                    'Il y a 2h',
+                  ),
+
+                  _notificationItem(
+                    Icons.event_available_outlined,
+                    'Journée portes ouvertes',
+                    'La journée portes ouvertes aura lieu le 29 août.',
+                    'Hier',
+                  ),
+
+                  _notificationItem(
+                    Icons.school_outlined,
+                    'Service académique',
+                    'Une nouvelle information est disponible.',
+                    'Hier',
+                  ),
+
+                  const SizedBox(
+                    height: AppDimensions.sm,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // ===========================================================
+  // ÉLÉMENT NOTIFICATION
+  // ===========================================================
+
+  static Widget _notificationItem(
+      IconData icon,
+      String title,
+      String message,
+      String time,
+      ) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(
+        bottom: AppDimensions.sm,
+      ),
+      padding: const EdgeInsets.all(
+        AppDimensions.md,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusMedium,
+        ),
+        border: Border.all(
+          color: AppColors.border,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment:
+        CrossAxisAlignment.start,
+        children: [
+
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: AppColors.softBlue,
+              borderRadius: BorderRadius.circular(
+                AppDimensions.radiusSmall,
+              ),
+            ),
+            alignment: Alignment.center,
+            child: Icon(
+              icon,
+              color: AppColors.primary,
+              size: AppDimensions.iconMedium,
+            ),
+          ),
+
+          const SizedBox(
+            width: AppDimensions.sm,
+          ),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+              CrossAxisAlignment.start,
+              children: [
+
+                Text(
+                  title,
+                  style: AppTextStyles.title.copyWith(
+                    fontSize: 15,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+
+                const SizedBox(
+                  height: AppDimensions.xs,
+                ),
+
+                Text(
+                  message,
+                  style: AppTextStyles.bodySmall,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+
+                const SizedBox(
+                  height: AppDimensions.xs,
+                ),
+
+                Text(
+                  time,
+                  style: AppTextStyles.caption,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -506,22 +1027,26 @@ class AccueilPage extends StatelessWidget {
       String value,
       ) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment:
+      CrossAxisAlignment.start,
       children: [
+
         Text(
           title,
-          style: const TextStyle(
+          style: AppTextStyles.caption.copyWith(
             color: Colors.white70,
-            fontSize: 7,
           ),
         ),
-        const SizedBox(height: 2),
+
+        const SizedBox(
+          height: AppDimensions.xs,
+        ),
+
         Text(
           value,
-          style: const TextStyle(
+          style: AppTextStyles.bodySmall.copyWith(
             color: Colors.white,
-            fontSize: 8,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
           ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -531,32 +1056,46 @@ class AccueilPage extends StatelessWidget {
   }
 
   // ===========================================================
-  // TITRE DE SECTION
+  // TITRE DE SECTION + VOIR PLUS
   // ===========================================================
 
   static Widget _sectionTitle(
+      BuildContext context,
       String title,
       String action,
+      VoidCallback onTap,
       ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDimensions.md,
+      ),
       child: Row(
         mainAxisAlignment:
         MainAxisAlignment.spaceBetween,
         children: [
+
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTextStyles.headline3,
           ),
-          Text(
-            action,
-            style: TextStyle(
-              fontSize: 9,
-              color: AppColors.primary,
-              fontWeight: FontWeight.w500,
+
+          InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(
+              AppDimensions.radiusSmall,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimensions.xs,
+                vertical: AppDimensions.xs,
+              ),
+              child: Text(
+                action,
+                style: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ],
@@ -575,72 +1114,77 @@ class AccueilPage extends StatelessWidget {
       String credits,
       ) {
     return Container(
-      width: 104,
-      margin: const EdgeInsets.only(right: 7),
-      padding: const EdgeInsets.all(9),
+      width: 150,
+      margin: const EdgeInsets.only(
+        right: AppDimensions.sm,
+      ),
+      padding: const EdgeInsets.all(
+        AppDimensions.md,
+      ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(9),
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusMedium,
+        ),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.25),
+          color: AppColors.border,
         ),
       ),
       child: Column(
         crossAxisAlignment:
         CrossAxisAlignment.start,
         children: [
+
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 9,
-              fontWeight: FontWeight.bold,
+            style: AppTextStyles.title.copyWith(
+              fontSize: 15,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
 
-          const SizedBox(height: 4),
+          const SizedBox(
+            height: AppDimensions.xs,
+          ),
 
           Text(
             professor,
-            style: const TextStyle(
-              fontSize: 7,
-              color: Colors.grey,
-            ),
+            style: AppTextStyles.bodySmall,
           ),
 
           const Spacer(),
 
           Row(
             children: [
+
               Container(
-                padding:
-                const EdgeInsets.symmetric(
-                  horizontal: 4,
-                  vertical: 2,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.sm,
+                  vertical: AppDimensions.xs,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius:
-                  BorderRadius.circular(4),
+                  color: AppColors.softBlue,
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.radiusSmall,
+                  ),
                 ),
                 child: Text(
                   semester,
-                  style: const TextStyle(
-                    fontSize: 7,
-                    color: Colors.grey,
+                  style: AppTextStyles.caption.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
 
-              const SizedBox(width: 4),
+              const SizedBox(
+                width: AppDimensions.sm,
+              ),
 
               Text(
                 credits,
-                style: const TextStyle(
-                  fontSize: 7,
-                  color: Colors.grey,
-                ),
+                style: AppTextStyles.caption,
               ),
             ],
           ),
@@ -660,38 +1204,39 @@ class AccueilPage extends StatelessWidget {
       ) {
     return Container(
       margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 3,
+        horizontal: AppDimensions.md,
+        vertical: AppDimensions.xs,
       ),
       padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 9,
+        horizontal: AppDimensions.md,
+        vertical: AppDimensions.sm,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusSmall,
+        ),
         border: Border.all(
-          color: Colors.grey.shade200,
+          color: AppColors.border,
         ),
       ),
       child: Row(
         mainAxisAlignment:
         MainAxisAlignment.spaceBetween,
         children: [
+
           Text(
             subject,
-            style: const TextStyle(
-              fontSize: 9,
-            ),
+            style: AppTextStyles.body,
           ),
+
           Text(
             note,
-            style: TextStyle(
-              fontSize: 9,
-              fontWeight: FontWeight.bold,
+            style: AppTextStyles.bodySmall.copyWith(
+              fontWeight: FontWeight.w600,
               color: good
-                  ? Colors.green.shade700
-                  : Colors.orange.shade700,
+                  ? AppColors.success
+                  : AppColors.warning,
             ),
           ),
         ],
@@ -709,38 +1254,38 @@ class AccueilPage extends StatelessWidget {
       ) {
     return Expanded(
       child: Container(
-        height: 68,
-        margin:
-        const EdgeInsets.only(right: 6),
+        height: 80,
+        margin: const EdgeInsets.only(
+          right: AppDimensions.sm,
+        ),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius:
-          BorderRadius.circular(9),
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(
+            AppDimensions.radiusMedium,
+          ),
           border: Border.all(
-            color: Colors.grey.shade200,
+            color: AppColors.border,
           ),
         ),
         child: Column(
           mainAxisAlignment:
           MainAxisAlignment.center,
           children: [
+
             Text(
               value,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+              style: AppTextStyles.title.copyWith(
                 color: AppColors.primary,
               ),
             ),
 
-            const SizedBox(height: 4),
+            const SizedBox(
+              height: AppDimensions.xs,
+            ),
 
             Text(
               label,
-              style: const TextStyle(
-                fontSize: 8,
-                color: Colors.grey,
-              ),
+              style: AppTextStyles.caption,
             ),
           ],
         ),
@@ -762,72 +1307,86 @@ class AccueilPage extends StatelessWidget {
       ) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(9),
+      borderRadius: BorderRadius.circular(
+        AppDimensions.radiusMedium,
+      ),
       child: Container(
         margin: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 4,
+          horizontal: AppDimensions.md,
+          vertical: AppDimensions.xs,
         ),
-        padding: const EdgeInsets.all(9),
+        padding: const EdgeInsets.all(
+          AppDimensions.md,
+        ),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(9),
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(
+            AppDimensions.radiusMedium,
+          ),
           border: Border.all(
-            color: Colors.grey.shade200,
+            color: AppColors.border,
           ),
         ),
         child: Row(
           children: [
+
             Container(
-              width: 34,
-              height: 34,
+              width: 40,
+              height: 40,
               decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius:
-                BorderRadius.circular(7),
+                color: AppColors.softBlue,
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.radiusSmall,
+                ),
               ),
+              alignment: Alignment.center,
               child: Icon(
                 icon,
-                size: 18,
-                color: Colors.grey.shade700,
+                size: AppDimensions.iconMedium,
+                color: AppColors.primary,
               ),
             ),
 
-            const SizedBox(width: 9),
+            const SizedBox(
+              width: AppDimensions.sm,
+            ),
 
             Expanded(
               child: Column(
                 crossAxisAlignment:
                 CrossAxisAlignment.start,
                 children: [
+
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
+                    style: AppTextStyles.title.copyWith(
+                      fontSize: 15,
                     ),
                   ),
 
-                  const SizedBox(height: 3),
+                  const SizedBox(
+                    height: AppDimensions.xs,
+                  ),
 
                   Row(
                     children: [
+
                       Text(
                         category,
-                        style: TextStyle(
-                          fontSize: 7,
+                        style:
+                        AppTextStyles.caption.copyWith(
                           color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
 
-                      const SizedBox(width: 5),
+                      const SizedBox(
+                        width: AppDimensions.sm,
+                      ),
 
                       Text(
                         date,
-                        style: const TextStyle(
-                          fontSize: 7,
-                          color: Colors.grey,
-                        ),
+                        style: AppTextStyles.caption,
                       ),
                     ],
                   ),
@@ -837,8 +1396,8 @@ class AccueilPage extends StatelessWidget {
 
             const Icon(
               Icons.chevron_right,
-              size: 18,
-              color: Colors.grey,
+              size: AppDimensions.iconMedium,
+              color: AppColors.hint,
             ),
           ],
         ),
@@ -861,67 +1420,71 @@ class AccueilPage extends StatelessWidget {
       ) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(9),
+      borderRadius: BorderRadius.circular(
+        AppDimensions.radiusMedium,
+      ),
       child: Container(
         margin: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 4,
+          horizontal: AppDimensions.md,
+          vertical: AppDimensions.xs,
         ),
         padding: const EdgeInsets.symmetric(
-          horizontal: 9,
-          vertical: 8,
+          horizontal: AppDimensions.md,
+          vertical: AppDimensions.sm,
         ),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(9),
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(
+            AppDimensions.radiusMedium,
+          ),
           border: Border.all(
-            color: Colors.grey.shade200,
+            color: AppColors.border,
           ),
         ),
         child: Row(
           children: [
+
             Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color:
-                AppColors.primary.withOpacity(0.08),
+              width: 40,
+              height: 40,
+              decoration: const BoxDecoration(
+                color: AppColors.softBlue,
                 shape: BoxShape.circle,
               ),
               alignment: Alignment.center,
               child: Text(
                 initials,
-                style: TextStyle(
-                  fontSize: 9,
+                style: AppTextStyles.bodySmall.copyWith(
                   color: AppColors.primary,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
 
-            const SizedBox(width: 9),
+            const SizedBox(
+              width: AppDimensions.sm,
+            ),
 
             Expanded(
               child: Column(
                 crossAxisAlignment:
                 CrossAxisAlignment.start,
                 children: [
+
                   Text(
                     sender,
-                    style: const TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
+                    style: AppTextStyles.title.copyWith(
+                      fontSize: 15,
                     ),
                   ),
 
-                  const SizedBox(height: 2),
+                  const SizedBox(
+                    height: AppDimensions.xs,
+                  ),
 
                   Text(
                     message,
-                    style: const TextStyle(
-                      fontSize: 8,
-                      color: Colors.grey,
-                    ),
+                    style: AppTextStyles.bodySmall,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -933,30 +1496,31 @@ class AccueilPage extends StatelessWidget {
               crossAxisAlignment:
               CrossAxisAlignment.end,
               children: [
+
                 Text(
                   time,
-                  style: const TextStyle(
-                    fontSize: 7,
-                    color: Colors.grey,
-                  ),
+                  style: AppTextStyles.caption,
                 ),
 
                 if (unread) ...[
-                  const SizedBox(height: 4),
+                  const SizedBox(
+                    height: AppDimensions.xs,
+                  ),
 
                   Container(
-                    width: 15,
-                    height: 15,
-                    decoration: BoxDecoration(
+                    width: 20,
+                    height: 20,
+                    decoration: const BoxDecoration(
                       color: AppColors.primary,
                       shape: BoxShape.circle,
                     ),
                     alignment: Alignment.center,
                     child: const Text(
-                      "3",
+                      '3',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 7,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
