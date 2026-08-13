@@ -20,7 +20,7 @@ class EvenementDetailPage extends StatelessWidget {
         statusBarBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: AppColors.actualiteBackground,
+        backgroundColor: AppColors.background,
         body: Column(
           children: [
             const _EventTopBar(),
@@ -68,7 +68,7 @@ class EvenementDetailPage extends StatelessWidget {
   Widget _hero() {
     return Container(
       width: double.infinity,
-      color: AppColors.actualiteSoftGreen,
+      color: AppColors.success.withAlpha(28),
       padding: const EdgeInsets.fromLTRB(
         AppDimensions.sm,
         19,
@@ -85,14 +85,14 @@ class EvenementDetailPage extends StatelessWidget {
           _eventMetaRow(
             Icons.calendar_month_rounded,
             item.detailDate ?? item.date,
-            AppColors.actualiteHeader,
+            AppColors.primary,
           ),
           const SizedBox(height: AppDimensions.sm),
           if (item.time != null)
             _eventMetaRow(
               Icons.access_time_filled_rounded,
               item.time!,
-              AppColors.actualiteText,
+              AppColors.text,
             ),
           if (item.subtitle != null) ...[
             const SizedBox(height: AppDimensions.sm),
@@ -149,7 +149,7 @@ class EvenementDetailPage extends StatelessWidget {
       decoration: BoxDecoration(
         border: showBottomBorder
             ? const Border(
-                bottom: BorderSide(color: AppColors.actualiteCardBorder),
+                bottom: BorderSide(color: AppColors.border),
               )
             : null,
       ),
@@ -168,7 +168,7 @@ class EvenementDetailPage extends StatelessWidget {
   }
 
   static final TextStyle _heroTitleStyle = AppTextStyles.headline3.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 19.4,
     height: 1.12,
     fontWeight: FontWeight.w800,
@@ -182,28 +182,28 @@ class EvenementDetailPage extends StatelessWidget {
   );
 
   static final TextStyle _metaStrongStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 11.6,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
   static final TextStyle _bodyStyle = AppTextStyles.bodySmall.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 13.4,
     height: 1.58,
     fontWeight: FontWeight.w500,
   );
 
   static final TextStyle _sectionTitleStyle = AppTextStyles.label.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 14.2,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
   static final TextStyle _programTimeStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.actualiteHeader,
+    color: AppColors.primary,
     fontSize: 11.7,
     height: 1.1,
     fontWeight: FontWeight.w800,
@@ -211,7 +211,7 @@ class EvenementDetailPage extends StatelessWidget {
 
   static final TextStyle _programDescriptionStyle =
       AppTextStyles.caption.copyWith(
-        color: AppColors.actualiteText,
+        color: AppColors.text,
         fontSize: 11.7,
         height: 1.1,
         fontWeight: FontWeight.w500,
@@ -231,7 +231,7 @@ class _EventTopBar extends StatelessWidget {
       decoration: const BoxDecoration(
         color: AppColors.white,
         border: Border(
-          bottom: BorderSide(color: AppColors.actualiteCardBorder),
+          bottom: BorderSide(color: AppColors.border),
         ),
       ),
       child: Padding(
@@ -241,7 +241,7 @@ class _EventTopBar extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: AppDimensions.xs),
             child: Material(
-              color: AppColors.actualiteSoftBlue,
+              color: AppColors.softBlue,
               borderRadius: BorderRadius.circular(7),
               child: InkWell(
                 onTap: () {
@@ -255,7 +255,7 @@ class _EventTopBar extends StatelessWidget {
                   height: 28,
                   child: Icon(
                     Icons.chevron_left_rounded,
-                    color: AppColors.actualiteHeader,
+                    color: AppColors.primary,
                     size: 22,
                   ),
                 ),

@@ -43,7 +43,7 @@ class _ActualiteHomePageState extends State<_ActualiteHomePage> {
     _ActualiteTabInfo(
       label: 'Actualités',
       icon: Icons.article_outlined,
-      iconColor: AppColors.actualiteSoftBlue,
+      iconColor: AppColors.white,
     ),
     _ActualiteTabInfo(
       label: 'Annonces',
@@ -72,7 +72,7 @@ class _ActualiteHomePageState extends State<_ActualiteHomePage> {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.actualiteHeader,
+        statusBarColor: AppColors.primary,
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
       ),
@@ -119,7 +119,7 @@ class _ActualiteScaffoldState extends State<_ActualiteScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.actualiteBackground,
+      backgroundColor: AppColors.background,
       body: Column(
         children: [
           _ActualiteHeader(
@@ -145,7 +145,7 @@ class _ActualiteScaffoldState extends State<_ActualiteScaffold> {
         child: Text(
           'Aucun contenu disponible',
           style: AppTextStyles.label.copyWith(
-            color: AppColors.actualiteMutedText,
+            color: AppColors.secondaryText,
             fontSize: 13,
           ),
         ),
@@ -204,7 +204,7 @@ class _ActualiteHeader extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      color: AppColors.actualiteHeader,
+      color: AppColors.primary,
       padding: EdgeInsets.only(top: topInset + 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -267,7 +267,7 @@ class _ActualiteTabButton extends StatelessWidget {
                 color: selected ? tab.iconColor : tab.iconColor.withAlpha(210),
                 size: 16,
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: AppDimensions.xs),
               Text(
                 tab.label,
                 maxLines: 1,
@@ -281,7 +281,7 @@ class _ActualiteTabButton extends StatelessWidget {
                   fontWeight: selected ? FontWeight.w800 : FontWeight.w700,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: AppDimensions.sm),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 180),
                 width: selected ? 46 : 0,

@@ -20,7 +20,7 @@ class ActualiteDetailPage extends StatelessWidget {
         statusBarBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: AppColors.actualiteBackground,
+        backgroundColor: AppColors.background,
         body: Column(
           children: [
             const _DetailTopBar(),
@@ -154,7 +154,7 @@ class ActualiteDetailPage extends StatelessWidget {
   Widget _newsHero() {
     return Container(
       width: double.infinity,
-      color: AppColors.actualiteSoftBlue,
+      color: AppColors.softBlue,
       padding: const EdgeInsets.fromLTRB(
         AppDimensions.sm,
         19,
@@ -173,7 +173,7 @@ class ActualiteDetailPage extends StatelessWidget {
               _inlineMeta(
                 Icons.calendar_month_rounded,
                 item.detailDate ?? item.date,
-                AppColors.actualiteHeader,
+                AppColors.primary,
               ),
               const SizedBox(width: 13),
               if (item.subtitle != null)
@@ -194,7 +194,7 @@ class ActualiteDetailPage extends StatelessWidget {
   Widget _announcementHero() {
     return Container(
       width: double.infinity,
-      color: AppColors.actualiteSoftRed,
+      color: AppColors.error.withAlpha(24),
       padding: const EdgeInsets.fromLTRB(
         AppDimensions.sm,
         20,
@@ -221,7 +221,7 @@ class ActualiteDetailPage extends StatelessWidget {
               _inlineMeta(
                 Icons.calendar_month_rounded,
                 item.detailDate ?? item.date,
-                AppColors.actualiteHeader,
+                AppColors.primary,
               ),
               const SizedBox(width: 13),
               if (item.subtitle != null)
@@ -242,7 +242,7 @@ class ActualiteDetailPage extends StatelessWidget {
   Widget _infoHero() {
     return Container(
       width: double.infinity,
-      color: AppColors.actualiteSoftBlue,
+      color: AppColors.softBlue,
       padding: const EdgeInsets.fromLTRB(
         AppDimensions.sm,
         20,
@@ -259,7 +259,7 @@ class ActualiteDetailPage extends StatelessWidget {
           _inlineMeta(
             Icons.calendar_month_rounded,
             'En vigueur depuis le ${item.detailDate ?? item.date}',
-            AppColors.actualiteHeader,
+            AppColors.primary,
           ),
         ],
       ),
@@ -271,7 +271,7 @@ class ActualiteDetailPage extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(12, 11, 12, 12),
       decoration: BoxDecoration(
-        color: AppColors.actualiteSoftBlue,
+        color: AppColors.softBlue,
         borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       ),
       child: Column(
@@ -290,7 +290,7 @@ class ActualiteDetailPage extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(12, 11, 12, 12),
       decoration: BoxDecoration(
-        color: AppColors.actualiteSoftYellow,
+        color: AppColors.warning.withAlpha(28),
         borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       ),
       child: Column(
@@ -314,7 +314,7 @@ class ActualiteDetailPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-        border: Border.all(color: AppColors.actualiteCardBorder),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -344,7 +344,7 @@ class ActualiteDetailPage extends StatelessWidget {
       decoration: BoxDecoration(
         border: showTopBorder
             ? const Border(
-                top: BorderSide(color: AppColors.actualiteCardBorder),
+                top: BorderSide(color: AppColors.border),
               )
             : null,
       ),
@@ -366,8 +366,8 @@ class ActualiteDetailPage extends StatelessWidget {
               textAlign: TextAlign.right,
               style: _tableValueStyle.copyWith(
                 color: blueValue
-                    ? AppColors.actualiteHeader
-                    : AppColors.actualiteText,
+                    ? AppColors.primary
+                    : AppColors.text,
               ),
             ),
           ),
@@ -384,8 +384,8 @@ class ActualiteDetailPage extends StatelessWidget {
           Container(
             width: 13,
             height: 13,
-            decoration: const BoxDecoration(
-              color: AppColors.actualiteSoftGreen,
+            decoration: BoxDecoration(
+              color: AppColors.success.withAlpha(28),
               shape: BoxShape.circle,
             ),
             child: const Icon(
@@ -465,7 +465,7 @@ class ActualiteDetailPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
       decoration: BoxDecoration(
-        color: AppColors.actualiteSoftBlue,
+        color: AppColors.softBlue,
         borderRadius: BorderRadius.circular(9),
       ),
       child: Text(text, style: _blueLabelStyle),
@@ -489,14 +489,14 @@ class ActualiteDetailPage extends StatelessWidget {
   }
 
   static final TextStyle _heroTitleStyle = AppTextStyles.headline3.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 19.4,
     height: 1.12,
     fontWeight: FontWeight.w800,
   );
 
   static final TextStyle _blueLabelStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.actualiteHeader,
+    color: AppColors.primary,
     fontSize: 10.7,
     height: 1,
     fontWeight: FontWeight.w800,
@@ -510,28 +510,28 @@ class ActualiteDetailPage extends StatelessWidget {
   );
 
   static final TextStyle _metaStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.actualiteMutedText,
+    color: AppColors.secondaryText,
     fontSize: 10.7,
     height: 1.1,
     fontWeight: FontWeight.w600,
   );
 
   static final TextStyle _bodyStyle = AppTextStyles.bodySmall.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 13.4,
     height: 1.58,
     fontWeight: FontWeight.w500,
   );
 
   static final TextStyle _compactBodyStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 11.8,
     height: 1.35,
     fontWeight: FontWeight.w500,
   );
 
   static final TextStyle _objectiveTitleStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.actualiteHeader,
+    color: AppColors.primary,
     fontSize: 11.8,
     height: 1,
     fontWeight: FontWeight.w800,
@@ -545,28 +545,28 @@ class ActualiteDetailPage extends StatelessWidget {
   );
 
   static final TextStyle _sectionTitleStyle = AppTextStyles.label.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 14.2,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
   static final TextStyle _tableTitleStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 12.8,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
   static final TextStyle _tableLabelStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 11.4,
     height: 1,
     fontWeight: FontWeight.w600,
   );
 
   static final TextStyle _tableValueStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.actualiteText,
+    color: AppColors.text,
     fontSize: 11.4,
     height: 1,
     fontWeight: FontWeight.w800,
@@ -586,7 +586,7 @@ class _DetailTopBar extends StatelessWidget {
       decoration: const BoxDecoration(
         color: AppColors.white,
         border: Border(
-          bottom: BorderSide(color: AppColors.actualiteCardBorder),
+          bottom: BorderSide(color: AppColors.border),
         ),
       ),
       child: Padding(
@@ -596,7 +596,7 @@ class _DetailTopBar extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: AppDimensions.xs),
             child: Material(
-              color: AppColors.actualiteSoftBlue,
+              color: AppColors.softBlue,
               borderRadius: BorderRadius.circular(7),
               child: InkWell(
                 onTap: () {
@@ -610,7 +610,7 @@ class _DetailTopBar extends StatelessWidget {
                   height: 28,
                   child: Icon(
                     Icons.chevron_left_rounded,
-                    color: AppColors.actualiteHeader,
+                    color: AppColors.primary,
                     size: 22,
                   ),
                 ),
