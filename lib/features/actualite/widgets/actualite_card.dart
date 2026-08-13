@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/text_styles.dart';
 
 enum ActualiteCategory { actualite, annonce, evenement, info }
 
@@ -132,7 +133,7 @@ class ActualiteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.transparent,
+      color: AppColors.white.withAlpha(0),
       borderRadius: BorderRadius.circular(10),
       child: InkWell(
         onTap: onTap,
@@ -144,9 +145,9 @@ class ActualiteCard extends StatelessWidget {
             color: AppColors.white,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: AppColors.actualiteCardBorder),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                color: Color(0x07000000),
+                color: AppColors.text.withAlpha(7),
                 blurRadius: 8,
                 offset: Offset(0, 2),
               ),
@@ -181,7 +182,7 @@ class ActualiteCard extends StatelessWidget {
           padding: EdgeInsets.only(top: 1),
           child: Icon(
             Icons.chevron_right_rounded,
-            color: Color(0xFF86A0BA),
+            color: AppColors.hint,
             size: 18,
           ),
         ),
@@ -232,7 +233,7 @@ class ActualiteCard extends StatelessWidget {
       children: [
         const Icon(
           Icons.calendar_month_rounded,
-          color: Color(0xFF2E8EEA),
+          color: AppColors.actualiteHeader,
           size: 10,
         ),
         const SizedBox(width: 3),
@@ -246,7 +247,7 @@ class ActualiteCard extends StatelessWidget {
         ),
         if (isEvent) ...[
           const SizedBox(width: 5),
-          const Icon(Icons.location_pin, color: Color(0xFFE0416F), size: 10),
+          const Icon(Icons.location_pin, color: AppColors.error, size: 10),
         ],
       ],
     );
@@ -262,7 +263,7 @@ class ActualiteCard extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: item.emoji != null
-          ? Text(item.emoji!, style: const TextStyle(fontSize: 22, height: 1))
+          ? Text(item.emoji!, style: _emojiStyle)
           : Icon(
               item.icon,
               color: actualiteCategoryColor(item.category),
@@ -283,31 +284,38 @@ class ActualiteCard extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         item.topNotice!,
-        style: const TextStyle(
-          color: AppColors.error,
-          fontSize: 10.5,
-          height: 1,
-          fontWeight: FontWeight.w800,
-        ),
+        style: _noticeStyle,
       ),
     );
   }
 
-  static const TextStyle _metaStyle = TextStyle(
+  static final TextStyle _emojiStyle = AppTextStyles.headline3.copyWith(
+    fontSize: 22,
+    height: 1,
+  );
+
+  static final TextStyle _noticeStyle = AppTextStyles.caption.copyWith(
+    color: AppColors.error,
+    fontSize: 10.5,
+    height: 1,
+    fontWeight: FontWeight.w800,
+  );
+
+  static final TextStyle _metaStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteMutedText,
     fontSize: 10.4,
     height: 1.15,
     fontWeight: FontWeight.w600,
   );
 
-  static const TextStyle _titleStyle = TextStyle(
+  static final TextStyle _titleStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteText,
     fontSize: 12.8,
     height: 1.16,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _excerptStyle = TextStyle(
+  static final TextStyle _excerptStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteMutedText,
     fontSize: 11.2,
     height: 1.18,

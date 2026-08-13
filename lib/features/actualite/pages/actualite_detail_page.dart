@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/dimensions.dart';
+import '../../../app/theme/text_styles.dart';
 import '../widgets/actualite_card.dart';
 
 class ActualiteDetailPage extends StatelessWidget {
@@ -13,7 +15,7 @@ class ActualiteDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: AppColors.white,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.light,
       ),
@@ -43,13 +45,18 @@ class ActualiteDetailPage extends StatelessWidget {
 
   Widget _newsDetail() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.only(bottom: AppDimensions.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _newsHero(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 28, 8, 0),
+            padding: const EdgeInsets.fromLTRB(
+              AppDimensions.sm,
+              28,
+              AppDimensions.sm,
+              0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -68,13 +75,18 @@ class ActualiteDetailPage extends StatelessWidget {
 
   Widget _announcementDetail() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.only(bottom: AppDimensions.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _announcementHero(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 20, 8, 0),
+            padding: const EdgeInsets.fromLTRB(
+              AppDimensions.sm,
+              20,
+              AppDimensions.sm,
+              0,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -85,7 +97,7 @@ class ActualiteDetailPage extends StatelessWidget {
                 ],
                 if (item.documents != null && item.documents!.isNotEmpty) ...[
                   const SizedBox(height: 18),
-                  const Text('Documents requis', style: _sectionTitleStyle),
+                  Text('Documents requis', style: _sectionTitleStyle),
                   const SizedBox(height: 10),
                   for (final document in item.documents!)
                     _documentRow(document),
@@ -100,13 +112,18 @@ class ActualiteDetailPage extends StatelessWidget {
 
   Widget _infoDetail() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.only(bottom: AppDimensions.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _infoHero(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 22, 8, 0),
+            padding: const EdgeInsets.fromLTRB(
+              AppDimensions.sm,
+              22,
+              AppDimensions.sm,
+              0,
+            ),
             child: Column(
               children: [
                 if (item.infoRows != null)
@@ -138,11 +155,16 @@ class ActualiteDetailPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: AppColors.actualiteSoftBlue,
-      padding: const EdgeInsets.fromLTRB(8, 19, 8, 16),
+      padding: const EdgeInsets.fromLTRB(
+        AppDimensions.sm,
+        19,
+        AppDimensions.sm,
+        AppDimensions.md,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Actualité', style: _blueLabelStyle),
+          Text('Actualité', style: _blueLabelStyle),
           const SizedBox(height: 13),
           Text(item.detailTitle ?? item.title, style: _heroTitleStyle),
           const SizedBox(height: 12),
@@ -151,7 +173,7 @@ class ActualiteDetailPage extends StatelessWidget {
               _inlineMeta(
                 Icons.calendar_month_rounded,
                 item.detailDate ?? item.date,
-                const Color(0xFF2E8EEA),
+                AppColors.actualiteHeader,
               ),
               const SizedBox(width: 13),
               if (item.subtitle != null)
@@ -159,7 +181,7 @@ class ActualiteDetailPage extends StatelessWidget {
                   child: _inlineMeta(
                     Icons.edit_note_rounded,
                     item.subtitle!,
-                    const Color(0xFFFF9B37),
+                    AppColors.warning,
                   ),
                 ),
             ],
@@ -173,7 +195,12 @@ class ActualiteDetailPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: AppColors.actualiteSoftRed,
-      padding: const EdgeInsets.fromLTRB(8, 20, 8, 17),
+      padding: const EdgeInsets.fromLTRB(
+        AppDimensions.sm,
+        20,
+        AppDimensions.sm,
+        17,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -194,7 +221,7 @@ class ActualiteDetailPage extends StatelessWidget {
               _inlineMeta(
                 Icons.calendar_month_rounded,
                 item.detailDate ?? item.date,
-                const Color(0xFF2E8EEA),
+                AppColors.actualiteHeader,
               ),
               const SizedBox(width: 13),
               if (item.subtitle != null)
@@ -202,7 +229,7 @@ class ActualiteDetailPage extends StatelessWidget {
                   child: _inlineMeta(
                     Icons.school_outlined,
                     item.subtitle!,
-                    const Color(0xFFD99045),
+                    AppColors.warning,
                   ),
                 ),
             ],
@@ -216,7 +243,12 @@ class ActualiteDetailPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: AppColors.actualiteSoftBlue,
-      padding: const EdgeInsets.fromLTRB(8, 20, 8, 31),
+      padding: const EdgeInsets.fromLTRB(
+        AppDimensions.sm,
+        20,
+        AppDimensions.sm,
+        31,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -227,7 +259,7 @@ class ActualiteDetailPage extends StatelessWidget {
           _inlineMeta(
             Icons.calendar_month_rounded,
             'En vigueur depuis le ${item.detailDate ?? item.date}',
-            const Color(0xFF2E8EEA),
+            AppColors.actualiteHeader,
           ),
         ],
       ),
@@ -240,12 +272,12 @@ class ActualiteDetailPage extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(12, 11, 12, 12),
       decoration: BoxDecoration(
         color: AppColors.actualiteSoftBlue,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('🎯 Objectif', style: _objectiveTitleStyle),
+          Text('🎯 Objectif', style: _objectiveTitleStyle),
           const SizedBox(height: 5),
           Text(item.objective!, style: _compactBodyStyle),
         ],
@@ -259,7 +291,7 @@ class ActualiteDetailPage extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(12, 11, 12, 12),
       decoration: BoxDecoration(
         color: AppColors.actualiteSoftYellow,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,8 +312,8 @@ class ActualiteDetailPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
         border: Border.all(color: AppColors.actualiteCardBorder),
       ),
       child: Column(
@@ -353,16 +385,16 @@ class ActualiteDetailPage extends StatelessWidget {
             width: 13,
             height: 13,
             decoration: const BoxDecoration(
-              color: Color(0xFFDDF7E8),
+              color: AppColors.actualiteSoftGreen,
               shape: BoxShape.circle,
             ),
             child: const Icon(
               Icons.check_rounded,
-              color: Color(0xFF34B66C),
+              color: AppColors.success,
               size: 10,
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: AppDimensions.sm),
           Expanded(child: Text(text, style: _compactBodyStyle)),
         ],
       ),
@@ -445,7 +477,7 @@ class ActualiteDetailPage extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(icon, color: color, size: 11),
-        const SizedBox(width: 4),
+        const SizedBox(width: AppDimensions.xs),
         Text(
           text,
           style: _metaStyle,
@@ -456,84 +488,84 @@ class ActualiteDetailPage extends StatelessWidget {
     );
   }
 
-  static const TextStyle _heroTitleStyle = TextStyle(
+  static final TextStyle _heroTitleStyle = AppTextStyles.headline3.copyWith(
     color: AppColors.actualiteText,
     fontSize: 19.4,
     height: 1.12,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _blueLabelStyle = TextStyle(
+  static final TextStyle _blueLabelStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteHeader,
     fontSize: 10.7,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _importantLabelStyle = TextStyle(
+  static final TextStyle _importantLabelStyle = AppTextStyles.caption.copyWith(
     color: AppColors.error,
     fontSize: 10.4,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _metaStyle = TextStyle(
+  static final TextStyle _metaStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteMutedText,
     fontSize: 10.7,
     height: 1.1,
     fontWeight: FontWeight.w600,
   );
 
-  static const TextStyle _bodyStyle = TextStyle(
+  static final TextStyle _bodyStyle = AppTextStyles.bodySmall.copyWith(
     color: AppColors.actualiteText,
     fontSize: 13.4,
     height: 1.58,
     fontWeight: FontWeight.w500,
   );
 
-  static const TextStyle _compactBodyStyle = TextStyle(
+  static final TextStyle _compactBodyStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteText,
     fontSize: 11.8,
     height: 1.35,
     fontWeight: FontWeight.w500,
   );
 
-  static const TextStyle _objectiveTitleStyle = TextStyle(
+  static final TextStyle _objectiveTitleStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteHeader,
     fontSize: 11.8,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _alertTitleStyle = TextStyle(
-    color: Color(0xFFE58B23),
+  static final TextStyle _alertTitleStyle = AppTextStyles.caption.copyWith(
+    color: AppColors.warning,
     fontSize: 11.8,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _sectionTitleStyle = TextStyle(
+  static final TextStyle _sectionTitleStyle = AppTextStyles.label.copyWith(
     color: AppColors.actualiteText,
     fontSize: 14.2,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _tableTitleStyle = TextStyle(
+  static final TextStyle _tableTitleStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteText,
     fontSize: 12.8,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _tableLabelStyle = TextStyle(
+  static final TextStyle _tableLabelStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteText,
     fontSize: 11.4,
     height: 1,
     fontWeight: FontWeight.w600,
   );
 
-  static const TextStyle _tableValueStyle = TextStyle(
+  static final TextStyle _tableValueStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteText,
     fontSize: 11.4,
     height: 1,
@@ -552,7 +584,7 @@ class _DetailTopBar extends StatelessWidget {
       height: topInset + 45,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         border: Border(
           bottom: BorderSide(color: AppColors.actualiteCardBorder),
         ),
@@ -562,7 +594,7 @@ class _DetailTopBar extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 4),
+            padding: const EdgeInsets.only(left: AppDimensions.xs),
             child: Material(
               color: AppColors.actualiteSoftBlue,
               borderRadius: BorderRadius.circular(7),

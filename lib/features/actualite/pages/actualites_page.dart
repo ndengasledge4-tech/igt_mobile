@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/dimensions.dart';
+import '../../../app/theme/text_styles.dart';
 import '../data/actualite_data.dart';
 import '../widgets/actualite_card.dart';
 import 'actualite_detail_page.dart';
@@ -41,22 +43,22 @@ class _ActualiteHomePageState extends State<_ActualiteHomePage> {
     _ActualiteTabInfo(
       label: 'Actualités',
       icon: Icons.article_outlined,
-      iconColor: Color(0xFFE1DFF4),
+      iconColor: AppColors.actualiteSoftBlue,
     ),
     _ActualiteTabInfo(
       label: 'Annonces',
       icon: Icons.campaign_rounded,
-      iconColor: Color(0xFFFF3D75),
+      iconColor: AppColors.error,
     ),
     _ActualiteTabInfo(
       label: 'Événements',
       icon: Icons.event_note_outlined,
-      iconColor: Color(0xFF1F425E),
+      iconColor: AppColors.primaryDark,
     ),
     _ActualiteTabInfo(
       label: 'Infos',
       icon: Icons.info_rounded,
-      iconColor: Color(0xFF9ED8FF),
+      iconColor: AppColors.primaryLight,
     ),
   ];
 
@@ -139,20 +141,24 @@ class _ActualiteScaffoldState extends State<_ActualiteScaffold> {
     final items = _items;
 
     if (items.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
           'Aucun contenu disponible',
-          style: TextStyle(
+          style: AppTextStyles.label.copyWith(
             color: AppColors.actualiteMutedText,
             fontSize: 13,
-            fontWeight: FontWeight.w600,
           ),
         ),
       );
     }
 
     return ListView.separated(
-      padding: EdgeInsets.fromLTRB(8, _selectedIndex == 1 ? 14 : 9, 8, 26),
+      padding: EdgeInsets.fromLTRB(
+        AppDimensions.sm,
+        _selectedIndex == 1 ? 14 : 9,
+        AppDimensions.sm,
+        26,
+      ),
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
@@ -203,12 +209,12 @@ class _ActualiteHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               'Actualité',
-              style: TextStyle(
-                color: Colors.white,
+              style: AppTextStyles.headline2.copyWith(
+                color: AppColors.white,
                 fontSize: 22,
                 height: 1,
                 fontWeight: FontWeight.w800,
@@ -250,7 +256,7 @@ class _ActualiteTabButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Material(
-        color: Colors.transparent,
+        color: AppColors.white.withAlpha(0),
         child: InkWell(
           onTap: onTap,
           child: Column(
@@ -266,8 +272,10 @@ class _ActualiteTabButton extends StatelessWidget {
                 tab.label,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: selected ? Colors.white : Colors.white.withAlpha(205),
+                style: AppTextStyles.caption.copyWith(
+                  color: selected
+                      ? AppColors.white
+                      : AppColors.white.withAlpha(205),
                   fontSize: 10.2,
                   height: 1,
                   fontWeight: selected ? FontWeight.w800 : FontWeight.w700,
@@ -279,7 +287,7 @@ class _ActualiteTabButton extends StatelessWidget {
                 width: selected ? 46 : 0,
                 height: 3,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
