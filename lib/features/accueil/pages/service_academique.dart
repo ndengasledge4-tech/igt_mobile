@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/dimensions.dart';
 import '../../../app/theme/text_styles.dart';
 
 class ServiceAcademiquePage extends StatelessWidget {
@@ -10,211 +11,195 @@ class ServiceAcademiquePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          "Service académique",
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        toolbarHeight: AppDimensions.appBarHeight,
       ),
+
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(AppDimensions.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.school_outlined,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Service académique",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    "Accédez aux informations concernant votre parcours académique.",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 10,
-                    ),
-                  ),
-                ],
-              ),
+            _headerCard(),
+
+            const SizedBox(height: AppDimensions.lg),
+
+            Text(
+              'Information récente',
+              style: AppTextStyles.headline3,
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: AppDimensions.sm),
 
-            const Text(
-              "Information récente",
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
+            _informationCard(),
+
+            const SizedBox(height: AppDimensions.lg),
+
+            Text(
+              'Services académiques',
+              style: AppTextStyles.headline3,
             ),
 
-            const SizedBox(height: 8),
-
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(9),
-                border: Border.all(
-                  color: Colors.grey.shade200,
-                ),
-              ),
-              child: const Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.info_outline,
-                    color: AppColors.primary,
-                    size: 20,
-                  ),
-                  SizedBox(width: 9),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Nouvelle information disponible",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "Une nouvelle information concernant les activités académiques est disponible.",
-                          style: TextStyle(
-                            fontSize: 8,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 15),
-
-            const Text(
-              "Services académiques",
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 8),
+            const SizedBox(height: AppDimensions.sm),
 
             _serviceItem(
               Icons.menu_book_outlined,
-              "Mes cours",
-              "Consulter la liste de vos cours.",
+              'Mes cours',
+              'Consulter la liste de vos cours.',
             ),
 
             _serviceItem(
               Icons.grade_outlined,
-              "Mes notes",
-              "Consulter vos résultats et vos notes.",
+              'Mes notes',
+              'Consulter vos résultats et vos notes.',
             ),
 
             _serviceItem(
               Icons.bar_chart_outlined,
-              "Résultats",
-              "Consulter votre moyenne et vos crédits.",
+              'Résultats',
+              'Consulter votre moyenne et vos crédits.',
             ),
 
             _serviceItem(
               Icons.calendar_today_outlined,
-              "Emploi du temps",
-              "Consulter votre programme académique.",
+              'Emploi du temps',
+              'Consulter votre programme académique.',
             ),
 
             _serviceItem(
               Icons.assignment_outlined,
-              "Examens",
-              "Consulter les informations relatives aux examens.",
+              'Examens',
+              'Consulter les informations relatives aux examens.',
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: AppDimensions.lg),
 
-            const Text(
-              "Contact",
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
+            Text(
+              'Contact',
+              style: AppTextStyles.headline3,
             ),
 
-            const SizedBox(height: 8),
+            const SizedBox(height: AppDimensions.sm),
 
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(9),
-                border: Border.all(
-                  color: Colors.grey.shade200,
-                ),
-              ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Service académique",
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 7),
-                  Text(
-                    "Téléphone : +242 06 000 00 00",
-                    style: TextStyle(
-                      fontSize: 8,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  SizedBox(height: 3),
-                  Text(
-                    "Email : academique@universite.com",
-                    style: TextStyle(
-                      fontSize: 8,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            _contactCard(),
+
+            const SizedBox(height: AppDimensions.xl),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _headerCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppDimensions.lg),
+      decoration: BoxDecoration(
+        color: AppColors.primary,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusLarge,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(
+                AppDimensions.radiusMedium,
+              ),
+            ),
+            child: const Icon(
+              Icons.school_outlined,
+              color: Colors.white,
+              size: AppDimensions.iconLarge,
+            ),
+          ),
+
+          const SizedBox(height: AppDimensions.md),
+
+          Text(
+            'Service académique',
+            style: AppTextStyles.headline3.copyWith(
+              color: Colors.white,
+            ),
+          ),
+
+          const SizedBox(height: AppDimensions.sm),
+
+          Text(
+            'Accédez aux informations concernant votre parcours académique.',
+            style: AppTextStyles.bodySmall.copyWith(
+              color: Colors.white70,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _informationCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppDimensions.md),
+      decoration: BoxDecoration(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusMedium,
+        ),
+        border: Border.all(
+          color: AppColors.border,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: AppColors.softBlue,
+              borderRadius: BorderRadius.circular(
+                AppDimensions.radiusSmall,
+              ),
+            ),
+            child: const Icon(
+              Icons.info_outline,
+              color: AppColors.primary,
+              size: AppDimensions.iconMedium,
+            ),
+          ),
+
+          const SizedBox(width: AppDimensions.md),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Nouvelle information disponible',
+                  style: AppTextStyles.title.copyWith(
+                    fontSize: 15,
+                  ),
+                ),
+
+                const SizedBox(height: AppDimensions.xs),
+
+                Text(
+                  'Une nouvelle information concernant les activités académiques est disponible.',
+                  style: AppTextStyles.bodySmall,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -225,57 +210,108 @@ class ServiceAcademiquePage extends StatelessWidget {
       String description,
       ) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 7),
-      padding: const EdgeInsets.all(11),
+      width: double.infinity,
+      margin: const EdgeInsets.only(
+        bottom: AppDimensions.sm,
+      ),
+      padding: const EdgeInsets.all(AppDimensions.md),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(9),
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusMedium,
+        ),
         border: Border.all(
-          color: Colors.grey.shade200,
+          color: AppColors.border,
         ),
       ),
       child: Row(
         children: [
           Container(
-            width: 35,
-            height: 35,
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.08),
-              borderRadius: BorderRadius.circular(8),
+              color: AppColors.softBlue,
+              borderRadius: BorderRadius.circular(
+                AppDimensions.radiusSmall,
+              ),
             ),
             child: Icon(
               icon,
               color: AppColors.primary,
-              size: 19,
+              size: AppDimensions.iconMedium,
             ),
           ),
-          const SizedBox(width: 10),
+
+          const SizedBox(width: AppDimensions.md),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
+                  style: AppTextStyles.title.copyWith(
+                    fontSize: 15,
                   ),
                 ),
-                const SizedBox(height: 3),
+
+                const SizedBox(height: AppDimensions.xs),
+
                 Text(
                   description,
-                  style: const TextStyle(
-                    fontSize: 8,
-                    color: Colors.grey,
-                  ),
+                  style: AppTextStyles.bodySmall,
                 ),
               ],
             ),
           ),
+
+          const SizedBox(width: AppDimensions.sm),
+
           const Icon(
             Icons.chevron_right,
-            color: Colors.grey,
-            size: 18,
+            color: AppColors.hint,
+            size: AppDimensions.iconMedium,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _contactCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppDimensions.md),
+      decoration: BoxDecoration(
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusMedium,
+        ),
+        border: Border.all(
+          color: AppColors.border,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Service académique',
+            style: AppTextStyles.title.copyWith(
+              fontSize: 15,
+            ),
+          ),
+
+          const SizedBox(height: AppDimensions.sm),
+
+          Text(
+            'Téléphone : +242 06 000 00 00',
+            style: AppTextStyles.bodySmall,
+          ),
+
+          const SizedBox(height: AppDimensions.xs),
+
+          Text(
+            'Email : academique@universite.com',
+            style: AppTextStyles.bodySmall,
           ),
         ],
       ),

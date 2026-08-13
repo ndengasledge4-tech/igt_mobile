@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/dimensions.dart';
 import '../../../app/theme/text_styles.dart';
 
 class SecretariatPage extends StatelessWidget {
@@ -10,147 +11,159 @@ class SecretariatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          "Secrétariat",
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        toolbarHeight: AppDimensions.appBarHeight,
       ),
+
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(AppDimensions.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.support_agent_outlined,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Secrétariat",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    "Retrouvez les informations et services proposés par le secrétariat.",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 10,
-                    ),
-                  ),
-                ],
-              ),
+            _headerCard(),
+
+            const SizedBox(height: AppDimensions.lg),
+
+            Text(
+              'Message récent',
+              style: AppTextStyles.headline3,
             ),
 
-            const SizedBox(height: 15),
-
-            const Text(
-              "Message récent",
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 8),
+            const SizedBox(height: AppDimensions.sm),
 
             _messageCard(),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: AppDimensions.lg),
 
-            const Text(
-              "Services disponibles",
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
+            Text(
+              'Services disponibles',
+              style: AppTextStyles.headline3,
             ),
 
-            const SizedBox(height: 8),
+            const SizedBox(height: AppDimensions.sm),
 
             _serviceItem(
               Icons.description_outlined,
-              "Documents administratifs",
-              "Demande et retrait de documents.",
+              'Documents administratifs',
+              'Demande et retrait de documents.',
             ),
 
             _serviceItem(
               Icons.assignment_outlined,
-              "Dossiers étudiants",
-              "Suivi de votre dossier académique.",
+              'Dossiers étudiants',
+              'Suivi de votre dossier académique.',
             ),
 
             _serviceItem(
               Icons.calendar_month_outlined,
-              "Rendez-vous",
-              "Prendre rendez-vous avec le secrétariat.",
+              'Rendez-vous',
+              'Prendre rendez-vous avec le secrétariat.',
             ),
 
             _serviceItem(
               Icons.info_outline,
-              "Informations",
-              "Consulter les annonces du secrétariat.",
+              'Informations',
+              'Consulter les annonces du secrétariat.',
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: AppDimensions.lg),
 
-            const Text(
-              "Horaires",
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
+            Text(
+              'Horaires',
+              style: AppTextStyles.headline3,
             ),
 
-            const SizedBox(height: 8),
+            const SizedBox(height: AppDimensions.sm),
 
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(
+                AppDimensions.md,
+              ),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(9),
+                color: AppColors.card,
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.radiusMedium,
+                ),
                 border: Border.all(
-                  color: Colors.grey.shade200,
+                  color: AppColors.border,
                 ),
               ),
               child: const Column(
                 children: [
                   _ScheduleRow(
-                    day: "Lundi - Vendredi",
-                    hours: "08h00 - 16h00",
+                    day: 'Lundi - Vendredi',
+                    hours: '08h00 - 16h00',
                   ),
-                  SizedBox(height: 8),
+
+                  SizedBox(height: AppDimensions.sm),
+
                   _ScheduleRow(
-                    day: "Samedi",
-                    hours: "08h00 - 12h00",
+                    day: 'Samedi',
+                    hours: '08h00 - 12h00',
                   ),
                 ],
               ),
             ),
+
+            const SizedBox(height: AppDimensions.xl),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _headerCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppDimensions.lg),
+      decoration: BoxDecoration(
+        color: AppColors.primary,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusLarge,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(
+                AppDimensions.radiusMedium,
+              ),
+            ),
+            child: const Icon(
+              Icons.support_agent_outlined,
+              color: Colors.white,
+              size: AppDimensions.iconLarge,
+            ),
+          ),
+
+          const SizedBox(height: AppDimensions.md),
+
+          Text(
+            'Secrétariat',
+            style: AppTextStyles.headline3.copyWith(
+              color: Colors.white,
+            ),
+          ),
+
+          const SizedBox(height: AppDimensions.sm),
+
+          Text(
+            'Retrouvez les informations et services proposés par le secrétariat.',
+            style: AppTextStyles.bodySmall.copyWith(
+              color: Colors.white70,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -158,60 +171,70 @@ class SecretariatPage extends StatelessWidget {
   Widget _messageCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(AppDimensions.md),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(9),
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusMedium,
+        ),
         border: Border.all(
-          color: Colors.grey.shade200,
+          color: AppColors.border,
         ),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              CircleAvatar(
-                radius: 17,
-                child: Text(
-                  "S",
-                  style: TextStyle(fontSize: 10),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(
+                  color: AppColors.softBlue,
+                  shape: BoxShape.circle,
                 ),
-              ),
-              SizedBox(width: 9),
-              Expanded(
+                alignment: Alignment.center,
                 child: Text(
-                  "Secrétariat",
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
+                  'S',
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-              Text(
-                "10h30",
-                style: TextStyle(
-                  fontSize: 8,
-                  color: Colors.grey,
+
+              const SizedBox(width: AppDimensions.sm),
+
+              Expanded(
+                child: Text(
+                  'Secrétariat',
+                  style: AppTextStyles.title.copyWith(
+                    fontSize: 15,
+                  ),
                 ),
+              ),
+
+              Text(
+                '10h30',
+                style: AppTextStyles.caption,
               ),
             ],
           ),
-          SizedBox(height: 10),
+
+          const SizedBox(height: AppDimensions.md),
+
           Text(
-            "Votre dossier est prêt",
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
+            'Votre dossier est prêt',
+            style: AppTextStyles.title.copyWith(
+              fontSize: 15,
             ),
           ),
-          SizedBox(height: 4),
+
+          const SizedBox(height: AppDimensions.xs),
+
           Text(
-            "Vous pouvez passer au secrétariat pour récupérer votre document.",
-            style: TextStyle(
-              fontSize: 9,
-              color: Colors.grey,
-            ),
+            'Vous pouvez passer au secrétariat pour récupérer votre document.',
+            style: AppTextStyles.bodySmall,
           ),
         ],
       ),
@@ -224,57 +247,67 @@ class SecretariatPage extends StatelessWidget {
       String description,
       ) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 7),
-      padding: const EdgeInsets.all(11),
+      width: double.infinity,
+      margin: const EdgeInsets.only(
+        bottom: AppDimensions.sm,
+      ),
+      padding: const EdgeInsets.all(AppDimensions.md),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(9),
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusMedium,
+        ),
         border: Border.all(
-          color: Colors.grey.shade200,
+          color: AppColors.border,
         ),
       ),
       child: Row(
         children: [
           Container(
-            width: 35,
-            height: 35,
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.08),
-              borderRadius: BorderRadius.circular(8),
+              color: AppColors.softBlue,
+              borderRadius: BorderRadius.circular(
+                AppDimensions.radiusSmall,
+              ),
             ),
             child: Icon(
               icon,
               color: AppColors.primary,
-              size: 19,
+              size: AppDimensions.iconMedium,
             ),
           ),
-          const SizedBox(width: 10),
+
+          const SizedBox(width: AppDimensions.md),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
+                  style: AppTextStyles.title.copyWith(
+                    fontSize: 15,
                   ),
                 ),
-                const SizedBox(height: 3),
+
+                const SizedBox(height: AppDimensions.xs),
+
                 Text(
                   description,
-                  style: const TextStyle(
-                    fontSize: 8,
-                    color: Colors.grey,
-                  ),
+                  style: AppTextStyles.bodySmall,
                 ),
               ],
             ),
           ),
+
+          const SizedBox(width: AppDimensions.sm),
+
           const Icon(
             Icons.chevron_right,
-            color: Colors.grey,
-            size: 18,
+            color: AppColors.hint,
+            size: AppDimensions.iconMedium,
           ),
         ],
       ),
@@ -296,17 +329,17 @@ class _ScheduleRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          day,
-          style: const TextStyle(
-            fontSize: 9,
+        Expanded(
+          child: Text(
+            day,
+            style: AppTextStyles.bodySmall,
           ),
         ),
+
         Text(
           hours,
-          style: const TextStyle(
-            fontSize: 9,
-            fontWeight: FontWeight.bold,
+          style: AppTextStyles.body.copyWith(
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],
