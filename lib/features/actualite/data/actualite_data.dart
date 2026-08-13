@@ -17,7 +17,7 @@ abstract final class ActualiteData {
           "L'Institut de Gestion et de Technologie enrichit son offre pédagogique avec un nouveau module d'intelligence artificielle intégré à plusieurs formations à partir du Semestre 4.\n\nCe programme couvre les fondamentaux du machine learning, le traitement du langage naturel et les applications pratiques de l'IA dans le domaine de la gestion.",
       category: ActualiteCategory.actualite,
       icon: Icons.smart_toy_outlined,
-      iconBackground: AppColors.actualiteHeader,
+      iconBackground: AppColors.primary,
       emoji: '🤖',
       subtitle: 'Direction pédagogique',
       objective:
