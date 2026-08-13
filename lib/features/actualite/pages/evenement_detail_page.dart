@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/dimensions.dart';
+import '../../../app/theme/text_styles.dart';
 import '../widgets/actualite_card.dart';
 
 class EvenementDetailPage extends StatelessWidget {
@@ -13,7 +15,7 @@ class EvenementDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: AppColors.white,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.light,
       ),
@@ -24,21 +26,26 @@ class EvenementDetailPage extends StatelessWidget {
             const _EventTopBar(),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 24),
+                padding: const EdgeInsets.only(bottom: AppDimensions.lg),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _hero(),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 18, 8, 0),
+                      padding: const EdgeInsets.fromLTRB(
+                        AppDimensions.sm,
+                        18,
+                        AppDimensions.sm,
+                        0,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(item.content ?? item.excerpt, style: _bodyStyle),
                           if (item.program != null &&
                               item.program!.isNotEmpty) ...[
-                            const SizedBox(height: 24),
-                            const Text(
+                            const SizedBox(height: AppDimensions.lg),
+                            Text(
                               'Programme de la journée',
                               style: _sectionTitleStyle,
                             ),
@@ -62,7 +69,12 @@ class EvenementDetailPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: AppColors.actualiteSoftGreen,
-      padding: const EdgeInsets.fromLTRB(8, 19, 8, 17),
+      padding: const EdgeInsets.fromLTRB(
+        AppDimensions.sm,
+        19,
+        AppDimensions.sm,
+        17,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -73,9 +85,9 @@ class EvenementDetailPage extends StatelessWidget {
           _eventMetaRow(
             Icons.calendar_month_rounded,
             item.detailDate ?? item.date,
-            const Color(0xFF2E8EEA),
+            AppColors.actualiteHeader,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppDimensions.sm),
           if (item.time != null)
             _eventMetaRow(
               Icons.access_time_filled_rounded,
@@ -83,11 +95,11 @@ class EvenementDetailPage extends StatelessWidget {
               AppColors.actualiteText,
             ),
           if (item.subtitle != null) ...[
-            const SizedBox(height: 8),
+            const SizedBox(height: AppDimensions.sm),
             _eventMetaRow(
               Icons.location_pin,
               item.subtitle!,
-              const Color(0xFFE0416F),
+              AppColors.error,
             ),
           ],
         ],
@@ -99,10 +111,10 @@ class EvenementDetailPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
       decoration: BoxDecoration(
-        color: Colors.white.withAlpha(120),
+        color: AppColors.white.withAlpha(120),
         borderRadius: BorderRadius.circular(9),
       ),
-      child: const Text('Événement', style: _eventLabelStyle),
+      child: Text('Événement', style: _eventLabelStyle),
     );
   }
 
@@ -155,54 +167,55 @@ class EvenementDetailPage extends StatelessWidget {
     );
   }
 
-  static const TextStyle _heroTitleStyle = TextStyle(
+  static final TextStyle _heroTitleStyle = AppTextStyles.headline3.copyWith(
     color: AppColors.actualiteText,
     fontSize: 19.4,
     height: 1.12,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _eventLabelStyle = TextStyle(
+  static final TextStyle _eventLabelStyle = AppTextStyles.caption.copyWith(
     color: AppColors.success,
     fontSize: 10.7,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _metaStrongStyle = TextStyle(
+  static final TextStyle _metaStrongStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteText,
     fontSize: 11.6,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _bodyStyle = TextStyle(
+  static final TextStyle _bodyStyle = AppTextStyles.bodySmall.copyWith(
     color: AppColors.actualiteText,
     fontSize: 13.4,
     height: 1.58,
     fontWeight: FontWeight.w500,
   );
 
-  static const TextStyle _sectionTitleStyle = TextStyle(
+  static final TextStyle _sectionTitleStyle = AppTextStyles.label.copyWith(
     color: AppColors.actualiteText,
     fontSize: 14.2,
     height: 1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _programTimeStyle = TextStyle(
+  static final TextStyle _programTimeStyle = AppTextStyles.caption.copyWith(
     color: AppColors.actualiteHeader,
     fontSize: 11.7,
     height: 1.1,
     fontWeight: FontWeight.w800,
   );
 
-  static const TextStyle _programDescriptionStyle = TextStyle(
-    color: AppColors.actualiteText,
-    fontSize: 11.7,
-    height: 1.1,
-    fontWeight: FontWeight.w500,
-  );
+  static final TextStyle _programDescriptionStyle =
+      AppTextStyles.caption.copyWith(
+        color: AppColors.actualiteText,
+        fontSize: 11.7,
+        height: 1.1,
+        fontWeight: FontWeight.w500,
+      );
 }
 
 class _EventTopBar extends StatelessWidget {
@@ -216,7 +229,7 @@ class _EventTopBar extends StatelessWidget {
       height: topInset + 45,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         border: Border(
           bottom: BorderSide(color: AppColors.actualiteCardBorder),
         ),
@@ -226,7 +239,7 @@ class _EventTopBar extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 4),
+            padding: const EdgeInsets.only(left: AppDimensions.xs),
             child: Material(
               color: AppColors.actualiteSoftBlue,
               borderRadius: BorderRadius.circular(7),
