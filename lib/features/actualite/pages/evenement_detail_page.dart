@@ -4,12 +4,15 @@ import 'package:flutter/services.dart';
 import '../../../app/theme/colors.dart';
 import '../../../app/theme/dimensions.dart';
 import '../../../app/theme/text_styles.dart';
-import '../widgets/actualite_card.dart';
+import '../widgets/detail_top_bar.dart';
 
 class EvenementDetailPage extends StatelessWidget {
-  final ActualiteItem item;
+  final Map<String, dynamic> item;
 
-  const EvenementDetailPage({super.key, required this.item});
+  const EvenementDetailPage({
+    super.key,
+    required this.item,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,34 +26,44 @@ class EvenementDetailPage extends StatelessWidget {
         backgroundColor: AppColors.background,
         body: Column(
           children: [
-            const _EventTopBar(),
+            const DetailTopBar(),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: AppDimensions.lg),
+                padding: const EdgeInsets.only(
+                  bottom: AppDimensions.lg,
+                ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.start,
                   children: [
                     _hero(),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(
+                      padding: const EdgeInsets.all(
                         AppDimensions.sm,
-                        18,
-                        AppDimensions.sm,
-                        0,
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
                         children: [
-                          Text(item.content ?? item.excerpt, style: _bodyStyle),
-                          if (item.program != null &&
-                              item.program!.isNotEmpty) ...[
-                            const SizedBox(height: AppDimensions.lg),
+                          Text(
+                            item['content'] ??
+                                item['excerpt'] ??
+                                '',
+                            style: AppTextStyles.body.copyWith(
+                              fontSize: 14,
+                              height: 1.5,
+                            ),
+                          ),
+                          if (item['program'] != null) ...[
+                            const SizedBox(
+                              height: AppDimensions.lg,
+                            ),
                             Text(
                               'Programme de la journée',
-                              style: _sectionTitleStyle,
+                              style: AppTextStyles.label,
                             ),
-                            const SizedBox(height: 15),
-                            _programTable(item.program!),
+                            const SizedBox(height: 12),
+                            _program(),
                           ],
                         ],
                       ),
@@ -71,34 +84,57 @@ class EvenementDetailPage extends StatelessWidget {
       color: AppColors.success.withAlpha(28),
       padding: const EdgeInsets.fromLTRB(
         AppDimensions.sm,
-        19,
+        20,
         AppDimensions.sm,
-        17,
+        18,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _eventLabel(),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 4,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.white.withAlpha(140),
+              borderRadius: BorderRadius.circular(9),
+            ),
+            child: Text(
+              'Événement',
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.success,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
           const SizedBox(height: 14),
-          Text(item.detailTitle ?? item.title, style: _heroTitleStyle),
+          Text(
+            item['detailTitle'] ?? item['title'],
+            style: AppTextStyles.headline3.copyWith(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const SizedBox(height: 16),
-          _eventMetaRow(
+          _meta(
             Icons.calendar_month_rounded,
-            item.detailDate ?? item.date,
+            item['date'].toString(),
             AppColors.primary,
           ),
-          const SizedBox(height: AppDimensions.sm),
-          if (item.time != null)
-            _eventMetaRow(
+          if (item['time'] != null) ...[
+            const SizedBox(height: 8),
+            _meta(
               Icons.access_time_filled_rounded,
-              item.time!,
+              item['time'].toString(),
               AppColors.text,
             ),
-          if (item.subtitle != null) ...[
-            const SizedBox(height: AppDimensions.sm),
-            _eventMetaRow(
+          ],
+          if (item['location'] != null) ...[
+            const SizedBox(height: 8),
+            _meta(
               Icons.location_pin,
-              item.subtitle!,
+              item['location'].toString(),
               AppColors.error,
             ),
           ],
@@ -107,163 +143,89 @@ class EvenementDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _eventLabel() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-      decoration: BoxDecoration(
-        color: AppColors.white.withAlpha(120),
-        borderRadius: BorderRadius.circular(9),
-      ),
-      child: Text('Événement', style: _eventLabelStyle),
-    );
-  }
-
-  Widget _eventMetaRow(IconData icon, String text, Color color) {
+  Widget _meta(
+      IconData icon,
+      String text,
+      Color color,
+      ) {
     return Row(
       children: [
-        Icon(icon, color: color, size: 12),
+        Icon(
+          icon,
+          color: color,
+          size: 13,
+        ),
         const SizedBox(width: 6),
         Expanded(
           child: Text(
             text,
-            style: _metaStrongStyle,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _programTable(List<ProgramStep> steps) {
-    return Column(
-      children: [
-        for (var index = 0; index < steps.length; index++)
-          _programRow(steps[index], showBottomBorder: index < steps.length - 1),
-      ],
-    );
-  }
-
-  Widget _programRow(ProgramStep step, {required bool showBottomBorder}) {
-    return Container(
-      decoration: BoxDecoration(
-        border: showBottomBorder
-            ? const Border(
-                bottom: BorderSide(color: AppColors.border),
-              )
-            : null,
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 9),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(width: 48, child: Text(step.time, style: _programTimeStyle)),
-          const SizedBox(width: 5),
-          Expanded(
-            child: Text(step.description, style: _programDescriptionStyle),
-          ),
-        ],
-      ),
-    );
-  }
-
-  static final TextStyle _heroTitleStyle = AppTextStyles.headline3.copyWith(
-    color: AppColors.text,
-    fontSize: 19.4,
-    height: 1.12,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _eventLabelStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.success,
-    fontSize: 10.7,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _metaStrongStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.text,
-    fontSize: 11.6,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _bodyStyle = AppTextStyles.bodySmall.copyWith(
-    color: AppColors.text,
-    fontSize: 13.4,
-    height: 1.58,
-    fontWeight: FontWeight.w500,
-  );
-
-  static final TextStyle _sectionTitleStyle = AppTextStyles.label.copyWith(
-    color: AppColors.text,
-    fontSize: 14.2,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _programTimeStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.primary,
-    fontSize: 11.7,
-    height: 1.1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _programDescriptionStyle =
-      AppTextStyles.caption.copyWith(
-        color: AppColors.text,
-        fontSize: 11.7,
-        height: 1.1,
-        fontWeight: FontWeight.w500,
-      );
-}
-
-class _EventTopBar extends StatelessWidget {
-  const _EventTopBar();
-
-  @override
-  Widget build(BuildContext context) {
-    final topInset = MediaQuery.paddingOf(context).top;
-
-    return Container(
-      height: topInset + 45,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        border: Border(
-          bottom: BorderSide(color: AppColors.border),
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(top: topInset),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(left: AppDimensions.xs),
-            child: Material(
-              color: AppColors.softBlue,
-              borderRadius: BorderRadius.circular(7),
-              child: InkWell(
-                onTap: () {
-                  if (Navigator.of(context).canPop()) {
-                    Navigator.of(context).pop();
-                  }
-                },
-                borderRadius: BorderRadius.circular(7),
-                child: const SizedBox(
-                  width: 28,
-                  height: 28,
-                  child: Icon(
-                    Icons.chevron_left_rounded,
-                    color: AppColors.primary,
-                    size: 22,
-                  ),
-                ),
-              ),
+            style: AppTextStyles.caption.copyWith(
+              color: AppColors.text,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),
-      ),
+      ],
+    );
+  }
+
+  Widget _program() {
+    final program =
+    List<Map<String, dynamic>>.from(
+      item['program'] as List,
+    );
+
+    return Column(
+      children: [
+        for (int index = 0;
+        index < program.length;
+        index++)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+            ),
+            decoration: BoxDecoration(
+              border: index < program.length - 1
+                  ? const Border(
+                bottom: BorderSide(
+                  color: AppColors.border,
+                ),
+              )
+                  : null,
+            ),
+            child: Row(
+              crossAxisAlignment:
+              CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 48,
+                  child: Text(
+                    program[index]['time'].toString(),
+                    style:
+                    AppTextStyles.caption.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    program[index]['description']
+                        .toString(),
+                    style:
+                    AppTextStyles.bodySmall.copyWith(
+                      color: AppColors.text,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
     );
   }
 }
