@@ -4,12 +4,15 @@ import 'package:flutter/services.dart';
 import '../../../app/theme/colors.dart';
 import '../../../app/theme/dimensions.dart';
 import '../../../app/theme/text_styles.dart';
-import '../widgets/actualite_card.dart';
+import '../widgets/detail_top_bar.dart';
 
 class ActualiteDetailPage extends StatelessWidget {
-  final ActualiteItem item;
+  final Map<String, dynamic> item;
 
-  const ActualiteDetailPage({super.key, required this.item});
+  const ActualiteDetailPage({
+    super.key,
+    required this.item,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,123 +26,94 @@ class ActualiteDetailPage extends StatelessWidget {
         backgroundColor: AppColors.background,
         body: Column(
           children: [
-            const _DetailTopBar(),
-            Expanded(child: _body()),
+            const DetailTopBar(),
+            Expanded(
+              child: _buildBody(),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _body() {
-    switch (item.category) {
-      case ActualiteCategory.annonce:
-        return _announcementDetail();
-      case ActualiteCategory.info:
-        return _infoDetail();
-      case ActualiteCategory.actualite:
-      case ActualiteCategory.evenement:
-        return _newsDetail();
+  Widget _buildBody() {
+    switch (item['category']) {
+      case 'annonce':
+        return _announcement();
+
+      case 'info':
+        return _info();
+
+      default:
+        return _news();
     }
   }
 
-  Widget _newsDetail() {
+  Widget _news() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: AppDimensions.lg),
+      padding: const EdgeInsets.only(
+        bottom: AppDimensions.lg,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _newsHero(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              AppDimensions.sm,
-              28,
-              AppDimensions.sm,
-              0,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ..._paragraphWidgets(item.content ?? item.excerpt),
-                if (item.objective != null) ...[
-                  const SizedBox(height: 5),
-                  _objectiveCard(),
-                ],
-              ],
-            ),
+          _hero(
+            color: AppColors.softBlue,
+            label: 'Actualité',
           ),
+          _content(),
         ],
       ),
     );
   }
 
-  Widget _announcementDetail() {
+  Widget _announcement() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: AppDimensions.lg),
+      padding: const EdgeInsets.only(
+        bottom: AppDimensions.lg,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _announcementHero(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              AppDimensions.sm,
-              20,
-              AppDimensions.sm,
-              0,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ..._paragraphWidgets(item.content ?? item.excerpt),
-                if (item.alertTitle != null && item.alertText != null) ...[
-                  const SizedBox(height: 15),
-                  _alertCard(),
-                ],
-                if (item.documents != null && item.documents!.isNotEmpty) ...[
-                  const SizedBox(height: 18),
-                  Text('Documents requis', style: _sectionTitleStyle),
-                  const SizedBox(height: 10),
-                  for (final document in item.documents!)
-                    _documentRow(document),
-                ],
-              ],
-            ),
-          ),
+          _content(),
+          if (item['alertTitle'] != null)
+            _alertCard(),
+          if (item['documents'] != null)
+            _documents(),
         ],
       ),
     );
   }
 
-  Widget _infoDetail() {
+  Widget _info() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: AppDimensions.lg),
+      padding: const EdgeInsets.only(
+        bottom: AppDimensions.lg,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _infoHero(),
+          _hero(
+            color: AppColors.softBlue,
+            label: item['subtitle'] ?? 'Info pratique',
+          ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(
+            padding: const EdgeInsets.all(
               AppDimensions.sm,
-              22,
-              AppDimensions.sm,
-              0,
             ),
             child: Column(
               children: [
-                if (item.infoRows != null)
-                  _tableCard(title: 'Horaires habituels', rows: item.infoRows!),
-                if (item.contacts != null) ...[
-                  const SizedBox(height: 12),
-                  _tableCard(
-                    title: 'Contact direct',
-                    rows: item.contacts!
-                        .map(
-                          (contact) => InfoRow(
-                            label: contact.label,
-                            value: contact.value,
-                          ),
-                        )
-                        .toList(),
+                if (item['infoRows'] != null)
+                  _table(
+                    'Horaires habituels',
+                    item['infoRows'],
+                  ),
+                if (item['contacts'] != null) ...[
+                  const SizedBox(height: AppDimensions.sm),
+                  _table(
+                    'Contact direct',
+                    item['contacts'],
                     blueValues: true,
                   ),
                 ],
@@ -151,40 +125,42 @@ class ActualiteDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _newsHero() {
+  Widget _hero({
+    required Color color,
+    required String label,
+  }) {
     return Container(
       width: double.infinity,
-      color: AppColors.softBlue,
+      color: color,
       padding: const EdgeInsets.fromLTRB(
         AppDimensions.sm,
-        19,
+        20,
         AppDimensions.sm,
-        AppDimensions.md,
+        28,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Actualité', style: _blueLabelStyle),
-          const SizedBox(height: 13),
-          Text(item.detailTitle ?? item.title, style: _heroTitleStyle),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              _inlineMeta(
-                Icons.calendar_month_rounded,
-                item.detailDate ?? item.date,
-                AppColors.primary,
-              ),
-              const SizedBox(width: 13),
-              if (item.subtitle != null)
-                Flexible(
-                  child: _inlineMeta(
-                    Icons.edit_note_rounded,
-                    item.subtitle!,
-                    AppColors.warning,
-                  ),
-                ),
-            ],
+          Text(
+            label,
+            style: AppTextStyles.caption.copyWith(
+              color: AppColors.primary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 14),
+          Text(
+            item['detailTitle'] ?? item['title'],
+            style: AppTextStyles.headline3.copyWith(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 14),
+          _meta(
+            Icons.calendar_month_rounded,
+            item['detailDate'] ?? item['date'],
+            AppColors.primary,
           ),
         ],
       ),
@@ -199,66 +175,38 @@ class ActualiteDetailPage extends StatelessWidget {
         AppDimensions.sm,
         20,
         AppDimensions.sm,
-        17,
+        18,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              _softPill('Annonce'),
-              if (item.badge != null) ...[
+              _pill('Annonce'),
+              if (item['badge'] != null) ...[
                 const SizedBox(width: 10),
-                Text(item.badge!, style: _importantLabelStyle),
+                Text(
+                  item['badge'].toString(),
+                  style: AppTextStyles.caption.copyWith(
+                    color: AppColors.error,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ],
           ),
-          const SizedBox(height: 13),
-          Text(item.detailTitle ?? item.title, style: _heroTitleStyle),
-          const SizedBox(height: 13),
-          Row(
-            children: [
-              _inlineMeta(
-                Icons.calendar_month_rounded,
-                item.detailDate ?? item.date,
-                AppColors.primary,
-              ),
-              const SizedBox(width: 13),
-              if (item.subtitle != null)
-                Flexible(
-                  child: _inlineMeta(
-                    Icons.school_outlined,
-                    item.subtitle!,
-                    AppColors.warning,
-                  ),
-                ),
-            ],
+          const SizedBox(height: 14),
+          Text(
+            item['detailTitle'] ?? item['title'],
+            style: AppTextStyles.headline3.copyWith(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _infoHero() {
-    return Container(
-      width: double.infinity,
-      color: AppColors.softBlue,
-      padding: const EdgeInsets.fromLTRB(
-        AppDimensions.sm,
-        20,
-        AppDimensions.sm,
-        31,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(item.subtitle ?? 'Info pratique', style: _blueLabelStyle),
-          const SizedBox(height: 19),
-          Text(item.detailTitle ?? item.title, style: _heroTitleStyle),
-          const SizedBox(height: 18),
-          _inlineMeta(
+          const SizedBox(height: 14),
+          _meta(
             Icons.calendar_month_rounded,
-            'En vigueur depuis le ${item.detailDate ?? item.date}',
+            item['detailDate'] ?? item['date'],
             AppColors.primary,
           ),
         ],
@@ -266,358 +214,230 @@ class ActualiteDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _objectiveCard() {
+  Widget _content() {
+    final content =
+        item['content'] ?? item['excerpt'] ?? '';
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppDimensions.sm,
+        20,
+        AppDimensions.sm,
+        0,
+      ),
+      child: Text(
+        content.toString(),
+        style: AppTextStyles.body.copyWith(
+          fontSize: 14,
+          height: 1.5,
+        ),
+      ),
+    );
+  }
+
+  Widget _pill(String text) {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(12, 11, 12, 12),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 4,
+      ),
       decoration: BoxDecoration(
         color: AppColors.softBlue,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+        borderRadius: BorderRadius.circular(9),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('🎯 Objectif', style: _objectiveTitleStyle),
-          const SizedBox(height: 5),
-          Text(item.objective!, style: _compactBodyStyle),
-        ],
+      child: Text(
+        text,
+        style: AppTextStyles.caption.copyWith(
+          color: AppColors.primary,
+          fontWeight: FontWeight.w700,
+        ),
       ),
+    );
+  }
+
+  Widget _meta(
+      IconData icon,
+      String text,
+      Color color,
+      ) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: color,
+          size: 12,
+        ),
+        const SizedBox(width: 5),
+        Expanded(
+          child: Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.caption.copyWith(
+              color: AppColors.secondaryText,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   Widget _alertCard() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(12, 11, 12, 12),
-      decoration: BoxDecoration(
-        color: AppColors.warning.withAlpha(28),
-        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+    return Padding(
+      padding: const EdgeInsets.all(
+        AppDimensions.sm,
+      ),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppColors.warning.withAlpha(28),
+          borderRadius: BorderRadius.circular(
+            AppDimensions.radiusSmall,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              item['alertTitle'].toString(),
+              style: AppTextStyles.label.copyWith(
+                color: AppColors.warning,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              item['alertText'].toString(),
+              style: AppTextStyles.bodySmall.copyWith(
+                color: AppColors.text,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _documents() {
+    final documents =
+    List<String>.from(item['documents'] as List);
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppDimensions.sm,
+        4,
+        AppDimensions.sm,
+        0,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(item.alertTitle!, style: _alertTitleStyle),
-          const SizedBox(height: 6),
-          Text(item.alertText!, style: _compactBodyStyle),
+          Text(
+            'Documents requis',
+            style: AppTextStyles.label,
+          ),
+          const SizedBox(height: 10),
+          for (final document in documents)
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 7,
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.check_circle_rounded,
+                    color: AppColors.success,
+                    size: 15,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      document,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.text,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
   }
 
-  Widget _tableCard({
-    required String title,
-    required List<InfoRow> rows,
-    bool blueValues = false,
-  }) {
+  Widget _table(
+      String title,
+      List<dynamic> rows, {
+        bool blueValues = false,
+      }) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
-        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusSmall,
+        ),
+        border: Border.all(
+          color: AppColors.border,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(12, 13, 12, 10),
-            child: Text(title, style: _tableTitleStyle),
-          ),
-          for (var index = 0; index < rows.length; index++)
-            _tableRow(
-              rows[index],
-              showTopBorder: index > 0,
-              blueValue: blueValues,
-            ),
-          const SizedBox(height: 6),
-        ],
-      ),
-    );
-  }
-
-  Widget _tableRow(
-    InfoRow row, {
-    required bool showTopBorder,
-    required bool blueValue,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        border: showTopBorder
-            ? const Border(
-                top: BorderSide(color: AppColors.border),
-              )
-            : null,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-      child: Row(
-        children: [
-          Expanded(
+            padding: const EdgeInsets.all(12),
             child: Text(
-              row.label,
-              style: _tableLabelStyle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Flexible(
-            child: Text(
-              row.value,
-              textAlign: TextAlign.right,
-              style: _tableValueStyle.copyWith(
-                color: blueValue
-                    ? AppColors.primary
-                    : AppColors.text,
+              title,
+              style: AppTextStyles.label.copyWith(
+                fontSize: 13,
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _documentRow(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 7),
-      child: Row(
-        children: [
-          Container(
-            width: 13,
-            height: 13,
-            decoration: BoxDecoration(
-              color: AppColors.success.withAlpha(28),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.check_rounded,
-              color: AppColors.success,
-              size: 10,
-            ),
-          ),
-          const SizedBox(width: AppDimensions.sm),
-          Expanded(child: Text(text, style: _compactBodyStyle)),
-        ],
-      ),
-    );
-  }
-
-  List<Widget> _paragraphWidgets(String text) {
-    final paragraphs = text.split('\n\n');
-
-    return [
-      for (var index = 0; index < paragraphs.length; index++) ...[
-        _emphasizedText(paragraphs[index]),
-        if (index < paragraphs.length - 1) const SizedBox(height: 14),
-      ],
-    ];
-  }
-
-  Widget _emphasizedText(String text) {
-    return RichText(
-      text: TextSpan(style: _bodyStyle, children: _spans(text)),
-    );
-  }
-
-  List<TextSpan> _spans(String text) {
-    if (item.emphasisPhrases.isEmpty) {
-      return [TextSpan(text: text)];
-    }
-
-    final spans = <TextSpan>[];
-    var cursor = 0;
-
-    while (cursor < text.length) {
-      var nextIndex = -1;
-      String? nextPhrase;
-
-      for (final phrase in item.emphasisPhrases.where(
-        (phrase) => phrase.isNotEmpty,
-      )) {
-        final index = text.indexOf(phrase, cursor);
-        if (index >= 0 && (nextIndex == -1 || index < nextIndex)) {
-          nextIndex = index;
-          nextPhrase = phrase;
-        }
-      }
-
-      if (nextIndex == -1 || nextPhrase == null) {
-        spans.add(TextSpan(text: text.substring(cursor)));
-        break;
-      }
-
-      if (nextIndex > cursor) {
-        spans.add(TextSpan(text: text.substring(cursor, nextIndex)));
-      }
-
-      spans.add(
-        TextSpan(
-          text: nextPhrase,
-          style: _bodyStyle.copyWith(fontWeight: FontWeight.w800),
-        ),
-      );
-      cursor = nextIndex + nextPhrase.length;
-    }
-
-    return spans;
-  }
-
-  Widget _softPill(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-      decoration: BoxDecoration(
-        color: AppColors.softBlue,
-        borderRadius: BorderRadius.circular(9),
-      ),
-      child: Text(text, style: _blueLabelStyle),
-    );
-  }
-
-  Widget _inlineMeta(IconData icon, String text, Color color) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: color, size: 11),
-        const SizedBox(width: AppDimensions.xs),
-        Text(
-          text,
-          style: _metaStyle,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
-    );
-  }
-
-  static final TextStyle _heroTitleStyle = AppTextStyles.headline3.copyWith(
-    color: AppColors.text,
-    fontSize: 19.4,
-    height: 1.12,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _blueLabelStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.primary,
-    fontSize: 10.7,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _importantLabelStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.error,
-    fontSize: 10.4,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _metaStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.secondaryText,
-    fontSize: 10.7,
-    height: 1.1,
-    fontWeight: FontWeight.w600,
-  );
-
-  static final TextStyle _bodyStyle = AppTextStyles.bodySmall.copyWith(
-    color: AppColors.text,
-    fontSize: 13.4,
-    height: 1.58,
-    fontWeight: FontWeight.w500,
-  );
-
-  static final TextStyle _compactBodyStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.text,
-    fontSize: 11.8,
-    height: 1.35,
-    fontWeight: FontWeight.w500,
-  );
-
-  static final TextStyle _objectiveTitleStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.primary,
-    fontSize: 11.8,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _alertTitleStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.warning,
-    fontSize: 11.8,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _sectionTitleStyle = AppTextStyles.label.copyWith(
-    color: AppColors.text,
-    fontSize: 14.2,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _tableTitleStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.text,
-    fontSize: 12.8,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-
-  static final TextStyle _tableLabelStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.text,
-    fontSize: 11.4,
-    height: 1,
-    fontWeight: FontWeight.w600,
-  );
-
-  static final TextStyle _tableValueStyle = AppTextStyles.caption.copyWith(
-    color: AppColors.text,
-    fontSize: 11.4,
-    height: 1,
-    fontWeight: FontWeight.w800,
-  );
-}
-
-class _DetailTopBar extends StatelessWidget {
-  const _DetailTopBar();
-
-  @override
-  Widget build(BuildContext context) {
-    final topInset = MediaQuery.paddingOf(context).top;
-
-    return Container(
-      height: topInset + 45,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        border: Border(
-          bottom: BorderSide(color: AppColors.border),
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(top: topInset),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(left: AppDimensions.xs),
-            child: Material(
-              color: AppColors.softBlue,
-              borderRadius: BorderRadius.circular(7),
-              child: InkWell(
-                onTap: () {
-                  if (Navigator.of(context).canPop()) {
-                    Navigator.of(context).pop();
-                  }
-                },
-                borderRadius: BorderRadius.circular(7),
-                child: const SizedBox(
-                  width: 28,
-                  height: 28,
-                  child: Icon(
-                    Icons.chevron_left_rounded,
-                    color: AppColors.primary,
-                    size: 22,
+          for (int index = 0; index < rows.length; index++)
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 10,
+              ),
+              decoration: BoxDecoration(
+                border: index > 0
+                    ? const Border(
+                  top: BorderSide(
+                    color: AppColors.border,
                   ),
-                ),
+                )
+                    : null,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      rows[index]['label'].toString(),
+                      style: AppTextStyles.caption.copyWith(
+                        color: AppColors.text,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: Text(
+                      rows[index]['value'].toString(),
+                      textAlign: TextAlign.right,
+                      style: AppTextStyles.caption.copyWith(
+                        color: blueValues
+                            ? AppColors.primary
+                            : AppColors.text,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ),
+        ],
       ),
     );
   }
