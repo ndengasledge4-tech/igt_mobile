@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 import '../../../app/theme/colors.dart';
 
@@ -17,51 +18,45 @@ class AppBottomNavigation extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Container(
-        height: 82,
+        height: 80,
         decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(26),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0x14000000),
-              blurRadius: 20,
-              offset: Offset(0, -4),
-            ),
-          ],
         ),
         child: Row(
           children: [
             _buildItem(
               index: 0,
-              icon: Icons.home_outlined,
-              activeIcon: Icons.home_rounded,
-              label: "Accueil",
+              icon: PhosphorIconsRegular.house,
+              activeIcon: PhosphorIconsFill.house,
+              label: 'Accueil',
             ),
+
             _buildItem(
               index: 1,
-              icon: Icons.school_outlined,
-              activeIcon: Icons.school_rounded,
-              label: "Académie",
+              icon: PhosphorIconsRegular.graduationCap,
+              activeIcon: PhosphorIconsFill.graduationCap,
+              label: 'Académie',
             ),
+
             _buildItem(
               index: 2,
-              icon: Icons.newspaper_outlined,
-              activeIcon: Icons.newspaper_rounded,
-              label: "Actualité",
+              icon: PhosphorIconsRegular.newspaper,
+              activeIcon: PhosphorIconsFill.newspaper,
+              label: 'Actualité',
             ),
+
             _buildItem(
               index: 3,
-              icon: Icons.chat_bubble_outline_rounded,
-              activeIcon: Icons.chat_bubble_rounded,
-              label: "Messagerie",
+              icon: PhosphorIconsRegular.chatCircle,
+              activeIcon: PhosphorIconsFill.chatCircle,
+              label: 'Messagerie',
             ),
+
             _buildItem(
               index: 4,
-              icon: Icons.person_outline_rounded,
-              activeIcon: Icons.person_rounded,
-              label: "Mon espace",
+              icon: PhosphorIconsRegular.user,
+              activeIcon: PhosphorIconsFill.user,
+              label: 'Mon espace',
             ),
           ],
         ),
@@ -74,52 +69,82 @@ class AppBottomNavigation extends StatelessWidget {
     required IconData icon,
     required IconData activeIcon,
     required String label,
+    int? badge,
   }) {
     final bool selected = currentIndex == index;
 
     return Expanded(
       child: InkWell(
         onTap: () => onTap(index),
-        borderRadius: BorderRadius.circular(18),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          padding: const EdgeInsets.only(
-            top: 8,
-            bottom: 6,
-          ),
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        child: SizedBox(
+          height: 80,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                width: 30,
-                height: 3,
-                margin: const EdgeInsets.only(bottom: 6),
-                decoration: BoxDecoration(
-                  color: selected
-                      ? AppColors.primary
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.circular(30),
-                ),
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Icon(
+                    selected ? activeIcon : icon,
+                    size: 25,
+                    color: selected
+                        ? AppColors.primary
+                        : const Color(0xFF8797A7),
+                  ),
+
+                  if (badge != null && badge > 0)
+                    Positioned(
+                      top: -9,
+                      right: -10,
+                      child: Container(
+                        width: 25,
+                        height: 25,
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFD95757),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          '$badge',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
-              Icon(
-                selected ? activeIcon : icon,
-                size: 26,
-                color: selected
-                    ? AppColors.primary
-                    : Colors.grey,
-              ),
+
               const SizedBox(height: 4),
+
               Text(
                 label,
-                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 11,
-                  fontWeight:
-                  selected ? FontWeight.w600 : FontWeight.w500,
+                  fontSize: 12,
+                  fontWeight: selected
+                      ? FontWeight.w600
+                      : FontWeight.w500,
                   color: selected
                       ? AppColors.primary
-                      : Colors.grey,
+                      : const Color(0xFF8797A7),
+                ),
+              ),
+
+              const SizedBox(height: 5),
+
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                width: selected ? 38 : 0,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
             ],
