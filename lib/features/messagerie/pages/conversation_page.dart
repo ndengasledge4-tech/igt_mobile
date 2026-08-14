@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
 import '../../../app/theme/text_styles.dart';
-import '../widgets/conversation_card.dart';
 import '../widgets/message_bubble.dart';
 
 class ConversationPage extends StatefulWidget {
@@ -10,27 +9,31 @@ class ConversationPage extends StatefulWidget {
     super.key,
     required this.subject,
     required this.interlocutor,
+    required this.initials,
     required this.status,
     required this.messages,
   });
 
   final String subject;
   final String interlocutor;
-  final ConversationStatus status;
-  final List<ConversationMessage> messages;
+  final String initials;
+  final String status;
+  final List<({String text, String time, bool isSentByUser})> messages;
 
   @override
   State<ConversationPage> createState() => _ConversationPageState();
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-  late final List<ConversationMessage> _messages;
+  late final List<({String text, String time, bool isSentByUser})> _messages;
   final TextEditingController _messageController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _messages = List<ConversationMessage>.from(widget.messages);
+    _messages = List<({String text, String time, bool isSentByUser})>.from(
+      widget.messages,
+    );
   }
 
   @override
@@ -41,14 +44,13 @@ class _ConversationPageState extends State<ConversationPage> {
 
   void _sendMessage() {
     final text = _messageController.text.trim();
+
     if (text.isEmpty) {
       return;
     }
 
     setState(() {
-      _messages.add(
-        ConversationMessage(text: text, time: 'Maintenant', isSentByUser: true),
-      );
+      _messages.add((text: text, time: 'Maintenant', isSentByUser: true));
       _messageController.clear();
     });
   }
@@ -57,106 +59,113 @@ class _ConversationPageState extends State<ConversationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
-        titleSpacing: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+      body: SafeArea(
+        child: Column(
           children: [
-            Text(
-              widget.interlocutor,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w800,
+            _ConversationHeader(
+              initials: widget.initials,
+              interlocutor: widget.interlocutor,
+              subject: widget.subject,
+              status: widget.status,
+            ),
+            Expanded(
+              child: ListView.separated(
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                itemCount: _messages.length,
+                separatorBuilder: (_, _) => const SizedBox(height: 10),
+                itemBuilder: (context, index) {
+                  final message = _messages[index];
+
+                  return MessageBubble(
+                    text: message.text,
+                    time: message.time,
+                    isSentByUser: message.isSentByUser,
+                    initials: widget.initials,
+                  );
+                },
               ),
             ),
-            const SizedBox(height: 2),
-            Text(
-              widget.subject,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
+            _MessageComposer(
+              controller: _messageController,
+              onSend: _sendMessage,
             ),
           ],
         ),
       ),
-      body: Column(
+    );
+  }
+}
+
+class _ConversationHeader extends StatelessWidget {
+  const _ConversationHeader({
+    required this.initials,
+    required this.interlocutor,
+    required this.subject,
+    required this.status,
+  });
+
+  final String initials;
+  final String interlocutor;
+  final String subject;
+  final String status;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        border: Border(bottom: BorderSide(color: AppColors.border)),
+      ),
+      child: Row(
         children: [
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                final message = _messages[index];
-                return MessageBubble(
-                  text: message.text,
-                  time: message.time,
-                  isSentByUser: message.isSentByUser,
-                );
-              },
+          SizedBox.square(
+            dimension: 32,
+            child: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(Icons.arrow_back_rounded, size: 16),
+              style: IconButton.styleFrom(
+                backgroundColor: AppColors.softBlue,
+                foregroundColor: AppColors.primary,
+                padding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
             ),
           ),
-          SafeArea(
-            top: false,
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                border: Border(top: BorderSide(color: AppColors.border)),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _messageController,
-                      minLines: 1,
-                      maxLines: 4,
-                      textInputAction: TextInputAction.newline,
-                      decoration: InputDecoration(
-                        hintText: 'Écrire un message',
-                        hintStyle: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.hint,
-                        ),
-                        filled: true,
-                        fillColor: AppColors.lightBlue,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 10,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
-                        ),
+          const SizedBox(width: 10),
+          _HeaderAvatar(initials: initials),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  interlocutor,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.label.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Row(
+                  children: [
+                    _StatusBadge(status: status),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        subject,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.caption.copyWith(fontSize: 11),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  SizedBox.square(
-                    dimension: 44,
-                    child: IconButton.filled(
-                      onPressed: _sendMessage,
-                      icon: const Icon(Icons.send_rounded, size: 18),
-                      style: IconButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],
@@ -165,14 +174,144 @@ class _ConversationPageState extends State<ConversationPage> {
   }
 }
 
-class ConversationMessage {
-  const ConversationMessage({
-    required this.text,
-    required this.time,
-    required this.isSentByUser,
-  });
+class _HeaderAvatar extends StatelessWidget {
+  const _HeaderAvatar({required this.initials});
 
-  final String text;
-  final String time;
-  final bool isSentByUser;
+  final String initials;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 36,
+      height: 36,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        color: AppColors.softBlue,
+        shape: BoxShape.circle,
+      ),
+      child: Text(
+        initials,
+        style: AppTextStyles.label.copyWith(
+          color: AppColors.primary,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+}
+
+class _StatusBadge extends StatelessWidget {
+  const _StatusBadge({required this.status});
+
+  final String status;
+
+  @override
+  Widget build(BuildContext context) {
+    final label = switch (status) {
+      'traite' => 'Traité',
+      'en-cours' => 'En cours',
+      'ferme' => 'Fermé',
+      _ => status,
+    };
+
+    final foreground = switch (status) {
+      'traite' => AppColors.success,
+      'en-cours' => AppColors.warning,
+      'ferme' => AppColors.secondaryText,
+      _ => AppColors.primary,
+    };
+
+    final background = switch (status) {
+      'traite' => AppColors.success.withValues(alpha: 0.12),
+      'en-cours' => AppColors.warning.withValues(alpha: 0.12),
+      'ferme' => AppColors.divider,
+      _ => AppColors.softBlue,
+    };
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        label,
+        style: AppTextStyles.caption.copyWith(
+          color: foreground,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+}
+
+class _MessageComposer extends StatelessWidget {
+  const _MessageComposer({required this.controller, required this.onSend});
+
+  final TextEditingController controller;
+  final VoidCallback onSend;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        border: Border(top: BorderSide(color: AppColors.border)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: controller,
+              minLines: 1,
+              maxLines: 4,
+              textInputAction: TextInputAction.newline,
+              style: AppTextStyles.bodySmall.copyWith(color: AppColors.text),
+              decoration: InputDecoration(
+                hintText: 'Écrire un message...',
+                hintStyle: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.hint,
+                ),
+                filled: true,
+                fillColor: AppColors.background,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide: const BorderSide(
+                    color: AppColors.border,
+                    width: 1.5,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(24),
+                  borderSide: const BorderSide(
+                    color: AppColors.primary,
+                    width: 1.5,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          SizedBox.square(
+            dimension: 40,
+            child: IconButton.filled(
+              onPressed: onSend,
+              icon: const Icon(Icons.send_rounded, size: 16),
+              style: IconButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: AppColors.white,
+                shape: const CircleBorder(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
