@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
 import '../../../app/theme/text_styles.dart';
 
-enum ConversationStatus { traite, enCours, ferme }
-
 class ConversationCard extends StatelessWidget {
   const ConversationCard({
     super.key,
@@ -14,7 +12,7 @@ class ConversationCard extends StatelessWidget {
     required this.lastMessage,
     required this.date,
     required this.status,
-    this.unreadCount = 0,
+    required this.unreadCount,
     this.onTap,
   });
 
@@ -23,83 +21,64 @@ class ConversationCard extends StatelessWidget {
   final String interlocutor;
   final String lastMessage;
   final String date;
-  final ConversationStatus status;
+  final String status;
   final int unreadCount;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final statusColors = _StatusColors.from(status);
-
     return Material(
       color: AppColors.card,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(14),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(14),
         child: Container(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(14),
             border: Border.all(color: AppColors.border),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.03),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
-              ),
-            ],
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: AppColors.softBlue,
-                child: Text(
-                  initials,
-                  style: const TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
+              _InitialsAvatar(initials: initials, size: 42),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: Text(
                             interlocutor,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: AppTextStyles.label.copyWith(fontSize: 12),
+                            style: AppTextStyles.label.copyWith(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
                         Text(
                           date,
-                          style: AppTextStyles.caption.copyWith(fontSize: 10),
+                          style: AppTextStyles.caption.copyWith(fontSize: 11),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 2),
                     Text(
                       subject,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.primaryDark,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
+                      style: AppTextStyles.caption.copyWith(
+                        color: AppColors.secondaryText,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 4),
                     Row(
                       children: [
                         Expanded(
@@ -107,17 +86,15 @@ class ConversationCard extends StatelessWidget {
                             lastMessage,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: AppTextStyles.caption.copyWith(fontSize: 11),
+                            style: AppTextStyles.caption.copyWith(
+                              color: AppColors.secondaryText,
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        _StatusPill(
-                          label: _statusLabel(status),
-                          foreground: statusColors.foreground,
-                          background: statusColors.background,
-                        ),
+                        const SizedBox(width: 6),
+                        _StatusBadge(status: status),
                         if (unreadCount > 0) ...[
-                          const SizedBox(width: 6),
+                          const SizedBox(width: 4),
                           _UnreadBadge(count: unreadCount),
                         ],
                       ],
@@ -131,44 +108,76 @@ class ConversationCard extends StatelessWidget {
       ),
     );
   }
-
-  String _statusLabel(ConversationStatus status) {
-    switch (status) {
-      case ConversationStatus.traite:
-        return 'Traité';
-      case ConversationStatus.enCours:
-        return 'En cours';
-      case ConversationStatus.ferme:
-        return 'Fermé';
-    }
-  }
 }
 
-class _StatusPill extends StatelessWidget {
-  const _StatusPill({
-    required this.label,
-    required this.foreground,
-    required this.background,
-  });
+class _InitialsAvatar extends StatelessWidget {
+  const _InitialsAvatar({required this.initials, required this.size});
 
-  final String label;
-  final Color foreground;
-  final Color background;
+  final String initials;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+      width: size,
+      height: size,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        color: AppColors.softBlue,
+        shape: BoxShape.circle,
+      ),
+      child: Text(
+        initials,
+        style: AppTextStyles.label.copyWith(
+          color: AppColors.primary,
+          fontSize: size * 0.35,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+}
+
+class _StatusBadge extends StatelessWidget {
+  const _StatusBadge({required this.status});
+
+  final String status;
+
+  @override
+  Widget build(BuildContext context) {
+    final label = switch (status) {
+      'traite' => 'Traité',
+      'en-cours' => 'En cours',
+      'ferme' => 'Fermé',
+      _ => status,
+    };
+
+    final foreground = switch (status) {
+      'traite' => AppColors.success,
+      'en-cours' => AppColors.warning,
+      'ferme' => AppColors.secondaryText,
+      _ => AppColors.primary,
+    };
+
+    final background = switch (status) {
+      'traite' => AppColors.success.withValues(alpha: 0.12),
+      'en-cours' => AppColors.warning.withValues(alpha: 0.12),
+      'ferme' => AppColors.divider,
+      _ => AppColors.softBlue,
+    };
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
         color: background,
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
         label,
-        style: TextStyle(
+        style: AppTextStyles.caption.copyWith(
           color: foreground,
-          fontSize: 10,
-          fontWeight: FontWeight.w800,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );
@@ -183,48 +192,22 @@ class _UnreadBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 20,
-      height: 20,
+      constraints: const BoxConstraints(minWidth: 18),
+      height: 18,
       alignment: Alignment.center,
-      decoration: const BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      decoration: BoxDecoration(
         color: AppColors.primary,
-        shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Text(
         '$count',
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 11,
-          fontWeight: FontWeight.w800,
+        style: AppTextStyles.caption.copyWith(
+          color: AppColors.white,
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
         ),
       ),
     );
-  }
-}
-
-class _StatusColors {
-  const _StatusColors({required this.foreground, required this.background});
-
-  final Color foreground;
-  final Color background;
-
-  factory _StatusColors.from(ConversationStatus status) {
-    switch (status) {
-      case ConversationStatus.traite:
-        return _StatusColors(
-          foreground: AppColors.success,
-          background: AppColors.success.withValues(alpha: 0.12),
-        );
-      case ConversationStatus.enCours:
-        return _StatusColors(
-          foreground: AppColors.warning,
-          background: AppColors.warning.withValues(alpha: 0.14),
-        );
-      case ConversationStatus.ferme:
-        return _StatusColors(
-          foreground: AppColors.secondaryText,
-          background: AppColors.divider,
-        );
-    }
   }
 }
