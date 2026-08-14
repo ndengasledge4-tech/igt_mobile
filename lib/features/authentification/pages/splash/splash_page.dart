@@ -83,7 +83,7 @@ class _SplashPageState extends State<SplashPage>
           Image.asset(
             'assets/images/salles/igt.jpg',
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) {
+            errorBuilder: (_, _, _) {
               return Container(
                 color: AppColors.primaryDark,
               );
@@ -186,7 +186,7 @@ class _SplashPageState extends State<SplashPage>
                         // NOM
                         // =================================================
                         const Text(
-                          'IGT Mobile',
+                          'IGT MOBILE',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -301,7 +301,7 @@ class _SplashPageState extends State<SplashPage>
         child: Image.asset(
           'assets/logo/logo.png',
           fit: BoxFit.contain,
-          errorBuilder: (_, __, ___) {
+          errorBuilder: (_, _, _) {
             return const Icon(
               Icons.school_rounded,
               size: 62,
@@ -415,9 +415,7 @@ class _SplashPageState extends State<SplashPage>
           height: 1,
           color: Colors.white.withValues(alpha: 0.28),
         ),
-
         const SizedBox(height: 11),
-
         Text(
           'INSTITUT DE GESTION ET DE TECHNOLOGIE',
           textAlign: TextAlign.center,
@@ -428,9 +426,7 @@ class _SplashPageState extends State<SplashPage>
             letterSpacing: 0.9,
           ),
         ),
-
         const SizedBox(height: 5),
-
         Text(
           'IGT • Espace étudiant',
           textAlign: TextAlign.center,
