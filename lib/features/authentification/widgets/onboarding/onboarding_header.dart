@@ -16,7 +16,7 @@ class OnboardingHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
-            'Onboarding',
+            'IGT MOBILE',
             style: TextStyle(
               color: Color(0xFF26384D),
               fontSize: 13,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../pages/forgot_password/mot_de_passe_oublie_page.dart';
+
+
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
@@ -75,6 +78,30 @@ class _LoginFormState extends State<LoginForm> {
             focusedBorder: _focusedBorder(),
           ),
         ),
+
+        Align(
+          alignment: Alignment.centerRight,
+          child: TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const MotDePasseOubliePage(),
+                ),
+              );
+            },
+            child: const Text(
+              'Mot de passe oublié ?',
+              style: TextStyle(
+                color: Color(0xFF3F76A5),
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 12),
       ],
     );
   }

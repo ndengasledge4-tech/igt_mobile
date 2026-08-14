@@ -61,7 +61,6 @@ flutter:
 
   assets:
      - assets/logo/logo.png
-     - assets/logo/
      - assets/images/
      - assets/images/salles/
      - assets/images/dashboard/
