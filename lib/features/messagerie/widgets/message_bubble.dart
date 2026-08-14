@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/dimensions.dart';
 import '../../../app/theme/text_styles.dart';
+import 'initials_avatar.dart';
 
 class MessageBubble extends StatelessWidget {
   const MessageBubble({
@@ -19,6 +21,8 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final maxWidth = MediaQuery.sizeOf(context).width * 0.75;
+
     return Row(
       mainAxisAlignment: isSentByUser
           ? MainAxisAlignment.end
@@ -26,13 +30,17 @@ class MessageBubble extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if (!isSentByUser) ...[
-          _SmallAvatar(initials: initials ?? ''),
-          const SizedBox(width: 8),
+          InitialsAvatar(
+            initials: initials ?? '',
+            size: 28,
+          ),
+          const SizedBox(width: AppDimensions.sm),
         ],
+
         Flexible(
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxWidth: MediaQuery.sizeOf(context).width * 0.75,
+              maxWidth: maxWidth,
             ),
             child: Column(
               crossAxisAlignment: isSentByUser
@@ -41,67 +49,53 @@ class MessageBubble extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
+                    horizontal: AppDimensions.md,
                     vertical: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: isSentByUser ? AppColors.primary : AppColors.card,
+                    color: isSentByUser
+                        ? AppColors.primary
+                        : AppColors.card,
                     borderRadius: BorderRadius.only(
                       topLeft: const Radius.circular(16),
                       topRight: const Radius.circular(16),
-                      bottomLeft: Radius.circular(isSentByUser ? 16 : 4),
-                      bottomRight: Radius.circular(isSentByUser ? 4 : 16),
+                      bottomLeft: Radius.circular(
+                        isSentByUser ? 16 : 4,
+                      ),
+                      bottomRight: Radius.circular(
+                        isSentByUser ? 4 : 16,
+                      ),
                     ),
                     border: isSentByUser
                         ? null
-                        : Border.all(color: AppColors.border),
+                        : Border.all(
+                      color: AppColors.border,
+                    ),
                   ),
                   child: Text(
                     text,
                     style: AppTextStyles.bodySmall.copyWith(
-                      color: isSentByUser ? AppColors.white : AppColors.text,
-                      fontSize: 13,
+                      color: isSentByUser
+                          ? AppColors.white
+                          : AppColors.text,
                       height: 1.5,
                     ),
                   ),
                 ),
-                const SizedBox(height: 3),
+
+                const SizedBox(height: AppDimensions.xs),
+
                 Text(
                   time,
-                  textAlign: isSentByUser ? TextAlign.right : TextAlign.left,
-                  style: AppTextStyles.caption.copyWith(fontSize: 10),
+                  style: AppTextStyles.caption.copyWith(
+                    fontSize: 10,
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ],
-    );
-  }
-}
-
-class _SmallAvatar extends StatelessWidget {
-  const _SmallAvatar({required this.initials});
-
-  final String initials;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 28,
-      height: 28,
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        color: AppColors.softBlue,
-        shape: BoxShape.circle,
-      ),
-      child: Text(
-        initials,
-        style: AppTextStyles.caption.copyWith(
-          color: AppColors.primary,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
     );
   }
 }
