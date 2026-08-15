@@ -76,13 +76,8 @@ import '../../features/Messagerie/pages/messagerie_page.dart';
 // MON ESPACE
 // ============================================================
 import '../../features/mon_espace/pages/mon_espace_page.dart';
-import '../../features/mon_espace/pages/profil_page.dart';
-import '../../features/mon_espace/pages/situation_financiere_page.dart';
-import '../../features/mon_espace/pages/historique_paiements_page.dart';
-import '../../features/mon_espace/pages/parametres_page.dart';
-import '../../features/mon_espace/pages/modifier_mot_de_passe_page.dart';
-import '../../features/mon_espace/pages/a_propos_page.dart';
-import '../../features/mon_espace/pages/aide_page.dart';
+
+
 
 import 'route_names.dart';
 
@@ -201,7 +196,7 @@ class RouteGenerator {
           const MesCoursPage(),
         );
 
-     // ============================================================
+    // ============================================================
     // SEMESTRE
     // ============================================================
       case RouteNames.semestre:
@@ -215,9 +210,9 @@ class RouteGenerator {
           ),
         );
 
-     // ============================================================
-     // DÉTAIL DU COURS
-     // ============================================================
+    // ============================================================
+    // DÉTAIL DU COURS
+    // ============================================================
       case RouteNames.coursDetail:
         final semestre = settings.arguments as String;
 
@@ -227,17 +222,17 @@ class RouteGenerator {
           ),
         );
 
-      // ============================================================
-     // MES DOCUMENTS
-     // ============================================================
+    // ============================================================
+    // MES DOCUMENTS
+    // ============================================================
       case RouteNames.mesDocuments:
         return _page(
           const MesDocumentsPage(),
         );
 
-     // ============================================================
-     // DÉTAIL DU DOCUMENT
-     // ============================================================
+    // ============================================================
+    // DÉTAIL DU DOCUMENT
+    // ============================================================
       case RouteNames.documentDetail:
         final arguments =
         settings.arguments as Map<String, dynamic>;
@@ -251,7 +246,7 @@ class RouteGenerator {
           ),
         );
 
-     // ============================================================
+    // ============================================================
     // MES NOTES
     // ============================================================
       case RouteNames.mesNotes:
@@ -281,17 +276,13 @@ class RouteGenerator {
     // MON ESPACE
     // ============================================================
       case RouteNames.monEspace:
-        return _page(const MonEspacePage());
-      case RouteNames.profil:
-        return _page(const ProfilPage());
-      case RouteNames.situationFinanciere:
-        return _page(const SituationFinancierePage());
-      case RouteNames.historiquePaiements:
-        return _page(const HistoriquePaiementsPage());
-      case RouteNames.parametres:
-        return _page(const ParametresPage());
-      case RouteNames.modifierMotDePasse:
-        return _page(const ModifierMotDePassePage());
+        return _page(
+          const MonEspacePage(),
+        );
+
+    // ========================================================
+    // ROUTE INCONNUE
+    // ========================================================
 
       default:
         return _notFound();

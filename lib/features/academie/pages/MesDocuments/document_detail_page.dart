@@ -46,25 +46,26 @@ class DocumentDetailPage extends StatelessWidget {
             // --------------------------------------------------
 
             Container(
-              width: 64,
-              height: 64,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFDECEC),
-                borderRadius: BorderRadius.circular(16),
-              ),
+              width: 150,
+              height: 150,
               alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: type == 'DOCX'
+                    ? const Color(0xFFE8F2FC) // bleu clair
+                    : const Color(0xFFFCEBE8), // rouge clair
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: Text(
                 type,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 28,
                   fontWeight: FontWeight.w700,
                   color: type == 'DOCX'
-                      ? const Color(0xFF4D8BC9)
-                      : const Color(0xFFD96B5F),
+                      ? const Color(0xFF4D8BC9) // bleu
+                      : const Color(0xFFD96B5F), // rouge
                 ),
               ),
             ),
-
             const SizedBox(height: 20),
 
             // --------------------------------------------------

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../app/routes/route_names.dart';
+
 // Importation des couleurs personnalisées de l'application.
 import '../../../app/theme/colors.dart';
 
@@ -31,24 +33,22 @@ class AcademiePage extends StatelessWidget {
             Container(
               width: double.infinity,
 
-              // Espacement interne de l'en-tête.
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 22),
+              padding: const EdgeInsets.fromLTRB(
+                20,
+                28,
+                20,
+                26,
+              ),
 
-              // Style visuel de l'en-tête.
               decoration: BoxDecoration(
                 color: AppColors.primary,
 
-                // Arrondissement uniquement des deux coins inférieurs.
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(24),
-                  bottomRight: Radius.circular(24),
-                ),
+
               ),
 
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Titre principal de la page.
                   Text(
                     'Académie',
                     style: AppTextStyles.title.copyWith(
@@ -58,12 +58,8 @@ class AcademiePage extends StatelessWidget {
                     ),
                   ),
 
-                  // Espace entre le titre et les informations
-                  // concernant le parcours de l'étudiant.
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 8),
 
-                  // Informations sur la formation, le niveau
-                  // et la classe de l'étudiant.
                   const Text(
                     'Informatique de Gestion · 2ème année · IG2',
                     style: TextStyle(
@@ -109,7 +105,7 @@ class AcademiePage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        '/mon-parcours',
+                        RouteNames.monParcours,
                       );
                     },
                   ),
@@ -126,7 +122,7 @@ class AcademiePage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        '/mes-cours',
+                        RouteNames.mesCours,
                       );
                     },
                   ),
@@ -144,7 +140,7 @@ class AcademiePage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        '/mes-notes',
+                        RouteNames.mesNotes,
                       );
                     },
                   ),
@@ -162,7 +158,7 @@ class AcademiePage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        '/mes-resultats',
+                        RouteNames.mesResultats,
                       );
                     },
                   ),
@@ -180,7 +176,7 @@ class AcademiePage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        '/emploi-du-temps',
+                        RouteNames.emploiDuTemps,
                       );
                     },
                   ),
@@ -198,7 +194,7 @@ class AcademiePage extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        '/mes-documents',
+                        RouteNames.mesDocuments,
                       );
                     },
                   ),

@@ -163,14 +163,14 @@ class SemestreCard extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 10),
-
                 Icon(
                   Icons.chevron_right_rounded,
-                  size: 22,
+                  size: 28,
                   color: aucunCours
                       ? Colors.grey.shade400
-                      : Colors.black54,
+                      : Colors.grey,
                 ),
+
               ],
             ),
           ],

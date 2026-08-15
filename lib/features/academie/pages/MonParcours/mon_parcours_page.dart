@@ -5,6 +5,8 @@ import '../../../../app/theme/text_styles.dart';
 import '../../../widgets/parcours_academique_card.dart';
 import '../../../widgets/semestre_card.dart';
 
+import '../../../../app/routes/route_names.dart';
+
 /// Page permettant à l'étudiant de consulter son parcours académique.
 class MonParcoursPage extends StatelessWidget {
   const MonParcoursPage({super.key});
@@ -74,22 +76,41 @@ class MonParcoursPage extends StatelessWidget {
 
             // Semestre 3.
             SemestreCard(
-              imagePath:  'assets/images/academie/annee_2.png',
+              imagePath: 'assets/images/academie/annee_2.png',
               titre: 'Semestre 3',
               sousTitre: '6 matières · 30 crédits',
               nombreCours: '6 matières disponibles',
               statut: 'En cours',
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteNames.semestre,
+                  arguments: {
+                    'annee': '2ème année',
+                    'semestres': ['Semestre 3'],
+                  },
+                );
+              },
             ),
-
             const SizedBox(height: 12),
 
             // Semestre 4.
             SemestreCard(
-              imagePath:  'assets/images/academie/annee_2.png',
+              imagePath: 'assets/images/academie/annee_2.png',
               titre: 'Semestre 4',
               sousTitre: '6 matières · 30 crédits',
               nombreCours: '6 matières disponibles',
               statut: 'À venir',
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteNames.semestre,
+                  arguments: {
+                    'annee': '2ème année',
+                    'semestres': ['Semestre 4'],
+                  },
+                );
+              },
             ),
 
           ],

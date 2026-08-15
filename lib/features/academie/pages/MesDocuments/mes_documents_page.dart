@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../../../widgets/document_card.dart';
 import 'document_detail_page.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 /// ============================================================
 /// PAGE : MES DOCUMENTS
 /// ============================================================
 
 class MesDocumentsPage extends StatefulWidget {
-  const MesDocumentsPage({super.key});
+  final int initialCategory;
 
+  const MesDocumentsPage({
+    super.key,
+    this.initialCategory = 0,
+  });
   @override
   State<MesDocumentsPage> createState() => _MesDocumentsPageState();
 }
@@ -25,6 +31,13 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
     'Formulaires',
   ];
 
+  @override
+  void initState() {
+    super.initState();
+
+    selectedCategory = widget.initialCategory;
+  }
+
   /// ==========================================================
   /// DOCUMENTS
   /// ==========================================================
@@ -36,6 +49,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
       'date': '01/09/2025',
       'taille': '1.2 MB',
       'categorie': 'Admin',
+      'url': 'https://exemple.com/reglement-interieur-2025.pdf',
     },
     {
       'type': 'PDF',
@@ -43,6 +57,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
       'date': '05/09/2025',
       'taille': '890 KB',
       'categorie': 'Académique',
+      'url': 'https://exemple.com/programme-s3.pdf',
     },
     {
       'type': 'PDF',
@@ -50,6 +65,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
       'date': '15/09/2025',
       'taille': '4.1 MB',
       'categorie': 'Cours',
+      'url': 'https://exemple.com/cours-algo.pdf',
     },
     {
       'type': 'DOCX',
@@ -57,6 +73,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
       'date': '20/09/2025',
       'taille': '240 KB',
       'categorie': 'Formulaires',
+      'url': 'https://exemple.com/formulaire.docx',
     },
     {
       'type': 'PDF',
@@ -64,6 +81,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
       'date': '22/09/2025',
       'taille': '350 KB',
       'categorie': 'Admin',
+      'url': 'https://exemple.com/calendrier.pdf',
     },
     {
       'type': 'PDF',
@@ -71,9 +89,9 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
       'date': '28/09/2025',
       'taille': '1.8 MB',
       'categorie': 'Cours',
+      'url': 'https://exemple.com/tp-bdd.pdf',
     },
   ];
-
   /// ==========================================================
   /// FILTRAGE
   /// ==========================================================
@@ -108,6 +126,25 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
         ),
       ),
     );
+  }
+
+  Future<void> downloadDocument(String url) async {
+    final Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+    } else {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Impossible de télécharger ce document'),
+        ),
+      );
+    }
   }
 
   /// ==========================================================
@@ -249,9 +286,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
                     onView: () {
                       openDocument(document);
                     },
-                    onDownload: () {
-                      // Téléchargement à connecter plus tard.
-                    },
+
                   );
                 },
               ),

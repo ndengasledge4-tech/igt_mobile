@@ -26,14 +26,24 @@ class MesCoursPage extends StatelessWidget {
         elevation: 0,
 
         // Bouton retour
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black87,
+        leading: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFE8F0FA),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Color(0xFF1976D2),
+                size: 20,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
 
         // Titre
@@ -96,18 +106,18 @@ class MesCoursPage extends StatelessWidget {
             // 2ÈME ANNÉE
             // --------------------------------------------------
             SemestreCard(
-              imagePath: 'assets/images/academie/annee_1.png',
-              titre: '1ère année',
-              sousTitre: 'Semestre 1 — Semestre 2',
-              nombreCours: '10 cours disponible(s)',
+              imagePath: 'assets/images/academie/annee_2.png',
+              titre: '2ème année',
+              sousTitre: 'Semestre 3 — Semestre 4',
+              nombreCours: '12 cours disponibles',
               statut: 'En cours',
               onTap: () {
                 Navigator.pushNamed(
                   context,
                   RouteNames.semestre,
                   arguments: {
-                    'annee': '1ère année',
-                    'semestres': ['Semestre 1', 'Semestre 2'],
+                    'annee': '2ème année',
+                    'semestres': ['Semestre 3', 'Semestre 4'],
                   },
                 );
               },
@@ -121,9 +131,18 @@ class MesCoursPage extends StatelessWidget {
               imagePath: 'assets/images/academie/annee_3.png',
               titre: '3ème année',
               sousTitre: 'Semestre 5 — Semestre 6',
-              nombreCours: 'Pas encore de cours',
+              nombreCours: 'Cours à venir',
               statut: 'À venir',
-              onTap: null,
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteNames.semestre,
+                  arguments: {
+                    'annee': '3ème année',
+                    'semestres': ['Semestre 5', 'Semestre 6'],
+                  },
+                );
+              },
             ),
           ],
         ),

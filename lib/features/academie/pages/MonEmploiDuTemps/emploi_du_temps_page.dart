@@ -31,25 +31,21 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
               child: Row(
                 children: [
-                  // Bouton retour bleu arrondi
-                  Container(
-                    width: 42,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: bleu,
-                      borderRadius: BorderRadius.circular(14),
+                  // Bouton retour
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(
+                      minWidth: 32,
+                      minHeight: 32,
                     ),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                        size: 21,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: Color(0xFF172033),
+                      size: 20,
                     ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
 
                   const SizedBox(width: 14),

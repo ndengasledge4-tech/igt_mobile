@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../widgets/cours_card.dart';
+import 'cours_contenu_page.dart';
 
 /// ============================================================
 /// PAGE : LISTE DES COURS
@@ -43,6 +44,7 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 4,
       'coefficient': 3,
+      'imagePath': 'assets/images/cours/informatique.png'
     },
 
     {
@@ -51,6 +53,7 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 4,
       'coefficient': 3,
+      'imagePath': 'assets/images/cours/algorithmique.png'
     },
 
     {
@@ -59,6 +62,7 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 3,
       'coefficient': 2,
+      'imagePath': 'assets/images/cours/Mathématiques.png'
     },
 
     {
@@ -67,6 +71,7 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 2,
       'coefficient': 1,
+      'imagePath': 'assets/images/cours/Anglais.png'
     },
 
     {
@@ -75,6 +80,8 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 2,
       'coefficient': 1,
+      'imagePath': 'assets/images/cours/Expression française.png'
+
     },
 
     // --------------------------------------------------------
@@ -86,6 +93,7 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S2',
       'credits': 4,
       'coefficient': 3,
+      'imagePath': 'assets/images/cours/Algorithme II.png'
     },
 
     {
@@ -94,6 +102,8 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S2',
       'credits': 4,
       'coefficient': 3,
+      'imagePath': 'assets/images/cours/Programmation orientée objet.png'
+
     },
 
     {
@@ -102,33 +112,37 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S2',
       'credits': 3,
       'coefficient': 2,
+      'imagePath': 'assets/images/cours/Mathématiques II.png'
     },
 
     {
-      'nom': "Systèmes d'information",
+      'nom': "Sécurité",
       'professeur': 'Prof. I. KONE',
       'semestre': 'S2',
       'credits': 3,
       'coefficient': 2,
+      'imagePath': 'assets/images/cours/Sécurité.png'
     },
 
     {
-      'nom': 'Anglais II',
+      'nom': 'SGBD',
       'professeur': 'Prof. S. MARTIN',
       'semestre': 'S2',
       'credits': 2,
       'coefficient': 1,
+      'imagePath': 'assets/images/cours/SGBD.png'
     },
 
     // --------------------------------------------------------
     // SEMESTRE 3
     // --------------------------------------------------------
     {
-      'nom': 'Algorithmique avancée',
+      'nom': 'Entrepreunariat',
       'professeur': 'Prof. M. COULIBALY',
       'semestre': 'S3',
       'credits': 4,
       'coefficient': 3,
+      'imagePath': 'assets/images/cours/Entrepreunariat.png'
     },
 
     {
@@ -137,6 +151,8 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S3',
       'credits': 3,
       'coefficient': 2,
+      'imagePath': 'assets/images/cours/Bases de données.png'
+
     },
 
     {
@@ -145,6 +161,7 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S3',
       'credits': 4,
       'coefficient': 3,
+      'imagePath': 'assets/images/cours/Réseaux informatiques.png'
     },
 
     {
@@ -153,22 +170,25 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S3',
       'credits': 3,
       'coefficient': 2,
+      'imagePath': 'assets/images/cours/Génie logiciel.png'
     },
 
     {
-      'nom': "Systèmes d'exploitation",
+      'nom': "Systèmes",
       'professeur': 'Prof. I. KONE',
       'semestre': 'S3',
       'credits': 4,
       'coefficient': 3,
+      'imagePath': 'assets/images/cours/Systèmes.png'
     },
 
     {
-      'nom': "Mathématiques pour l'info",
+      'nom': "logistique",
       'professeur': 'Prof. D. BAMBA',
       'semestre': 'S3',
       'credits': 3,
       'coefficient': 2,
+      'imagePath': 'assets/images/cours/logistique.png'
     },
   ];
 
@@ -382,6 +402,7 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
                 coursFiltres[index];
 
                 return CoursCard(
+                  imagePath: cours['imagePath'],
                   nom: cours['nom'],
                   professeur: cours['professeur'],
                   semestre: cours['semestre'],
@@ -389,8 +410,19 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
                   coefficient: cours['coefficient'],
 
                   onTap: () {
-                    // Pour l'instant, on pourra brancher
-                    // ici la vraie page de détail du cours.
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CoursContenuPage(
+                          imagePath: cours['imagePath'],
+                          nom: cours['nom'],
+                          professeur: cours['professeur'],
+                          semestre: cours['semestre'],
+                          credits: cours['credits'],
+                          coefficient: cours['coefficient'],
+                        ),
+                      ),
+                    );
                   },
                 );
               },

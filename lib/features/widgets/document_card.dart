@@ -43,8 +43,16 @@ class DocumentCard extends StatelessWidget {
           // TYPE DU DOCUMENT
           // ----------------------------------------------------
 
-          SizedBox(
-            width: 42,
+          Container(
+            width: 52,
+            height: 52,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: type == 'DOCX'
+                  ? const Color(0xFFE8F2FC)
+                  : const Color(0xFFFCEBE8),
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: Text(
               type,
               textAlign: TextAlign.center,

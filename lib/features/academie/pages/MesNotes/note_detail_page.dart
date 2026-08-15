@@ -271,7 +271,7 @@ class _SemesterNotesPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/academie/notes.png',
+                  'assets/images/academie/mes_notes.png',
                   width: 52,
                   height: 52,
                   fit: BoxFit.contain,
