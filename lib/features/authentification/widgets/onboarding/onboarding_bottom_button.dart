@@ -29,10 +29,7 @@ class OnboardingBottomButton extends StatelessWidget {
           ),
           child: Text(
             label,
-            style: const TextStyle(
-              fontSize: 19,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
           ),
         ),
       ),

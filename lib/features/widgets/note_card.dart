@@ -39,9 +39,7 @@ class NoteCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(
-          color: const Color(0xFFE8E8E8),
-        ),
+        border: Border.all(color: const Color(0xFFE8E8E8)),
       ),
       child: Column(
         children: [
@@ -90,10 +88,7 @@ class NoteCard extends StatelessWidget {
 
                   const Text(
                     '/ 20',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Color(0xFF888888),
-                    ),
+                    style: TextStyle(fontSize: 11, color: Color(0xFF888888)),
                   ),
                 ],
               ),

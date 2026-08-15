@@ -14,12 +14,7 @@ class WaitingValidationPage extends StatelessWidget {
 
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(
-                  24,
-                  35,
-                  24,
-                  30,
-                ),
+                padding: const EdgeInsets.fromLTRB(24, 35, 24, 30),
                 child: Column(
                   children: [
                     _buildIllustration(),
@@ -40,7 +35,7 @@ class WaitingValidationPage extends StatelessWidget {
 
                     const Text(
                       'Votre demande de création de compte a bien été '
-                          'enregistrée.',
+                      'enregistrée.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF8A98A8),
@@ -68,9 +63,7 @@ class WaitingValidationPage extends StatelessWidget {
                         },
                         style: OutlinedButton.styleFrom(
                           foregroundColor: const Color(0xFF4388C5),
-                          side: const BorderSide(
-                            color: Color(0xFF4388C5),
-                          ),
+                          side: const BorderSide(color: Color(0xFF4388C5)),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14),
                           ),
@@ -100,11 +93,7 @@ class WaitingValidationPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: Color(0xFFE6EAF0),
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFE6EAF0))),
       ),
       child: Row(
         children: [
@@ -156,9 +145,7 @@ class WaitingValidationPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(17),
-        border: Border.all(
-          color: const Color(0xFFE2E8EF),
-        ),
+        border: Border.all(color: const Color(0xFFE2E8EF)),
       ),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,24 +163,21 @@ class WaitingValidationPage extends StatelessWidget {
 
           _InformationRow(
             icon: Icons.fact_check_outlined,
-            text:
-            'Votre dossier est en cours de vérification.',
+            text: 'Votre dossier est en cours de vérification.',
           ),
 
           SizedBox(height: 13),
 
           _InformationRow(
             icon: Icons.verified_user_outlined,
-            text:
-            'L’administration vérifiera vos informations.',
+            text: 'L’administration vérifiera vos informations.',
           ),
 
           SizedBox(height: 13),
 
           _InformationRow(
             icon: Icons.notifications_none_rounded,
-            text:
-            'Vous serez informé lorsque votre compte sera validé.',
+            text: 'Vous serez informé lorsque votre compte sera validé.',
           ),
         ],
       ),
@@ -203,21 +187,14 @@ class WaitingValidationPage extends StatelessWidget {
   Widget _buildStatus() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 15,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
       decoration: BoxDecoration(
         color: const Color(0xFFFFF7E6),
         borderRadius: BorderRadius.circular(14),
       ),
       child: const Row(
         children: [
-          Icon(
-            Icons.access_time_rounded,
-            color: Color(0xFFD99000),
-            size: 25,
-          ),
+          Icon(Icons.access_time_rounded, color: Color(0xFFD99000), size: 25),
 
           SizedBox(width: 12),
 
@@ -241,10 +218,7 @@ class _InformationRow extends StatelessWidget {
   final IconData icon;
   final String text;
 
-  const _InformationRow({
-    required this.icon,
-    required this.text,
-  });
+  const _InformationRow({required this.icon, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -258,11 +232,7 @@ class _InformationRow extends StatelessWidget {
             color: const Color(0xFFF1F6FA),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(
-            icon,
-            size: 19,
-            color: const Color(0xFF4388C5),
-          ),
+          child: Icon(icon, size: 19, color: const Color(0xFF4388C5)),
         ),
 
         const SizedBox(width: 11),

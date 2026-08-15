@@ -35,9 +35,7 @@ class SemestreCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
 
         decoration: BoxDecoration(
-          color: aucunCours
-              ? const Color(0xFFF5F6F7)
-              : Colors.white,
+          color: aucunCours ? const Color(0xFFF5F6F7) : Colors.white,
 
           borderRadius: BorderRadius.circular(18),
 
@@ -50,11 +48,9 @@ class SemestreCard extends StatelessWidget {
 
         child: Row(
           children: [
-
             // ==================================================
             // IMAGE
             // ==================================================
-
             Container(
               width: 58,
               height: 58,
@@ -73,17 +69,11 @@ class SemestreCard extends StatelessWidget {
                 imagePath,
                 fit: BoxFit.contain,
 
-                errorBuilder: (
-                    context,
-                    error,
-                    stackTrace,
-                    ) {
+                errorBuilder: (context, error, stackTrace) {
                   return Icon(
                     Icons.school_rounded,
                     size: 30,
-                    color: aucunCours
-                        ? Colors.grey
-                        : const Color(0xFF4CAF50),
+                    color: aucunCours ? Colors.grey : const Color(0xFF4CAF50),
                   );
                 },
               ),
@@ -94,20 +84,16 @@ class SemestreCard extends StatelessWidget {
             // ==================================================
             // INFORMATIONS
             // ==================================================
-
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Text(
                     titre,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: aucunCours
-                          ? Colors.black54
-                          : Colors.black87,
+                      color: aucunCours ? Colors.black54 : Colors.black87,
                     ),
                   ),
 
@@ -145,11 +131,9 @@ class SemestreCard extends StatelessWidget {
             // ==================================================
             // STATUT + FLÈCHE
             // ==================================================
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-
                 Text(
                   statut,
                   style: TextStyle(
@@ -167,9 +151,7 @@ class SemestreCard extends StatelessWidget {
                 Icon(
                   Icons.chevron_right_rounded,
                   size: 22,
-                  color: aucunCours
-                      ? Colors.grey.shade400
-                      : Colors.black54,
+                  color: aucunCours ? Colors.grey.shade400 : Colors.black54,
                 ),
               ],
             ),

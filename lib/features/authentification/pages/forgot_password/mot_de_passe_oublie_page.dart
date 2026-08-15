@@ -8,17 +8,13 @@ class MotDePasseOubliePage extends StatefulWidget {
   const MotDePasseOubliePage({super.key});
 
   @override
-  State<MotDePasseOubliePage> createState() =>
-      _MotDePasseOubliePageState();
+  State<MotDePasseOubliePage> createState() => _MotDePasseOubliePageState();
 }
 
-class _MotDePasseOubliePageState
-    extends State<MotDePasseOubliePage> {
-  final TextEditingController _emailController =
-  TextEditingController();
+class _MotDePasseOubliePageState extends State<MotDePasseOubliePage> {
+  final TextEditingController _emailController = TextEditingController();
 
-  final TextEditingController _codeController =
-  TextEditingController();
+  final TextEditingController _codeController = TextEditingController();
 
   int _step = 0;
 
@@ -48,12 +44,7 @@ class _MotDePasseOubliePageState
 
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(
-                  24,
-                  28,
-                  24,
-                  30,
-                ),
+                padding: const EdgeInsets.fromLTRB(24, 28, 24, 30),
                 child: _step == 0
                     ? _buildEmailStep()
                     : _buildVerificationStep(),
@@ -101,20 +92,14 @@ class _MotDePasseOubliePageState
 
         const Text(
           'Saisissez votre email ou identifiant pour recevoir\n'
-              'un lien de réinitialisation.',
+          'un lien de réinitialisation.',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xFF8A98A8),
-            fontSize: 16,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 16, height: 1.5),
         ),
 
         const SizedBox(height: 38),
 
-        ForgotPasswordForm(
-          controller: _emailController,
-        ),
+        ForgotPasswordForm(controller: _emailController),
 
         const SizedBox(height: 30),
 
@@ -132,10 +117,7 @@ class _MotDePasseOubliePageState
             ),
             child: const Text(
               'Envoyer le code',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
         ),
@@ -148,10 +130,7 @@ class _MotDePasseOubliePageState
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
             color: const Color(0xFFEAF4FE),
             borderRadius: BorderRadius.circular(12),
@@ -184,17 +163,12 @@ class _MotDePasseOubliePageState
         const Text(
           'Saisissez le code à 6 chiffres reçu par email.',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xFF8A98A8),
-            fontSize: 16,
-          ),
+          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 16),
         ),
 
         const SizedBox(height: 38),
 
-        VerificationForm(
-          controller: _codeController,
-        ),
+        VerificationForm(controller: _codeController),
 
         const SizedBox(height: 30),
 
@@ -216,10 +190,7 @@ class _MotDePasseOubliePageState
             ),
             child: const Text(
               'Vérifier',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
         ),

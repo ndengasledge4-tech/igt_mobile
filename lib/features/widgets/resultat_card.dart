@@ -24,9 +24,7 @@ class ResultatCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: Colors.grey.shade200,
-        ),
+        border: Border.all(color: Colors.grey.shade200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,28 +71,19 @@ class ResultatCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: _ResultatInfo(
-                  valeur: moyenne,
-                  label: 'Moyenne',
-                ),
+                child: _ResultatInfo(valeur: moyenne, label: 'Moyenne'),
               ),
 
               const SizedBox(width: 10),
 
               Expanded(
-                child: _ResultatInfo(
-                  valeur: credits,
-                  label: 'Crédits',
-                ),
+                child: _ResultatInfo(valeur: credits, label: 'Crédits'),
               ),
 
               const SizedBox(width: 10),
 
               Expanded(
-                child: _ResultatInfo(
-                  valeur: mention,
-                  label: 'Mention',
-                ),
+                child: _ResultatInfo(valeur: mention, label: 'Mention'),
               ),
             ],
           ),
@@ -108,28 +97,18 @@ class _ResultatInfo extends StatelessWidget {
   final String valeur;
   final String label;
 
-  const _ResultatInfo({
-    required this.valeur,
-    required this.label,
-  });
+  const _ResultatInfo({required this.valeur, required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        minHeight: 82,
-      ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-        vertical: 12,
-      ),
+      constraints: const BoxConstraints(minHeight: 82),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
       decoration: BoxDecoration(
         // Gris clair comme dans la maquette
         color: const Color(0xFFF3F4F6),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: Color(0xFFE5E7EB),
-        ),
+        border: Border.all(color: Color(0xFFE5E7EB)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -155,10 +134,7 @@ class _ResultatInfo extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Color(0xFF64748B),
-            ),
+            style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)),
           ),
         ],
       ),

@@ -29,12 +29,7 @@ class OnboardingContent extends StatelessWidget {
               borderRadius: BorderRadius.circular(42),
             ),
             alignment: Alignment.center,
-            child: Text(
-              icon,
-              style: const TextStyle(
-                fontSize: 76,
-              ),
-            ),
+            child: Text(icon, style: const TextStyle(fontSize: 76)),
           ),
 
           const SizedBox(height: 48),

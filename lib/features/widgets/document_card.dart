@@ -26,23 +26,17 @@ class DocumentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 14,
-        vertical: 12,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: const Color(0xFFE8EAED),
-        ),
+        border: Border.all(color: const Color(0xFFE8EAED)),
       ),
       child: Row(
         children: [
           // ----------------------------------------------------
           // TYPE DU DOCUMENT
           // ----------------------------------------------------
-
           SizedBox(
             width: 42,
             child: Text(
@@ -63,7 +57,6 @@ class DocumentCard extends StatelessWidget {
           // ----------------------------------------------------
           // INFORMATIONS DU DOCUMENT
           // ----------------------------------------------------
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,10 +76,7 @@ class DocumentCard extends StatelessWidget {
 
                 Text(
                   '$date · $taille',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -97,14 +87,10 @@ class DocumentCard extends StatelessWidget {
           // ----------------------------------------------------
           // BOUTON VISUALISER
           // ----------------------------------------------------
-
           IconButton(
             onPressed: onView,
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(
-              minWidth: 32,
-              minHeight: 32,
-            ),
+            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
             icon: const Icon(
               Icons.visibility_outlined,
               size: 19,
@@ -115,14 +101,10 @@ class DocumentCard extends StatelessWidget {
           // ----------------------------------------------------
           // BOUTON TÉLÉCHARGER
           // ----------------------------------------------------
-
           IconButton(
             onPressed: onDownload,
             padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(
-              minWidth: 32,
-              minHeight: 32,
-            ),
+            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
             icon: const Icon(
               Icons.download_outlined,
               size: 19,

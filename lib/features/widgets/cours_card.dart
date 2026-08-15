@@ -31,9 +31,7 @@ class CoursCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: const Color(0xFFE9EDF1),
-            ),
+            border: Border.all(color: const Color(0xFFE9EDF1)),
             boxShadow: const [
               BoxShadow(
                 color: Color(0x08000000),
@@ -47,7 +45,6 @@ class CoursCard extends StatelessWidget {
               // ==================================================
               // ICÔNE DU COURS
               // ==================================================
-
               Container(
                 width: 48,
                 height: 48,
@@ -67,7 +64,6 @@ class CoursCard extends StatelessWidget {
               // ==================================================
               // INFORMATIONS DU COURS
               // ==================================================
-
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,17 +95,11 @@ class CoursCard extends StatelessWidget {
 
                     Row(
                       children: [
-                        _InfoBadge(
-                          label: semestre,
-                        ),
+                        _InfoBadge(label: semestre),
                         const SizedBox(width: 6),
-                        _InfoBadge(
-                          label: '$credits crédits',
-                        ),
+                        _InfoBadge(label: '$credits crédits'),
                         const SizedBox(width: 6),
-                        _InfoBadge(
-                          label: 'Coef. $coefficient',
-                        ),
+                        _InfoBadge(label: 'Coef. $coefficient'),
                       ],
                     ),
                   ],
@@ -121,7 +111,6 @@ class CoursCard extends StatelessWidget {
               // ==================================================
               // FLÈCHE
               // ==================================================
-
               const Icon(
                 Icons.chevron_right,
                 color: Color(0xFF8A8F98),
@@ -142,17 +131,12 @@ class CoursCard extends StatelessWidget {
 class _InfoBadge extends StatelessWidget {
   final String label;
 
-  const _InfoBadge({
-    required this.label,
-  });
+  const _InfoBadge({required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 7,
-        vertical: 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
       decoration: BoxDecoration(
         color: const Color(0xFFEAF5FC),
         borderRadius: BorderRadius.circular(6),

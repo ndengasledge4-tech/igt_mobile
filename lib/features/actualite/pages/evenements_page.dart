@@ -7,8 +7,6 @@ class EvenementsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ActualitePage(
-      initialIndex: 2,
-    );
+    return const ActualitePage(initialIndex: 2);
   }
 }

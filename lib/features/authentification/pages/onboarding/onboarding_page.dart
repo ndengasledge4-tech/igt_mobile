@@ -22,28 +22,28 @@ class _OnboardingPageState extends State<OnboardingPage> {
       'icon': '🎓',
       'title': 'Votre vie académique,\nsimplement.',
       'description':
-      'Accédez à tout votre parcours universitaire\ndepuis votre smartphone, à tout moment.',
+          'Accédez à tout votre parcours universitaire\ndepuis votre smartphone, à tout moment.',
       'background': '0xFFEAF3FB',
     },
     {
       'icon': '📊',
       'title': 'Retrouvez votre parcours\net vos résultats.',
       'description':
-      'Consultez vos notes, résultats, emploi du\ntemps et cours en quelques secondes.',
+          'Consultez vos notes, résultats, emploi du\ntemps et cours en quelques secondes.',
       'background': '0xFFEAF7EA',
     },
     {
       'icon': '📰',
       'title': 'Restez informé des\nactualités de l’IGT.',
       'description':
-      'Ne manquez plus aucune annonce,\névénement ou communication importante.',
+          'Ne manquez plus aucune annonce,\névénement ou communication importante.',
       'background': '0xFFFFF3DF',
     },
     {
       'icon': '💬',
       'title': 'Échangez facilement avec\nles services de l’IGT.',
       'description':
-      'Contactez le secrétariat, le service académique\nou la direction directement depuis l’app.',
+          'Contactez le secrétariat, le service académique\nou la direction directement depuis l’app.',
       'background': '0xFFFCE8F0',
     },
   ];
@@ -63,9 +63,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (_) => const ConnexionPage(),
-        ),
+        MaterialPageRoute(builder: (_) => const ConnexionPage()),
       );
     }
   }
@@ -73,9 +71,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   void _skip() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => const ConnexionPage(),
-      ),
+      MaterialPageRoute(builder: (_) => const ConnexionPage()),
     );
   }
 
@@ -117,9 +113,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     icon: page['icon']!,
                     title: page['title']!,
                     description: page['description']!,
-                    backgroundColor: Color(
-                      int.parse(page['background']!),
-                    ),
+                    backgroundColor: Color(int.parse(page['background']!)),
                   );
                 },
               ),

@@ -25,6 +25,10 @@ class ActualitePage extends StatelessWidget {
   }
 }
 
+// ===============================================================
+// PAGE PRINCIPALE ACTUALITÉ
+// ===============================================================
+
 class _ActualiteHomePage extends StatefulWidget {
   final int initialIndex;
 
@@ -63,6 +67,7 @@ class _ActualiteHomePageState extends State<_ActualiteHomePage> {
   @override
   void initState() {
     super.initState();
+
     _selectedIndex = widget.initialIndex.clamp(0, _tabs.length - 1).toInt();
   }
 
@@ -79,6 +84,10 @@ class _ActualiteHomePageState extends State<_ActualiteHomePage> {
   }
 }
 
+// ===============================================================
+// SCAFFOLD ACTUALITÉ
+// ===============================================================
+
 class _ActualiteScaffold extends StatefulWidget {
   final int initialIndex;
 
@@ -93,16 +102,24 @@ class _ActualiteScaffoldState extends State<_ActualiteScaffold> {
 
   static const List<_ActualiteTabInfo> _tabs = _ActualiteHomePageState._tabs;
 
-  List<ActualiteItem> get _items {
+  // =============================================================
+  // DONNÉES
+  // =============================================================
+
+  List<Map<String, dynamic>> get _items {
     switch (_selectedIndex) {
       case 0:
         return ActualiteData.actualites;
+
       case 1:
         return ActualiteData.annonces;
+
       case 2:
         return ActualiteData.evenements;
+
       case 3:
         return ActualiteData.infos;
+
       default:
         return ActualiteData.actualites;
     }
@@ -111,8 +128,13 @@ class _ActualiteScaffoldState extends State<_ActualiteScaffold> {
   @override
   void initState() {
     super.initState();
+
     _selectedIndex = widget.initialIndex.clamp(0, _tabs.length - 1).toInt();
   }
+
+  // =============================================================
+  // BUILD
+  // =============================================================
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +151,16 @@ class _ActualiteScaffoldState extends State<_ActualiteScaffold> {
               });
             },
           ),
+
           Expanded(child: _buildList(context)),
         ],
       ),
     );
   }
+
+  // =============================================================
+  // LISTE
+  // =============================================================
 
   Widget _buildList(BuildContext context) {
     final items = _items;
@@ -153,33 +180,51 @@ class _ActualiteScaffoldState extends State<_ActualiteScaffold> {
 
     return ListView.separated(
       padding: EdgeInsets.fromLTRB(8, _selectedIndex == 1 ? 14 : 9, 8, 26),
+
       itemCount: items.length,
+
       itemBuilder: (context, index) {
         final item = items[index];
 
         return ActualiteCard(
           item: item,
-          onTap: () => _openDetail(context, item),
+          onTap: () {
+            _openDetail(context, item);
+          },
         );
       },
-      separatorBuilder: (_, _) => const SizedBox(height: 10),
+
+      separatorBuilder: (_, _) {
+        return const SizedBox(height: 10);
+      },
     );
   }
 
-  void _openDetail(BuildContext context, ActualiteItem item) {
+  // =============================================================
+  // DÉTAIL
+  // =============================================================
+
+  void _openDetail(BuildContext context, Map<String, dynamic> item) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) {
-          if (item.category == ActualiteCategory.evenement) {
+          // Les événements ont une page de détail spécifique.
+          if (item['category'] == 'evenement') {
             return EvenementDetailPage(item: item);
           }
 
+          // Actualités, annonces et informations utilisent
+          // la page de détail classique.
           return ActualiteDetailPage(item: item);
         },
       ),
     );
   }
 }
+
+// ===============================================================
+// HEADER
+// ===============================================================
 
 class _ActualiteHeader extends StatelessWidget {
   final List<_ActualiteTabInfo> tabs;
@@ -215,7 +260,9 @@ class _ActualiteHeader extends StatelessWidget {
               ),
             ),
           ),
+
           const SizedBox(height: 14),
+
           SizedBox(
             height: 50,
             child: Row(
@@ -224,7 +271,9 @@ class _ActualiteHeader extends StatelessWidget {
                   _ActualiteTabButton(
                     tab: tabs[index],
                     selected: selectedIndex == index,
-                    onTap: () => onTabSelected(index),
+                    onTap: () {
+                      onTabSelected(index);
+                    },
                   ),
               ],
             ),
@@ -234,6 +283,10 @@ class _ActualiteHeader extends StatelessWidget {
     );
   }
 }
+
+// ===============================================================
+// BOUTON ONGLET
+// ===============================================================
 
 class _ActualiteTabButton extends StatelessWidget {
   final _ActualiteTabInfo tab;
@@ -253,6 +306,8 @@ class _ActualiteTabButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -261,7 +316,9 @@ class _ActualiteTabButton extends StatelessWidget {
                 color: selected ? tab.iconColor : tab.iconColor.withAlpha(210),
                 size: 16,
               ),
+
               const SizedBox(height: 4),
+
               Text(
                 tab.label,
                 maxLines: 1,
@@ -273,7 +330,9 @@ class _ActualiteTabButton extends StatelessWidget {
                   fontWeight: selected ? FontWeight.w800 : FontWeight.w700,
                 ),
               ),
+
               const SizedBox(height: 8),
+
               AnimatedContainer(
                 duration: const Duration(milliseconds: 180),
                 width: selected ? 46 : 0,
@@ -290,6 +349,10 @@ class _ActualiteTabButton extends StatelessWidget {
     );
   }
 }
+
+// ===============================================================
+// MODÈLE D'ONGLET
+// ===============================================================
 
 class _ActualiteTabInfo {
   final String label;

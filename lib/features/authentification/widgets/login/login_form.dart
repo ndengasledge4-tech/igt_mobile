@@ -82,19 +82,14 @@ class _LoginFormState extends State<LoginForm> {
   OutlineInputBorder _border() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
-      borderSide: const BorderSide(
-        color: Color(0xFFDCE3E9),
-      ),
+      borderSide: const BorderSide(color: Color(0xFFDCE3E9)),
     );
   }
 
   OutlineInputBorder _focusedBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
-      borderSide: const BorderSide(
-        color: Color(0xFF3F88C5),
-        width: 1.5,
-      ),
+      borderSide: const BorderSide(color: Color(0xFF3F88C5), width: 1.5),
     );
   }
 }

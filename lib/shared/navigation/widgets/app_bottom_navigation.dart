@@ -20,9 +20,7 @@ class AppBottomNavigation extends StatelessWidget {
         height: 82,
         decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(26),
-          ),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
           boxShadow: [
             BoxShadow(
               color: Color(0x14000000),
@@ -83,10 +81,7 @@ class AppBottomNavigation extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          padding: const EdgeInsets.only(
-            top: 8,
-            bottom: 6,
-          ),
+          padding: const EdgeInsets.only(top: 8, bottom: 6),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -96,18 +91,14 @@ class AppBottomNavigation extends StatelessWidget {
                 height: 3,
                 margin: const EdgeInsets.only(bottom: 6),
                 decoration: BoxDecoration(
-                  color: selected
-                      ? AppColors.primary
-                      : Colors.transparent,
+                  color: selected ? AppColors.primary : Colors.transparent,
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
               Icon(
                 selected ? activeIcon : icon,
                 size: 26,
-                color: selected
-                    ? AppColors.primary
-                    : Colors.grey,
+                color: selected ? AppColors.primary : Colors.grey,
               ),
               const SizedBox(height: 4),
               Text(
@@ -115,11 +106,8 @@ class AppBottomNavigation extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 11,
-                  fontWeight:
-                  selected ? FontWeight.w600 : FontWeight.w500,
-                  color: selected
-                      ? AppColors.primary
-                      : Colors.grey,
+                  fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                  color: selected ? AppColors.primary : Colors.grey,
                 ),
               ),
             ],

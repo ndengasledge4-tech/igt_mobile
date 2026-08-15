@@ -18,10 +18,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
 
-      Navigator.pushReplacementNamed(
-        context,
-        RouteNames.onboarding,
-      );
+      Navigator.pushReplacementNamed(context, RouteNames.onboarding);
     });
   }
 
@@ -70,10 +67,7 @@ class _SplashPageState extends State<SplashPage> {
 
               const Text(
                 'Votre espace étudiant',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 15,
-                ),
+                style: TextStyle(color: Colors.white70, fontSize: 15),
               ),
 
               const SizedBox(height: 40),
@@ -83,9 +77,7 @@ class _SplashPageState extends State<SplashPage> {
                 height: 28,
                 child: CircularProgressIndicator(
                   strokeWidth: 2.5,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.white,
-                  ),
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
               ),
             ],

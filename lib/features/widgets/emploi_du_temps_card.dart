@@ -39,25 +39,14 @@ class EmploiDuTempsCard extends StatelessWidget {
 
             Expanded(
               child: Container(
-                padding: const EdgeInsets.fromLTRB(
-                  14,
-                  12,
-                  12,
-                  12,
-                ),
+                padding: const EdgeInsets.fromLTRB(14, 12, 12, 12),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border(
-                    left: BorderSide(
-                      color: couleur,
-                      width: 4,
-                    ),
-                  ),
+                  border: Border(left: BorderSide(color: couleur, width: 4)),
                 ),
                 child: Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       matiere,

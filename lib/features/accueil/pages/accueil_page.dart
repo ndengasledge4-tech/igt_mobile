@@ -18,10 +18,7 @@ class AccueilPage extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       body: const Center(
-        child: Text(
-          "Page Accueil",
-          style: AppTextStyles.title,
-        ),
+        child: Text("Page Accueil", style: AppTextStyles.title),
       ),
     );
   }

@@ -5,10 +5,7 @@ import '../../../../app/theme/colors.dart';
 class VerificationForm extends StatelessWidget {
   final TextEditingController? controller;
 
-  const VerificationForm({
-    super.key,
-    this.controller,
-  });
+  const VerificationForm({super.key, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +28,7 @@ class VerificationForm extends StatelessWidget {
           decoration: InputDecoration(
             counterText: '',
             hintText: '123456',
-            hintStyle: const TextStyle(
-              color: Color(0xFF98A2B3),
-              fontSize: 17,
-            ),
+            hintStyle: const TextStyle(color: Color(0xFF98A2B3), fontSize: 17),
             filled: true,
             fillColor: Colors.white,
             contentPadding: const EdgeInsets.symmetric(
@@ -43,15 +37,11 @@ class VerificationForm extends StatelessWidget {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(
-                color: Color(0xFFDDE3EA),
-              ),
+              borderSide: const BorderSide(color: Color(0xFFDDE3EA)),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(
-                color: Color(0xFFDDE3EA),
-              ),
+              borderSide: const BorderSide(color: Color(0xFFDDE3EA)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),

@@ -5,10 +5,7 @@ import '../../../../app/theme/colors.dart';
 class ForgotPasswordHeader extends StatelessWidget {
   final String title;
 
-  const ForgotPasswordHeader({
-    super.key,
-    this.title = 'Mot de passe oublié',
-  });
+  const ForgotPasswordHeader({super.key, this.title = 'Mot de passe oublié'});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +14,7 @@ class ForgotPasswordHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: Color(0xFFE6EAF0),
-            width: 1,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFE6EAF0), width: 1)),
       ),
       child: Row(
         children: [

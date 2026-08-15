@@ -8,12 +8,7 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final IconData? icon;
 
-  const AppButton({
-    super.key,
-    required this.text,
-    this.onPressed,
-    this.icon,
-  });
+  const AppButton({super.key, required this.text, this.onPressed, this.icon});
 
   @override
   Widget build(BuildContext context) {

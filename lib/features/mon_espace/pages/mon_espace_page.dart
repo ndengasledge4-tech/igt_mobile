@@ -11,17 +11,14 @@ class MonEspacePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text("MonEspace"),
+        title: const Text("MonEspacePage"),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
       ),
       body: const Center(
-        child: Text(
-          "Page Mon Espace",
-          style: AppTextStyles.title,
-        ),
+        child: Text("Page Mon Espace ", style: AppTextStyles.title),
       ),
     );
   }

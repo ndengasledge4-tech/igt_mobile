@@ -8,12 +8,10 @@ class ReinitialisationPage extends StatefulWidget {
   const ReinitialisationPage({super.key});
 
   @override
-  State<ReinitialisationPage> createState() =>
-      _ReinitialisationPageState();
+  State<ReinitialisationPage> createState() => _ReinitialisationPageState();
 }
 
-class _ReinitialisationPageState
-    extends State<ReinitialisationPage> {
+class _ReinitialisationPageState extends State<ReinitialisationPage> {
   bool _success = false;
 
   void _resetPassword() {
@@ -25,10 +23,8 @@ class _ReinitialisationPageState
   void _goToLogin() {
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(
-        builder: (_) => const ConnexionPage(),
-      ),
-          (route) => false,
+      MaterialPageRoute(builder: (_) => const ConnexionPage()),
+      (route) => false,
     );
   }
 
@@ -43,16 +39,9 @@ class _ReinitialisationPageState
 
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(
-                  24,
-                  30,
-                  24,
-                  30,
-                ),
+                padding: const EdgeInsets.fromLTRB(24, 30, 24, 30),
                 child: _success
-                    ? PasswordResetSuccess(
-                  onContinue: _goToLogin,
-                )
+                    ? PasswordResetSuccess(onContinue: _goToLogin)
                     : _buildResetForm(),
               ),
             ),
@@ -68,11 +57,7 @@ class _ReinitialisationPageState
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: Color(0xFFE6EAF0),
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFE6EAF0))),
       ),
       child: Row(
         children: [
@@ -146,13 +131,9 @@ class _ReinitialisationPageState
 
         const Text(
           'Choisissez un nouveau mot de passe pour sécuriser '
-              'votre compte étudiant.',
+          'votre compte étudiant.',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xFF8A98A8),
-            fontSize: 16,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 16, height: 1.5),
         ),
 
         const SizedBox(height: 35),
@@ -175,10 +156,7 @@ class _ReinitialisationPageState
             ),
             child: const Text(
               'Réinitialiser le mot de passe',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
             ),
           ),
         ),

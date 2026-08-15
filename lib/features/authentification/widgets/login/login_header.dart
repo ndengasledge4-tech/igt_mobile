@@ -10,8 +10,7 @@ class LoginHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(32, 28, 32, 30),
       decoration: const BoxDecoration(
         color: Color(0xFF3F88C5),
-        borderRadius: BorderRadius.vertical(
-        ),
+        borderRadius: BorderRadius.vertical(),
       ),
       child: Column(
         children: [
@@ -45,10 +44,7 @@ class LoginHeader extends StatelessWidget {
           const Text(
             'Institut de Gestion et de Technologie',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFFDCEBFA),
-              fontSize: 16,
-            ),
+            style: TextStyle(color: Color(0xFFDCEBFA), fontSize: 16),
           ),
         ],
       ),

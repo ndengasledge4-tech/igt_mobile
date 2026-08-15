@@ -15,22 +15,14 @@ class DetailTopBar extends StatelessWidget {
       width: double.infinity,
       decoration: const BoxDecoration(
         color: AppColors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: AppColors.border,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: Padding(
-        padding: EdgeInsets.only(
-          top: topInset,
-        ),
+        padding: EdgeInsets.only(top: topInset),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.only(
-              left: AppDimensions.xs,
-            ),
+            padding: const EdgeInsets.only(left: AppDimensions.xs),
             child: Material(
               color: AppColors.softBlue,
               borderRadius: BorderRadius.circular(7),

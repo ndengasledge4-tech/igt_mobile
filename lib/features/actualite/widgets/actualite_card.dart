@@ -8,11 +8,7 @@ class ActualiteCard extends StatelessWidget {
   final Map<String, dynamic> item;
   final VoidCallback? onTap;
 
-  const ActualiteCard({
-    super.key,
-    required this.item,
-    this.onTap,
-  });
+  const ActualiteCard({super.key, required this.item, this.onTap});
 
   bool get _isEvent => item['category'] == 'evenement';
 
@@ -34,41 +30,26 @@ class ActualiteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      borderRadius: BorderRadius.circular(
-        AppDimensions.radiusMedium,
-      ),
+      borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusMedium,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
         child: Ink(
           height: _height,
-          padding: const EdgeInsets.fromLTRB(
-            12,
-            10,
-            8,
-            10,
-          ),
+          padding: const EdgeInsets.fromLTRB(12, 10, 8, 10),
           decoration: BoxDecoration(
             color: AppColors.card,
-            borderRadius: BorderRadius.circular(
-              AppDimensions.radiusMedium,
-            ),
-            border: Border.all(
-              color: AppColors.border,
-            ),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+            border: Border.all(color: AppColors.border),
           ),
           child: _hasNotice
               ? Column(
-            children: [
-              _notice(),
-              const SizedBox(height: 10),
-              Expanded(
-                child: _content(),
-              ),
-            ],
-          )
+                  children: [
+                    _notice(),
+                    const SizedBox(height: 10),
+                    Expanded(child: _content()),
+                  ],
+                )
               : _content(),
         ),
       ),
@@ -80,15 +61,11 @@ class ActualiteCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(
-            top: _hasNotice ? 0 : 9,
-          ),
+          padding: EdgeInsets.only(top: _hasNotice ? 0 : 9),
           child: _icon(),
         ),
         const SizedBox(width: 11),
-        Expanded(
-          child: _textContent(),
-        ),
+        Expanded(child: _textContent()),
         const SizedBox(width: 3),
         const Icon(
           Icons.chevron_right_rounded,
@@ -103,24 +80,17 @@ class ActualiteCard extends StatelessWidget {
     final Color background =
         item['iconBackground'] as Color? ?? AppColors.primary;
 
-    final IconData icon =
-        item['icon'] as IconData? ?? Icons.article_outlined;
+    final IconData icon = item['icon'] as IconData? ?? Icons.article_outlined;
 
     return Container(
       width: 42,
       height: 42,
       decoration: BoxDecoration(
         color: background.withAlpha(28),
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusSmall,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       ),
       alignment: Alignment.center,
-      child: Icon(
-        icon,
-        color: _categoryColor,
-        size: 22,
-      ),
+      child: Icon(icon, color: _categoryColor, size: 22),
     );
   }
 
@@ -181,11 +151,7 @@ class ActualiteCard extends StatelessWidget {
         ),
         if (_isEvent) ...[
           const SizedBox(width: 5),
-          const Icon(
-            Icons.location_pin,
-            color: AppColors.error,
-            size: 10,
-          ),
+          const Icon(Icons.location_pin, color: AppColors.error, size: 10),
         ],
       ],
     );
@@ -195,18 +161,13 @@ class ActualiteCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 22,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 9,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 9),
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
         color: AppColors.error.withAlpha(24),
         borderRadius: BorderRadius.circular(7),
       ),
-      child: Text(
-        item['topNotice'].toString(),
-        style: _noticeStyle,
-      ),
+      child: Text(item['topNotice'].toString(), style: _noticeStyle),
     );
   }
 
@@ -226,32 +187,28 @@ class ActualiteCard extends StatelessWidget {
     }
   }
 
-  static final TextStyle _metaStyle =
-  AppTextStyles.caption.copyWith(
+  static final TextStyle _metaStyle = AppTextStyles.caption.copyWith(
     color: AppColors.secondaryText,
     fontSize: 10.4,
     height: 1.15,
     fontWeight: FontWeight.w600,
   );
 
-  static final TextStyle _titleStyle =
-  AppTextStyles.label.copyWith(
+  static final TextStyle _titleStyle = AppTextStyles.label.copyWith(
     color: AppColors.text,
     fontSize: 12.8,
     height: 1.16,
     fontWeight: FontWeight.w700,
   );
 
-  static final TextStyle _excerptStyle =
-  AppTextStyles.bodySmall.copyWith(
+  static final TextStyle _excerptStyle = AppTextStyles.bodySmall.copyWith(
     color: AppColors.secondaryText,
     fontSize: 11.2,
     height: 1.18,
     fontWeight: FontWeight.w500,
   );
 
-  static final TextStyle _noticeStyle =
-  AppTextStyles.caption.copyWith(
+  static final TextStyle _noticeStyle = AppTextStyles.caption.copyWith(
     color: AppColors.error,
     fontSize: 10.5,
     height: 1,
