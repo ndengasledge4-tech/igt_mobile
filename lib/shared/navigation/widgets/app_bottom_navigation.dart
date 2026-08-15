@@ -19,40 +19,39 @@ class AppBottomNavigation extends StatelessWidget {
       top: false,
       child: Container(
         height: 80,
-        decoration: const BoxDecoration(color: Colors.white),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+        ),
         child: Row(
           children: [
             _buildItem(
               index: 0,
-              icon: PhosphorIconsRegular.house,
+              icon: PhosphorIcons.house,
               activeIcon: PhosphorIconsFill.house,
               label: 'Accueil',
             ),
-
             _buildItem(
               index: 1,
-              icon: PhosphorIconsRegular.graduationCap,
+              icon: PhosphorIcons.graduationCap,
               activeIcon: PhosphorIconsFill.graduationCap,
               label: 'Académie',
             ),
-
             _buildItem(
               index: 2,
-              icon: PhosphorIconsRegular.newspaper,
+              icon: PhosphorIcons.newspaper,
               activeIcon: PhosphorIconsFill.newspaper,
               label: 'Actualité',
             ),
-
             _buildItem(
               index: 3,
-              icon: PhosphorIconsRegular.chatCircle,
+              icon: PhosphorIcons.chatCircle,
               activeIcon: PhosphorIconsFill.chatCircle,
               label: 'Messagerie',
+              badge: 0,
             ),
-
             _buildItem(
               index: 4,
-              icon: PhosphorIconsRegular.user,
+              icon: PhosphorIcons.user,
               activeIcon: PhosphorIconsFill.user,
               label: 'Mon espace',
             ),
@@ -67,7 +66,7 @@ class AppBottomNavigation extends StatelessWidget {
     required IconData icon,
     required IconData activeIcon,
     required String label,
-    int? badge,
+    int badge = 0,
   }) {
     final bool selected = currentIndex == index;
 
@@ -91,24 +90,28 @@ class AppBottomNavigation extends StatelessWidget {
                         ? AppColors.primary
                         : const Color(0xFF8797A7),
                   ),
-
-                  if (badge != null && badge > 0)
+                  if (badge > 0)
                     Positioned(
                       top: -9,
                       right: -10,
                       child: Container(
-                        width: 25,
-                        height: 25,
+                        constraints: const BoxConstraints(
+                          minWidth: 18,
+                          minHeight: 18,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                        ),
                         alignment: Alignment.center,
                         decoration: const BoxDecoration(
                           color: Color(0xFFD95757),
                           shape: BoxShape.circle,
                         ),
                         child: Text(
-                          '$badge',
+                          badge > 99 ? '99+' : '$badge',
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 10,
+                            fontSize: 9,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -125,8 +128,11 @@ class AppBottomNavigation extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 12,
-                  fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                  color: selected ? AppColors.primary : const Color(0xFF8797A7),
+                  fontWeight:
+                  selected ? FontWeight.w600 : FontWeight.w500,
+                  color: selected
+                      ? AppColors.primary
+                      : const Color(0xFF8797A7),
                 ),
               ),
 
@@ -134,6 +140,7 @@ class AppBottomNavigation extends StatelessWidget {
 
               AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOut,
                 width: selected ? 38 : 0,
                 height: 4,
                 decoration: BoxDecoration(

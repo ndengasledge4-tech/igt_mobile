@@ -271,7 +271,10 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (_) => const Scaffold(
         body: Center(
-          child: Text('404\nPage introuvable', textAlign: TextAlign.center),
+          child: Text(
+            '404\nPage introuvable',
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
