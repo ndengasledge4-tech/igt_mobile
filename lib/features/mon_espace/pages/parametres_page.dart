@@ -75,21 +75,37 @@ class ParametresPage extends StatelessWidget {
             
             _buildSectionHeader("NOTIFICATIONS"),
             _buildGroupedCard([
-              _buildSettingItem(context, "Préférences de notifications"),
+              _buildSettingItem(
+                context, 
+                "Préférences de notifications",
+                onTap: () => Navigator.pushNamed(context, RouteNames.notificationsPreferences),
+              ),
             ]),
             const SizedBox(height: 24),
 
             _buildSectionHeader("SÉCURITÉ"),
             _buildGroupedCard([
-              _buildSettingItem(context, "Sécurité du compte"),
-              _buildSettingItem(context, "Sessions actives"),
+              _buildSettingItem(
+                context, 
+                "Sécurité du compte",
+                onTap: () => Navigator.pushNamed(context, RouteNames.securiteCompte),
+              ),
+              _buildSettingItem(
+                context, 
+                "Sessions actives",
+                onTap: () => Navigator.pushNamed(context, RouteNames.sessionsActives),
+              ),
             ]),
             const SizedBox(height: 24),
 
             _buildSectionHeader("APPLICATION"),
             _buildGroupedCard([
               _buildSettingItem(context, "Version 1.0.0", showChevron: false),
-              _buildSettingItem(context, "Informations légales"),
+              _buildSettingItem(
+                context, 
+                "Informations légales",
+                onTap: () => Navigator.pushNamed(context, RouteNames.informationsLegales),
+              ),
             ]),
             const SizedBox(height: 24),
 
