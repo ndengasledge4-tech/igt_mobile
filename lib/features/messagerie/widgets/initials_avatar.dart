@@ -4,11 +4,7 @@ import '../../../app/theme/colors.dart';
 import '../../../app/theme/text_styles.dart';
 
 class InitialsAvatar extends StatelessWidget {
-  const InitialsAvatar({
-    super.key,
-    required this.initials,
-    this.size = 42,
-  });
+  const InitialsAvatar({super.key, required this.initials, this.size = 42});
 
   final String initials;
   final double size;

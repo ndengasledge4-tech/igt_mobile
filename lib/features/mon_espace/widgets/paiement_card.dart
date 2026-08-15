@@ -59,14 +59,13 @@ class PaiementCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: AppTextStyles.title.copyWith(fontSize: 15),
-                ),
+                Text(title, style: AppTextStyles.title.copyWith(fontSize: 15)),
                 const SizedBox(height: 4),
                 Text(
                   date,
-                  style: AppTextStyles.caption.copyWith(color: AppColors.secondaryText),
+                  style: AppTextStyles.caption.copyWith(
+                    color: AppColors.secondaryText,
+                  ),
                 ),
                 if (reference != null || method != null) ...[
                   const SizedBox(height: 6),

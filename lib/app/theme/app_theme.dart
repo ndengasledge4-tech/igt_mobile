@@ -29,9 +29,7 @@ abstract final class AppTheme {
         color: AppColors.card,
         elevation: AppDimensions.cardElevation,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusLarge,
-          ),
+          borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
         ),
       ),
 
@@ -45,48 +43,30 @@ abstract final class AppTheme {
         ),
 
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusMedium,
-          ),
-          borderSide: const BorderSide(
-            color: AppColors.border,
-          ),
+          borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+          borderSide: const BorderSide(color: AppColors.border),
         ),
 
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusMedium,
-          ),
-          borderSide: const BorderSide(
-            color: AppColors.border,
-          ),
+          borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+          borderSide: const BorderSide(color: AppColors.border),
         ),
 
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusMedium,
-          ),
-          borderSide: const BorderSide(
-            color: AppColors.primary,
-            width: 2,
-          ),
+          borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+          borderSide: const BorderSide(color: AppColors.primary, width: 2),
         ),
       ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          minimumSize: const Size(
-            double.infinity,
-            AppDimensions.buttonHeight,
-          ),
+          minimumSize: const Size(double.infinity, AppDimensions.buttonHeight),
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           textStyle: AppTextStyles.button,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              AppDimensions.radiusMedium,
-            ),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
           ),
         ),
       ),

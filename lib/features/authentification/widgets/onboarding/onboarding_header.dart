@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class OnboardingHeader extends StatelessWidget {
   final VoidCallback onSkip;
 
-  const OnboardingHeader({
-    super.key,
-    required this.onSkip,
-  });
+  const OnboardingHeader({super.key, required this.onSkip});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +24,7 @@ class OnboardingHeader extends StatelessWidget {
 
           const SizedBox(width: 12),
 
-          Expanded(
-            child: Container(
-              height: 1,
-              color: const Color(0xFFE8EDF2),
-            ),
-          ),
+          Expanded(child: Container(height: 1, color: const Color(0xFFE8EDF2))),
 
           const SizedBox(width: 12),
 

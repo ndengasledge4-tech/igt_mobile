@@ -14,18 +14,13 @@ class LoginFooter extends StatelessWidget {
           children: [
             const Text(
               'Pas encore de compte ? ',
-              style: TextStyle(
-                color: Color(0xFF91A0AE),
-                fontSize: 16,
-              ),
+              style: TextStyle(color: Color(0xFF91A0AE), fontSize: 16),
             ),
             GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => const CreationComptePage(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const CreationComptePage()),
                 );
               },
               child: const Text(

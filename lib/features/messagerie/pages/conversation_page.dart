@@ -7,11 +7,7 @@ import '../widgets/conversation_header.dart';
 import '../widgets/message_bubble.dart';
 import '../widgets/message_composer.dart';
 
-typedef ConversationMessage = ({
-String text,
-String time,
-bool isSentByUser,
-});
+typedef ConversationMessage = ({String text, String time, bool isSentByUser});
 
 class ConversationPage extends StatelessWidget {
   const ConversationPage({
@@ -65,9 +61,8 @@ class ConversationPage extends StatelessWidget {
               child: ListView.separated(
                 padding: const EdgeInsets.all(AppDimensions.md),
                 itemCount: messages.length,
-                separatorBuilder: (_, _) => const SizedBox(
-                  height: AppDimensions.sm,
-                ),
+                separatorBuilder: (_, _) =>
+                    const SizedBox(height: AppDimensions.sm),
                 itemBuilder: (context, index) {
                   final message = messages[index];
 

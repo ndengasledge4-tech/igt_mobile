@@ -66,9 +66,7 @@ class OnboardingContent extends StatelessWidget {
 
           // DESCRIPTION
           ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: 330,
-            ),
+            constraints: const BoxConstraints(maxWidth: 330),
             child: Text(
               description,
               textAlign: TextAlign.center,

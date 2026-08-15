@@ -9,10 +9,7 @@ import '../widgets/detail_top_bar.dart';
 class ActualiteDetailPage extends StatelessWidget {
   final Map<String, dynamic> item;
 
-  const ActualiteDetailPage({
-    super.key,
-    required this.item,
-  });
+  const ActualiteDetailPage({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +24,7 @@ class ActualiteDetailPage extends StatelessWidget {
         body: Column(
           children: [
             const DetailTopBar(),
-            Expanded(
-              child: _buildBody(),
-            ),
+            Expanded(child: _buildBody()),
           ],
         ),
       ),
@@ -51,16 +46,11 @@ class ActualiteDetailPage extends StatelessWidget {
 
   Widget _news() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(
-        bottom: AppDimensions.lg,
-      ),
+      padding: const EdgeInsets.only(bottom: AppDimensions.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _hero(
-            color: AppColors.softBlue,
-            label: 'Actualité',
-          ),
+          _hero(color: AppColors.softBlue, label: 'Actualité'),
           _content(),
         ],
       ),
@@ -69,18 +59,14 @@ class ActualiteDetailPage extends StatelessWidget {
 
   Widget _announcement() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(
-        bottom: AppDimensions.lg,
-      ),
+      padding: const EdgeInsets.only(bottom: AppDimensions.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _announcementHero(),
           _content(),
-          if (item['alertTitle'] != null)
-            _alertCard(),
-          if (item['documents'] != null)
-            _documents(),
+          if (item['alertTitle'] != null) _alertCard(),
+          if (item['documents'] != null) _documents(),
         ],
       ),
     );
@@ -88,9 +74,7 @@ class ActualiteDetailPage extends StatelessWidget {
 
   Widget _info() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(
-        bottom: AppDimensions.lg,
-      ),
+      padding: const EdgeInsets.only(bottom: AppDimensions.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -99,23 +83,14 @@ class ActualiteDetailPage extends StatelessWidget {
             label: item['subtitle'] ?? 'Info pratique',
           ),
           Padding(
-            padding: const EdgeInsets.all(
-              AppDimensions.sm,
-            ),
+            padding: const EdgeInsets.all(AppDimensions.sm),
             child: Column(
               children: [
                 if (item['infoRows'] != null)
-                  _table(
-                    'Horaires habituels',
-                    item['infoRows'],
-                  ),
+                  _table('Horaires habituels', item['infoRows']),
                 if (item['contacts'] != null) ...[
                   const SizedBox(height: AppDimensions.sm),
-                  _table(
-                    'Contact direct',
-                    item['contacts'],
-                    blueValues: true,
-                  ),
+                  _table('Contact direct', item['contacts'], blueValues: true),
                 ],
               ],
             ),
@@ -125,10 +100,7 @@ class ActualiteDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _hero({
-    required Color color,
-    required String label,
-  }) {
+  Widget _hero({required Color color, required String label}) {
     return Container(
       width: double.infinity,
       color: color,
@@ -215,8 +187,7 @@ class ActualiteDetailPage extends StatelessWidget {
   }
 
   Widget _content() {
-    final content =
-        item['content'] ?? item['excerpt'] ?? '';
+    final content = item['content'] ?? item['excerpt'] ?? '';
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(
@@ -227,20 +198,14 @@ class ActualiteDetailPage extends StatelessWidget {
       ),
       child: Text(
         content.toString(),
-        style: AppTextStyles.body.copyWith(
-          fontSize: 14,
-          height: 1.5,
-        ),
+        style: AppTextStyles.body.copyWith(fontSize: 14, height: 1.5),
       ),
     );
   }
 
   Widget _pill(String text) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
-        vertical: 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: AppColors.softBlue,
         borderRadius: BorderRadius.circular(9),
@@ -255,18 +220,10 @@ class ActualiteDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _meta(
-      IconData icon,
-      String text,
-      Color color,
-      ) {
+  Widget _meta(IconData icon, String text, Color color) {
     return Row(
       children: [
-        Icon(
-          icon,
-          color: color,
-          size: 12,
-        ),
+        Icon(icon, color: color, size: 12),
         const SizedBox(width: 5),
         Expanded(
           child: Text(
@@ -285,33 +242,25 @@ class ActualiteDetailPage extends StatelessWidget {
 
   Widget _alertCard() {
     return Padding(
-      padding: const EdgeInsets.all(
-        AppDimensions.sm,
-      ),
+      padding: const EdgeInsets.all(AppDimensions.sm),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: AppColors.warning.withAlpha(28),
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusSmall,
-          ),
+          borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               item['alertTitle'].toString(),
-              style: AppTextStyles.label.copyWith(
-                color: AppColors.warning,
-              ),
+              style: AppTextStyles.label.copyWith(color: AppColors.warning),
             ),
             const SizedBox(height: 6),
             Text(
               item['alertText'].toString(),
-              style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.text,
-              ),
+              style: AppTextStyles.bodySmall.copyWith(color: AppColors.text),
             ),
           ],
         ),
@@ -320,8 +269,7 @@ class ActualiteDetailPage extends StatelessWidget {
   }
 
   Widget _documents() {
-    final documents =
-    List<String>.from(item['documents'] as List);
+    final documents = List<String>.from(item['documents'] as List);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(
@@ -333,16 +281,11 @@ class ActualiteDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Documents requis',
-            style: AppTextStyles.label,
-          ),
+          Text('Documents requis', style: AppTextStyles.label),
           const SizedBox(height: 10),
           for (final document in documents)
             Padding(
-              padding: const EdgeInsets.only(
-                bottom: 7,
-              ),
+              padding: const EdgeInsets.only(bottom: 7),
               child: Row(
                 children: [
                   const Icon(
@@ -367,21 +310,13 @@ class ActualiteDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _table(
-      String title,
-      List<dynamic> rows, {
-        bool blueValues = false,
-      }) {
+  Widget _table(String title, List<dynamic> rows, {bool blueValues = false}) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusSmall,
-        ),
-        border: Border.all(
-          color: AppColors.border,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -390,24 +325,15 @@ class ActualiteDetailPage extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             child: Text(
               title,
-              style: AppTextStyles.label.copyWith(
-                fontSize: 13,
-              ),
+              style: AppTextStyles.label.copyWith(fontSize: 13),
             ),
           ),
           for (int index = 0; index < rows.length; index++)
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
                 border: index > 0
-                    ? const Border(
-                  top: BorderSide(
-                    color: AppColors.border,
-                  ),
-                )
+                    ? const Border(top: BorderSide(color: AppColors.border))
                     : null,
               ),
               child: Row(
@@ -427,9 +353,7 @@ class ActualiteDetailPage extends StatelessWidget {
                       rows[index]['value'].toString(),
                       textAlign: TextAlign.right,
                       style: AppTextStyles.caption.copyWith(
-                        color: blueValues
-                            ? AppColors.primary
-                            : AppColors.text,
+                        color: blueValues ? AppColors.primary : AppColors.text,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

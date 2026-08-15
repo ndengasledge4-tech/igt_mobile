@@ -11,54 +11,34 @@ class ProfilEtudiantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(
-        AppDimensions.md,
-      ),
+      padding: const EdgeInsets.all(AppDimensions.md),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.12),
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusMedium,
-        ),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.25),
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+        border: Border.all(color: Colors.white.withOpacity(0.25)),
       ),
       child: const Column(
         children: [
           Row(
             children: [
               Expanded(
-                child: _InfoItem(
-                  title: 'Matricule',
-                  value: '2024IG001',
-                ),
+                child: _InfoItem(title: 'Matricule', value: '2024IG001'),
               ),
               Expanded(
-                child: _InfoItem(
-                  title: 'Formation',
-                  value: 'Info. de Gestion',
-                ),
+                child: _InfoItem(title: 'Formation', value: 'Info. de Gestion'),
               ),
             ],
           ),
 
-          SizedBox(
-            height: AppDimensions.md,
-          ),
+          SizedBox(height: AppDimensions.md),
 
           Row(
             children: [
               Expanded(
-                child: _InfoItem(
-                  title: 'Niveau',
-                  value: '2ème année',
-                ),
+                child: _InfoItem(title: 'Niveau', value: '2ème année'),
               ),
               Expanded(
-                child: _InfoItem(
-                  title: 'Classe',
-                  value: 'IG2',
-                ),
+                child: _InfoItem(title: 'Classe', value: 'IG2'),
               ),
             ],
           ),
@@ -72,10 +52,7 @@ class _InfoItem extends StatelessWidget {
   final String title;
   final String value;
 
-  const _InfoItem({
-    required this.title,
-    required this.value,
-  });
+  const _InfoItem({required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -84,13 +61,9 @@ class _InfoItem extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTextStyles.caption.copyWith(
-            color: Colors.white70,
-          ),
+          style: AppTextStyles.caption.copyWith(color: Colors.white70),
         ),
-        const SizedBox(
-          height: AppDimensions.xs,
-        ),
+        const SizedBox(height: AppDimensions.xs),
         Text(
           value,
           style: AppTextStyles.bodySmall.copyWith(

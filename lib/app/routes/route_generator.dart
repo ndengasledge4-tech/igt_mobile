@@ -76,21 +76,24 @@ import '../../features/Messagerie/pages/messagerie_page.dart';
 // MON ESPACE
 // ============================================================
 import '../../features/mon_espace/pages/mon_espace_page.dart';
-
-
+import '../../features/mon_espace/pages/profil_page.dart';
+import '../../features/mon_espace/pages/situation_financiere_page.dart';
+import '../../features/mon_espace/pages/historique_paiements_page.dart';
+import '../../features/mon_espace/pages/parametres_page.dart';
+import '../../features/mon_espace/pages/modifier_mot_de_passe_page.dart';
+import '../../features/mon_espace/pages/a_propos_page.dart';
+import '../../features/mon_espace/pages/aide_page.dart';
 
 import 'route_names.dart';
 
 class RouteGenerator {
   const RouteGenerator._();
 
-  static Route<dynamic> generateRoute(
-      RouteSettings settings,
-      ) {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-    // ========================================================
-    // AUTHENTIFICATION
-    // ========================================================
+      // ========================================================
+      // AUTHENTIFICATION
+      // ========================================================
 
       case RouteNames.splash:
         return MaterialPageRoute(
@@ -134,74 +137,56 @@ class RouteGenerator {
           settings: settings,
         );
 
-
-
-    // ========================================================
-    // NAVIGATION PRINCIPALE
-    // ========================================================
+      // ========================================================
+      // NAVIGATION PRINCIPALE
+      // ========================================================
 
       case RouteNames.navigation:
-        return _page(
-          const NavigationPage(),
-        );
+        return _page(const NavigationPage());
 
-    // ============================================================
-    // ACCUEIL
-    // ============================================================
+      // ============================================================
+      // ACCUEIL
+      // ============================================================
 
       case RouteNames.accueil:
-        return _page(
-          const AccueilPage(),
-        );
+        return _page(const AccueilPage());
 
-
-    // ============================================================
-    // ACADEMIE
-    // ============================================================
+      // ============================================================
+      // ACADEMIE
+      // ============================================================
       case RouteNames.academie:
-        return _page(
-          const AcademiePage(),
-        );
+        return _page(const AcademiePage());
 
-    // ============================================================
-    // MON PARCOURS
-    // ============================================================
+      // ============================================================
+      // MON PARCOURS
+      // ============================================================
       case RouteNames.monParcours:
-        return _page(
-          const MonParcoursPage(),
-        );
+        return _page(const MonParcoursPage());
 
-    // ============================================================
-    // MES RÉSULTATS
-    // ============================================================
+      // ============================================================
+      // MES RÉSULTATS
+      // ============================================================
 
       case RouteNames.mesResultats:
-        return _page(
-          const MesResultatsPage(),
-        );
+        return _page(const MesResultatsPage());
 
-    // ============================================================
-    // MON EMPLOI DU TEMPS
-    // ============================================================
+      // ============================================================
+      // MON EMPLOI DU TEMPS
+      // ============================================================
       case RouteNames.emploiDuTemps:
-        return _page(
-          const EmploiDuTempsPage(),
-        );
+        return _page(const EmploiDuTempsPage());
 
-    // ============================================================
-    // MES COURS
-    // ============================================================
+      // ============================================================
+      // MES COURS
+      // ============================================================
       case RouteNames.mesCours:
-        return _page(
-          const MesCoursPage(),
-        );
+        return _page(const MesCoursPage());
 
-    // ============================================================
-    // SEMESTRE
-    // ============================================================
+      // ============================================================
+      // SEMESTRE
+      // ============================================================
       case RouteNames.semestre:
-        final arguments =
-        settings.arguments as Map<String, dynamic>;
+        final arguments = settings.arguments as Map<String, dynamic>;
 
         return _page(
           SemestrePage(
@@ -210,32 +195,25 @@ class RouteGenerator {
           ),
         );
 
-    // ============================================================
-    // DÉTAIL DU COURS
-    // ============================================================
+      // ============================================================
+      // DÉTAIL DU COURS
+      // ============================================================
       case RouteNames.coursDetail:
         final semestre = settings.arguments as String;
 
-        return _page(
-          CoursDetailPage(
-            semestre: semestre,
-          ),
-        );
+        return _page(CoursDetailPage(semestre: semestre));
 
-    // ============================================================
-    // MES DOCUMENTS
-    // ============================================================
+      // ============================================================
+      // MES DOCUMENTS
+      // ============================================================
       case RouteNames.mesDocuments:
-        return _page(
-          const MesDocumentsPage(),
-        );
+        return _page(const MesDocumentsPage());
 
-    // ============================================================
-    // DÉTAIL DU DOCUMENT
-    // ============================================================
+      // ============================================================
+      // DÉTAIL DU DOCUMENT
+      // ============================================================
       case RouteNames.documentDetail:
-        final arguments =
-        settings.arguments as Map<String, dynamic>;
+        final arguments = settings.arguments as Map<String, dynamic>;
 
         return _page(
           DocumentDetailPage(
@@ -246,65 +224,54 @@ class RouteGenerator {
           ),
         );
 
-    // ============================================================
-    // MES NOTES
-    // ============================================================
+      // ============================================================
+      // MES NOTES
+      // ============================================================
       case RouteNames.mesNotes:
-        return _page(
-          const MesNotesPage(),
-        );
+        return _page(const MesNotesPage());
 
-    // ============================================================
-    // ACTUALITE
-    // ============================================================
+      // ============================================================
+      // ACTUALITE
+      // ============================================================
       case RouteNames.actualite:
-        return _page(
-          const ActualitePage(),
-        );
+        return _page(const ActualitePage());
 
-
-    // ============================================================
-    // MESSAGERIE
-    // ============================================================
+      // ============================================================
+      // MESSAGERIE
+      // ============================================================
       case RouteNames.messagerie:
-        return _page(
-          const MessageriePage(),
-        );
+        return _page(const MessageriePage());
 
-
-    // ============================================================
-    // MON ESPACE
-    // ============================================================
+      // ============================================================
+      // MON ESPACE
+      // ============================================================
       case RouteNames.monEspace:
-        return _page(
-          const MonEspacePage(),
-        );
-
-    // ========================================================
-    // ROUTE INCONNUE
-    // ========================================================
+        return _page(const MonEspacePage());
+      case RouteNames.profil:
+        return _page(const ProfilPage());
+      case RouteNames.situationFinanciere:
+        return _page(const SituationFinancierePage());
+      case RouteNames.historiquePaiements:
+        return _page(const HistoriquePaiementsPage());
+      case RouteNames.parametres:
+        return _page(const ParametresPage());
+      case RouteNames.modifierMotDePasse:
+        return _page(const ModifierMotDePassePage());
 
       default:
         return _notFound();
     }
   }
 
-  static MaterialPageRoute _page(
-      Widget page,
-      ) {
-    return MaterialPageRoute(
-      builder: (_) => page,
-    );
+  static MaterialPageRoute _page(Widget page) {
+    return MaterialPageRoute(builder: (_) => page);
   }
 
   static MaterialPageRoute _notFound() {
     return MaterialPageRoute(
       builder: (_) => const Scaffold(
         body: Center(
-          child: Text(
-            '404\nPage introuvable',
-            textAlign: TextAlign.center,
-          ),
+          child: Text('404\nPage introuvable', textAlign: TextAlign.center),
         ),
       ),
     );

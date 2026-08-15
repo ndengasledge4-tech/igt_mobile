@@ -26,7 +26,6 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
             // ============================================================
             // BARRE SUPÉRIEURE
             // ============================================================
-
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
               child: Row(
@@ -67,7 +66,6 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
             // ============================================================
             // ONGLETS JOUR / SEMAINE / MOIS
             // ============================================================
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
@@ -75,9 +73,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: const Color(0xFFE5E7EB),
-                  ),
+                  border: Border.all(color: const Color(0xFFE5E7EB)),
                 ),
                 child: Row(
                   children: [
@@ -94,11 +90,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
             Expanded(
               child: IndexedStack(
                 index: selectedView,
-                children: [
-                  _buildJour(),
-                  _buildSemaine(),
-                  _buildMois(),
-                ],
+                children: [_buildJour(), _buildSemaine(), _buildMois()],
               ),
             ),
           ],
@@ -130,12 +122,9 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
           child: Text(
             title,
             style: TextStyle(
-              color: selected
-                  ? bleu
-                  : const Color(0xFF687080),
+              color: selected ? bleu : const Color(0xFF687080),
               fontSize: 14,
-              fontWeight:
-              selected ? FontWeight.bold : FontWeight.w500,
+              fontWeight: selected ? FontWeight.bold : FontWeight.w500,
             ),
           ),
         ),
@@ -228,64 +217,26 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
 
           const SizedBox(height: 14),
 
-          _buildDay(
-            'Lun',
-            '17',
-            true,
-            [
-              'Algo 08h-10h',
-              'BDD 10h30-12h30',
-            ],
-          ),
+          _buildDay('Lun', '17', true, ['Algo 08h-10h', 'BDD 10h30-12h30']),
 
-          _buildDay(
-            'Mar',
-            '18',
-            false,
-            [
-              'Réseaux 08h-10h',
-              'Génie 14h-16h',
-            ],
-          ),
+          _buildDay('Mar', '18', false, ['Réseaux 08h-10h', 'Génie 14h-16h']),
 
-          _buildDay(
-            'Mer',
-            '19',
-            false,
-            [
-              'SE 08h-10h',
-            ],
-          ),
+          _buildDay('Mer', '19', false, ['SE 08h-10h']),
 
-          _buildDay(
-            'Jeu',
-            '20',
-            false,
-            [
-              'Pas de cours',
-            ],
-          ),
+          _buildDay('Jeu', '20', false, ['Pas de cours']),
 
-          _buildDay(
-            'Ven',
-            '21',
-            false,
-            [
-              'Maths 08h-10h',
-              'Algo 14h-16h',
-            ],
-          ),
+          _buildDay('Ven', '21', false, ['Maths 08h-10h', 'Algo 14h-16h']),
         ],
       ),
     );
   }
 
   Widget _buildDay(
-      String jour,
-      String date,
-      bool selected,
-      List<String> cours,
-      ) {
+    String jour,
+    String date,
+    bool selected,
+    List<String> cours,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       child: Row(
@@ -298,9 +249,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
               color: selected ? bleu : Colors.white,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
-                color: selected
-                    ? bleu
-                    : const Color(0xFFE5E7EB),
+                color: selected ? bleu : const Color(0xFFE5E7EB),
               ),
             ),
             child: Column(
@@ -308,9 +257,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
                 Text(
                   jour,
                   style: TextStyle(
-                    color: selected
-                        ? Colors.white
-                        : const Color(0xFF687080),
+                    color: selected ? Colors.white : const Color(0xFF687080),
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
                   ),
@@ -319,9 +266,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
                 Text(
                   date,
                   style: TextStyle(
-                    color: selected
-                        ? Colors.white
-                        : const Color(0xFF172033),
+                    color: selected ? Colors.white : const Color(0xFF172033),
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -426,15 +371,12 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(18),
-              border: Border.all(
-                color: const Color(0xFFE5E7EB),
-              ),
+              border: Border.all(color: const Color(0xFFE5E7EB)),
             ),
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
                     Text('L'),
                     Text('M'),
@@ -452,8 +394,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: jours.length,
-                  gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 7,
                     mainAxisSpacing: 8,
                     crossAxisSpacing: 4,
@@ -500,11 +441,11 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
   // ============================================================
 
   void _ouvrirDetail(
-      String matiere,
-      String horaire,
-      String salle,
-      String professeur,
-      ) {
+    String matiere,
+    String horaire,
+    String salle,
+    String professeur,
+  ) {
     Navigator.push(
       context,
       MaterialPageRoute(

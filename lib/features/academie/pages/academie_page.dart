@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/routes/route_names.dart';
-
 // Importation des couleurs personnalisées de l'application.
 import '../../../app/theme/colors.dart';
 
@@ -33,22 +31,24 @@ class AcademiePage extends StatelessWidget {
             Container(
               width: double.infinity,
 
-              padding: const EdgeInsets.fromLTRB(
-                20,
-                28,
-                20,
-                26,
-              ),
+              // Espacement interne de l'en-tête.
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 22),
 
+              // Style visuel de l'en-tête.
               decoration: BoxDecoration(
                 color: AppColors.primary,
 
-
+                // Arrondissement uniquement des deux coins inférieurs.
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                ),
               ),
 
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Titre principal de la page.
                   Text(
                     'Académie',
                     style: AppTextStyles.title.copyWith(
@@ -58,14 +58,15 @@ class AcademiePage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 8),
+                  // Espace entre le titre et les informations
+                  // concernant le parcours de l'étudiant.
+                  const SizedBox(height: 6),
 
+                  // Informations sur la formation, le niveau
+                  // et la classe de l'étudiant.
                   const Text(
                     'Informatique de Gestion · 2ème année · IG2',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 ],
               ),
@@ -97,16 +98,12 @@ class AcademiePage extends StatelessWidget {
                   // ------------------------------------------------------
                   RubriqueAcademiqueCard(
                     title: 'Mon parcours',
-                    description:
-                    'Formation, niveau, classe et semestres',
+                    description: 'Formation, niveau, classe et semestres',
                     iconPath: 'assets/images/academie/mon_parcours.png',
 
                     // Navigation vers la page Mon parcours.
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteNames.monParcours,
-                      );
+                      Navigator.pushNamed(context, '/mon-parcours');
                     },
                   ),
 
@@ -120,10 +117,7 @@ class AcademiePage extends StatelessWidget {
 
                     // Navigation vers la page Mes cours.
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteNames.mesCours,
-                      );
+                      Navigator.pushNamed(context, '/mes-cours');
                     },
                   ),
 
@@ -132,16 +126,12 @@ class AcademiePage extends StatelessWidget {
                   // ------------------------------------------------------
                   RubriqueAcademiqueCard(
                     title: 'Mes notes',
-                    description:
-                    'Consulter vos notes et coefficients',
+                    description: 'Consulter vos notes et coefficients',
                     iconPath: 'assets/images/academie/mes_notes.png',
 
                     // Navigation vers la page Mes notes.
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteNames.mesNotes,
-                      );
+                      Navigator.pushNamed(context, '/mes-notes');
                     },
                   ),
 
@@ -150,16 +140,12 @@ class AcademiePage extends StatelessWidget {
                   // ------------------------------------------------------
                   RubriqueAcademiqueCard(
                     title: 'Mes résultats',
-                    description:
-                    'Moyennes, crédits et mentions',
+                    description: 'Moyennes, crédits et mentions',
                     iconPath: 'assets/images/academie/mes_resultats.png',
 
                     // Navigation vers la page Mes résultats.
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteNames.mesResultats,
-                      );
+                      Navigator.pushNamed(context, '/mes-resultats');
                     },
                   ),
 
@@ -168,16 +154,12 @@ class AcademiePage extends StatelessWidget {
                   // ------------------------------------------------------
                   RubriqueAcademiqueCard(
                     title: 'Mon emploi du temps',
-                    description:
-                    'Vues jour, semaine et mois',
+                    description: 'Vues jour, semaine et mois',
                     iconPath: 'assets/images/academie/emploi_du_temps.png',
 
                     // Navigation vers la page Emploi du temps.
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteNames.emploiDuTemps,
-                      );
+                      Navigator.pushNamed(context, '/emploi-du-temps');
                     },
                   ),
 
@@ -186,16 +168,12 @@ class AcademiePage extends StatelessWidget {
                   // ------------------------------------------------------
                   RubriqueAcademiqueCard(
                     title: 'Mes documents',
-                    description:
-                    'Cours, formulaires et docs admin',
+                    description: 'Cours, formulaires et docs admin',
                     iconPath: 'assets/images/academie/mes_documents.png',
 
                     // Navigation vers la page Mes documents.
                     onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteNames.mesDocuments,
-                      );
+                      Navigator.pushNamed(context, '/mes-documents');
                     },
                   ),
                 ],

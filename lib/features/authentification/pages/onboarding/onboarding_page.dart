@@ -23,7 +23,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       'image': 'assets/images/academic.png',
       'title': 'Votre parcours académique,\nen toute simplicité.',
       'description':
-      'Retrouvez vos cours, résultats et informations académiques '
+          'Retrouvez vos cours, résultats et informations académiques '
           'directement depuis votre smartphone.',
       'background': const Color(0xFFEAF3FB),
     },
@@ -31,7 +31,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       'image': 'assets/images/results.png',
       'title': 'Suivez vos résultats\nen un instant.',
       'description':
-      'Consultez vos notes, votre emploi du temps et vos cours '
+          'Consultez vos notes, votre emploi du temps et vos cours '
           'en quelques secondes.',
       'background': const Color(0xFFEAF7EA),
     },
@@ -39,7 +39,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       'image': 'assets/images/news.png',
       'title': 'Restez informé de\nla vie de l’IGT.',
       'description':
-      'Retrouvez toutes les actualités, annonces et événements '
+          'Retrouvez toutes les actualités, annonces et événements '
           'importants au même endroit.',
       'background': const Color(0xFFFFF3DF),
     },
@@ -47,7 +47,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       'image': 'assets/images/messaging.png',
       'title': 'Échangez facilement\navec l’IGT.',
       'description':
-      'Contactez les différents services de l’établissement '
+          'Contactez les différents services de l’établissement '
           'directement depuis l’application.',
       'background': const Color(0xFFFCE8F0),
     },
@@ -77,9 +77,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   void _goToLogin() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => const ConnexionPage(),
-      ),
+      MaterialPageRoute(builder: (_) => const ConnexionPage()),
     );
   }
 
@@ -91,9 +89,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         child: Column(
           children: [
             // HEADER
-            OnboardingHeader(
-              onSkip: _skip,
-            ),
+            OnboardingHeader(onSkip: _skip),
 
             // CONTENU
             Expanded(

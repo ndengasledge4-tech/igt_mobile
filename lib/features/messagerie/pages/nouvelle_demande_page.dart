@@ -5,9 +5,7 @@ import '../../../app/theme/dimensions.dart';
 import '../../../app/theme/text_styles.dart';
 
 class NouvelleDemandePage extends StatefulWidget {
-  const NouvelleDemandePage({
-    super.key,
-  });
+  const NouvelleDemandePage({super.key});
 
   @override
   State<NouvelleDemandePage> createState() => _NouvelleDemandePageState();
@@ -87,13 +85,9 @@ class _NouvelleDemandePageState extends State<NouvelleDemandePage> {
               child: ListView(
                 padding: const EdgeInsets.all(AppDimensions.md),
                 children: [
-                  _StepIndicator(
-                    currentStep: _step,
-                  ),
+                  _StepIndicator(currentStep: _step),
                   const SizedBox(height: AppDimensions.md),
-                  _InfoNotice(
-                    text: _noticeText,
-                  ),
+                  _InfoNotice(text: _noticeText),
                   const SizedBox(height: AppDimensions.lg),
                   _buildStepContent(),
                 ],
@@ -167,51 +161,41 @@ class _NouvelleDemandePageState extends State<NouvelleDemandePage> {
 }
 
 class _StepIndicator extends StatelessWidget {
-  const _StepIndicator({
-    required this.currentStep,
-  });
+  const _StepIndicator({required this.currentStep});
 
   final int currentStep;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: List.generate(
-        3,
-            (index) {
-          final isActive = index <= currentStep;
-          final isCurrent = index == currentStep;
+      children: List.generate(3, (index) {
+        final isActive = index <= currentStep;
+        final isCurrent = index == currentStep;
 
-          return Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: isActive
-                          ? AppColors.primary
-                          : AppColors.divider,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+        return Expanded(
+          child: Row(
+            children: [
+              Expanded(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: isActive ? AppColors.primary : AppColors.divider,
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                if (index < 2)
-                  const SizedBox(width: AppDimensions.xs),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+              if (index < 2) const SizedBox(width: AppDimensions.xs),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
 
 class _InfoNotice extends StatelessWidget {
-  const _InfoNotice({
-    required this.text,
-  });
+  const _InfoNotice({required this.text});
 
   final String text;
 
@@ -221,9 +205,7 @@ class _InfoNotice extends StatelessWidget {
       padding: const EdgeInsets.all(AppDimensions.sm + 2),
       decoration: BoxDecoration(
         color: AppColors.softBlue,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusMedium,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,22 +258,18 @@ class _SelectionSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppDimensions.sm),
-        ...items.map(
-              (value) {
-            final isSelected = value == selectedValue;
+        ...items.map((value) {
+          final isSelected = value == selectedValue;
 
-            return Padding(
-              padding: const EdgeInsets.only(
-                bottom: AppDimensions.sm,
-              ),
-              child: _SelectionTile(
-                title: value,
-                isSelected: isSelected,
-                onTap: () => onSelected(value),
-              ),
-            );
-          },
-        ),
+          return Padding(
+            padding: const EdgeInsets.only(bottom: AppDimensions.sm),
+            child: _SelectionTile(
+              title: value,
+              isSelected: isSelected,
+              onTap: () => onSelected(value),
+            ),
+          );
+        }),
       ],
     );
   }
@@ -311,17 +289,11 @@ class _SelectionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: isSelected
-          ? AppColors.softBlue
-          : AppColors.card,
-      borderRadius: BorderRadius.circular(
-        AppDimensions.radiusMedium,
-      ),
+      color: isSelected ? AppColors.softBlue : AppColors.card,
+      borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusMedium,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           width: double.infinity,
@@ -330,13 +302,9 @@ class _SelectionTile extends StatelessWidget {
             vertical: 14,
           ),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              AppDimensions.radiusMedium,
-            ),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
             border: Border.all(
-              color: isSelected
-                  ? AppColors.primary
-                  : AppColors.border,
+              color: isSelected ? AppColors.primary : AppColors.border,
               width: isSelected ? 1.5 : 1,
             ),
           ),
@@ -373,21 +341,15 @@ class _MessageForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _FieldLabel(
-          text: 'Sujet',
-        ),
+        const _FieldLabel(text: 'Sujet'),
         const SizedBox(height: AppDimensions.xs),
         const TextField(
           maxLines: 1,
           textInputAction: TextInputAction.next,
-          decoration: InputDecoration(
-            hintText: 'Résumé de votre demande',
-          ),
+          decoration: InputDecoration(hintText: 'Résumé de votre demande'),
         ),
         const SizedBox(height: AppDimensions.md),
-        const _FieldLabel(
-          text: 'Message',
-        ),
+        const _FieldLabel(text: 'Message'),
         const SizedBox(height: AppDimensions.xs),
         const TextField(
           minLines: 6,
@@ -406,9 +368,7 @@ class _MessageForm extends StatelessWidget {
 }
 
 class _FieldLabel extends StatelessWidget {
-  const _FieldLabel({
-    required this.text,
-  });
+  const _FieldLabel({required this.text});
 
   final String text;
 
@@ -434,12 +394,8 @@ class _AttachmentSection extends StatelessWidget {
       padding: const EdgeInsets.all(AppDimensions.md),
       decoration: BoxDecoration(
         color: AppColors.card,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusLarge,
-        ),
-        border: Border.all(
-          color: AppColors.border,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -462,17 +418,13 @@ class _AttachmentSection extends StatelessWidget {
           const SizedBox(height: AppDimensions.sm),
           Material(
             color: AppColors.lightBlue,
-            borderRadius: BorderRadius.circular(
-              AppDimensions.radiusSmall,
-            ),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
             child: InkWell(
               onTap: () {
                 // UI uniquement.
                 // Le choix du fichier sera géré par la couche métier.
               },
-              borderRadius: BorderRadius.circular(
-                AppDimensions.radiusSmall,
-              ),
+              borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(
@@ -483,9 +435,7 @@ class _AttachmentSection extends StatelessWidget {
                   borderRadius: BorderRadius.circular(
                     AppDimensions.radiusSmall,
                   ),
-                  border: Border.all(
-                    color: AppColors.border,
-                  ),
+                  border: Border.all(color: AppColors.border),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -531,11 +481,7 @@ class _BottomAction extends StatelessWidget {
       padding: const EdgeInsets.all(AppDimensions.md),
       decoration: const BoxDecoration(
         color: AppColors.card,
-        border: Border(
-          top: BorderSide(
-            color: AppColors.border,
-          ),
-        ),
+        border: Border(top: BorderSide(color: AppColors.border)),
       ),
       child: SizedBox(
         width: double.infinity,
@@ -543,10 +489,7 @@ class _BottomAction extends StatelessWidget {
         child: FilledButton.icon(
           onPressed: onPressed,
           icon: icon != null
-              ? Icon(
-            icon,
-            size: AppDimensions.iconSmall,
-          )
+              ? Icon(icon, size: AppDimensions.iconSmall)
               : const SizedBox.shrink(),
           label: Text(label),
           style: FilledButton.styleFrom(
@@ -554,9 +497,7 @@ class _BottomAction extends StatelessWidget {
             foregroundColor: AppColors.white,
             elevation: 0,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                AppDimensions.radiusMedium,
-              ),
+              borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
             ),
             textStyle: AppTextStyles.button,
           ),

@@ -34,9 +34,7 @@ class RubriqueAcademiqueCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.background,
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: AppColors.border,
-          ),
+          border: Border.all(color: AppColors.border),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,10 +48,7 @@ class RubriqueAcademiqueCard extends StatelessWidget {
                 color: AppColors.primary.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Image.asset(
-                iconPath,
-                fit: BoxFit.contain,
-              ),
+              child: Image.asset(iconPath, fit: BoxFit.contain),
             ),
 
             const SizedBox(height: 14),

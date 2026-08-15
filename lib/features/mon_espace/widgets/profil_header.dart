@@ -34,9 +34,15 @@ class ProfilHeader extends StatelessWidget {
               CircleAvatar(
                 radius: 50,
                 backgroundColor: AppColors.softBlue,
-                backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
+                backgroundImage: imageUrl != null
+                    ? NetworkImage(imageUrl!)
+                    : null,
                 child: imageUrl == null
-                    ? const Icon(Icons.person, size: 50, color: AppColors.primary)
+                    ? const Icon(
+                        Icons.person,
+                        size: 50,
+                        color: AppColors.primary,
+                      )
                     : null,
               ),
               if (onEditTap != null)
@@ -62,15 +68,9 @@ class ProfilHeader extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Text(
-            name,
-            style: AppTextStyles.headline3,
-          ),
+          Text(name, style: AppTextStyles.headline3),
           const SizedBox(height: 4),
-          Text(
-            email,
-            style: AppTextStyles.subtitle,
-          ),
+          Text(email, style: AppTextStyles.subtitle),
         ],
       ),
     );

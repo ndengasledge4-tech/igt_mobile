@@ -104,9 +104,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
     final categorie = categories[selectedCategory];
 
     return documents
-        .where(
-          (document) => document['categorie'] == categorie,
-    )
+        .where((document) => document['categorie'] == categorie)
         .toList();
   }
 
@@ -162,14 +160,8 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
             // ==================================================
             // EN-TÊTE
             // ==================================================
-
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                16,
-                8,
-                16,
-                4,
-              ),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
               child: Row(
                 children: [
                   IconButton(
@@ -204,18 +196,14 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
             // ==================================================
             // CATÉGORIES
             // ==================================================
-
             SizedBox(
               height: 48,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
-                  final bool selected =
-                      selectedCategory == index;
+                  final bool selected = selectedCategory == index;
 
                   return Padding(
                     padding: const EdgeInsets.only(right: 8),
@@ -226,9 +214,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
                         });
                       },
                       child: AnimatedContainer(
-                        duration: const Duration(
-                          milliseconds: 180,
-                        ),
+                        duration: const Duration(milliseconds: 180),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 9,
@@ -237,8 +223,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
                           color: selected
                               ? const Color(0xFF1989D5)
                               : Colors.transparent,
-                          borderRadius:
-                          BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           categories[index],
@@ -247,9 +232,7 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
                             fontWeight: selected
                                 ? FontWeight.w600
                                 : FontWeight.w500,
-                            color: selected
-                                ? Colors.white
-                                : Colors.black87,
+                            color: selected ? Colors.white : Colors.black87,
                           ),
                         ),
                       ),
@@ -264,19 +247,12 @@ class _MesDocumentsPageState extends State<MesDocumentsPage> {
             // ==================================================
             // LISTE DES DOCUMENTS
             // ==================================================
-
             Expanded(
               child: ListView.builder(
-                padding: const EdgeInsets.fromLTRB(
-                  16,
-                  8,
-                  16,
-                  20,
-                ),
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
                 itemCount: filteredDocuments.length,
                 itemBuilder: (context, index) {
-                  final document =
-                  filteredDocuments[index];
+                  final document = filteredDocuments[index];
 
                   return DocumentCard(
                     type: document['type']!,

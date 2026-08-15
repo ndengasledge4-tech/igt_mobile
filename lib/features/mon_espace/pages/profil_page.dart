@@ -15,10 +15,18 @@ class _ProfilPageState extends State<ProfilPage> {
   bool _isEditing = false;
 
   // Controllers for editing mode
-  final TextEditingController _nomController = TextEditingController(text: "DUPONT");
-  final TextEditingController _prenomController = TextEditingController(text: "Jean");
-  final TextEditingController _emailController = TextEditingController(text: "jean.dupont@igt.edu");
-  final TextEditingController _telController = TextEditingController(text: "+225 07 12 34 56");
+  final TextEditingController _nomController = TextEditingController(
+    text: "DUPONT",
+  );
+  final TextEditingController _prenomController = TextEditingController(
+    text: "Jean",
+  );
+  final TextEditingController _emailController = TextEditingController(
+    text: "jean.dupont@igt.edu",
+  );
+  final TextEditingController _telController = TextEditingController(
+    text: "+225 07 12 34 56",
+  );
 
   @override
   void dispose() {
@@ -199,7 +207,11 @@ class _ProfilPageState extends State<ProfilPage> {
             const SizedBox(height: 16),
             _buildEditField("Email", _emailController, Icons.email_outlined),
             const SizedBox(height: 16),
-            _buildEditField("Téléphone", _telController, Icons.phone_android_outlined),
+            _buildEditField(
+              "Téléphone",
+              _telController,
+              Icons.phone_android_outlined,
+            ),
             const SizedBox(height: 24),
             AppButton(
               text: "Enregistrer",
@@ -281,14 +293,15 @@ class _ProfilPageState extends State<ProfilPage> {
   Widget _buildDivider() {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 8.0),
-      child: Divider(
-        color: AppColors.divider,
-        height: 1,
-      ),
+      child: Divider(color: AppColors.divider, height: 1),
     );
   }
 
-  Widget _buildEditField(String label, TextEditingController controller, IconData icon) {
+  Widget _buildEditField(
+    String label,
+    TextEditingController controller,
+    IconData icon,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -307,7 +320,10 @@ class _ProfilPageState extends State<ProfilPage> {
             prefixIcon: Icon(icon, color: AppColors.primary, size: 20),
             filled: true,
             fillColor: AppColors.softBlue.withOpacity(0.3),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,

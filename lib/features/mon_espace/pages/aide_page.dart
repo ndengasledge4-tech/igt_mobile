@@ -15,12 +15,7 @@ class AidePage extends StatelessWidget {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      body: const Center(
-        child: Text(
-          "Page d'aide",
-          style: AppTextStyles.body,
-        ),
-      ),
+      body: const Center(child: Text("Page d'aide", style: AppTextStyles.body)),
     );
   }
 }

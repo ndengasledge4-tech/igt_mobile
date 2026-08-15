@@ -29,11 +29,7 @@ class MessageComposer extends StatelessWidget {
       ),
       decoration: const BoxDecoration(
         color: AppColors.white,
-        border: Border(
-          top: BorderSide(
-            color: AppColors.border,
-          ),
-        ),
+        border: Border(top: BorderSide(color: AppColors.border)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -46,9 +42,7 @@ class MessageComposer extends StatelessWidget {
               minLines: 1,
               maxLines: 4,
               textInputAction: TextInputAction.newline,
-              style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.text,
-              ),
+              style: AppTextStyles.bodySmall.copyWith(color: AppColors.text),
               decoration: InputDecoration(
                 hintText: 'Écrire un message...',
                 hintStyle: AppTextStyles.bodySmall.copyWith(
@@ -72,9 +66,7 @@ class MessageComposer extends StatelessWidget {
           SizedBox.square(
             dimension: 40,
             child: IconButton(
-              onPressed: enabled && value.trim().isNotEmpty
-                  ? onSend
-                  : null,
+              onPressed: enabled && value.trim().isNotEmpty ? onSend : null,
               icon: const Icon(
                 Icons.send_rounded,
                 size: AppDimensions.iconSmall,

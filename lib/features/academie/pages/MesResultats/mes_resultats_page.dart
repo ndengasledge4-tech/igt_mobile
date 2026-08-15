@@ -19,10 +19,7 @@ class MesResultatsPage extends StatelessWidget {
         scrolledUnderElevation: 0,
 
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Color(0xFF1769AA),
-          ),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF1769AA)),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -46,7 +43,6 @@ class MesResultatsPage extends StatelessWidget {
             // ============================================================
             // RÉSULTAT ANNUEL
             // ============================================================
-
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -134,10 +130,7 @@ class MesResultatsPage extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Text(
                       '48 / 60 crédits',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 13),
                     ),
                   ),
                 ],
@@ -149,7 +142,6 @@ class MesResultatsPage extends StatelessWidget {
             // ============================================================
             // SEMESTRE 3
             // ============================================================
-
             const ResultatCard(
               semestre: 'Semestre 3',
               moyenne: '15.20',
@@ -161,7 +153,6 @@ class MesResultatsPage extends StatelessWidget {
             // ============================================================
             // SEMESTRE 1
             // ============================================================
-
             const ResultatCard(
               semestre: 'Semestre 1',
               moyenne: '14.80',
@@ -173,7 +164,6 @@ class MesResultatsPage extends StatelessWidget {
             // ============================================================
             // SEMESTRE 2
             // ============================================================
-
             const ResultatCard(
               semestre: 'Semestre 2',
               moyenne: '13.50',

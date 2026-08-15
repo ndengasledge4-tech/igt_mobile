@@ -29,10 +29,7 @@ class DocumentDetailPage extends StatelessWidget {
         foregroundColor: Colors.black87,
         title: const Text(
           'Document',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
       ),
 
@@ -44,7 +41,6 @@ class DocumentDetailPage extends StatelessWidget {
             // --------------------------------------------------
             // TYPE
             // --------------------------------------------------
-
             Container(
               width: 150,
               height: 150,
@@ -71,7 +67,6 @@ class DocumentDetailPage extends StatelessWidget {
             // --------------------------------------------------
             // TITRE
             // --------------------------------------------------
-
             Text(
               titre,
               style: const TextStyle(
@@ -85,10 +80,7 @@ class DocumentDetailPage extends StatelessWidget {
 
             Text(
               '$date · $taille',
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
             ),
 
             const SizedBox(height: 30),
@@ -96,30 +88,21 @@ class DocumentDetailPage extends StatelessWidget {
             // --------------------------------------------------
             // BOUTON TÉLÉCHARGER
             // --------------------------------------------------
-
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
                 onPressed: () {
                   // Téléchargement à connecter plus tard.
                 },
-                icon: const Icon(
-                  Icons.download_outlined,
-                ),
-                label: const Text(
-                  'Télécharger',
-                ),
+                icon: const Icon(Icons.download_outlined),
+                label: const Text('Télécharger'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                  const Color(0xFF1989D5),
+                  backgroundColor: const Color(0xFF1989D5),
                   foregroundColor: Colors.white,
                   elevation: 0,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 14,
-                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),

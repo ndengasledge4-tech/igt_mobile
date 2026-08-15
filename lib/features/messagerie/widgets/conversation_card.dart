@@ -34,17 +34,12 @@ class ConversationCard extends StatelessWidget {
       margin: EdgeInsets.zero,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusLarge,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
         child: Padding(
           padding: const EdgeInsets.all(AppDimensions.md),
           child: Row(
             children: [
-              InitialsAvatar(
-                initials: initials,
-                size: 42,
-              ),
+              InitialsAvatar(initials: initials, size: 42),
 
               const SizedBox(width: AppDimensions.sm),
 
@@ -65,10 +60,7 @@ class ConversationCard extends StatelessWidget {
 
                         const SizedBox(width: AppDimensions.sm),
 
-                        Text(
-                          date,
-                          style: AppTextStyles.caption,
-                        ),
+                        Text(date, style: AppTextStyles.caption),
                       ],
                     ),
 
@@ -98,15 +90,11 @@ class ConversationCard extends StatelessWidget {
 
                         const SizedBox(width: AppDimensions.xs),
 
-                        StatusBadge(
-                          status: status,
-                        ),
+                        StatusBadge(status: status),
 
                         if (unreadCount > 0) ...[
                           const SizedBox(width: AppDimensions.xs),
-                          _UnreadBadge(
-                            count: unreadCount,
-                          ),
+                          _UnreadBadge(count: unreadCount),
                         ],
                       ],
                     ),
@@ -122,28 +110,20 @@ class ConversationCard extends StatelessWidget {
 }
 
 class _UnreadBadge extends StatelessWidget {
-  const _UnreadBadge({
-    required this.count,
-  });
+  const _UnreadBadge({required this.count});
 
   final int count;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        minWidth: 18,
-      ),
+      constraints: const BoxConstraints(minWidth: 18),
       height: 18,
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.xs,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppDimensions.xs),
       decoration: BoxDecoration(
         color: AppColors.primary,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusLarge,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
       ),
       child: Text(
         '$count',

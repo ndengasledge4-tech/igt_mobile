@@ -8,10 +8,7 @@ class LoginHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(28, 34, 28, 38),
-      decoration: const BoxDecoration(
-        color: Color(0xFF3F88C5),
-
-      ),
+      decoration: const BoxDecoration(color: Color(0xFF3F88C5)),
       child: Column(
         children: [
           // =====================================================

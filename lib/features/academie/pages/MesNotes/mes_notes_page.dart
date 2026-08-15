@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'note_detail_page.dart';
-import '../../../../app/theme/colors.dart';
 
 class MesNotesPage extends StatelessWidget {
   const MesNotesPage({super.key});
+
+  static const Color primaryBlue = Color(0xFF1494D2);
 
   @override
   Widget build(BuildContext context) {
@@ -29,84 +30,50 @@ class MesNotesPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FC),
-
-      // ============================================================
-      // APPBAR — MÊME COULEUR QUE L'ACADÉMIE
-      // ============================================================
-
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor: Colors.white,
         elevation: 0,
         scrolledUnderElevation: 0,
-
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new,
-            size: 19,
-            color: Colors.white,
+            size: 18,
+            color: Color(0xFF555555),
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-
         title: const Text(
           'Mes notes',
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF202020),
           ),
         ),
-
-        centerTitle: false,
       ),
 
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(
-            20,
-            22,
-            20,
-            30,
-          ),
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              // ======================================================
-              // INTRODUCTION
-              // ======================================================
-
               const Text(
-                'Consultez vos notes par année académique.',
+                'Sélectionnez une année académique pour consulter\nvos notes.',
                 style: TextStyle(
                   fontSize: 14,
                   height: 1.5,
-                  color: Color(0xFF687080),
+                  color: Color(0xFF777777),
                 ),
               ),
 
-              const SizedBox(height: 22),
-
-              // ======================================================
-              // TITRE
-              // ======================================================
-
-              const Text(
-                'Années académiques',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF172033),
-                ),
-              ),
-
-              const SizedBox(height: 14),
+              const SizedBox(height: 20),
 
               ...annees.map(
-                    (annee) => _buildAnneeCard(
+                (annee) => _buildAnneeCard(
                   context,
                   annee: annee['annee'] as String,
                   semestres: annee['semestres'] as String,
@@ -121,104 +88,70 @@ class MesNotesPage extends StatelessWidget {
     );
   }
 
-  // ================================================================
-  // CARTE ANNÉE
-  // ================================================================
-
   Widget _buildAnneeCard(
-      BuildContext context, {
-        required String annee,
-        required String semestres,
-        required String notes,
-        required bool hasNotes,
-      }) {
+    BuildContext context, {
+    required String annee,
+    required String semestres,
+    required String notes,
+    required bool hasNotes,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
-
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-
-        border: Border.all(
-          color: const Color(0xFFE5E7EB),
-        ),
-
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE8E8E8)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 3),
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
-
       child: Material(
         color: Colors.transparent,
-
         child: InkWell(
-          borderRadius: BorderRadius.circular(18),
-
+          borderRadius: BorderRadius.circular(16),
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => NoteDetailPage(
-                  titre: annee,
-                  niveau: annee,
-                ),
+                builder: (_) => NoteDetailPage(titre: annee, niveau: annee),
               ),
             );
           },
-
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 18,
-            ),
-
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
             child: Row(
               children: [
-
-                // ==================================================
-                // IMAGE PNG
-                // ==================================================
-
                 Container(
-                  width: 52,
-                  height: 52,
-
+                  width: 50,
+                  height: 50,
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.08),
-                    borderRadius: BorderRadius.circular(15),
+                    color: const Color(0xFFF1F8FC),
+                    borderRadius: BorderRadius.circular(14),
                   ),
-
-                  padding: const EdgeInsets.all(9),
-
                   child: Image.asset(
-                    'assets/images/academie/mes_notes.png',
+                    'assets/images/academie/notes.png',
+                    width: 35,
+                    height: 35,
                     fit: BoxFit.contain,
                   ),
                 ),
 
-                const SizedBox(width: 15),
-
-                // ==================================================
-                // INFORMATIONS
-                // ==================================================
+                const SizedBox(width: 14),
 
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
-
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Text(
                         annee,
                         style: const TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF172033),
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF242424),
                         ),
                       ),
 
@@ -228,63 +161,30 @@ class MesNotesPage extends StatelessWidget {
                         semestres,
                         style: const TextStyle(
                           fontSize: 13,
-                          color: Color(0xFF687080),
+                          color: Color(0xFF777777),
                         ),
                       ),
 
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 7),
 
-                      Row(
-                        children: [
-
-                          Container(
-                            width: 7,
-                            height: 7,
-
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: hasNotes
-                                  ? const Color(0xFF4CAF50)
-                                  : const Color(0xFF9CA3AF),
-                            ),
-                          ),
-
-                          const SizedBox(width: 7),
-
-                          Text(
-                            notes,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: hasNotes
-                                  ? const Color(0xFF4C9A5B)
-                                  : const Color(0xFF777777),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        notes,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: hasNotes
+                              ? const Color(0xFF4C9A5B)
+                              : const Color(0xFF777777),
+                        ),
                       ),
                     ],
                   ),
                 ),
 
-                // ==================================================
-                // FLÈCHE
-                // ==================================================
-
-                Container(
-                  width: 34,
-                  height: 34,
-
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.08),
-                    shape: BoxShape.circle,
-                  ),
-
-                  child: Icon(
-                    Icons.chevron_right,
-                    color: AppColors.primary,
-                    size: 21,
-                  ),
+                const Icon(
+                  Icons.chevron_right,
+                  color: Color(0xFF888888),
+                  size: 22,
                 ),
               ],
             ),

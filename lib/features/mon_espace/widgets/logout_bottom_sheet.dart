@@ -12,24 +12,17 @@ class LogoutBottomSheet extends StatelessWidget {
     Navigator.pushNamedAndRemoveUntil(
       context,
       RouteNames.connexion,
-          (route) => false,
+      (route) => false,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(
-        24,
-        12,
-        24,
-        28,
-      ),
+      padding: const EdgeInsets.fromLTRB(24, 12, 24, 28),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(28),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
       child: SafeArea(
         top: false,
@@ -53,9 +46,7 @@ class LogoutBottomSheet extends StatelessWidget {
               width: 64,
               height: 64,
               decoration: BoxDecoration(
-                color: AppColors.error.withValues(
-                  alpha: 0.10,
-                ),
+                color: AppColors.error.withValues(alpha: 0.10),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -82,7 +73,7 @@ class LogoutBottomSheet extends StatelessWidget {
             // Description
             const Text(
               'Voulez-vous vraiment vous déconnecter '
-                  'de votre espace étudiant ?',
+              'de votre espace étudiant ?',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
@@ -109,10 +100,7 @@ class LogoutBottomSheet extends StatelessWidget {
                 ),
                 child: const Text(
                   'Se déconnecter',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
               ),
             ),
@@ -129,19 +117,14 @@ class LogoutBottomSheet extends StatelessWidget {
                 },
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.text,
-                  side: const BorderSide(
-                    color: AppColors.border,
-                  ),
+                  side: const BorderSide(color: AppColors.border),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
                 child: const Text(
                   'Annuler',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
             ),

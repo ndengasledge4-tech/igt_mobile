@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CoursCard extends StatelessWidget {
-  final String imagePath;
   final String nom;
   final String professeur;
   final String semestre;
@@ -11,7 +10,6 @@ class CoursCard extends StatelessWidget {
 
   const CoursCard({
     super.key,
-    required this.imagePath,
     required this.nom,
     required this.professeur,
     required this.semestre,
@@ -33,30 +31,39 @@ class CoursCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: const Color(0xFFE9EDF1),
-            ),
+            border: Border.all(color: const Color(0xFFE9EDF1)),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x08000000),
+                blurRadius: 8,
+                offset: Offset(0, 2),
+              ),
+            ],
           ),
           child: Row(
             children: [
-              // IMAGE DU COURS
+              // ==================================================
+              // ICÔNE DU COURS
+              // ==================================================
               Container(
                 width: 48,
                 height: 48,
-                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: const Color(0xFFEAF5FC),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.contain,
+                child: const Icon(
+                  Icons.menu_book_outlined,
+                  color: Color(0xFF2789C8),
+                  size: 24,
                 ),
               ),
 
               const SizedBox(width: 12),
 
-              // INFORMATIONS
+              // ==================================================
+              // INFORMATIONS DU COURS
+              // ==================================================
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,6 +83,8 @@ class CoursCard extends StatelessWidget {
 
                     Text(
                       professeur,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 11,
                         color: Color(0xFF8A8F98),
@@ -99,6 +108,9 @@ class CoursCard extends StatelessWidget {
 
               const SizedBox(width: 8),
 
+              // ==================================================
+              // FLÈCHE
+              // ==================================================
               const Icon(
                 Icons.chevron_right,
                 color: Color(0xFF8A8F98),
@@ -112,20 +124,19 @@ class CoursCard extends StatelessWidget {
   }
 }
 
+// ============================================================
+// PETIT BADGE D'INFORMATION
+// ============================================================
+
 class _InfoBadge extends StatelessWidget {
   final String label;
 
-  const _InfoBadge({
-    required this.label,
-  });
+  const _InfoBadge({required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 7,
-        vertical: 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
       decoration: BoxDecoration(
         color: const Color(0xFFEAF5FC),
         borderRadius: BorderRadius.circular(6),

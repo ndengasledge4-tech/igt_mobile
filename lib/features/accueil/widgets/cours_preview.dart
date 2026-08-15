@@ -12,9 +12,7 @@ class CoursPreview extends StatelessWidget {
     return SizedBox(
       height: 145,
       child: ListView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppDimensions.md,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: AppDimensions.md),
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         children: const [
@@ -60,20 +58,12 @@ class CourseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 175,
-      margin: const EdgeInsets.only(
-        right: AppDimensions.sm,
-      ),
-      padding: const EdgeInsets.all(
-        AppDimensions.md,
-      ),
+      margin: const EdgeInsets.only(right: AppDimensions.sm),
+      padding: const EdgeInsets.all(AppDimensions.md),
       decoration: BoxDecoration(
         color: AppColors.card,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusMedium,
-        ),
-        border: Border.all(
-          color: AppColors.border,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,9 +78,7 @@ class CourseCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
 
-          const SizedBox(
-            height: AppDimensions.xs,
-          ),
+          const SizedBox(height: AppDimensions.xs),
 
           Text(
             professor,
@@ -104,10 +92,7 @@ class CourseCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 9,
-                  vertical: 5,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
                 decoration: BoxDecoration(
                   color: AppColors.softBlue,
                   borderRadius: BorderRadius.circular(
@@ -123,14 +108,9 @@ class CourseCard extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(
-                width: AppDimensions.xs,
-              ),
+              const SizedBox(width: AppDimensions.xs),
 
-              Text(
-                credits,
-                style: AppTextStyles.caption,
-              ),
+              Text(credits, style: AppTextStyles.caption),
             ],
           ),
         ],

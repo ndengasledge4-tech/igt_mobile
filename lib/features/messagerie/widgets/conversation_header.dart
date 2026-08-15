@@ -31,11 +31,7 @@ class ConversationHeader extends StatelessWidget {
       ),
       decoration: const BoxDecoration(
         color: AppColors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: AppColors.border,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: AppColors.border)),
       ),
       child: Row(
         children: [
@@ -62,10 +58,7 @@ class ConversationHeader extends StatelessWidget {
 
           const SizedBox(width: AppDimensions.sm),
 
-          InitialsAvatar(
-            initials: initials,
-            size: 36,
-          ),
+          InitialsAvatar(initials: initials, size: 36),
 
           const SizedBox(width: AppDimensions.sm),
 

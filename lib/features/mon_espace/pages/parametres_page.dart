@@ -68,20 +68,14 @@ class ParametresPage extends StatelessWidget {
                 context,
                 'Modifier mes informations',
                 onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    RouteNames.profil,
-                  );
+                  Navigator.pushNamed(context, RouteNames.profil);
                 },
               ),
               _buildSettingItem(
                 context,
                 'Modifier mon mot de passe',
                 onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    RouteNames.modifierMotDePasse,
-                  );
+                  Navigator.pushNamed(context, RouteNames.modifierMotDePasse);
                 },
               ),
             ]),
@@ -91,10 +85,7 @@ class ParametresPage extends StatelessWidget {
             _buildSectionHeader('NOTIFICATIONS'),
 
             _buildGroupedCard([
-              _buildSettingItem(
-                context,
-                'Préférences de notifications',
-              ),
+              _buildSettingItem(context, 'Préférences de notifications'),
             ]),
 
             const SizedBox(height: 24),
@@ -102,14 +93,8 @@ class ParametresPage extends StatelessWidget {
             _buildSectionHeader('SÉCURITÉ'),
 
             _buildGroupedCard([
-              _buildSettingItem(
-                context,
-                'Sécurité du compte',
-              ),
-              _buildSettingItem(
-                context,
-                'Sessions actives',
-              ),
+              _buildSettingItem(context, 'Sécurité du compte'),
+              _buildSettingItem(context, 'Sessions actives'),
             ]),
 
             const SizedBox(height: 24),
@@ -117,15 +102,8 @@ class ParametresPage extends StatelessWidget {
             _buildSectionHeader('APPLICATION'),
 
             _buildGroupedCard([
-              _buildSettingItem(
-                context,
-                'Version 1.0.0',
-                showChevron: false,
-              ),
-              _buildSettingItem(
-                context,
-                'Informations légales',
-              ),
+              _buildSettingItem(context, 'Version 1.0.0', showChevron: false),
+              _buildSettingItem(context, 'Informations légales'),
             ]),
 
             const SizedBox(height: 24),
@@ -153,10 +131,7 @@ class ParametresPage extends StatelessWidget {
 
   Widget _buildSectionHeader(String title) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 4,
-        bottom: 10,
-      ),
+      padding: const EdgeInsets.only(left: 4, bottom: 10),
       child: Text(
         title,
         style: const TextStyle(
@@ -174,49 +149,42 @@ class ParametresPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.border.withValues(alpha: 0.5),
-        ),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Column(
-        children: List.generate(
-          items.length,
-              (index) {
-            if (index == items.length - 1) {
-              return items[index];
-            }
+        children: List.generate(items.length, (index) {
+          if (index == items.length - 1) {
+            return items[index];
+          }
 
-            return Column(
-              children: [
-                items[index],
-                const Divider(
-                  height: 1,
-                  color: AppColors.divider,
-                  indent: 16,
-                  endIndent: 16,
-                ),
-              ],
-            );
-          },
-        ),
+          return Column(
+            children: [
+              items[index],
+              const Divider(
+                height: 1,
+                color: AppColors.divider,
+                indent: 16,
+                endIndent: 16,
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
 
   Widget _buildSettingItem(
-      BuildContext context,
-      String title, {
-        VoidCallback? onTap,
-        Color? textColor,
-        bool showChevron = true,
-        Color? chevronColor,
-      }) {
+    BuildContext context,
+    String title, {
+    VoidCallback? onTap,
+    Color? textColor,
+    bool showChevron = true,
+    Color? chevronColor,
+  }) {
     return ListTile(
       onTap: onTap,
       dense: true,
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       title: Text(
         title,
         style: TextStyle(
@@ -227,10 +195,10 @@ class ParametresPage extends StatelessWidget {
       ),
       trailing: showChevron
           ? Icon(
-        Icons.chevron_right_rounded,
-        size: 20,
-        color: chevronColor ?? AppColors.hint,
-      )
+              Icons.chevron_right_rounded,
+              size: 20,
+              color: chevronColor ?? AppColors.hint,
+            )
           : null,
     );
   }

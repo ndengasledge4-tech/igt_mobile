@@ -44,16 +44,12 @@ class ActualiteHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: AppColors.primary,
-      padding: EdgeInsets.only(
-        top: topInset + 10,
-      ),
+      padding: EdgeInsets.only(top: topInset + 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppDimensions.sm,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: AppDimensions.sm),
             child: Text(
               'Actualité',
               style: AppTextStyles.headline2.copyWith(
@@ -107,9 +103,7 @@ class _TabButton extends StatelessWidget {
           children: [
             Icon(
               tab.icon,
-              color: selected
-                  ? tab.color
-                  : tab.color.withAlpha(200),
+              color: selected ? tab.color : tab.color.withAlpha(200),
               size: 17,
             ),
             const SizedBox(height: AppDimensions.xs),
@@ -122,15 +116,12 @@ class _TabButton extends StatelessWidget {
                     ? AppColors.white
                     : AppColors.white.withAlpha(200),
                 fontSize: 13,
-                fontWeight:
-                selected ? FontWeight.w700 : FontWeight.w600,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w600,
               ),
             ),
             const SizedBox(height: AppDimensions.sm),
             AnimatedContainer(
-              duration: const Duration(
-                milliseconds: 180,
-              ),
+              duration: const Duration(milliseconds: 180),
               width: selected ? 46 : 0,
               height: 3,
               decoration: BoxDecoration(

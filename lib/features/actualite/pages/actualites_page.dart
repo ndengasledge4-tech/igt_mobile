@@ -13,10 +13,7 @@ import 'evenement_detail_page.dart';
 class ActualitePage extends StatefulWidget {
   final int initialIndex;
 
-  const ActualitePage({
-    super.key,
-    this.initialIndex = 0,
-  });
+  const ActualitePage({super.key, this.initialIndex = 0});
 
   @override
   State<ActualitePage> createState() => _ActualitePageState();
@@ -52,9 +49,7 @@ class _ActualitePageState extends State<ActualitePage> {
                 });
               },
             ),
-            Expanded(
-              child: _buildList(),
-            ),
+            Expanded(child: _buildList()),
           ],
         ),
       ),
@@ -99,33 +94,24 @@ class _ActualitePageState extends State<ActualitePage> {
         AppDimensions.lg,
       ),
       itemCount: items.length,
-      separatorBuilder: (_, _) =>
-      const SizedBox(height: AppDimensions.sm),
+      separatorBuilder: (_, _) => const SizedBox(height: AppDimensions.sm),
       itemBuilder: (context, index) {
         final item = items[index];
 
         return ActualiteCard(
           item: item,
-          onTap: () => _openDetail(
-            context,
-            item,
-          ),
+          onTap: () => _openDetail(context, item),
         );
       },
     );
   }
 
-  void _openDetail(
-      BuildContext context,
-      Map<String, dynamic> item,
-      ) {
+  void _openDetail(BuildContext context, Map<String, dynamic> item) {
     if (item['category'] == 'evenement') {
       Navigator.push(
         context,
         MaterialPageRoute<void>(
-          builder: (_) => EvenementDetailPage(
-            item: item,
-          ),
+          builder: (_) => EvenementDetailPage(item: item),
         ),
       );
       return;
@@ -133,11 +119,7 @@ class _ActualitePageState extends State<ActualitePage> {
 
     Navigator.push(
       context,
-      MaterialPageRoute<void>(
-        builder: (_) => ActualiteDetailPage(
-          item: item,
-        ),
-      ),
+      MaterialPageRoute<void>(builder: (_) => ActualiteDetailPage(item: item)),
     );
   }
 }

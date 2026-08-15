@@ -13,27 +13,20 @@ class RegisterProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: List.generate(
-        totalSteps,
-            (index) {
-          final active = index < currentStep;
+      children: List.generate(totalSteps, (index) {
+        final active = index < currentStep;
 
-          return Expanded(
-            child: Container(
-              height: 5,
-              margin: EdgeInsets.only(
-                right: index == totalSteps - 1 ? 0 : 7,
-              ),
-              decoration: BoxDecoration(
-                color: active
-                    ? const Color(0xFF4388C5)
-                    : const Color(0xFFE0E7ED),
-                borderRadius: BorderRadius.circular(20),
-              ),
+        return Expanded(
+          child: Container(
+            height: 5,
+            margin: EdgeInsets.only(right: index == totalSteps - 1 ? 0 : 7),
+            decoration: BoxDecoration(
+              color: active ? const Color(0xFF4388C5) : const Color(0xFFE0E7ED),
+              borderRadius: BorderRadius.circular(20),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      }),
     );
   }
 }

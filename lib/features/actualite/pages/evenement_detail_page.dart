@@ -9,10 +9,7 @@ import '../widgets/detail_top_bar.dart';
 class EvenementDetailPage extends StatelessWidget {
   final Map<String, dynamic> item;
 
-  const EvenementDetailPage({
-    super.key,
-    required this.item,
-  });
+  const EvenementDetailPage({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -29,35 +26,25 @@ class EvenementDetailPage extends StatelessWidget {
             const DetailTopBar(),
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.only(
-                  bottom: AppDimensions.lg,
-                ),
+                padding: const EdgeInsets.only(bottom: AppDimensions.lg),
                 child: Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _hero(),
                     Padding(
-                      padding: const EdgeInsets.all(
-                        AppDimensions.sm,
-                      ),
+                      padding: const EdgeInsets.all(AppDimensions.sm),
                       child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            item['content'] ??
-                                item['excerpt'] ??
-                                '',
+                            item['content'] ?? item['excerpt'] ?? '',
                             style: AppTextStyles.body.copyWith(
                               fontSize: 14,
                               height: 1.5,
                             ),
                           ),
                           if (item['program'] != null) ...[
-                            const SizedBox(
-                              height: AppDimensions.lg,
-                            ),
+                            const SizedBox(height: AppDimensions.lg),
                             Text(
                               'Programme de la journée',
                               style: AppTextStyles.label,
@@ -92,10 +79,7 @@ class EvenementDetailPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 4,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: AppColors.white.withAlpha(140),
               borderRadius: BorderRadius.circular(9),
@@ -143,18 +127,10 @@ class EvenementDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _meta(
-      IconData icon,
-      String text,
-      Color color,
-      ) {
+  Widget _meta(IconData icon, String text, Color color) {
     return Row(
       children: [
-        Icon(
-          icon,
-          color: color,
-          size: 13,
-        ),
+        Icon(icon, color: color, size: 13),
         const SizedBox(width: 6),
         Expanded(
           child: Text(
@@ -172,40 +148,27 @@ class EvenementDetailPage extends StatelessWidget {
   }
 
   Widget _program() {
-    final program =
-    List<Map<String, dynamic>>.from(
-      item['program'] as List,
-    );
+    final program = List<Map<String, dynamic>>.from(item['program'] as List);
 
     return Column(
       children: [
-        for (int index = 0;
-        index < program.length;
-        index++)
+        for (int index = 0; index < program.length; index++)
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               border: index < program.length - 1
-                  ? const Border(
-                bottom: BorderSide(
-                  color: AppColors.border,
-                ),
-              )
+                  ? const Border(bottom: BorderSide(color: AppColors.border))
                   : null,
             ),
             child: Row(
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   width: 48,
                   child: Text(
                     program[index]['time'].toString(),
-                    style:
-                    AppTextStyles.caption.copyWith(
+                    style: AppTextStyles.caption.copyWith(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w700,
                     ),
@@ -214,10 +177,8 @@ class EvenementDetailPage extends StatelessWidget {
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
-                    program[index]['description']
-                        .toString(),
-                    style:
-                    AppTextStyles.bodySmall.copyWith(
+                    program[index]['description'].toString(),
+                    style: AppTextStyles.bodySmall.copyWith(
                       color: AppColors.text,
                     ),
                   ),

@@ -5,11 +5,7 @@ class NoteDetailPage extends StatelessWidget {
   final String titre;
   final String niveau;
 
-  const NoteDetailPage({
-    super.key,
-    required this.titre,
-    required this.niveau,
-  });
+  const NoteDetailPage({super.key, required this.titre, required this.niveau});
 
   static const Color primaryBlue = Color(0xFF1494D2);
 
@@ -78,10 +74,10 @@ class NoteDetailPage extends StatelessWidget {
   }
 
   Widget _buildSemestresPage(
-      BuildContext context, {
-        required String titre,
-        required List<_Semestre> semestres,
-      }) {
+    BuildContext context, {
+    required String titre,
+    required List<_Semestre> semestres,
+  }) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -114,19 +110,13 @@ class NoteDetailPage extends StatelessWidget {
             children: [
               const Text(
                 'Choisissez un semestre pour consulter vos notes.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF777777),
-                ),
+                style: TextStyle(fontSize: 14, color: Color(0xFF777777)),
               ),
 
               const SizedBox(height: 20),
 
               ...semestres.map(
-                    (semestre) => _buildSemestreCard(
-                  context,
-                  semestre,
-                ),
+                (semestre) => _buildSemestreCard(context, semestre),
               ),
             ],
           ),
@@ -135,18 +125,13 @@ class NoteDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSemestreCard(
-      BuildContext context,
-      _Semestre semestre,
-      ) {
+  Widget _buildSemestreCard(BuildContext context, _Semestre semestre) {
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: const Color(0xFFE7E7E7),
-        ),
+        border: Border.all(color: const Color(0xFFE7E7E7)),
       ),
       child: Material(
         color: Colors.transparent,
@@ -164,10 +149,7 @@ class NoteDetailPage extends StatelessWidget {
             );
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Row(
               children: [
                 Container(
@@ -216,10 +198,7 @@ class NoteDetailPage extends StatelessWidget {
                   ),
                 ),
 
-                const Icon(
-                  Icons.chevron_right,
-                  color: Color(0xFF888888),
-                ),
+                const Icon(Icons.chevron_right, color: Color(0xFF888888)),
               ],
             ),
           ),
@@ -233,10 +212,7 @@ class _SemesterNotesPage extends StatelessWidget {
   final String semestre;
   final bool hasNotes;
 
-  const _SemesterNotesPage({
-    required this.semestre,
-    required this.hasNotes,
-  });
+  const _SemesterNotesPage({required this.semestre, required this.hasNotes});
 
   @override
   Widget build(BuildContext context) {
@@ -343,15 +319,12 @@ class _SemesterNotesPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
           children: [
-            _buildMoyenneCard(
-              moyenne: moyenne,
-              credits: credits,
-            ),
+            _buildMoyenneCard(moyenne: moyenne, credits: credits),
 
             const SizedBox(height: 12),
 
             ...notes.map(
-                  (note) => NoteCard(
+              (note) => NoteCard(
                 nom: note.nom,
                 note: note.note,
                 coefficient: note.coefficient,
@@ -364,15 +337,9 @@ class _SemesterNotesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMoyenneCard({
-    required String moyenne,
-    required String credits,
-  }) {
+  Widget _buildMoyenneCard({required String moyenne, required String credits}) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 17,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 17),
       decoration: BoxDecoration(
         color: const Color(0xFF1494D2),
         borderRadius: BorderRadius.circular(16),
@@ -385,10 +352,7 @@ class _SemesterNotesPage extends StatelessWidget {
               children: [
                 const Text(
                   'Moyenne Semestre',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: Colors.white70, fontSize: 12),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -408,10 +372,7 @@ class _SemesterNotesPage extends StatelessWidget {
             children: [
               const Text(
                 'Crédits',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Colors.white70, fontSize: 12),
               ),
               const SizedBox(height: 4),
               Text(
@@ -450,12 +411,7 @@ class _SemesterNotesPage extends StatelessWidget {
           coefficient: '2',
           credits: '3',
         ),
-        _Note(
-          nom: 'Anglais I',
-          note: '16',
-          coefficient: '1',
-          credits: '2',
-        ),
+        _Note(nom: 'Anglais I', note: '16', coefficient: '1', credits: '2'),
         _Note(
           nom: 'Expression française',
           note: '14',
@@ -491,12 +447,7 @@ class _SemesterNotesPage extends StatelessWidget {
           coefficient: '2',
           credits: '3',
         ),
-        _Note(
-          nom: 'Anglais II',
-          note: '17',
-          coefficient: '1',
-          credits: '2',
-        ),
+        _Note(nom: 'Anglais II', note: '17', coefficient: '1', credits: '2'),
       ];
     }
 

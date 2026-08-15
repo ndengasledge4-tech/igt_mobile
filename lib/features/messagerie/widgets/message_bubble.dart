@@ -30,18 +30,13 @@ class MessageBubble extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if (!isSentByUser) ...[
-          InitialsAvatar(
-            initials: initials ?? '',
-            size: 28,
-          ),
+          InitialsAvatar(initials: initials ?? '', size: 28),
           const SizedBox(width: AppDimensions.sm),
         ],
 
         Flexible(
           child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: maxWidth,
-            ),
+            constraints: BoxConstraints(maxWidth: maxWidth),
             child: Column(
               crossAxisAlignment: isSentByUser
                   ? CrossAxisAlignment.end
@@ -53,31 +48,21 @@ class MessageBubble extends StatelessWidget {
                     vertical: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: isSentByUser
-                        ? AppColors.primary
-                        : AppColors.card,
+                    color: isSentByUser ? AppColors.primary : AppColors.card,
                     borderRadius: BorderRadius.only(
                       topLeft: const Radius.circular(16),
                       topRight: const Radius.circular(16),
-                      bottomLeft: Radius.circular(
-                        isSentByUser ? 16 : 4,
-                      ),
-                      bottomRight: Radius.circular(
-                        isSentByUser ? 4 : 16,
-                      ),
+                      bottomLeft: Radius.circular(isSentByUser ? 16 : 4),
+                      bottomRight: Radius.circular(isSentByUser ? 4 : 16),
                     ),
                     border: isSentByUser
                         ? null
-                        : Border.all(
-                      color: AppColors.border,
-                    ),
+                        : Border.all(color: AppColors.border),
                   ),
                   child: Text(
                     text,
                     style: AppTextStyles.bodySmall.copyWith(
-                      color: isSentByUser
-                          ? AppColors.white
-                          : AppColors.text,
+                      color: isSentByUser ? AppColors.white : AppColors.text,
                       height: 1.5,
                     ),
                   ),
@@ -85,12 +70,7 @@ class MessageBubble extends StatelessWidget {
 
                 const SizedBox(height: AppDimensions.xs),
 
-                Text(
-                  time,
-                  style: AppTextStyles.caption.copyWith(
-                    fontSize: 10,
-                  ),
-                ),
+                Text(time, style: AppTextStyles.caption.copyWith(fontSize: 10)),
               ],
             ),
           ),

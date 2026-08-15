@@ -62,21 +62,13 @@ class NewsCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: onPressed,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusMedium,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
         child: Container(
-          padding: const EdgeInsets.all(
-            AppDimensions.md,
-          ),
+          padding: const EdgeInsets.all(AppDimensions.md),
           decoration: BoxDecoration(
             color: AppColors.card,
-            borderRadius: BorderRadius.circular(
-              AppDimensions.radiusMedium,
-            ),
-            border: Border.all(
-              color: AppColors.border,
-            ),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+            border: Border.all(color: AppColors.border),
           ),
           child: Row(
             children: [
@@ -90,16 +82,10 @@ class NewsCard extends StatelessWidget {
                   ),
                 ),
                 alignment: Alignment.center,
-                child: Icon(
-                  icon,
-                  color: AppColors.primary,
-                  size: 24,
-                ),
+                child: Icon(icon, color: AppColors.primary, size: 24),
               ),
 
-              const SizedBox(
-                width: AppDimensions.sm,
-              ),
+              const SizedBox(width: AppDimensions.sm),
 
               Expanded(
                 child: Column(
@@ -113,9 +99,7 @@ class NewsCard extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(
-                      height: AppDimensions.xs,
-                    ),
+                    const SizedBox(height: AppDimensions.xs),
 
                     Row(
                       children: [
@@ -126,9 +110,7 @@ class NewsCard extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             color: AppColors.softBlue,
-                            borderRadius: BorderRadius.circular(
-                              20,
-                            ),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
                             category,
@@ -139,9 +121,7 @@ class NewsCard extends StatelessWidget {
                           ),
                         ),
 
-                        const SizedBox(
-                          width: AppDimensions.xs,
-                        ),
+                        const SizedBox(width: AppDimensions.xs),
 
                         Text(
                           date,
@@ -155,10 +135,7 @@ class NewsCard extends StatelessWidget {
                 ),
               ),
 
-              const Icon(
-                Icons.chevron_right,
-                color: AppColors.hint,
-              ),
+              const Icon(Icons.chevron_right, color: AppColors.hint),
             ],
           ),
         ),

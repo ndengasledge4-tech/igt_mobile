@@ -47,11 +47,7 @@ class MenuEspaceItem extends StatelessWidget {
             color: iconBgColor ?? AppColors.softBlue,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(
-            icon,
-            color: iconColor ?? AppColors.primary,
-            size: 24,
-          ),
+          child: Icon(icon, color: iconColor ?? AppColors.primary, size: 24),
         ),
         title: Text(
           title,

@@ -29,21 +29,22 @@ class _NavigationPageState extends State<NavigationPage> {
     _currentIndex = widget.initialIndex;
   }
 
-  final List<Widget> _pages = const [
-    AccueilPage(),
-    AcademiePage(),
-    ActualitePage(),
-    MessageriePage(),
-    MonEspacePage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: _pages,
+        children: [
+          AccueilPage(
+            onNavigate: _navigateFromAccueil,
+          ),
+          const AcademiePage(),
+          const ActualitePage(),
+          const MessageriePage(),
+          const MonEspacePage(),
+        ],
       ),
+
       bottomNavigationBar: AppBottomNavigation(
         currentIndex: _currentIndex,
         onTap: (index) {
@@ -53,5 +54,11 @@ class _NavigationPageState extends State<NavigationPage> {
         },
       ),
     );
+  }
+
+  void _navigateFromAccueil(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 }

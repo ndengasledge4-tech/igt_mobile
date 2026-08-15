@@ -21,11 +21,7 @@ class RegisterPersonalForm extends StatelessWidget {
 
         const Text(
           'Renseignez les informations liées à votre dossier étudiant.',
-          style: TextStyle(
-            color: Color(0xFF8A98A8),
-            fontSize: 14,
-            height: 1.4,
-          ),
+          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 14, height: 1.4),
         ),
 
         const SizedBox(height: 25),
@@ -95,14 +91,8 @@ class RegisterPersonalForm extends StatelessWidget {
           keyboardType: keyboardType,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(
-              color: Color(0xFF98A2B3),
-              fontSize: 15,
-            ),
-            prefixIcon: Icon(
-              icon,
-              color: const Color(0xFF7E8C9A),
-            ),
+            hintStyle: const TextStyle(color: Color(0xFF98A2B3), fontSize: 15),
+            prefixIcon: Icon(icon, color: const Color(0xFF7E8C9A)),
             filled: true,
             fillColor: Colors.white,
             contentPadding: const EdgeInsets.symmetric(
@@ -121,19 +111,14 @@ class RegisterPersonalForm extends StatelessWidget {
   OutlineInputBorder _border() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(
-        color: Color(0xFFDDE3EA),
-      ),
+      borderSide: const BorderSide(color: Color(0xFFDDE3EA)),
     );
   }
 
   OutlineInputBorder _focusedBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(
-        color: Color(0xFF4388C5),
-        width: 1.5,
-      ),
+      borderSide: const BorderSide(color: Color(0xFF4388C5), width: 1.5),
     );
   }
 }

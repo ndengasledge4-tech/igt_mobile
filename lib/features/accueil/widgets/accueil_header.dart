@@ -22,12 +22,8 @@ class AccueilHeader extends StatelessWidget {
       decoration: const BoxDecoration(
         color: AppColors.primary,
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(
-            AppDimensions.radiusLarge,
-          ),
-          bottomRight: Radius.circular(
-            AppDimensions.radiusLarge,
-          ),
+          bottomLeft: Radius.circular(AppDimensions.radiusLarge),
+          bottomRight: Radius.circular(AppDimensions.radiusLarge),
         ),
       ),
       child: Column(
@@ -46,9 +42,7 @@ class AccueilHeader extends StatelessWidget {
                         color: Colors.white70,
                       ),
                     ),
-                    const SizedBox(
-                      height: AppDimensions.xs,
-                    ),
+                    const SizedBox(height: AppDimensions.xs),
                     Text(
                       'Jean DUPONT',
                       style: AppTextStyles.title.copyWith(
@@ -65,9 +59,7 @@ class AccueilHeader extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(
-            height: AppDimensions.md,
-          ),
+          const SizedBox(height: AppDimensions.md),
 
           const ProfilEtudiantCard(),
         ],

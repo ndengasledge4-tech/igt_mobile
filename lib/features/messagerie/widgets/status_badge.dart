@@ -5,10 +5,7 @@ import '../../../app/theme/dimensions.dart';
 import '../../../app/theme/text_styles.dart';
 
 class StatusBadge extends StatelessWidget {
-  const StatusBadge({
-    super.key,
-    required this.status,
-  });
+  const StatusBadge({super.key, required this.status});
 
   final String status;
 
@@ -48,9 +45,7 @@ class StatusBadge extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: background,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusLarge,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
       ),
       child: Text(
         label,

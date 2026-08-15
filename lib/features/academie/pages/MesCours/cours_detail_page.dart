@@ -1,40 +1,31 @@
 import 'package:flutter/material.dart';
 
 import '../../../widgets/cours_card.dart';
-import 'cours_contenu_page.dart';
 
 /// ============================================================
 /// PAGE : LISTE DES COURS
 /// ============================================================
 
-
 class CoursDetailPage extends StatefulWidget {
   final String semestre;
 
-  const CoursDetailPage({
-    super.key,
-    required this.semestre,
-  });
+  const CoursDetailPage({super.key, required this.semestre});
 
   @override
-  State<CoursDetailPage> createState() =>
-      _CoursDetailPageState();
+  State<CoursDetailPage> createState() => _CoursDetailPageState();
 }
 
 class _CoursDetailPageState extends State<CoursDetailPage> {
-
   // ----------------------------------------------------------
   // CONTRÔLEUR DE RECHERCHE
   // ----------------------------------------------------------
-  final TextEditingController _searchController =
-  TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   // Liste des cours affichés.
   late List<Map<String, dynamic>> coursFiltres;
 
   // Liste complète des cours.
   final List<Map<String, dynamic>> tousLesCours = [
-
     // --------------------------------------------------------
     // SEMESTRE 1
     // --------------------------------------------------------
@@ -44,7 +35,6 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 4,
       'coefficient': 3,
-      'imagePath': 'assets/images/cours/informatique.png'
     },
 
     {
@@ -53,7 +43,6 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 4,
       'coefficient': 3,
-      'imagePath': 'assets/images/cours/algorithmique.png'
     },
 
     {
@@ -62,7 +51,6 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 3,
       'coefficient': 2,
-      'imagePath': 'assets/images/cours/Mathématiques.png'
     },
 
     {
@@ -71,7 +59,6 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 2,
       'coefficient': 1,
-      'imagePath': 'assets/images/cours/Anglais.png'
     },
 
     {
@@ -80,8 +67,6 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S1',
       'credits': 2,
       'coefficient': 1,
-      'imagePath': 'assets/images/cours/Expression française.png'
-
     },
 
     // --------------------------------------------------------
@@ -93,7 +78,6 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S2',
       'credits': 4,
       'coefficient': 3,
-      'imagePath': 'assets/images/cours/Algorithme II.png'
     },
 
     {
@@ -102,8 +86,6 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S2',
       'credits': 4,
       'coefficient': 3,
-      'imagePath': 'assets/images/cours/Programmation orientée objet.png'
-
     },
 
     {
@@ -112,37 +94,33 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S2',
       'credits': 3,
       'coefficient': 2,
-      'imagePath': 'assets/images/cours/Mathématiques II.png'
     },
 
     {
-      'nom': "Sécurité",
+      'nom': "Systèmes d'information",
       'professeur': 'Prof. I. KONE',
       'semestre': 'S2',
       'credits': 3,
       'coefficient': 2,
-      'imagePath': 'assets/images/cours/Sécurité.png'
     },
 
     {
-      'nom': 'SGBD',
+      'nom': 'Anglais II',
       'professeur': 'Prof. S. MARTIN',
       'semestre': 'S2',
       'credits': 2,
       'coefficient': 1,
-      'imagePath': 'assets/images/cours/SGBD.png'
     },
 
     // --------------------------------------------------------
     // SEMESTRE 3
     // --------------------------------------------------------
     {
-      'nom': 'Entrepreunariat',
+      'nom': 'Algorithmique avancée',
       'professeur': 'Prof. M. COULIBALY',
       'semestre': 'S3',
       'credits': 4,
       'coefficient': 3,
-      'imagePath': 'assets/images/cours/Entrepreunariat.png'
     },
 
     {
@@ -151,8 +129,6 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S3',
       'credits': 3,
       'coefficient': 2,
-      'imagePath': 'assets/images/cours/Bases de données.png'
-
     },
 
     {
@@ -161,7 +137,6 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S3',
       'credits': 4,
       'coefficient': 3,
-      'imagePath': 'assets/images/cours/Réseaux informatiques.png'
     },
 
     {
@@ -170,25 +145,22 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       'semestre': 'S3',
       'credits': 3,
       'coefficient': 2,
-      'imagePath': 'assets/images/cours/Génie logiciel.png'
     },
 
     {
-      'nom': "Systèmes",
+      'nom': "Systèmes d'exploitation",
       'professeur': 'Prof. I. KONE',
       'semestre': 'S3',
       'credits': 4,
       'coefficient': 3,
-      'imagePath': 'assets/images/cours/Systèmes.png'
     },
 
     {
-      'nom': "logistique",
+      'nom': "Mathématiques pour l'info",
       'professeur': 'Prof. D. BAMBA',
       'semestre': 'S3',
       'credits': 3,
       'coefficient': 2,
-      'imagePath': 'assets/images/cours/logistique.png'
     },
   ];
 
@@ -200,9 +172,8 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
     // au semestre sélectionné.
     coursFiltres = tousLesCours
         .where(
-          (cours) => cours['semestre'] ==
-          _getNumeroSemestre(widget.semestre),
-    )
+          (cours) => cours['semestre'] == _getNumeroSemestre(widget.semestre),
+        )
         .toList();
   }
 
@@ -220,24 +191,16 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
   // RECHERCHE
   // ----------------------------------------------------------
   void _rechercherCours(String recherche) {
-
-    final rechercheMinuscule =
-    recherche.toLowerCase();
+    final rechercheMinuscule = recherche.toLowerCase();
 
     setState(() {
-
       coursFiltres = tousLesCours.where((cours) {
-
         final bonSemestre =
-            cours['semestre'] ==
-                _getNumeroSemestre(widget.semestre);
+            cours['semestre'] == _getNumeroSemestre(widget.semestre);
 
-        final nomCours =
-        cours['nom'].toString().toLowerCase();
+        final nomCours = cours['nom'].toString().toLowerCase();
 
-        return bonSemestre &&
-            nomCours.contains(rechercheMinuscule);
-
+        return bonSemestre && nomCours.contains(rechercheMinuscule);
       }).toList();
     });
   }
@@ -250,9 +213,7 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    final semestreNumero =
-    _getNumeroSemestre(widget.semestre);
+    final semestreNumero = _getNumeroSemestre(widget.semestre);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FB),
@@ -265,10 +226,7 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
         elevation: 0,
 
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black87,
-          ),
+          icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -289,17 +247,11 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
       // --------------------------------------------------------
       body: Column(
         children: [
-
           // ----------------------------------------------------
           // BARRE DE RECHERCHE
           // ----------------------------------------------------
           Padding(
-            padding: const EdgeInsets.fromLTRB(
-              20,
-              5,
-              20,
-              15,
-            ),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 15),
 
             child: TextField(
               controller: _searchController,
@@ -309,33 +261,24 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
               decoration: InputDecoration(
                 hintText: 'Rechercher un cours...',
 
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: Colors.black45,
-                ),
+                prefixIcon: const Icon(Icons.search, color: Colors.black45),
 
                 filled: true,
                 fillColor: Colors.white,
 
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(
-                    color: Color(0xFFE6E8EC),
-                  ),
+                  borderSide: const BorderSide(color: Color(0xFFE6E8EC)),
                 ),
 
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(
-                    color: Color(0xFFE6E8EC),
-                  ),
+                  borderSide: const BorderSide(color: Color(0xFFE6E8EC)),
                 ),
 
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(
-                    color: Color(0xFF1976D2),
-                  ),
+                  borderSide: const BorderSide(color: Color(0xFF1976D2)),
                 ),
               ),
             ),
@@ -346,87 +289,67 @@ class _CoursDetailPageState extends State<CoursDetailPage> {
           // ----------------------------------------------------
           Expanded(
             child: coursFiltres.isEmpty
-
-            // ----------------------------------------------
-            // AUCUN COURS
-            // ----------------------------------------------
+                // ----------------------------------------------
+                // AUCUN COURS
+                // ----------------------------------------------
                 ? Center(
-              child: Column(
-                mainAxisAlignment:
-                MainAxisAlignment.center,
-                children: [
-
-                  const Icon(
-                    Icons.menu_book_rounded,
-                    size: 55,
-                    color: Color(0xFF8BC34A),
-                  ),
-
-                  const SizedBox(height: 15),
-
-                  const Text(
-                    'Aucun cours',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  Text(
-                    'Aucun cours disponible pour $semestreNumero.',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.black54,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            )
-
-            // ----------------------------------------------
-            // COURS DISPONIBLES
-            // ----------------------------------------------
-                : ListView.builder(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-
-              itemCount: coursFiltres.length,
-
-              itemBuilder: (context, index) {
-
-                final cours =
-                coursFiltres[index];
-
-                return CoursCard(
-                  imagePath: cours['imagePath'],
-                  nom: cours['nom'],
-                  professeur: cours['professeur'],
-                  semestre: cours['semestre'],
-                  credits: cours['credits'],
-                  coefficient: cours['coefficient'],
-
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CoursContenuPage(
-                          imagePath: cours['imagePath'],
-                          nom: cours['nom'],
-                          professeur: cours['professeur'],
-                          semestre: cours['semestre'],
-                          credits: cours['credits'],
-                          coefficient: cours['coefficient'],
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.menu_book_rounded,
+                          size: 55,
+                          color: Color(0xFF8BC34A),
                         ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+
+                        const SizedBox(height: 15),
+
+                        const Text(
+                          'Aucun cours',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+
+                        const SizedBox(height: 8),
+
+                        Text(
+                          'Aucun cours disponible pour $semestreNumero.',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.black54,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                // ----------------------------------------------
+                // COURS DISPONIBLES
+                // ----------------------------------------------
+                : ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+
+                    itemCount: coursFiltres.length,
+
+                    itemBuilder: (context, index) {
+                      final cours = coursFiltres[index];
+
+                      return CoursCard(
+                        nom: cours['nom'],
+                        professeur: cours['professeur'],
+                        semestre: cours['semestre'],
+                        credits: cours['credits'],
+                        coefficient: cours['coefficient'],
+
+                        onTap: () {
+                          // Pour l'instant, on pourra brancher
+                          // ici la vraie page de détail du cours.
+                        },
+                      );
+                    },
+                  ),
           ),
         ],
       ),

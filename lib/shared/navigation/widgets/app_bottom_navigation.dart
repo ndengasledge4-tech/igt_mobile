@@ -19,9 +19,7 @@ class AppBottomNavigation extends StatelessWidget {
       top: false,
       child: Container(
         height: 80,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
+        decoration: const BoxDecoration(color: Colors.white),
         child: Row(
           children: [
             _buildItem(
@@ -127,12 +125,8 @@ class AppBottomNavigation extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 12,
-                  fontWeight: selected
-                      ? FontWeight.w600
-                      : FontWeight.w500,
-                  color: selected
-                      ? AppColors.primary
-                      : const Color(0xFF8797A7),
+                  fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                  color: selected ? AppColors.primary : const Color(0xFF8797A7),
                 ),
               ),
 

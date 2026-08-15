@@ -66,21 +66,13 @@ class MessageCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: onPressed,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusMedium,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
         child: Container(
-          padding: const EdgeInsets.all(
-            AppDimensions.md,
-          ),
+          padding: const EdgeInsets.all(AppDimensions.md),
           decoration: BoxDecoration(
             color: AppColors.card,
-            borderRadius: BorderRadius.circular(
-              AppDimensions.radiusMedium,
-            ),
-            border: Border.all(
-              color: AppColors.border,
-            ),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+            border: Border.all(color: AppColors.border),
           ),
           child: Row(
             children: [
@@ -101,9 +93,7 @@ class MessageCard extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(
-                width: AppDimensions.sm,
-              ),
+              const SizedBox(width: AppDimensions.sm),
 
               Expanded(
                 child: Column(
@@ -117,9 +107,7 @@ class MessageCard extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(
-                      height: AppDimensions.xs,
-                    ),
+                    const SizedBox(height: AppDimensions.xs),
 
                     Text(
                       message,
@@ -144,9 +132,7 @@ class MessageCard extends StatelessWidget {
                   ),
 
                   if (unread) ...[
-                    const SizedBox(
-                      height: AppDimensions.xs,
-                    ),
+                    const SizedBox(height: AppDimensions.xs),
                     Container(
                       width: 22,
                       height: 22,

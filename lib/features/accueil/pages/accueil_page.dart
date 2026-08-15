@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
 import '../../../app/theme/dimensions.dart';
+
 import '../widgets/accueil_header.dart';
 import '../widgets/actualites_preview.dart';
 import '../widgets/cours_preview.dart';
@@ -12,7 +13,12 @@ import '../widgets/resultats_preview.dart';
 import '../widgets/section_header.dart';
 
 class AccueilPage extends StatelessWidget {
-  const AccueilPage({super.key});
+  final ValueChanged<int>? onNavigate;
+
+  const AccueilPage({
+    super.key,
+    this.onNavigate,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +42,15 @@ class AccueilPage extends StatelessWidget {
                 height: AppDimensions.lg,
               ),
 
+              // =====================================================
+              // MES COURS
+              // =====================================================
+
               SectionHeader(
                 title: 'Mes cours',
                 onPressed: () {
-                  // TODO: Naviguer vers MesCoursPage
+                  // Académie
+                  onNavigate?.call(1);
                 },
               ),
 
@@ -53,10 +64,15 @@ class AccueilPage extends StatelessWidget {
                 height: AppDimensions.lg,
               ),
 
+              // =====================================================
+              // MES NOTES
+              // =====================================================
+
               SectionHeader(
                 title: 'Dernières notes',
                 onPressed: () {
-                  // TODO: Naviguer vers MesNotesPage
+                  // Académie
+                  onNavigate?.call(1);
                 },
               ),
 
@@ -70,10 +86,15 @@ class AccueilPage extends StatelessWidget {
                 height: AppDimensions.lg,
               ),
 
+              // =====================================================
+              // RÉSULTATS
+              // =====================================================
+
               SectionHeader(
                 title: 'Résultats S3',
                 onPressed: () {
-                  // TODO: Naviguer vers ResultatsPage
+                  // Académie
+                  onNavigate?.call(1);
                 },
               ),
 
@@ -87,10 +108,15 @@ class AccueilPage extends StatelessWidget {
                 height: AppDimensions.lg,
               ),
 
+              // =====================================================
+              // ACTUALITÉS
+              // =====================================================
+
               SectionHeader(
                 title: 'Actualités',
                 onPressed: () {
-                  // TODO: Naviguer vers ActualitesPage
+                  // Actualité
+                  onNavigate?.call(2);
                 },
               ),
 
@@ -100,10 +126,10 @@ class AccueilPage extends StatelessWidget {
 
               ActualitesPreview(
                 onFirstPressed: () {
-                  // TODO: Naviguer vers InscriptionExamenPage
+                  onNavigate?.call(2);
                 },
                 onSecondPressed: () {
-                  // TODO: Naviguer vers JourneePortesOuvertesPage
+                  onNavigate?.call(2);
                 },
               ),
 
@@ -111,10 +137,15 @@ class AccueilPage extends StatelessWidget {
                 height: AppDimensions.lg,
               ),
 
+              // =====================================================
+              // MESSAGES
+              // =====================================================
+
               SectionHeader(
                 title: 'Messages récents',
                 onPressed: () {
-                  // TODO: Naviguer vers MessageriePage
+                  // Messagerie
+                  onNavigate?.call(3);
                 },
               ),
 
@@ -124,10 +155,10 @@ class AccueilPage extends StatelessWidget {
 
               MessagesPreview(
                 onSecretariatPressed: () {
-                  // TODO: Naviguer vers SecretariatPage
+                  onNavigate?.call(3);
                 },
                 onAcademiquePressed: () {
-                  // TODO: Naviguer vers ServiceAcademiquePage
+                  onNavigate?.call(3);
                 },
               ),
 

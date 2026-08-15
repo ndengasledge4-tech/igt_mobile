@@ -19,9 +19,7 @@ class ParcoursAcademiqueCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.grey.shade200,
-        ),
+        border: Border.all(color: Colors.grey.shade200),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,10 +79,7 @@ class ParcoursAcademiqueCard extends StatelessWidget {
 
                 // Séparateur entre les informations.
                 if (index < items.length - 1)
-                  Divider(
-                    height: 1,
-                    color: Colors.grey.shade200,
-                  ),
+                  Divider(height: 1, color: Colors.grey.shade200),
               ],
             );
           }),

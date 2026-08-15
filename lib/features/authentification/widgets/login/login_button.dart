@@ -12,10 +12,7 @@ class LoginButton extends StatelessWidget {
       height: 68,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushReplacementNamed(
-            context,
-            RouteNames.navigation,
-          );
+          Navigator.pushReplacementNamed(context, RouteNames.navigation);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF3F88C5),
@@ -27,10 +24,7 @@ class LoginButton extends StatelessWidget {
         ),
         child: const Text(
           'Se connecter',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
       ),
     );

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../pages/forgot_password/mot_de_passe_oublie_page.dart';
 
-
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
@@ -85,9 +84,7 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => const MotDePasseOubliePage(),
-                ),
+                MaterialPageRoute(builder: (_) => const MotDePasseOubliePage()),
               );
             },
             child: const Text(
@@ -109,19 +106,14 @@ class _LoginFormState extends State<LoginForm> {
   OutlineInputBorder _border() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
-      borderSide: const BorderSide(
-        color: Color(0xFFDCE3E9),
-      ),
+      borderSide: const BorderSide(color: Color(0xFFDCE3E9)),
     );
   }
 
   OutlineInputBorder _focusedBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
-      borderSide: const BorderSide(
-        color: Color(0xFF3F88C5),
-        width: 1.5,
-      ),
+      borderSide: const BorderSide(color: Color(0xFF3F88C5), width: 1.5),
     );
   }
 }

@@ -25,17 +25,13 @@ class ResultatDetailPage extends StatelessWidget {
       // ============================================================
       // BARRE SUPÉRIEURE
       // ============================================================
-
       appBar: AppBar(
         backgroundColor: const Color(0xFFF8F9FC),
         elevation: 0,
         scrolledUnderElevation: 0,
 
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Color(0xFF1769AA),
-          ),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF1769AA)),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -54,17 +50,14 @@ class ResultatDetailPage extends StatelessWidget {
       // ============================================================
       // CONTENU
       // ============================================================
-
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // ========================================================
             // EN-TÊTE DU SEMESTRE
             // ========================================================
-
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(22),
@@ -75,7 +68,6 @@ class ResultatDetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   Text(
                     semestre,
                     style: const TextStyle(
@@ -89,36 +81,23 @@ class ResultatDetailPage extends StatelessWidget {
 
                   const Text(
                     'Année académique 2025/2026',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
                   ),
 
                   const SizedBox(height: 24),
 
                   Row(
                     children: [
-
                       Expanded(
-                        child: _InfoBloc(
-                          valeur: moyenne,
-                          label: 'Moyenne',
-                        ),
+                        child: _InfoBloc(valeur: moyenne, label: 'Moyenne'),
                       ),
 
                       Expanded(
-                        child: _InfoBloc(
-                          valeur: credits,
-                          label: 'Crédits',
-                        ),
+                        child: _InfoBloc(valeur: credits, label: 'Crédits'),
                       ),
 
                       Expanded(
-                        child: _InfoBloc(
-                          valeur: mention,
-                          label: 'Mention',
-                        ),
+                        child: _InfoBloc(valeur: mention, label: 'Mention'),
                       ),
                     ],
                   ),
@@ -131,7 +110,6 @@ class ResultatDetailPage extends StatelessWidget {
             // ========================================================
             // INFORMATIONS DU RÉSULTAT
             // ========================================================
-
             const Text(
               'Informations',
               style: TextStyle(
@@ -149,17 +127,11 @@ class ResultatDetailPage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(18),
-                border: Border.all(
-                  color: Color(0xFFE5E7EB),
-                ),
+                border: Border.all(color: Color(0xFFE5E7EB)),
               ),
               child: Column(
                 children: [
-
-                  _InformationRow(
-                    label: 'Semestre',
-                    valeur: semestre,
-                  ),
+                  _InformationRow(label: 'Semestre', valeur: semestre),
 
                   const Divider(height: 24),
 
@@ -170,17 +142,11 @@ class ResultatDetailPage extends StatelessWidget {
 
                   const Divider(height: 24),
 
-                  _InformationRow(
-                    label: 'Crédits obtenus',
-                    valeur: credits,
-                  ),
+                  _InformationRow(label: 'Crédits obtenus', valeur: credits),
 
                   const Divider(height: 24),
 
-                  _InformationRow(
-                    label: 'Mention',
-                    valeur: mention,
-                  ),
+                  _InformationRow(label: 'Mention', valeur: mention),
 
                   const Divider(height: 24),
 
@@ -198,7 +164,6 @@ class ResultatDetailPage extends StatelessWidget {
             // ========================================================
             // MATIÈRES
             // ========================================================
-
             const Text(
               'Matières',
               style: TextStyle(
@@ -240,11 +205,7 @@ class ResultatDetailPage extends StatelessWidget {
               credits: '5 crédits',
             ),
 
-            _MatiereCard(
-              nom: 'Anglais',
-              note: '16.00',
-              credits: '5 crédits',
-            ),
+            _MatiereCard(nom: 'Anglais', note: '16.00', credits: '5 crédits'),
           ],
         ),
       ),
@@ -260,16 +221,12 @@ class _InfoBloc extends StatelessWidget {
   final String valeur;
   final String label;
 
-  const _InfoBloc({
-    required this.valeur,
-    required this.label,
-  });
+  const _InfoBloc({required this.valeur, required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         Text(
           valeur,
           textAlign: TextAlign.center,
@@ -285,10 +242,7 @@ class _InfoBloc extends StatelessWidget {
         Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 12,
-          ),
+          style: const TextStyle(color: Colors.white70, fontSize: 12),
         ),
       ],
     );
@@ -315,13 +269,9 @@ class _InformationRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-
         Text(
           label,
-          style: TextStyle(
-            color: Colors.grey.shade600,
-            fontSize: 14,
-          ),
+          style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
         ),
 
         Flexible(
@@ -359,20 +309,14 @@ class _MatiereCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 18,
-        vertical: 16,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Color(0xFFE5E7EB),
-        ),
+        border: Border.all(color: Color(0xFFE5E7EB)),
       ),
       child: Row(
         children: [
-
           // Icône
           Container(
             width: 42,
@@ -395,7 +339,6 @@ class _MatiereCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 Text(
                   nom,
                   style: const TextStyle(
@@ -409,10 +352,7 @@ class _MatiereCard extends StatelessWidget {
 
                 Text(
                   credits,
-                  style: TextStyle(
-                    color: Colors.grey.shade600,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
                 ),
               ],
             ),

@@ -117,7 +117,10 @@ class MonEspacePage extends StatelessWidget {
                   subtitle: "Frais et paiements",
                   iconBgColor: const Color(0xFFE8F5E9),
                   iconColor: const Color(0xFF388E3C),
-                  onTap: () => Navigator.pushNamed(context, RouteNames.situationFinanciere),
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    RouteNames.situationFinanciere,
+                  ),
                 ),
                 // Carte 3 : Historique des paiements
                 MenuEspaceItem(
@@ -126,7 +129,10 @@ class MonEspacePage extends StatelessWidget {
                   subtitle: "Tous vos paiements",
                   iconBgColor: const Color(0xFFFFF3E0),
                   iconColor: const Color(0xFFF57C00),
-                  onTap: () => Navigator.pushNamed(context, RouteNames.historiquePaiements),
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    RouteNames.historiquePaiements,
+                  ),
                 ),
                 // Carte 4 : Paramètres
                 MenuEspaceItem(
@@ -135,7 +141,8 @@ class MonEspacePage extends StatelessWidget {
                   subtitle: "Compte et préférences",
                   iconBgColor: const Color(0xFFF3E5F5),
                   iconColor: const Color(0xFF7B1FA2),
-                  onTap: () => Navigator.pushNamed(context, RouteNames.parametres),
+                  onTap: () =>
+                      Navigator.pushNamed(context, RouteNames.parametres),
                 ),
                 const SizedBox(height: 24),
                 // 3. Carte Déconnexion (séparée)
@@ -151,7 +158,7 @@ class MonEspacePage extends StatelessWidget {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       RouteNames.connexion,
-                          (route) => false,
+                      (route) => false,
                     );
                   },
                 ),

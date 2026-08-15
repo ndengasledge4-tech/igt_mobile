@@ -53,7 +53,7 @@ class SituationFinancierePage extends StatelessWidget {
             // 2. CARTE DE SYNTHÈSE FINANCIÈRE
             _buildSynthesisCard(),
             const SizedBox(height: 24),
-            
+
             // 4. FRAIS LIÉS À LA FORMATION
             const Text(
               "Détails des frais",
@@ -66,7 +66,7 @@ class SituationFinancierePage extends StatelessWidget {
             const SizedBox(height: 12),
             _buildFeesCard(),
             const SizedBox(height: 24),
-            
+
             // 5. HISTORIQUE DES PAIEMENTS
             const Text(
               "Historique des paiements",
@@ -129,7 +129,10 @@ class SituationFinancierePage extends StatelessWidget {
                 style: TextStyle(color: AppColors.secondaryText, fontSize: 14),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.success.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -152,7 +155,11 @@ class SituationFinancierePage extends StatelessWidget {
               Container(width: 1, height: 40, color: AppColors.divider),
               _buildSynthesisItem("Montant payé", "450.000", AppColors.success),
               Container(width: 1, height: 40, color: AppColors.divider),
-              _buildSynthesisItem("Montant restant", "450.000", AppColors.error),
+              _buildSynthesisItem(
+                "Montant restant",
+                "450.000",
+                AppColors.error,
+              ),
             ],
           ),
         ],
@@ -166,7 +173,10 @@ class SituationFinancierePage extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(color: AppColors.secondaryText, fontSize: 11),
+            style: const TextStyle(
+              color: AppColors.secondaryText,
+              fontSize: 11,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 4),
@@ -206,11 +216,17 @@ class SituationFinancierePage extends StatelessWidget {
             children: const [
               Text(
                 "Total formation",
-                style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.text),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.text,
+                ),
               ),
               Text(
                 "900.000 FCFA",
-                style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary,
+                ),
               ),
             ],
           ),
@@ -229,7 +245,11 @@ class SituationFinancierePage extends StatelessWidget {
         ),
         Text(
           amount,
-          style: const TextStyle(color: AppColors.text, fontSize: 14, fontWeight: FontWeight.w500),
+          style: const TextStyle(
+            color: AppColors.text,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );

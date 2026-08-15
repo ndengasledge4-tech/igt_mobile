@@ -43,7 +43,10 @@ class ModifierMotDePassePage extends StatelessWidget {
               obscureText: true,
             ),
             const SizedBox(height: 24),
-            const Text("Confirmer le nouveau mot de passe", style: AppTextStyles.label),
+            const Text(
+              "Confirmer le nouveau mot de passe",
+              style: AppTextStyles.label,
+            ),
             const SizedBox(height: 8),
             const AppTextField(
               hintText: "Confirmez le nouveau mot de passe",

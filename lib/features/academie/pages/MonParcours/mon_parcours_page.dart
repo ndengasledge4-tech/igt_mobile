@@ -29,35 +29,16 @@ class MonParcoursPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // Bloc contenant les informations académiques.
             ParcoursAcademiqueCard(
               title: 'Informations académiques',
               items: const [
-                {
-                  'label': 'Formation',
-                  'value': 'Informatique de Gestion',
-                },
-                {
-                  'label': 'Niveau',
-                  'value': 'Deuxième année',
-                },
-                {
-                  'label': 'Classe',
-                  'value': 'IG2',
-                },
-                {
-                  'label': 'Campus',
-                  'value': 'Campus principal',
-                },
-                {
-                  'label': 'Année académique',
-                  'value': '2025–2026',
-                },
-                {
-                  'label': 'Parcours',
-                  'value': 'Génie logiciel',
-                },
+                {'label': 'Formation', 'value': 'Informatique de Gestion'},
+                {'label': 'Niveau', 'value': 'Deuxième année'},
+                {'label': 'Classe', 'value': 'IG2'},
+                {'label': 'Campus', 'value': 'Campus principal'},
+                {'label': 'Année académique', 'value': '2025–2026'},
+                {'label': 'Parcours', 'value': 'Génie logiciel'},
               ],
             ),
 
@@ -112,7 +93,6 @@ class MonParcoursPage extends StatelessWidget {
                 );
               },
             ),
-
           ],
         ),
       ),
