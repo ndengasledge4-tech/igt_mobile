@@ -81,8 +81,13 @@ import '../../features/mon_espace/pages/situation_financiere_page.dart';
 import '../../features/mon_espace/pages/historique_paiements_page.dart';
 import '../../features/mon_espace/pages/parametres_page.dart';
 import '../../features/mon_espace/pages/modifier_mot_de_passe_page.dart';
-import '../../features/mon_espace/pages/a_propos_page.dart';
-import '../../features/mon_espace/pages/aide_page.dart';
+import '../../features/mon_espace/pages/securite_compte_page.dart';
+import '../../features/mon_espace/pages/modifier_telephone_page.dart';
+import '../../features/mon_espace/pages/modifier_email_page.dart';
+import '../../features/mon_espace/pages/activite_recente_page.dart';
+import '../../features/mon_espace/pages/notifications_preferences_page.dart';
+import '../../features/mon_espace/pages/informations_legales_page.dart';
+import '../../features/mon_espace/pages/sessions_actives_page.dart';
 
 import 'route_names.dart';
 
