@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'routes/route_generator.dart';
 import 'routes/route_names.dart';
 import 'theme/app_theme.dart';
@@ -39,6 +38,7 @@ class _IgtAppState extends State<IgtApp> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return AppThemeModeScope(
       notifier: _themeModeNotifier,
       child: ValueListenableBuilder<ThemeMode>(
@@ -55,6 +55,15 @@ class _IgtAppState extends State<IgtApp> {
           );
         },
       ),
+=======
+    return MaterialApp(
+      title: 'IGT Mobile',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.light,
+      // Démarrage direct sur la navigation pour éviter les crashs de redirection
+      initialRoute: RouteNames.splash,
+      onGenerateRoute: RouteGenerator.generateRoute,
+>>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93
     );
   }
 }
