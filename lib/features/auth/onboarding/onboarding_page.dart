@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/routes/route_names.dart';
-import '../../../app/theme/colors.dart';
+import '../../../core/constants/assets.dart';
 import 'widgets/onboarding_button.dart';
 import 'widgets/onboarding_indicator.dart';
 import 'widgets/onboarding_skip_button.dart';
@@ -20,19 +20,19 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   final pages = [
     (
-      image: "assets/images/onboarding_1.png",
+      image: AppAssets.onboardingOne,
       title: "Votre vie académique,\nau même endroit",
       subtitle:
           "Accédez facilement aux informations essentielles de votre parcours académique.",
     ),
     (
-      image: "assets/images/onboarding_2.png",
+      image: AppAssets.onboardingTwo,
       title: "Consultez vos\ninformations",
       subtitle:
           "Retrouvez vos résultats, votre moyenne, votre emploi du temps et vos documents.",
     ),
     (
-      image: "assets/images/onboarding_3.png",
+      image: AppAssets.onboardingThree,
       title: "Restez informé",
       subtitle:
           "Suivez les actualités et les événements officiels de l'Institut de Gestion et de Technologie.",
@@ -40,9 +40,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
   ];
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       body: SafeArea(
         child: Column(
@@ -88,12 +94,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         Text(
                           page.title,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.text,
-                            height: 1.25,
-                          ),
+                          style: Theme.of(context).textTheme.headlineLarge
+                              ?.copyWith(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                height: 1.25,
+                              ),
                         ),
 
                         const SizedBox(height: 18),
@@ -101,11 +107,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         Text(
                           page.subtitle,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: AppColors.secondaryText,
-                            fontSize: 16,
-                            height: 1.6,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge
+                              ?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurfaceVariant,
+                                fontSize: 16,
+                                height: 1.6,
+                              ),
                         ),
 
                         const SizedBox(height: 42),

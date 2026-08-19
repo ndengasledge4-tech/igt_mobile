@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../mock/mock_results.dart';
 import 'widgets/results_header.dart';
-import 'widgets/results_summary_card.dart';
 import 'widgets/subject_card.dart';
 
 class ResultsPage extends StatelessWidget {
@@ -10,7 +10,6 @@ class ResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FB),
       body: SafeArea(
         child: Column(
           children: [
@@ -19,59 +18,26 @@ class ResultsPage extends StatelessWidget {
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(20),
-                children: const [
-                  ResultsSummaryCard(),
-
-                  SizedBox(height: 24),
-
+                children: [
                   Text(
                     "DÉTAIL PAR MATIÈRE",
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 12,
                     ),
                   ),
-
-                  SizedBox(height: 18),
-
-                  SubjectCard(
-                    subject: "Mathématiques Avancées",
-                    teacher: "Dr. Salima Brahmi",
-                    code: "MATH301",
-                    grade: 15.5,
-                    credits: 4,
-                  ),
-
-                  SizedBox(height: 14),
-
-                  SubjectCard(
-                    subject: "Algorithmique & Structures de Données",
-                    teacher: "Dr. Karim Mansouri",
-                    code: "INFO201",
-                    grade: 17,
-                    credits: 5,
-                  ),
-
-                  SizedBox(height: 14),
-
-                  SubjectCard(
-                    subject: "Gestion de Projet",
-                    teacher: "Mme. Nadia Trabelsi",
-                    code: "MGT202",
-                    grade: 14,
-                    credits: 3,
-                  ),
-
-                  SizedBox(height: 14),
-
-                  SubjectCard(
-                    subject: "Base de Données",
-                    teacher: "M. Amina Belhaj",
-                    code: "INFO202",
-                    grade: 16.5,
-                    credits: 4,
-                  ),
+                  const SizedBox(height: 18),
+                  for (final result in MockResultsData.items) ...[
+                    SubjectCard(
+                      subject: result.subject,
+                      teacher: result.teacher,
+                      code: result.code,
+                      grade: result.grade,
+                      credits: result.credits,
+                    ),
+                    const SizedBox(height: 14),
+                  ],
                 ],
               ),
             ),

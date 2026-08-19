@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../subject_details_screen.dart';
+import '../../../app/routes/route_names.dart';
+import '../../../app/theme/semantic_colors.dart';
 
 class SubjectCard extends StatelessWidget {
   final String subject;
@@ -20,21 +21,21 @@ class SubjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final semantic = context.semanticColors;
     final double progress = (grade / 20).clamp(0.0, 1.0);
-
-    final Color gradeColor = grade >= 10 ? const Color(0xFF16A34A) : Colors.red;
+    final Color gradeColor = grade >= 10
+        ? semantic.success
+        : theme.colorScheme.error;
 
     return Material(
-      color: Colors.white,
+      color: theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(18),
-      elevation: 2,
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const SubjectDetailsScreen()),
-          );
+          Navigator.pushNamed(context, RouteNames.subjectDetails);
         },
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -47,21 +48,14 @@ class SubjectCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          subject,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        Text(subject, style: theme.textTheme.titleMedium),
 
                         const SizedBox(height: 6),
 
                         Text(
                           "$code • $teacher",
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 13,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
                           ),
                         ),
                       ],
@@ -84,9 +78,8 @@ class SubjectCard extends StatelessWidget {
 
                       Text(
                         "$credits Cr.",
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -101,7 +94,7 @@ class SubjectCard extends StatelessWidget {
                 child: LinearProgressIndicator(
                   value: progress,
                   minHeight: 8,
-                  backgroundColor: Colors.grey.shade200,
+                  backgroundColor: theme.colorScheme.surfaceContainerHighest,
                   valueColor: AlwaysStoppedAnimation<Color>(gradeColor),
                 ),
               ),
@@ -116,7 +109,7 @@ class SubjectCard extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: gradeColor.withOpacity(.10),
+                      color: gradeColor.withValues(alpha: .10),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -137,7 +130,10 @@ class SubjectCard extends StatelessWidget {
 
                   const Spacer(),
 
-                  const Icon(Icons.chevron_right_rounded, color: Colors.grey),
+                  Icon(
+                    Icons.chevron_right_rounded,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                 ],
               ),
             ],

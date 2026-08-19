@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../app/routes/route_names.dart';
 import 'widgets/logout_button.dart';
 import 'widgets/profile_action_tile.dart';
 import 'widgets/profile_header.dart';
@@ -11,22 +12,21 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF5F7FB),
       body: SafeArea(
         child: ListView(
-          children: const [
-            ProfileHeader(),
+          children: [
+            const ProfileHeader(),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: ProfileInfoCard(),
             ),
 
-            SizedBox(height: 18),
+            const SizedBox(height: 18),
 
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: ProfileActionTile(
                 icon: Icons.edit_outlined,
@@ -34,24 +34,25 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 14),
+            const SizedBox(height: 14),
 
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ProfileActionTile(
                 icon: Icons.settings_outlined,
-                title: "Paramètres",
+                title: 'Paramètres',
+                onTap: () => Navigator.pushNamed(context, RouteNames.settings),
               ),
             ),
 
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: LogoutButton(),
             ),
 
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
           ],
         ),
       ),

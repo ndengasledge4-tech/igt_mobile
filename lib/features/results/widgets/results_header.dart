@@ -29,7 +29,7 @@ class ResultsHeader extends StatelessWidget {
                   width: 36,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(.15),
+                    color: Colors.white.withValues(alpha: .15),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(

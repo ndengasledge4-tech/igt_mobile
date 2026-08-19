@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme/colors.dart';
 import 'notification_icon.dart';
 import 'notification_subtitle.dart';
 import 'notification_time.dart';
@@ -26,15 +25,18 @@ class NotificationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return InkWell(
       onTap: () {},
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
         decoration: BoxDecoration(
-          color: unread ? const Color(0xFFF3F8FF) : Colors.white,
-          border: const Border(
-            bottom: BorderSide(color: AppColors.divider, width: .6),
+          color: unread
+              ? theme.colorScheme.primaryContainer.withValues(alpha: 0.35)
+              : theme.colorScheme.surface,
+          border: Border(
+            bottom: BorderSide(color: theme.dividerColor, width: .6),
           ),
         ),
         child: Row(

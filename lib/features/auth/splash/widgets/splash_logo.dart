@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/assets.dart';
+
 class SplashLogo extends StatefulWidget {
   const SplashLogo({super.key});
 
@@ -48,13 +50,13 @@ class _SplashLogoState extends State<SplashLogo>
           width: 160,
           height: 160,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(.15),
+            color: Colors.white.withValues(alpha: .15),
             shape: BoxShape.circle,
             border: Border.all(color: Colors.white24, width: 2),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Image.asset("assets/logo/logo.png", fit: BoxFit.contain),
+            child: Image.asset(AppAssets.logo, fit: BoxFit.contain),
           ),
         ),
       ),

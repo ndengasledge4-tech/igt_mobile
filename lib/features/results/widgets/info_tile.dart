@@ -14,16 +14,17 @@ class InfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(.05),
+              color: theme.shadowColor.withValues(alpha: .05),
               blurRadius: 10,
               offset: const Offset(0, 3),
             ),
@@ -35,10 +36,10 @@ class InfoTile extends StatelessWidget {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color: const Color(0xFFEAF2FF),
+                color: theme.colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(icon, color: const Color(0xFF2563EB)),
+              child: Icon(icon, color: theme.colorScheme.onPrimaryContainer),
             ),
 
             const SizedBox(width: 16),
@@ -49,23 +50,22 @@ class InfoTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(color: Colors.grey, fontSize: 13),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
 
                   const SizedBox(height: 4),
 
-                  Text(
-                    value,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
+                  Text(value, style: theme.textTheme.titleMedium),
                 ],
               ),
             ),
 
-            const Icon(Icons.chevron_right_rounded, color: Colors.grey),
+            Icon(
+              Icons.chevron_right_rounded,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ],
         ),
       ),

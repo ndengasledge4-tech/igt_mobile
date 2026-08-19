@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme/colors.dart';
 import '../../../app/theme/text_styles.dart';
 
 class RecentNewsCard extends StatelessWidget {
@@ -36,7 +35,7 @@ class RecentNewsCard extends StatelessWidget {
         onTap: onTap,
         child: Ink(
           decoration: BoxDecoration(
-            color: AppColors.card,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(22),
             boxShadow: [
               BoxShadow(
@@ -108,7 +107,9 @@ class RecentNewsCard extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: AppTextStyles.bodySmall.copyWith(
-                              color: AppColors.secondaryText,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
                               height: 1.35,
                             ),
                           ),
@@ -118,20 +119,24 @@ class RecentNewsCard extends StatelessWidget {
 
                         Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.favorite_border_rounded,
                               size: 16,
-                              color: AppColors.secondaryText,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
                             ),
                             const SizedBox(width: 4),
                             Text("$likes", style: AppTextStyles.caption),
 
                             const SizedBox(width: 14),
 
-                            const Icon(
+                            Icon(
                               Icons.mode_comment_outlined,
                               size: 16,
-                              color: AppColors.secondaryText,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
                             ),
                             const SizedBox(width: 4),
                             Text("$comments", style: AppTextStyles.caption),
@@ -141,7 +146,9 @@ class RecentNewsCard extends StatelessWidget {
                             Text(
                               date,
                               style: AppTextStyles.caption.copyWith(
-                                color: AppColors.secondaryText,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurfaceVariant,
                               ),
                             ),
                           ],

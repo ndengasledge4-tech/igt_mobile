@@ -29,7 +29,7 @@ class DetailHeader extends StatelessWidget {
                   width: 38,
                   height: 38,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(.15),
+                    color: Colors.white.withValues(alpha: .15),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(

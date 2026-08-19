@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/constants/assets.dart';
+
 import '../../../app/theme/colors.dart';
 
 class NewsDetailHeader extends StatelessWidget {
@@ -10,7 +12,7 @@ class NewsDetailHeader extends StatelessWidget {
     return Stack(
       children: [
         Image.asset(
-          "assets/images/news_detail.jpg",
+          AppAssets.newsPrimary,
           width: double.infinity,
           height: 240,
           fit: BoxFit.cover,

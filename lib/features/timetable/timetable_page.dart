@@ -18,7 +18,6 @@ class _TimetablePageState extends State<TimetablePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF5F7FB),
       body: SafeArea(
         child: Column(
           children: [

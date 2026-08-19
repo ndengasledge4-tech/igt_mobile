@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../app/routes/route_names.dart';
 import '../../../../app/theme/colors.dart';
 import 'password_success_card.dart';
 

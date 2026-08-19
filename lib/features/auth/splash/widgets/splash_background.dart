@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/assets.dart';
+
 class SplashBackground extends StatelessWidget {
   const SplashBackground({super.key});
 
@@ -8,7 +10,7 @@ class SplashBackground extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image.asset('assets/images/salles/igt.jpg', fit: BoxFit.cover),
+        Image.asset(AppAssets.campus, fit: BoxFit.cover),
 
         Container(
           decoration: const BoxDecoration(

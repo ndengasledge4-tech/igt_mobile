@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme/colors.dart';
 import '../../../app/theme/text_styles.dart';
+import '../../../core/constants/assets.dart';
 import '../../../shared/navigation/navigation_page.dart';
 
 class QuickAccessGrid extends StatelessWidget {
@@ -21,7 +21,7 @@ class QuickAccessGrid extends StatelessWidget {
         children: [
           _Item(
             title: "Résultats",
-            imagePath: "assets/images/dashboard/results.png",
+            imagePath: AppAssets.dashboardResults,
             color: const Color(0xFFE8F5E9),
             onTap: () {
               Navigator.pushReplacement(
@@ -35,7 +35,7 @@ class QuickAccessGrid extends StatelessWidget {
 
           _Item(
             title: "Horaire",
-            imagePath: "assets/images/dashboard/schedule.png",
+            imagePath: AppAssets.dashboardSchedule,
             color: const Color(0xFFE3F2FD),
             onTap: () {
               Navigator.pushReplacement(
@@ -49,7 +49,7 @@ class QuickAccessGrid extends StatelessWidget {
 
           _Item(
             title: "Documents",
-            imagePath: "assets/images/dashboard/documents.png",
+            imagePath: AppAssets.dashboardDocuments,
             color: const Color(0xFFFFF3E0),
             onTap: () {
               Navigator.pushReplacement(
@@ -63,7 +63,7 @@ class QuickAccessGrid extends StatelessWidget {
 
           _Item(
             title: "Actualités",
-            imagePath: "assets/images/dashboard/news.png",
+            imagePath: AppAssets.dashboardNews,
             color: const Color(0xFFF3E5F5),
             onTap: () {
               Navigator.pushReplacement(
@@ -103,7 +103,7 @@ class _Item extends StatelessWidget {
         onTap: onTap,
         child: Ink(
           decoration: BoxDecoration(
-            color: AppColors.card,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(22),
             boxShadow: [
               BoxShadow(

@@ -24,7 +24,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 'stable'
-          chanel: 'stable'
+          channel: 'stable'
           cache: true
 
       - name: flutter version
@@ -46,6 +46,7 @@ jobs:
   build_android_apk_and_aab:
     name: production du build android
     runs-on: ubuntu-latest
+    needs: analyse_and_test
 
     steps:
       - name: Checkout Repository

@@ -42,7 +42,7 @@ class DashboardHeader extends StatelessWidget {
                 Text(
                   "Bonjour 👋",
                   style: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.white.withOpacity(.8),
+                    color: AppColors.white.withValues(alpha: .8),
                   ),
                 ),
 
@@ -62,7 +62,7 @@ class DashboardHeader extends StatelessWidget {
                 Text(
                   "Génie Informatique • 3ème année",
                   style: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.white.withOpacity(.8),
+                    color: AppColors.white.withValues(alpha: .8),
                   ),
                 ),
               ],
@@ -80,7 +80,7 @@ class DashboardHeader extends StatelessWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: AppColors.white.withOpacity(.20),
+                    color: AppColors.white.withValues(alpha: .20),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: const Icon(

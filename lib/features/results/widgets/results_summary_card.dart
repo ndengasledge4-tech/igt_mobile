@@ -8,7 +8,7 @@ class ResultsSummaryCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(.12),
+        color: Colors.white.withValues(alpha: .12),
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: Colors.white24),
       ),

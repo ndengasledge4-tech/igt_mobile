@@ -69,14 +69,15 @@ class _InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.05),
+            color: theme.shadowColor.withValues(alpha: .05),
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),
@@ -85,18 +86,20 @@ class _InfoCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: const Color(0xFF2563EB), size: 26),
+          Icon(icon, color: theme.colorScheme.primary, size: 26),
 
           const SizedBox(height: 12),
 
-          Text(title, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+          Text(
+            title,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
 
           const SizedBox(height: 4),
 
-          Text(
-            value,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          ),
+          Text(value, style: theme.textTheme.titleSmall),
         ],
       ),
     );

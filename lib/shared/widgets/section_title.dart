@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../app/theme/text_styles.dart';
+import 'app_section_header.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
@@ -10,13 +10,6 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(title, style: AppTextStyles.headline3),
-        if (onSeeAll != null)
-          TextButton(onPressed: onSeeAll, child: const Text("Voir tout")),
-      ],
-    );
+    return AppSectionHeader(title: title, onAction: onSeeAll);
   }
 }

@@ -16,6 +16,7 @@ import '../../features/events/events_page.dart';
 import '../../features/academic/academic_screen.dart';
 import '../../features/timetable/timetable_page.dart';
 import '../../features/results/results_page.dart';
+import '../../features/results/subject_details_screen.dart';
 import '../../features/documents/documents_page.dart';
 
 import '../../features/notifications/notifications_page.dart';
@@ -39,13 +40,13 @@ class RouteGenerator {
         return _page(const OnboardingPage());
 
       case RouteNames.activation:
-        return MaterialPageRoute(builder: (_) => const ActivationScreen());
+        return _page(const ActivationScreen(), settings);
 
       case RouteNames.login:
         return _page(const LoginPage());
 
       case RouteNames.createPassword:
-        return MaterialPageRoute(builder: (_) => const CreatePasswordScreen());
+        return _page(const CreatePasswordScreen(), settings);
 
       case RouteNames.forgotPassword:
         return _page(const ForgotPasswordPage());
@@ -63,16 +64,16 @@ class RouteGenerator {
         return _page(const EventsPage());
 
       case RouteNames.academic:
-        return MaterialPageRoute(
-          builder: (_) => const AcademicScreen(),
-          settings: settings,
-        );
+        return _page(const AcademicScreen(), settings);
 
       case RouteNames.timetable:
         return _page(const TimetablePage());
 
       case RouteNames.results:
         return _page(const ResultsPage());
+
+      case RouteNames.subjectDetails:
+        return _page(const SubjectDetailsScreen(), settings);
 
       case RouteNames.documents:
         return _page(const DocumentsPage());
@@ -87,7 +88,7 @@ class RouteGenerator {
         return _page(const SettingsPage());
 
       case RouteNames.navigation:
-        return MaterialPageRoute(builder: (_) => const NavigationScreen());
+        return _page(const NavigationScreen(), settings);
 
       default:
         return MaterialPageRoute(
@@ -100,7 +101,7 @@ class RouteGenerator {
     }
   }
 
-  static MaterialPageRoute _page(Widget page) {
-    return MaterialPageRoute(builder: (_) => page);
+  static MaterialPageRoute _page(Widget page, [RouteSettings? settings]) {
+    return MaterialPageRoute(builder: (_) => page, settings: settings);
   }
 }

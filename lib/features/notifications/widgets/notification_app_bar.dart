@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme/colors.dart';
-import '../../../app/theme/text_styles.dart';
-
 class NotificationAppBar extends StatelessWidget {
   const NotificationAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
-      color: Colors.white,
+      color: theme.colorScheme.surface,
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 18),
       child: Row(
         children: [
@@ -20,13 +18,13 @@ class NotificationAppBar extends StatelessWidget {
               width: 34,
               height: 34,
               decoration: BoxDecoration(
-                color: AppColors.background,
+                color: theme.colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_back_ios_new_rounded,
                 size: 18,
-                color: AppColors.text,
+                color: theme.colorScheme.onSurface,
               ),
             ),
           ),
@@ -36,10 +34,15 @@ class NotificationAppBar extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text("Notifications", style: AppTextStyles.headline3),
-                SizedBox(height: 2),
-                Text("3 non lues", style: AppTextStyles.caption),
+              children: [
+                Text('Notifications', style: theme.textTheme.titleLarge),
+                const SizedBox(height: 2),
+                Text(
+                  '1 non lue',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ],
             ),
           ),
@@ -47,12 +50,8 @@ class NotificationAppBar extends StatelessWidget {
           TextButton(
             onPressed: () {},
             child: const Text(
-              "Tout marquer lu",
-              style: TextStyle(
-                color: AppColors.primary,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
+              'Tout marquer lu',
+              style: TextStyle(fontSize: 12),
             ),
           ),
         ],

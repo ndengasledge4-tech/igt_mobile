@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../app/theme/colors.dart';
 import '../../../../app/theme/text_styles.dart';
+import '../../../../core/constants/assets.dart';
 
 class LoginHeader extends StatelessWidget {
   const LoginHeader({super.key});
@@ -20,12 +21,12 @@ class LoginHeader extends StatelessWidget {
               width: 64,
               height: 64,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(.12),
+                color: Colors.white.withValues(alpha: .12),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(1),
-                child: Image.asset("assets/logo/logo.png", fit: BoxFit.contain),
+                child: Image.asset(AppAssets.logo, fit: BoxFit.contain),
               ),
             ),
 

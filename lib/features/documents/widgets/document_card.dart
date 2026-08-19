@@ -16,12 +16,14 @@ class DocumentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     final bool isPdf = type.toUpperCase() == "PDF";
 
     return Material(
-      color: Colors.white,
+      color: scheme.surface,
       borderRadius: BorderRadius.circular(18),
-      elevation: 2,
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
         onTap: () {
@@ -62,10 +64,7 @@ class DocumentCard extends StatelessWidget {
                       title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: theme.textTheme.titleSmall,
                     ),
 
                     const SizedBox(height: 8),
@@ -75,7 +74,7 @@ class DocumentCard extends StatelessWidget {
                         Text(
                           size,
                           style: TextStyle(
-                            color: Colors.grey.shade600,
+                            color: scheme.onSurfaceVariant,
                             fontSize: 12,
                           ),
                         ),
@@ -89,7 +88,7 @@ class DocumentCard extends StatelessWidget {
                         Text(
                           date,
                           style: TextStyle(
-                            color: Colors.grey.shade600,
+                            color: scheme.onSurfaceVariant,
                             fontSize: 12,
                           ),
                         ),
@@ -110,12 +109,12 @@ class DocumentCard extends StatelessWidget {
                   width: 42,
                   height: 42,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEAF2FF),
+                    color: scheme.primaryContainer,
                     borderRadius: BorderRadius.circular(21),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.download_rounded,
-                    color: Color(0xFF2563EB),
+                    color: scheme.onPrimaryContainer,
                     size: 22,
                   ),
                 ),

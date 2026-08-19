@@ -18,7 +18,7 @@ class SplashLoader extends StatelessWidget {
         Text(
           "Chargement...",
           style: TextStyle(
-            color: Colors.white.withOpacity(.85),
+            color: Colors.white.withValues(alpha: .85),
             fontSize: 15,
             fontWeight: FontWeight.w500,
             letterSpacing: .5,

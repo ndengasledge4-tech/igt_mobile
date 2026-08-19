@@ -1,143 +1,80 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/routes/route_names.dart';
-import '../../../app/theme/colors.dart';
+import '../../../app/theme/dimensions.dart';
+import '../../../mock/mock_news.dart';
+import '../../../shared/widgets/app_badge.dart';
 
 class NewsCard extends StatelessWidget {
-  const NewsCard({super.key});
+  final MockNewsItem item;
+
+  const NewsCard({super.key, this.item = MockNewsData.featured});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Card(
-      elevation: 0,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
-        borderRadius: BorderRadius.circular(18),
-        onTap: () {
-          Navigator.pushNamed(context, RouteNames.newsDetail);
-        },
+        onTap: () => Navigator.pushNamed(context, RouteNames.newsDetail),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(18),
-              ),
-              child: Image.network(
-                "https://picsum.photos/600/300",
+            Image.asset(
+              item.imageAsset,
+              height: 170,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Container(
                 height: 170,
-                width: double.infinity,
-                fit: BoxFit.cover,
+                color: theme.colorScheme.surfaceContainerHighest,
+                alignment: Alignment.center,
+                child: const Icon(Icons.image_not_supported_outlined, size: 36),
               ),
             ),
-
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppDimensions.space16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFE8F5E9),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: const Text(
-                          "Événement",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  const Text(
-                    "Cérémonie de remise de diplômes — Promotion 2025",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.text,
+                  AppBadge(label: item.category, tone: AppBadgeTone.success),
+                  const SizedBox(height: AppDimensions.space12),
+                  Text(item.title, style: theme.textTheme.titleLarge),
+                  const SizedBox(height: AppDimensions.space8),
+                  Text(
+                    item.excerpt,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
-
-                  const SizedBox(height: 10),
-
-                  const Text(
-                    "La grande cérémonie de remise des diplômes de la promotion 2025 aura lieu à l'Amphithéâtre principal de l'IGT.",
-                    style: TextStyle(
-                      color: AppColors.secondaryText,
-                      height: 1.5,
-                    ),
-                  ),
-
-                  const SizedBox(height: 18),
-
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.calendar_today,
-                        size: 16,
-                        color: AppColors.secondaryText,
-                      ),
-                      SizedBox(width: 6),
-                      Text(
-                        "28 Juillet 2025",
-                        style: TextStyle(color: AppColors.secondaryText),
-                      ),
-                      SizedBox(width: 18),
-                      Icon(
-                        Icons.access_time,
-                        size: 16,
-                        color: AppColors.secondaryText,
-                      ),
-                      SizedBox(width: 6),
-                      Text(
-                        "10h00",
-                        style: TextStyle(color: AppColors.secondaryText),
-                      ),
+                  const SizedBox(height: AppDimensions.space16),
+                  Wrap(
+                    spacing: AppDimensions.space16,
+                    runSpacing: AppDimensions.space8,
+                    children: [
+                      _Metadata(icon: Icons.calendar_today, label: item.date),
+                      _Metadata(icon: Icons.access_time, label: item.time),
                     ],
                   ),
-
-                  const Divider(height: 30),
-
+                  const Divider(height: AppDimensions.space32),
                   Row(
                     children: [
-                      const Icon(
-                        Icons.favorite_border,
-                        size: 18,
-                        color: AppColors.secondaryText,
+                      _Metadata(
+                        icon: Icons.favorite_border_rounded,
+                        label: '${item.likes}',
                       ),
-                      const SizedBox(width: 5),
-                      const Text("148"),
-
-                      const SizedBox(width: 20),
-
-                      const Icon(
-                        Icons.mode_comment_outlined,
-                        size: 18,
-                        color: AppColors.secondaryText,
+                      const SizedBox(width: AppDimensions.space16),
+                      _Metadata(
+                        icon: Icons.mode_comment_outlined,
+                        label: '${item.comments}',
                       ),
-                      const SizedBox(width: 5),
-                      const Text("34"),
-
                       const Spacer(),
-
                       TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, RouteNames.newsDetail);
-                        },
-                        child: const Text("Lire la suite →"),
+                        onPressed: () =>
+                            Navigator.pushNamed(context, RouteNames.newsDetail),
+                        child: const Text('Lire la suite'),
                       ),
                     ],
                   ),
@@ -147,6 +84,26 @@ class NewsCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _Metadata extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _Metadata({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme.onSurfaceVariant;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 16, color: color),
+        const SizedBox(width: AppDimensions.space4),
+        Text(label, style: Theme.of(context).textTheme.bodySmall),
+      ],
     );
   }
 }

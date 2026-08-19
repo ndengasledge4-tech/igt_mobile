@@ -1,5 +1,5 @@
 name: igt
-description: "A new Flutter project."
+description: "Prototype frontend du portail étudiant IGT Mobile."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -58,11 +58,11 @@ flutter:
   uses-material-design: true
 
   assets:
-     - assets/logo/
-     - assets/images/
-     - assets/images/salles/
-     - assets/images/dashboard/
-     - assets/images/news/
+    - assets/logo/
+    - assets/images/
+    - assets/images/salles/
+    - assets/images/dashboard/
+    - assets/images/news/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

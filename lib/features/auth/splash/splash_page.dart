@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-import '../onboarding/onboarding_screen.dart';
+import '../../../app/routes/route_names.dart';
 import 'widgets/splash_background.dart';
 import 'widgets/splash_loader.dart';
 import 'widgets/splash_logo.dart';
@@ -14,22 +16,23 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  Timer? _navigationTimer;
+
   @override
   void initState() {
     super.initState();
-
-    _navigate();
+    _navigationTimer = Timer(const Duration(seconds: 3), _navigate);
   }
 
-  Future<void> _navigate() async {
-    await Future.delayed(const Duration(seconds: 3));
-
+  void _navigate() {
     if (!mounted) return;
+    Navigator.pushReplacementNamed(context, RouteNames.onboarding);
+  }
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const OnboardingScreen()),
-    );
+  @override
+  void dispose() {
+    _navigationTimer?.cancel();
+    super.dispose();
   }
 
   @override

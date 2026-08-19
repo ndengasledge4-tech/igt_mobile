@@ -1,92 +1,59 @@
 import 'package:flutter/material.dart';
 
-import '../../app/theme/colors.dart';
+import '../../app/theme/semantic_colors.dart';
+import '../../mock/mock_notifications.dart';
 import 'widgets/notification_app_bar.dart';
 import 'widgets/notification_tile.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
 
-  static const notifications = [
-    {
-      "title": "Résultats disponibles",
-      "subtitle":
-          "Les notes du contrôle continu N°2 sont maintenant disponibles.",
-      "time": "2h",
-      "color": Color(0xFF4CAF50),
-      "icon": Icons.monitor_heart_outlined,
-      "unread": true,
-    },
-    {
-      "title": "Nouveau document",
-      "subtitle": "Le polycopié d'Algorithmique chapitre 6 a été mis en ligne.",
-      "time": "5h",
-      "color": Color(0xFF4285F4),
-      "icon": Icons.description_outlined,
-      "unread": false,
-    },
-    {
-      "title": "Nouvelle actualité",
-      "subtitle": "Conférence internationale sur l'IA — Inscriptions ouvertes.",
-      "time": "Hier, 14:30",
-      "color": Color(0xFF9C27B0),
-      "icon": Icons.campaign_outlined,
-      "unread": false,
-    },
-    {
-      "title": "Modification de cours",
-      "subtitle": "Le cours de Mathématiques du lundi 28 juillet est reporté.",
-      "time": "Hier, 09:15",
-      "color": Color(0xFFFF9800),
-      "icon": Icons.event_outlined,
-      "unread": false,
-    },
-    {
-      "title": "Rappel important",
-      "subtitle":
-          "La date limite de paiement des frais de scolarité est le 31 juillet 2025.",
-      "time": "25 Juil. 2025",
-      "color": Color(0xFFE53935),
-      "icon": Icons.error_outline,
-      "unread": false,
-    },
-    {
-      "title": "Document ajouté",
-      "subtitle":
-          "Le calendrier des examens S2 2025 est disponible en téléchargement.",
-      "time": "24 Juil. 2025",
-      "color": Color(0xFF4285F4),
-      "icon": Icons.insert_drive_file_outlined,
-      "unread": false,
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
+    final semantic = context.semanticColors;
+    final scheme = Theme.of(context).colorScheme;
+    final notifications = MockNotificationsData.items;
 
+    return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             const NotificationAppBar(),
-
             Expanded(
-              child: ListView.separated(
-                padding: const EdgeInsets.only(bottom: 20),
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
                 itemCount: notifications.length,
-                separatorBuilder: (_, __) =>
-                    const Divider(height: 1, color: AppColors.divider),
                 itemBuilder: (context, index) {
                   final item = notifications[index];
-
+                  final (icon, color) = switch (item.kind) {
+                    MockNotificationKind.result => (
+                      Icons.workspace_premium_outlined,
+                      semantic.success,
+                    ),
+                    MockNotificationKind.document => (
+                      Icons.description_outlined,
+                      semantic.info,
+                    ),
+                    MockNotificationKind.news => (
+                      Icons.campaign_outlined,
+                      scheme.tertiary,
+                    ),
+                    MockNotificationKind.schedule => (
+                      Icons.event_outlined,
+                      semantic.warning,
+                    ),
+                    MockNotificationKind.warning => (
+                      Icons.error_outline_rounded,
+                      scheme.error,
+                    ),
+                  };
                   return NotificationTile(
-                    title: item["title"] as String,
-                    subtitle: item["subtitle"] as String,
-                    time: item["time"] as String,
-                    icon: item["icon"] as IconData,
-                    color: item["color"] as Color,
-                    unread: item["unread"] as bool,
+                    title: item.title,
+                    subtitle: item.message,
+                    time: item.time,
+                    icon: icon,
+                    color: color,
+                    unread: item.unread,
                   );
                 },
               ),

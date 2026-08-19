@@ -5,13 +5,14 @@ class ProfileInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.05),
+            color: theme.shadowColor.withValues(alpha: .05),
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),
@@ -49,6 +50,7 @@ class _InfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       child: Row(
@@ -57,7 +59,9 @@ class _InfoRow extends StatelessWidget {
             flex: 2,
             child: Text(
               title,
-              style: const TextStyle(color: Colors.grey, fontSize: 14),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
           Expanded(
@@ -65,7 +69,7 @@ class _InfoRow extends StatelessWidget {
             child: Text(
               value,
               textAlign: TextAlign.end,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              style: theme.textTheme.titleSmall,
             ),
           ),
         ],

@@ -18,15 +18,17 @@ class LessonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final secondaryText = theme.colorScheme.onSurfaceVariant;
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(.05),
+            color: theme.shadowColor.withValues(alpha: .05),
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),
@@ -50,13 +52,7 @@ class LessonCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  subject,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(subject, style: theme.textTheme.titleMedium),
 
                 const SizedBox(height: 12),
 
@@ -65,14 +61,13 @@ class LessonCard extends StatelessWidget {
                     Icon(
                       Icons.access_time_rounded,
                       size: 16,
-                      color: Colors.grey.shade600,
+                      color: secondaryText,
                     ),
                     const SizedBox(width: 6),
                     Text(
                       time,
-                      style: TextStyle(
-                        color: Colors.grey.shade700,
-                        fontSize: 13,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: secondaryText,
                       ),
                     ),
                   ],
@@ -85,14 +80,13 @@ class LessonCard extends StatelessWidget {
                     Icon(
                       Icons.location_on_outlined,
                       size: 16,
-                      color: Colors.grey.shade600,
+                      color: secondaryText,
                     ),
                     const SizedBox(width: 6),
                     Text(
                       room,
-                      style: TextStyle(
-                        color: Colors.grey.shade700,
-                        fontSize: 13,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: secondaryText,
                       ),
                     ),
                   ],
@@ -102,18 +96,13 @@ class LessonCard extends StatelessWidget {
 
                 Row(
                   children: [
-                    Icon(
-                      Icons.person_outline,
-                      size: 16,
-                      color: Colors.grey.shade600,
-                    ),
+                    Icon(Icons.person_outline, size: 16, color: secondaryText),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
                         teacher,
-                        style: TextStyle(
-                          color: Colors.grey.shade700,
-                          fontSize: 13,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: secondaryText,
                         ),
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../mock/mock_documents.dart';
 import 'widgets/category_filter.dart';
 import 'widgets/document_card.dart';
 import 'widgets/documents_header.dart';
@@ -11,65 +12,30 @@ class DocumentsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF5F7FB),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(20),
-          children: const [
-            DocumentsHeader(),
+          children: [
+            const DocumentsHeader(),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            SearchDocument(),
+            const SearchDocument(),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-            CategoryFilter(),
+            const CategoryFilter(),
 
-            SizedBox(height: 20),
-
-            DocumentCard(
-              type: "PDF",
-              title: "Polycopié Algorithmique S2",
-              size: "3.2 Mo",
-              date: "20 Juil. 2025",
-            ),
-
-            SizedBox(height: 12),
-
-            DocumentCard(
-              type: "PDF",
-              title: "Cours Base de Données — Chapitre 3",
-              size: "1.8 Mo",
-              date: "18 Juil. 2025",
-            ),
-
-            SizedBox(height: 12),
-
-            DocumentCard(
-              type: "PDF",
-              title: "Calendrier des examens S2 2025",
-              size: "240 Ko",
-              date: "15 Juil. 2025",
-            ),
-
-            SizedBox(height: 12),
-
-            DocumentCard(
-              type: "PDF",
-              title: "Règlement intérieur IGT 2025",
-              size: "510 Ko",
-              date: "10 Juil. 2025",
-            ),
-
-            SizedBox(height: 12),
-
-            DocumentCard(
-              type: "PPTX",
-              title: "Support Marketing Digital — CM3",
-              size: "4.8 Mo",
-              date: "08 Juil. 2025",
-            ),
+            const SizedBox(height: 20),
+            for (final document in MockDocumentsData.items) ...[
+              DocumentCard(
+                type: document.fileType,
+                title: document.title,
+                size: document.size,
+                date: document.updatedAt,
+              ),
+              const SizedBox(height: 12),
+            ],
           ],
         ),
       ),

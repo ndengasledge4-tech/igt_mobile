@@ -7,6 +7,6 @@ class ActivationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: ActivationPage());
+    return const ActivationPage();
   }
 }

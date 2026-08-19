@@ -3,9 +3,9 @@ abstract final class RouteNames {
 
   static const splash = '/';
   static const onboarding = '/onboarding';
-  static const activation = "/activation";
+  static const activation = '/activation';
   static const login = '/login';
-  static const createPassword = "/create-password";
+  static const createPassword = '/create-password';
   static const forgotPassword = '/forgot-password';
 
   static const dashboard = '/dashboard';
@@ -16,6 +16,7 @@ abstract final class RouteNames {
   static const academic = '/academic';
   static const timetable = '/timetable';
   static const results = '/results';
+  static const subjectDetails = '/results/subject';
   static const documents = '/documents';
 
   static const notifications = '/notifications';
@@ -24,5 +25,5 @@ abstract final class RouteNames {
   static const settings = '/settings';
 
   static const navigation = '/navigation';
-  static const String newsDetail = '/news-detail';
+  static const newsDetail = '/news-detail';
 }
