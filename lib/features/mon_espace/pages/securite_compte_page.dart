@@ -51,13 +51,10 @@ class SecuriteComptePage extends StatelessWidget {
           children: [
             const Text(
               "Gérez et renforcez la sécurité de votre compte pour protéger vos informations.",
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.secondaryText,
-              ),
+              style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
             ),
             const SizedBox(height: 24),
-            
+
             _buildSectionHeader("ÉTAT DE SÉCURITÉ"),
             _buildSecurityStatusCard(),
             const SizedBox(height: 24),
@@ -69,7 +66,8 @@ class SecuriteComptePage extends StatelessWidget {
             _buildInfoCard(
               icon: Icons.info_outline,
               text: "Conseil de sécurité",
-              subtext: "Ne partagez jamais votre mot de passe et assurez-vous d'utiliser un mot de passe fort et unique.",
+              subtext:
+                  "Ne partagez jamais votre mot de passe et assurez-vous d'utiliser un mot de passe fort et unique.",
             ),
             const SizedBox(height: 40),
           ],
@@ -97,9 +95,9 @@ class SecuriteComptePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.05),
+        color: AppColors.primary.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.primary.withOpacity(0.1)),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.1)),
       ),
       child: Column(
         children: [
@@ -109,7 +107,7 @@ class SecuriteComptePage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
@@ -149,7 +147,7 @@ class SecuriteComptePage extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             child: LinearProgressIndicator(
               value: 1.0,
-              backgroundColor: AppColors.primary.withOpacity(0.1),
+              backgroundColor: AppColors.primary.withValues(alpha: 0.1),
               color: AppColors.primary,
               minHeight: 6,
             ),
@@ -176,30 +174,35 @@ class SecuriteComptePage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Column(
         children: [
           _buildSecurityItem(
             icon: Icons.lock_outline,
             title: "Modifier le mot de passe",
-            subtitle: "Changez régulièrement votre mot de passe pour sécuriser votre compte.",
-            onTap: () => Navigator.pushNamed(context, RouteNames.modifierMotDePasse),
+            subtitle:
+                "Changez régulièrement votre mot de passe pour sécuriser votre compte.",
+            onTap: () =>
+                Navigator.pushNamed(context, RouteNames.modifierMotDePasse),
           ),
           const Divider(height: 1, indent: 56),
           _buildSecurityItem(
             icon: Icons.fingerprint,
             title: "Face ID ou Empreinte digitale",
-            subtitle: "Sécurisez l'accès à votre application avec la biométrie.",
+            subtitle:
+                "Sécurisez l'accès à votre application avec la biométrie.",
             trailingWidget: _buildBadge("Pas disponible", AppColors.error),
           ),
           const Divider(height: 1, indent: 56),
           _buildSecurityItem(
             icon: Icons.phone_android_outlined,
             title: "Téléphone de récupération",
-            subtitle: "Le numéro de téléphone utilisé pour récupérer votre compte.",
+            subtitle:
+                "Le numéro de téléphone utilisé pour récupérer votre compte.",
             trailingText: "+242 06 123 45 67",
-            onTap: () => Navigator.pushNamed(context, RouteNames.modifierTelephone),
+            onTap: () =>
+                Navigator.pushNamed(context, RouteNames.modifierTelephone),
           ),
           const Divider(height: 1, indent: 56),
           _buildSecurityItem(
@@ -244,10 +247,7 @@ class SecuriteComptePage extends StatelessWidget {
         padding: const EdgeInsets.only(top: 4.0),
         child: Text(
           subtitle,
-          style: const TextStyle(
-            fontSize: 12,
-            color: AppColors.secondaryText,
-          ),
+          style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
         ),
       ),
       trailing: Row(
@@ -262,7 +262,7 @@ class SecuriteComptePage extends StatelessWidget {
                 color: AppColors.text,
               ),
             ),
-          if (trailingWidget != null) trailingWidget,
+          ?trailingWidget,
           const SizedBox(width: 4),
           const Icon(Icons.chevron_right, size: 18, color: AppColors.hint),
         ],
@@ -275,7 +275,7 @@ class SecuriteComptePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
@@ -289,13 +289,17 @@ class SecuriteComptePage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoCard({required IconData icon, required String text, required String subtext}) {
+  Widget _buildInfoCard({
+    required IconData icon,
+    required String text,
+    required String subtext,
+  }) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

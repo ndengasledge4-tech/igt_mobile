@@ -5,10 +5,12 @@ class NotificationsPreferencesPage extends StatefulWidget {
   const NotificationsPreferencesPage({super.key});
 
   @override
-  State<NotificationsPreferencesPage> createState() => _NotificationsPreferencesPageState();
+  State<NotificationsPreferencesPage> createState() =>
+      _NotificationsPreferencesPageState();
 }
 
-class _NotificationsPreferencesPageState extends State<NotificationsPreferencesPage> {
+class _NotificationsPreferencesPageState
+    extends State<NotificationsPreferencesPage> {
   final Map<String, bool> _preferences = {
     'générales': true,
     'actualités': true,
@@ -65,13 +67,10 @@ class _NotificationsPreferencesPageState extends State<NotificationsPreferencesP
           children: [
             const Text(
               "Gérez les types de notifications que vous souhaitez recevoir dans l'application",
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.secondaryText,
-              ),
+              style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
             ),
             const SizedBox(height: 24),
-            
+
             const Text(
               "Types de notifications",
               style: TextStyle(
@@ -88,7 +87,8 @@ class _NotificationsPreferencesPageState extends State<NotificationsPreferencesP
             _buildInfoCard(
               icon: Icons.info_outline,
               text: "Information",
-              subtext: "Vous recevrez toujours les notifications importantes même si certaines catégories sont désactivées.",
+              subtext:
+                  "Vous recevrez toujours les notifications importantes même si certaines catégories sont désactivées.",
             ),
             const SizedBox(height: 40),
           ],
@@ -102,7 +102,7 @@ class _NotificationsPreferencesPageState extends State<NotificationsPreferencesP
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Column(
         children: [
@@ -190,23 +190,24 @@ class _NotificationsPreferencesPageState extends State<NotificationsPreferencesP
       ),
       subtitle: Text(
         subtitle,
-        style: const TextStyle(
-          fontSize: 12,
-          color: AppColors.secondaryText,
-        ),
+        style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
       ),
-      activeColor: AppColors.primary,
+      activeThumbColor: AppColors.primary,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
     );
   }
 
-  Widget _buildInfoCard({required IconData icon, required String text, required String subtext}) {
+  Widget _buildInfoCard({
+    required IconData icon,
+    required String text,
+    required String subtext,
+  }) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

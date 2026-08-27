@@ -56,7 +56,10 @@ class ModifierTelephonePage extends StatelessWidget {
               style: AppTextStyles.bodySmall,
             ),
             const SizedBox(height: 32),
-            const Text("Numéro de téléphone actuel", style: AppTextStyles.label),
+            const Text(
+              "Numéro de téléphone actuel",
+              style: AppTextStyles.label,
+            ),
             const SizedBox(height: 8),
             const Text(
               "+242 06 123 45 67",
@@ -67,7 +70,10 @@ class ModifierTelephonePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            const Text("Nouveau numéro de téléphone", style: AppTextStyles.label),
+            const Text(
+              "Nouveau numéro de téléphone",
+              style: AppTextStyles.label,
+            ),
             const SizedBox(height: 8),
             const AppTextField(
               hintText: "Entrez le nouveau numéro",

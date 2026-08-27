@@ -59,13 +59,10 @@ class InformationsLegalesPage extends StatelessWidget {
           children: [
             const Text(
               "Consultez les informations légales et réglementaires relatives à l'application.",
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.secondaryText,
-              ),
+              style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
             ),
             const SizedBox(height: 24),
-            
+
             _buildGroupedLegalCard(context),
             const SizedBox(height: 32),
 
@@ -80,15 +77,12 @@ class InformationsLegalesPage extends StatelessWidget {
             const SizedBox(height: 16),
 
             _buildAboutCard(),
-            
+
             const SizedBox(height: 32),
             const Center(
               child: Text(
                 "© 2025 IGT. Tous droits réservés.",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: AppColors.hint,
-                ),
+                style: TextStyle(fontSize: 12, color: AppColors.hint),
               ),
             ),
             const SizedBox(height: 40),
@@ -103,7 +97,7 @@ class InformationsLegalesPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Column(
         children: [
@@ -111,42 +105,48 @@ class InformationsLegalesPage extends StatelessWidget {
             context: context,
             icon: Icons.assignment_outlined,
             title: "Conditions d'utilisation",
-            subtitle: "Consultez les conditions générales d'utilisation de l'application.",
+            subtitle:
+                "Consultez les conditions générales d'utilisation de l'application.",
           ),
           const Divider(height: 1, indent: 60),
           _buildLegalItem(
             context: context,
             icon: Icons.verified_user_outlined,
             title: "Politique de confidentialité",
-            subtitle: "Découvrez comment nous collectons, utilisons et protégeons vos données personnelles.",
+            subtitle:
+                "Découvrez comment nous collectons, utilisons et protégeons vos données personnelles.",
           ),
           const Divider(height: 1, indent: 60),
           _buildLegalItem(
             context: context,
             icon: Icons.gavel_outlined,
             title: "Mentions légales",
-            subtitle: "Informations légales sur l'éditeur et l'hébergeur de l'application.",
+            subtitle:
+                "Informations légales sur l'éditeur et l'hébergeur de l'application.",
           ),
           const Divider(height: 1, indent: 60),
           _buildLegalItem(
             context: context,
             icon: Icons.description_outlined,
             title: "Politique de cookies",
-            subtitle: "En savoir plus sur l'utilisation des cookies et vos choix associés.",
+            subtitle:
+                "En savoir plus sur l'utilisation des cookies et vos choix associés.",
           ),
           const Divider(height: 1, indent: 60),
           _buildLegalItem(
             context: context,
             icon: Icons.copyright_outlined,
             title: "Droits d'auteur",
-            subtitle: "Informations sur les droits d'auteur et la propriété intellectuelle.",
+            subtitle:
+                "Informations sur les droits d'auteur et la propriété intellectuelle.",
           ),
           const Divider(height: 1, indent: 56),
           _buildLegalItem(
             context: context,
             icon: Icons.help_outline,
             title: "Foire aux questions légales",
-            subtitle: "Réponses aux questions fréquentes sur les aspects légaux de l'application.",
+            subtitle:
+                "Réponses aux questions fréquentes sur les aspects légaux de l'application.",
           ),
         ],
       ),
@@ -181,13 +181,14 @@ class InformationsLegalesPage extends StatelessWidget {
         padding: const EdgeInsets.only(top: 2.0),
         child: Text(
           subtitle,
-          style: const TextStyle(
-            fontSize: 11,
-            color: AppColors.secondaryText,
-          ),
+          style: const TextStyle(fontSize: 11, color: AppColors.secondaryText),
         ),
       ),
-      trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.hint),
+      trailing: const Icon(
+        Icons.chevron_right,
+        size: 18,
+        color: AppColors.hint,
+      ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
     );
   }
@@ -198,7 +199,7 @@ class InformationsLegalesPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Row(
         children: [
@@ -235,10 +236,7 @@ class InformationsLegalesPage extends StatelessWidget {
                 SizedBox(height: 2),
                 Text(
                   "Dernière mise à jour : 15 mai 2025",
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: AppColors.hint,
-                  ),
+                  style: TextStyle(fontSize: 11, color: AppColors.hint),
                 ),
               ],
             ),

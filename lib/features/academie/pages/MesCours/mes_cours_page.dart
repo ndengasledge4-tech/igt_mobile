@@ -1,123 +1,194 @@
 import 'package:flutter/material.dart';
 
-// Importe la carte représentant un semestre.
-import '../../../widgets/semestre_card.dart';
-
-// Gestion centralisée des noms de routes.
 import '../../../../app/routes/route_names.dart';
+import '../../../../app/theme/semantic_colors.dart';
+import '../../../../shared/widgets/premium_ui.dart';
+import '../../academic_catalog.dart';
+import '../../widgets/academic_components.dart';
+import 'cours_contenu_page.dart';
 
-/// ============================================================
-/// PAGE : MES COURS
-/// ============================================================
-
-class MesCoursPage extends StatelessWidget {
+class MesCoursPage extends StatefulWidget {
   const MesCoursPage({super.key});
+  @override
+  State<MesCoursPage> createState() => _MesCoursPageState();
+}
+
+class _MesCoursPageState extends State<MesCoursPage> {
+  final _searchController = TextEditingController();
+  String _query = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final courses = AcademicCatalog.courses.where((course) {
+      final query = _query.toLowerCase();
+      return course.name.toLowerCase().contains(query) ||
+          course.teacher.toLowerCase().contains(query);
+    }).toList();
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FB),
-
-      // --------------------------------------------------------
-      // BARRE SUPÉRIEURE
-      // --------------------------------------------------------
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF8F9FB),
-        elevation: 0,
-
-        // Bouton retour
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black87),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-
-        // Titre
-        title: const Text(
-          'Mes cours',
-          style: TextStyle(
-            color: Colors.black87,
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(
+            child: AppScreenHeader(
+              eyebrow: 'Semestre 6 · 2025–2026',
+              title: 'Mes cours',
+              subtitle:
+                  '${AcademicCatalog.courses.length} matières · 17 crédits',
+              icon: Icons.menu_book_rounded,
+              showBack: true,
+            ),
           ),
-        ),
-      ),
-
-      // --------------------------------------------------------
-      // CONTENU
-      // --------------------------------------------------------
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Description de la page
-            const Text(
-              'Sélectionnez une année pour accéder à vos cours.',
-              style: TextStyle(color: Colors.black54, fontSize: 15),
+          SliverToBoxAdapter(
+            child: AppResponsiveContent(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    key: const Key('academic-period-selector'),
+                    borderRadius: BorderRadius.circular(16),
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      RouteNames.semestre,
+                      arguments: const {
+                        'annee': '1ère année',
+                        'semestres': ['Semestre 1', 'Semestre 2'],
+                      },
+                    ),
+                    child: Ink(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest
+                            .withValues(alpha: .65),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_month_rounded,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(width: 10),
+                          const Expanded(
+                            child: Row(
+                              children: [
+                                Text(
+                                  '1ère année',
+                                  style: TextStyle(fontWeight: FontWeight.w700),
+                                ),
+                                Text(' · Semestre 6'),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            'Changer',
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    key: const Key('course-search'),
+                    controller: _searchController,
+                    onChanged: (value) => setState(() => _query = value.trim()),
+                    decoration: const InputDecoration(
+                      hintText: 'Rechercher une matière ou un enseignant',
+                      prefixIcon: Icon(Icons.search_rounded),
+                      suffixIcon: Icon(Icons.tune_rounded),
+                    ),
+                  ),
+                  const SizedBox(height: 26),
+                  AppSectionHeading(
+                    title: 'Matières du semestre',
+                    subtitle:
+                        '${courses.length} résultat${courses.length > 1 ? 's' : ''}',
+                  ),
+                  const SizedBox(height: 14),
+                  if (courses.isEmpty)
+                    AppSurface(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 30),
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.search_off_rounded,
+                                size: 38,
+                                color: context.semanticColors.textDisabled,
+                              ),
+                              const SizedBox(height: 10),
+                              const Text(
+                                'Aucun cours ne correspond à cette recherche.',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    _CourseLayout(courses: courses),
+                ],
+              ),
             ),
-
-            const SizedBox(height: 20),
-
-            // --------------------------------------------------
-            // 1ÈRE ANNÉE
-            // --------------------------------------------------
-            SemestreCard(
-              imagePath: 'assets/images/academie/annee_1.png',
-              titre: '1ère année',
-              sousTitre: 'Semestre 1 — Semestre 2',
-              nombreCours: '10 cours disponible(s)',
-              statut: 'En cours',
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  RouteNames.semestre,
-                  arguments: {
-                    'annee': '1ère année',
-                    'semestres': ['Semestre 1', 'Semestre 2'],
-                  },
-                );
-              },
-            ),
-            const SizedBox(height: 14),
-
-            // --------------------------------------------------
-            // 2ÈME ANNÉE
-            // --------------------------------------------------
-            SemestreCard(
-              imagePath: 'assets/images/academie/annee_1.png',
-              titre: '1ère année',
-              sousTitre: 'Semestre 1 — Semestre 2',
-              nombreCours: '10 cours disponible(s)',
-              statut: 'En cours',
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  RouteNames.semestre,
-                  arguments: {
-                    'annee': '1ère année',
-                    'semestres': ['Semestre 1', 'Semestre 2'],
-                  },
-                );
-              },
-            ),
-            const SizedBox(height: 14),
-
-            // --------------------------------------------------
-            // 3ÈME ANNÉE
-            // --------------------------------------------------
-            SemestreCard(
-              imagePath: 'assets/images/academie/annee_3.png',
-              titre: '3ème année',
-              sousTitre: 'Semestre 5 — Semestre 6',
-              nombreCours: 'Pas encore de cours',
-              statut: 'À venir',
-              onTap: null,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
+}
+
+class _CourseLayout extends StatelessWidget {
+  final List<AcademicCourse> courses;
+  const _CourseLayout({required this.courses});
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) {
+      final width = constraints.maxWidth >= 680
+          ? (constraints.maxWidth - 14) / 2
+          : constraints.maxWidth;
+      return Wrap(
+        spacing: 14,
+        runSpacing: 12,
+        children: [
+          for (final course in courses)
+            SizedBox(
+              width: width,
+              child: AcademicCourseCard(
+                course: course,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (_) => CoursContenuPage(
+                      imagePath: '',
+                      nom: course.name,
+                      professeur: course.teacher,
+                      semestre: course.semester,
+                      credits: course.credits,
+                      coefficient: course.coefficient,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      );
+    },
+  );
 }

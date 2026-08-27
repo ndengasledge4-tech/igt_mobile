@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
 
 import '../../app/theme/dimensions.dart';
@@ -49,6 +48,3 @@ class AppAvatar extends StatelessWidget {
     );
   }
 }
-=======
-
->>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93

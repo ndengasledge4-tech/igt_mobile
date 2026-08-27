@@ -1,192 +1,263 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import '../../../app/theme/colors.dart';
-import '../../../app/theme/dimensions.dart';
-import '../../../app/theme/text_styles.dart';
-import '../widgets/detail_top_bar.dart';
+import '../../../app/theme/semantic_colors.dart';
+import '../../../shared/widgets/premium_ui.dart';
+import '../../communication/communication_store.dart';
 
 class EvenementDetailPage extends StatelessWidget {
-  final Map<String, dynamic> item;
-
-  const EvenementDetailPage({super.key, required this.item});
-
+  final UniversityEvent event;
+  const EvenementDetailPage({super.key, required this.event});
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.white,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.light,
-      ),
-      child: Scaffold(
-        backgroundColor: AppColors.background,
-        body: Column(
-          children: [
-            const DetailTopBar(),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: AppDimensions.lg),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _hero(),
-                    Padding(
-                      padding: const EdgeInsets.all(AppDimensions.sm),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item['content'] ?? item['excerpt'] ?? '',
-                            style: AppTextStyles.body.copyWith(
-                              fontSize: 14,
-                              height: 1.5,
+    final store = CommunicationStore.instance;
+    return AnimatedBuilder(
+      animation: store,
+      builder: (context, _) {
+        final current = store.eventById(event.id);
+        final upcoming = current.startsAt.isAfter(DateTime.now());
+        return Scaffold(
+          appBar: AppBar(title: const Text('Détail de l’événement')),
+          body: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 880),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AspectRatio(
+                        aspectRatio: MediaQuery.sizeOf(context).width >= 700
+                            ? 2.6
+                            : 1.6,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image.asset(current.imageAsset, fit: BoxFit.cover),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.black.withValues(alpha: .65),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                          if (item['program'] != null) ...[
-                            const SizedBox(height: AppDimensions.lg),
-                            Text(
-                              'Programme de la journée',
-                              style: AppTextStyles.label,
+                            Positioned(
+                              left: 20,
+                              right: 20,
+                              bottom: 18,
+                              child: Text(
+                                current.title,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w700,
+                                  height: 1.2,
+                                ),
+                              ),
                             ),
-                            const SizedBox(height: 12),
-                            _program(),
                           ],
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _hero() {
-    return Container(
-      width: double.infinity,
-      color: AppColors.success.withAlpha(28),
-      padding: const EdgeInsets.fromLTRB(
-        AppDimensions.sm,
-        20,
-        AppDimensions.sm,
-        18,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: AppColors.white.withAlpha(140),
-              borderRadius: BorderRadius.circular(9),
-            ),
-            child: Text(
-              'Événement',
-              style: AppTextStyles.caption.copyWith(
-                color: AppColors.success,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          const SizedBox(height: 14),
-          Text(
-            item['detailTitle'] ?? item['title'],
-            style: AppTextStyles.headline3.copyWith(
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 16),
-          _meta(
-            Icons.calendar_month_rounded,
-            item['date'].toString(),
-            AppColors.primary,
-          ),
-          if (item['time'] != null) ...[
-            const SizedBox(height: 8),
-            _meta(
-              Icons.access_time_filled_rounded,
-              item['time'].toString(),
-              AppColors.text,
-            ),
-          ],
-          if (item['location'] != null) ...[
-            const SizedBox(height: 8),
-            _meta(
-              Icons.location_pin,
-              item['location'].toString(),
-              AppColors.error,
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _meta(IconData icon, String text, Color color) {
-    return Row(
-      children: [
-        Icon(icon, color: color, size: 13),
-        const SizedBox(width: 6),
-        Expanded(
-          child: Text(
-            text,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.caption.copyWith(
-              color: AppColors.text,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _program() {
-    final program = List<Map<String, dynamic>>.from(item['program'] as List);
-
-    return Column(
-      children: [
-        for (int index = 0; index < program.length; index++)
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            decoration: BoxDecoration(
-              border: index < program.length - 1
-                  ? const Border(bottom: BorderSide(color: AppColors.border))
-                  : null,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: 48,
-                  child: Text(
-                    program[index]['time'].toString(),
-                    style: AppTextStyles.caption.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w700,
-                    ),
+                      AppResponsiveContent(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 8,
+                              children: [
+                                _Info(
+                                  icon: Icons.calendar_month_rounded,
+                                  label: _date(current.startsAt),
+                                ),
+                                _Info(
+                                  icon: Icons.schedule_rounded,
+                                  label:
+                                      '${current.startsAt.hour.toString().padLeft(2, '0')}:${current.startsAt.minute.toString().padLeft(2, '0')}',
+                                ),
+                                _Info(
+                                  icon: Icons.location_on_outlined,
+                                  label: current.location,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 24),
+                            Text(
+                              current.description,
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodyLarge?.copyWith(height: 1.6),
+                            ),
+                            const SizedBox(height: 26),
+                            const AppSectionHeading(title: 'Programme'),
+                            const SizedBox(height: 10),
+                            AppSurface(
+                              child: Column(
+                                children: [
+                                  for (
+                                    var i = 0;
+                                    i < current.program.length;
+                                    i++
+                                  )
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        bottom: i == current.program.length - 1
+                                            ? 0
+                                            : 14,
+                                      ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: 54,
+                                            child: Text(
+                                              current.program[i].$1,
+                                              style: TextStyle(
+                                                color: Theme.of(
+                                                  context,
+                                                ).colorScheme.primary,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(current.program[i].$2),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            AppSurface(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 44,
+                                    height: 44,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withValues(alpha: .1),
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                    child: Icon(
+                                      Icons.account_balance_rounded,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Organisateur',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                color: context
+                                                    .semanticColors
+                                                    .textSecondary,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 3),
+                                        Text(
+                                          current.organizer,
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.titleSmall,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            if (upcoming) ...[
+                              const SizedBox(height: 22),
+                              SizedBox(
+                                width: double.infinity,
+                                child: FilledButton.icon(
+                                  key: const Key('toggle-event-participation'),
+                                  onPressed: () {
+                                    store.toggleParticipation(current.id);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          current.participating
+                                              ? 'Participation annulée'
+                                              : 'Participation confirmée',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(
+                                    current.participating
+                                        ? Icons.check_circle_rounded
+                                        : Icons.event_available_rounded,
+                                  ),
+                                  label: Text(
+                                    current.participating
+                                        ? 'Je participe'
+                                        : 'Confirmer ma participation',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    program[index]['description'].toString(),
-                    style: AppTextStyles.bodySmall.copyWith(
-                      color: AppColors.text,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-      ],
+        );
+      },
     );
   }
 }
+
+class _Info extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  const _Info({required this.icon, required this.label});
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
+    decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 16, color: Theme.of(context).colorScheme.primary),
+        const SizedBox(width: 6),
+        Text(
+          label,
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
+      ],
+    ),
+  );
+}
+
+String _date(DateTime value) =>
+    '${value.day.toString().padLeft(2, '0')}/${value.month.toString().padLeft(2, '0')}/${value.year}';

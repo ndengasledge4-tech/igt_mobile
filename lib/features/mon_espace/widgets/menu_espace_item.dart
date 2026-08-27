@@ -26,49 +26,49 @@ class MenuEspaceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: AppColors.white,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Material(
+        color: Theme.of(context).colorScheme.surface,
+        elevation: 1,
+        shadowColor: Colors.black.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
+        clipBehavior: Clip.antiAlias,
+        child: ListTile(
+          onTap: onTap,
+          leading: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: iconBgColor ?? AppColors.softBlue,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, color: iconColor ?? AppColors.primary, size: 24),
           ),
-        ],
-      ),
-      child: ListTile(
-        onTap: onTap,
-        leading: Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: iconBgColor ?? AppColors.softBlue,
-            borderRadius: BorderRadius.circular(10),
+          title: Text(
+            title,
+            style: AppTextStyles.body.copyWith(
+              fontWeight: FontWeight.bold,
+              color: textColor ?? Theme.of(context).colorScheme.onSurface,
+            ),
           ),
-          child: Icon(icon, color: iconColor ?? AppColors.primary, size: 24),
-        ),
-        title: Text(
-          title,
-          style: AppTextStyles.body.copyWith(
-            fontWeight: FontWeight.bold,
-            color: textColor ?? AppColors.text,
+          subtitle: subtitle != null
+              ? Text(
+                  subtitle!,
+                  style: AppTextStyles.caption.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                )
+              : null,
+          trailing: Icon(
+            Icons.chevron_right,
+            color:
+                chevronColor ?? Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 4,
           ),
         ),
-        subtitle: subtitle != null
-            ? Text(
-                subtitle!,
-                style: AppTextStyles.caption.copyWith(
-                  color: AppColors.secondaryText,
-                ),
-              )
-            : null,
-        trailing: Icon(
-          Icons.chevron_right,
-          color: chevronColor ?? AppColors.hint,
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       ),
     );
   }

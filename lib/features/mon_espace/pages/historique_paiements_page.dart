@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
-import '../../../app/theme/text_styles.dart';
 import '../widgets/paiement_card.dart';
 
 class HistoriquePaiementsPage extends StatelessWidget {

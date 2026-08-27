@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../../../../app/routes/route_names.dart';
@@ -12,6 +14,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage>
     with SingleTickerProviderStateMixin {
+  Timer? _navigationTimer;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
@@ -45,7 +48,7 @@ class _SplashPageState extends State<SplashPage>
 
     _animationController.forward();
 
-    Future.delayed(const Duration(seconds: 3), () {
+    _navigationTimer = Timer(const Duration(seconds: 3), () {
       if (!mounted) return;
 
       Navigator.pushReplacementNamed(context, RouteNames.onboarding);
@@ -54,6 +57,7 @@ class _SplashPageState extends State<SplashPage>
 
   @override
   void dispose() {
+    _navigationTimer?.cancel();
     _animationController.dispose();
     super.dispose();
   }
@@ -166,7 +170,7 @@ class _SplashPageState extends State<SplashPage>
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 32,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w700,
                             letterSpacing: -0.7,
                             height: 1.05,
                           ),
@@ -265,7 +269,7 @@ class _SplashPageState extends State<SplashPage>
           ],
         ),
         child: Image.asset(
-          'assets/logo/logo.png',
+          'assets/logo/Logo.png',
           fit: BoxFit.contain,
           errorBuilder: (_, _, _) {
             return const Icon(

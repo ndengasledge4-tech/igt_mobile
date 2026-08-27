@@ -139,7 +139,7 @@ class EmploiDuTempsDetail extends StatelessWidget {
             width: 44,
             height: 44,
             decoration: BoxDecoration(
-              color: bleu.withOpacity(0.08),
+              color: bleu.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(icon, color: bleu, size: 22),

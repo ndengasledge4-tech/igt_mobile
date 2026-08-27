@@ -20,9 +20,9 @@ abstract final class AppDimensions {
   static const double xl = space32;
   static const double xxl = space40;
 
-  static const double radiusSmall = 8;
-  static const double radiusMedium = 12;
-  static const double radiusLarge = 18;
+  static const double radiusSmall = 12;
+  static const double radiusMedium = 16;
+  static const double radiusLarge = 20;
   static const double radiusXLarge = 24;
   static const double radiusPill = 999;
 
@@ -31,15 +31,15 @@ abstract final class AppDimensions {
   static const double iconLarge = 32;
   static const double iconXLarge = 48;
 
-  static const double buttonHeight = 52;
-  static const double inputHeight = 52;
+  static const double buttonHeight = 56;
+  static const double inputHeight = 56;
   static const double appBarHeight = 60;
   static const double avatarSmall = 32;
   static const double avatarMedium = 44;
   static const double avatarLarge = 64;
   static const double pagePadding = 20;
   static const double tabletPagePadding = 32;
-  static const double maxContentWidth = 760;
+  static const double maxContentWidth = 880;
   static const double cardElevation = 0;
   static const double splashLogo = 120;
 }

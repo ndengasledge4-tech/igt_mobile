@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 abstract final class AppAssets {
   const AppAssets._();
 
@@ -17,6 +16,3 @@ abstract final class AppAssets {
   static const dashboardDocuments = 'assets/images/dashboard/documents.png';
   static const dashboardNews = 'assets/images/dashboard/news.png';
 }
-=======
-
->>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93

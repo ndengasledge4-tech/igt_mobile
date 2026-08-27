@@ -7,14 +7,17 @@ class LoginFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         Wrap(
           alignment: WrapAlignment.center,
           children: [
-            const Text(
+            Text(
               'Pas encore de compte ? ',
-              style: TextStyle(color: Color(0xFF91A0AE), fontSize: 16),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
             GestureDetector(
               onTap: () {
@@ -23,12 +26,11 @@ class LoginFooter extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const CreationComptePage()),
                 );
               },
-              child: const Text(
+              child: Text(
                 'Créer un compte',
-                style: TextStyle(
-                  color: Color(0xFF3F76A5),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),

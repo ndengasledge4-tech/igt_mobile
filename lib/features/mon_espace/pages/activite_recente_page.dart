@@ -50,13 +50,10 @@ class ActiviteRecentePage extends StatelessWidget {
           children: [
             const Text(
               "Consultez les appareils sur lesquels vous êtes connecté et l'historique de vos connexions.",
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.secondaryText,
-              ),
+              style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
             ),
             const SizedBox(height: 24),
-            
+
             _buildSectionHeader("APPAREIL ACTUEL"),
             _buildDeviceCard(
               deviceName: "iPhone 15 Pro (Cet appareil)",
@@ -137,7 +134,11 @@ class ActiviteRecentePage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: isCurrent ? AppColors.primary.withOpacity(0.3) : AppColors.border.withOpacity(0.5)),
+        border: Border.all(
+          color: isCurrent
+              ? AppColors.primary.withValues(alpha: 0.3)
+              : AppColors.border.withValues(alpha: 0.5),
+        ),
       ),
       child: Row(
         children: [
@@ -156,12 +157,18 @@ class ActiviteRecentePage extends StatelessWidget {
               children: [
                 Text(
                   deviceName,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   "$location • $lastActive",
-                  style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.secondaryText,
+                  ),
                 ),
               ],
             ),
@@ -178,16 +185,13 @@ class ActiviteRecentePage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Column(
         children: List.generate(items.length, (index) {
           if (index == items.length - 1) return items[index];
           return Column(
-            children: [
-              items[index],
-              const Divider(height: 1, indent: 60),
-            ],
+            children: [items[index], const Divider(height: 1, indent: 60)],
           );
         }),
       ),
@@ -209,9 +213,19 @@ class ActiviteRecentePage extends StatelessWidget {
         ),
         child: Icon(icon, color: AppColors.primary, size: 20),
       ),
-      title: Text(deviceName, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-      subtitle: Text("$location • $lastActive", style: const TextStyle(fontSize: 11)),
-      trailing: const Icon(Icons.chevron_right, size: 18, color: AppColors.hint),
+      title: Text(
+        deviceName,
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text(
+        "$location • $lastActive",
+        style: const TextStyle(fontSize: 11),
+      ),
+      trailing: const Icon(
+        Icons.chevron_right,
+        size: 18,
+        color: AppColors.hint,
+      ),
     );
   }
 
@@ -234,12 +248,22 @@ class ActiviteRecentePage extends StatelessWidget {
           size: 20,
         ),
       ),
-      title: Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: isWarning ? AppColors.error : AppColors.text)),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: isWarning ? AppColors.error : AppColors.text,
+        ),
+      ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(subtitle, style: const TextStyle(fontSize: 11)),
-          Text(date, style: const TextStyle(fontSize: 10, color: AppColors.hint)),
+          Text(
+            date,
+            style: const TextStyle(fontSize: 10, color: AppColors.hint),
+          ),
         ],
       ),
     );

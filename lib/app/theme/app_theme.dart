@@ -64,6 +64,7 @@ abstract final class AppTheme {
           labelLarge: AppTextStyles.label,
           bodySmall: AppTextStyles.caption,
         ).apply(
+          fontFamily: 'PlusJakartaSans',
           bodyColor: semanticColors.textPrimary,
           displayColor: semanticColors.textPrimary,
         );
@@ -74,6 +75,7 @@ abstract final class AppTheme {
 
     return ThemeData(
       useMaterial3: true,
+      fontFamily: 'PlusJakartaSans',
       brightness: brightness,
       colorScheme: scheme,
       scaffoldBackgroundColor: background,
@@ -93,14 +95,11 @@ abstract final class AppTheme {
       ),
       cardTheme: CardThemeData(
         color: surface,
-        elevation: AppDimensions.cardElevation,
+        elevation: 0,
         margin: EdgeInsets.zero,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-<<<<<<< HEAD
           side: BorderSide(color: semanticColors.border.withValues(alpha: 0.8)),
-=======
->>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93
           borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
         ),
       ),
@@ -115,9 +114,8 @@ abstract final class AppTheme {
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppDimensions.space16,
-          vertical: AppDimensions.space16,
+          vertical: AppDimensions.space20,
         ),
-<<<<<<< HEAD
         border: inputBorder,
         enabledBorder: inputBorder,
         focusedBorder: inputBorder.copyWith(
@@ -125,28 +123,11 @@ abstract final class AppTheme {
         ),
         errorBorder: inputBorder.copyWith(
           borderSide: BorderSide(color: scheme.error),
-=======
-
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
-          borderSide: const BorderSide(color: AppColors.border),
-        ),
-
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
-          borderSide: const BorderSide(color: AppColors.border),
-        ),
-
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
-          borderSide: const BorderSide(color: AppColors.primary, width: 2),
->>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-<<<<<<< HEAD
           minimumSize: const Size(0, AppDimensions.buttonHeight),
           padding: const EdgeInsets.symmetric(
             horizontal: AppDimensions.space20,
@@ -155,11 +136,6 @@ abstract final class AppTheme {
           foregroundColor: scheme.onPrimary,
           disabledBackgroundColor: scheme.onSurface.withValues(alpha: 0.12),
           disabledForegroundColor: scheme.onSurface.withValues(alpha: 0.38),
-=======
-          minimumSize: const Size(double.infinity, AppDimensions.buttonHeight),
-          backgroundColor: AppColors.primary,
-          foregroundColor: Colors.white,
->>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93
           textStyle: AppTextStyles.button,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
@@ -232,6 +208,32 @@ abstract final class AppTheme {
           fontWeight: FontWeight.w600,
         ),
         unselectedLabelStyle: AppTextStyles.caption,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        height: 70,
+        elevation: 0,
+        backgroundColor: surface,
+        indicatorColor: isDark
+            ? scheme.primary.withValues(alpha: 0.16)
+            : AppColors.primarySoft,
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          return IconThemeData(
+            color: states.contains(WidgetState.selected)
+                ? scheme.primary
+                : semanticColors.textDisabled,
+            size: 23,
+          );
+        }),
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          return AppTextStyles.caption.copyWith(
+            color: states.contains(WidgetState.selected)
+                ? scheme.primary
+                : semanticColors.textDisabled,
+            fontWeight: states.contains(WidgetState.selected)
+                ? FontWeight.w600
+                : FontWeight.w500,
+          );
+        }),
       ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: surface,

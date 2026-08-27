@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/forgot_password/forgot_password_form.dart';
-import '../../widgets/forgot_password/forgot_password_header.dart';
-import '../../widgets/forgot_password/verification_form.dart';
+import '../../../../../app/routes/route_names.dart';
+import '../../../../../app/theme/colors.dart';
+import '../../../../../app/theme/semantic_colors.dart';
+import '../../../../../shared/widgets/auth_shell.dart';
 
 class MotDePasseOubliePage extends StatefulWidget {
   const MotDePasseOubliePage({super.key});
@@ -12,10 +13,8 @@ class MotDePasseOubliePage extends StatefulWidget {
 }
 
 class _MotDePasseOubliePageState extends State<MotDePasseOubliePage> {
-  final TextEditingController _emailController = TextEditingController();
-
-  final TextEditingController _codeController = TextEditingController();
-
+  final _emailController = TextEditingController();
+  final _codeController = TextEditingController();
   int _step = 0;
 
   @override
@@ -25,174 +24,131 @@ class _MotDePasseOubliePageState extends State<MotDePasseOubliePage> {
     super.dispose();
   }
 
-  void _nextStep() {
-    setState(() {
-      if (_step < 1) {
-        _step++;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF7F9FC),
-      body: SafeArea(
-        child: Column(
-          children: [
-            const ForgotPasswordHeader(),
-
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(24, 28, 24, 30),
-                child: _step == 0
-                    ? _buildEmailStep()
-                    : _buildVerificationStep(),
+    return AuthShell(
+      eyebrow: _step == 0 ? 'Récupération' : 'Vérification',
+      title: _step == 0 ? 'Retrouvez votre compte' : 'Vérifiez votre identité',
+      description: _step == 0
+          ? 'Indiquez votre email institutionnel ou votre matricule. Un code temporaire vous sera envoyé.'
+          : 'Saisissez le code à six chiffres envoyé à votre adresse institutionnelle.',
+      icon: _step == 0 ? Icons.mark_email_read_rounded : Icons.shield_rounded,
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 240),
+        child: _step == 0
+            ? _EmailStep(
+                key: const ValueKey('email'),
+                controller: _emailController,
+                onContinue: () => setState(() => _step = 1),
+              )
+            : _CodeStep(
+                key: const ValueKey('code'),
+                controller: _codeController,
+                onContinue: () =>
+                    Navigator.pushNamed(context, RouteNames.reinitialisation),
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
+}
 
-  Widget _buildEmailStep() {
+class _EmailStep extends StatelessWidget {
+  final TextEditingController controller;
+  final VoidCallback onContinue;
+
+  const _EmailStep({
+    super.key,
+    required this.controller,
+    required this.onContinue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Center(
-          child: Container(
-            width: 88,
-            height: 88,
-            decoration: BoxDecoration(
-              color: const Color(0xFFEAF3FC),
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: const Icon(
-              Icons.mail_outline_rounded,
-              size: 44,
-              color: Color(0xFF4388C5),
-            ),
+        Text(
+          'Email ou matricule',
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+        const SizedBox(height: 9),
+        TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            hintText: '2024IG001 ou nom@igt.edu',
+            prefixIcon: Icon(Icons.person_rounded),
           ),
         ),
-
-        const SizedBox(height: 24),
-
-        const Text(
-          'Récupérer mon compte',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xFF26384D),
-            fontSize: 25,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-
-        const SizedBox(height: 10),
-
-        const Text(
-          'Saisissez votre email ou identifiant pour recevoir\n'
-          'un lien de réinitialisation.',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 16, height: 1.5),
-        ),
-
-        const SizedBox(height: 38),
-
-        ForgotPasswordForm(controller: _emailController),
-
-        const SizedBox(height: 30),
-
-        SizedBox(
-          height: 56,
-          child: ElevatedButton(
-            onPressed: _nextStep,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF4388C5),
-              foregroundColor: Colors.white,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-            ),
-            child: const Text(
-              'Envoyer le code',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-          ),
+        const SizedBox(height: 22),
+        ElevatedButton(
+          onPressed: onContinue,
+          child: const Text('Envoyer le code'),
         ),
       ],
     );
   }
+}
 
-  Widget _buildVerificationStep() {
+class _CodeStep extends StatelessWidget {
+  final TextEditingController controller;
+  final VoidCallback onContinue;
+
+  const _CodeStep({
+    super.key,
+    required this.controller,
+    required this.onContinue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          padding: const EdgeInsets.all(13),
           decoration: BoxDecoration(
-            color: const Color(0xFFEAF4FE),
-            borderRadius: BorderRadius.circular(12),
+            color: AppColors.secondary.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(13),
           ),
-          child: const Text(
-            'Un code a été envoyé à votre email',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF4388C5),
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-
-        const SizedBox(height: 30),
-
-        const Text(
-          'Vérification',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xFF26384D),
-            fontSize: 25,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-
-        const SizedBox(height: 10),
-
-        const Text(
-          'Saisissez le code à 6 chiffres reçu par email.',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 16),
-        ),
-
-        const SizedBox(height: 38),
-
-        VerificationForm(controller: _codeController),
-
-        const SizedBox(height: 30),
-
-        SizedBox(
-          height: 56,
-          child: ElevatedButton(
-            onPressed: () {
-              // UI uniquement.
-              // La navigation vers la réinitialisation
-              // sera branchée plus tard.
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF4388C5),
-              foregroundColor: Colors.white,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.check_circle_rounded,
+                color: AppColors.secondary,
+                size: 20,
               ),
-            ),
-            child: const Text(
-              'Vérifier',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
+              const SizedBox(width: 9),
+              Expanded(
+                child: Text(
+                  'Code envoyé. Pensez à vérifier vos courriers indésirables.',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: context.semanticColors.textSecondary,
+                  ),
+                ),
+              ),
+            ],
           ),
+        ),
+        const SizedBox(height: 18),
+        Text(
+          'Code de vérification',
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+        const SizedBox(height: 9),
+        TextField(
+          controller: controller,
+          keyboardType: TextInputType.number,
+          maxLength: 6,
+          decoration: const InputDecoration(
+            hintText: '000000',
+            prefixIcon: Icon(Icons.password_rounded),
+            counterText: '',
+          ),
+        ),
+        const SizedBox(height: 22),
+        ElevatedButton(
+          onPressed: onContinue,
+          child: const Text('Vérifier le code'),
         ),
       ],
     );

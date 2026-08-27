@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
-import '../../../app/theme/text_styles.dart';
 import '../../../shared/widgets/app_button.dart';
-import '../../../shared/widgets/app_text_field.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
@@ -110,7 +108,7 @@ class _ProfilPageState extends State<ProfilPage> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 30),
-              color: AppColors.softBlue.withOpacity(0.5),
+              color: AppColors.softBlue.withValues(alpha: 0.5),
               child: Column(
                 children: [
                   // Avatar
@@ -319,7 +317,7 @@ class _ProfilPageState extends State<ProfilPage> {
           decoration: InputDecoration(
             prefixIcon: Icon(icon, color: AppColors.primary, size: 20),
             filled: true,
-            fillColor: AppColors.softBlue.withOpacity(0.3),
+            fillColor: AppColors.softBlue.withValues(alpha: 0.3),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 12,

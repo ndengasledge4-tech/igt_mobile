@@ -1,367 +1,293 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import '../../../app/theme/colors.dart';
-import '../data/actualite_data.dart';
-import '../widgets/actualite_card.dart';
+import '../../../app/theme/semantic_colors.dart';
+import '../../../shared/widgets/premium_ui.dart';
+import '../../communication/communication_store.dart';
 import 'actualite_detail_page.dart';
-import 'evenement_detail_page.dart';
+import 'evenements_page.dart';
 
-class ActualitePage extends StatelessWidget {
+class ActualitePage extends StatefulWidget {
   final int initialIndex;
-
   const ActualitePage({super.key, this.initialIndex = 0});
+  @override
+  State<ActualitePage> createState() => _ActualitePageState();
+}
+
+class _ActualitePageState extends State<ActualitePage> {
+  String _query = '';
+  String _category = 'Toutes';
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      onGenerateRoute: (settings) {
-        return MaterialPageRoute<void>(
-          settings: settings,
-          builder: (_) => _ActualiteHomePage(initialIndex: initialIndex),
+    final store = CommunicationStore.instance;
+    return AnimatedBuilder(
+      animation: store,
+      builder: (context, _) {
+        final categories = [
+          'Toutes',
+          ...{for (final item in store.articles) item.category},
+        ];
+        final filtered = store.articles
+            .where(
+              (item) =>
+                  (_category == 'Toutes' || item.category == _category) &&
+                  (item.title.toLowerCase().contains(_query.toLowerCase()) ||
+                      item.excerpt.toLowerCase().contains(
+                        _query.toLowerCase(),
+                      )),
+            )
+            .toList();
+        final featured = filtered.where((item) => item.featured).firstOrNull;
+        final editorial = filtered
+            .where((item) => item.id != featured?.id)
+            .toList();
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: AppScreenHeader(
+                  eyebrow: 'Vie de l’IGT',
+                  title: 'Actualités',
+                  subtitle: 'Informations et annonces officielles',
+                  icon: Icons.newspaper_rounded,
+                  action: IconButton(
+                    tooltip: 'Événements',
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const EvenementsPage(),
+                      ),
+                    ),
+                    icon: const Icon(Icons.event_rounded),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: AppResponsiveContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextField(
+                        onChanged: (value) => setState(() => _query = value),
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.search_rounded),
+                          hintText: 'Rechercher une actualité ou une annonce',
+                          isDense: true,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      SizedBox(
+                        height: 40,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: categories.length,
+                          separatorBuilder: (_, _) => const SizedBox(width: 8),
+                          itemBuilder: (_, index) => ChoiceChip(
+                            label: Text(categories[index]),
+                            selected: _category == categories[index],
+                            showCheckmark: false,
+                            onSelected: (_) =>
+                                setState(() => _category = categories[index]),
+                          ),
+                        ),
+                      ),
+                      if (featured != null) ...[
+                        const SizedBox(height: 24),
+                        _FeaturedArticle(
+                          article: featured,
+                          onTap: () => _open(context, featured),
+                        ),
+                      ],
+                      const SizedBox(height: 28),
+                      AppSectionHeading(
+                        title: 'À lire',
+                        subtitle:
+                            '${filtered.length} publication${filtered.length > 1 ? 's' : ''}',
+                      ),
+                      const SizedBox(height: 12),
+                      if (editorial.isEmpty && featured == null)
+                        const AppSurface(
+                          child: Center(
+                            child: Text('Aucun résultat pour cette recherche'),
+                          ),
+                        ),
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final width = constraints.maxWidth >= 700
+                              ? (constraints.maxWidth - 12) / 2
+                              : constraints.maxWidth;
+                          return Wrap(
+                            spacing: 12,
+                            runSpacing: 12,
+                            children: [
+                              for (final article in editorial)
+                                SizedBox(
+                                  width: width,
+                                  child: _ArticleCard(
+                                    article: article,
+                                    onTap: () => _open(context, article),
+                                  ),
+                                ),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
   }
-}
 
-// ===============================================================
-// PAGE PRINCIPALE ACTUALITÉ
-// ===============================================================
-
-class _ActualiteHomePage extends StatefulWidget {
-  final int initialIndex;
-
-  const _ActualiteHomePage({required this.initialIndex});
-
-  @override
-  State<_ActualiteHomePage> createState() => _ActualiteHomePageState();
-}
-
-class _ActualiteHomePageState extends State<_ActualiteHomePage> {
-  late int _selectedIndex;
-
-  static const List<_ActualiteTabInfo> _tabs = [
-    _ActualiteTabInfo(
-      label: 'Actualités',
-      icon: Icons.article_outlined,
-      iconColor: Color(0xFFE1DFF4),
-    ),
-    _ActualiteTabInfo(
-      label: 'Annonces',
-      icon: Icons.campaign_rounded,
-      iconColor: Color(0xFFFF3D75),
-    ),
-    _ActualiteTabInfo(
-      label: 'Événements',
-      icon: Icons.event_note_outlined,
-      iconColor: Color(0xFF1F425E),
-    ),
-    _ActualiteTabInfo(
-      label: 'Infos',
-      icon: Icons.info_rounded,
-      iconColor: Color(0xFF9ED8FF),
-    ),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-
-    _selectedIndex = widget.initialIndex.clamp(0, _tabs.length - 1).toInt();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.primary,
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark,
-      ),
-      child: _ActualiteScaffold(initialIndex: _selectedIndex),
-    );
-  }
-}
-
-// ===============================================================
-// SCAFFOLD ACTUALITÉ
-// ===============================================================
-
-class _ActualiteScaffold extends StatefulWidget {
-  final int initialIndex;
-
-  const _ActualiteScaffold({required this.initialIndex});
-
-  @override
-  State<_ActualiteScaffold> createState() => _ActualiteScaffoldState();
-}
-
-class _ActualiteScaffoldState extends State<_ActualiteScaffold> {
-  late int _selectedIndex;
-
-  static const List<_ActualiteTabInfo> _tabs = _ActualiteHomePageState._tabs;
-
-  // =============================================================
-  // DONNÉES
-  // =============================================================
-
-  List<Map<String, dynamic>> get _items {
-    switch (_selectedIndex) {
-      case 0:
-        return ActualiteData.actualites;
-
-      case 1:
-        return ActualiteData.annonces;
-
-      case 2:
-        return ActualiteData.evenements;
-
-      case 3:
-        return ActualiteData.infos;
-
-      default:
-        return ActualiteData.actualites;
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _selectedIndex = widget.initialIndex.clamp(0, _tabs.length - 1).toInt();
-  }
-
-  // =============================================================
-  // BUILD
-  // =============================================================
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.actualiteBackground,
-      body: Column(
-        children: [
-          _ActualiteHeader(
-            tabs: _tabs,
-            selectedIndex: _selectedIndex,
-            onTabSelected: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-          ),
-
-          Expanded(child: _buildList(context)),
-        ],
-      ),
-    );
-  }
-
-  // =============================================================
-  // LISTE
-  // =============================================================
-
-  Widget _buildList(BuildContext context) {
-    final items = _items;
-
-    if (items.isEmpty) {
-      return const Center(
-        child: Text(
-          'Aucun contenu disponible',
-          style: TextStyle(
-            color: AppColors.actualiteMutedText,
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-          ),
+  void _open(BuildContext context, CommunicationArticle article) =>
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => ActualiteDetailPage(article: article),
         ),
       );
-    }
-
-    return ListView.separated(
-      padding: EdgeInsets.fromLTRB(8, _selectedIndex == 1 ? 14 : 9, 8, 26),
-
-      itemCount: items.length,
-
-      itemBuilder: (context, index) {
-        final item = items[index];
-
-        return ActualiteCard(
-          item: item,
-          onTap: () {
-            _openDetail(context, item);
-          },
-        );
-      },
-
-      separatorBuilder: (_, _) {
-        return const SizedBox(height: 10);
-      },
-    );
-  }
-
-  // =============================================================
-  // DÉTAIL
-  // =============================================================
-
-  void _openDetail(BuildContext context, Map<String, dynamic> item) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) {
-          // Les événements ont une page de détail spécifique.
-          if (item['category'] == 'evenement') {
-            return EvenementDetailPage(item: item);
-          }
-
-          // Actualités, annonces et informations utilisent
-          // la page de détail classique.
-          return ActualiteDetailPage(item: item);
-        },
-      ),
-    );
-  }
 }
 
-// ===============================================================
-// HEADER
-// ===============================================================
-
-class _ActualiteHeader extends StatelessWidget {
-  final List<_ActualiteTabInfo> tabs;
-  final int selectedIndex;
-  final ValueChanged<int> onTabSelected;
-
-  const _ActualiteHeader({
-    required this.tabs,
-    required this.selectedIndex,
-    required this.onTabSelected,
-  });
-
+class _FeaturedArticle extends StatelessWidget {
+  final CommunicationArticle article;
+  final VoidCallback onTap;
+  const _FeaturedArticle({required this.article, required this.onTap});
   @override
-  Widget build(BuildContext context) {
-    final topInset = MediaQuery.paddingOf(context).top;
-
-    return Container(
-      width: double.infinity,
-      color: AppColors.primary,
-      padding: EdgeInsets.only(top: topInset + 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              'Actualité',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                height: 1,
-                fontWeight: FontWeight.w800,
-              ),
+  Widget build(BuildContext context) => Material(
+    color: Colors.transparent,
+    child: InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(24),
+      child: Ink(
+        height: 250,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          image: DecorationImage(
+            image: AssetImage(article.imageAsset),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0x08000000), Color(0xE60B2942)],
             ),
           ),
-
-          const SizedBox(height: 14),
-
-          SizedBox(
-            height: 50,
-            child: Row(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                for (var index = 0; index < tabs.length; index++)
-                  _ActualiteTabButton(
-                    tab: tabs[index],
-                    selected: selectedIndex == index,
-                    onTap: () {
-                      onTabSelected(index);
-                    },
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
                   ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(99),
+                  ),
+                  child: Text(
+                    article.category.toUpperCase(),
+                    style: const TextStyle(
+                      color: Color(0xFF143D5D),
+                      fontSize: 10,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  article.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 23,
+                    height: 1.2,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '${article.source} · ${_date(article.publishedAt)}',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: .72),
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ),
-        ],
+        ),
       ),
-    );
-  }
+    ),
+  );
 }
 
-// ===============================================================
-// BOUTON ONGLET
-// ===============================================================
-
-class _ActualiteTabButton extends StatelessWidget {
-  final _ActualiteTabInfo tab;
-  final bool selected;
+class _ArticleCard extends StatelessWidget {
+  final CommunicationArticle article;
   final VoidCallback onTap;
-
-  const _ActualiteTabButton({
-    required this.tab,
-    required this.selected,
-    required this.onTap,
-  });
-
+  const _ArticleCard({required this.article, required this.onTap});
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+  Widget build(BuildContext context) => AppSurface(
+    onTap: onTap,
+    padding: const EdgeInsets.all(12),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(14),
+          child: Image.asset(
+            article.imageAsset,
+            width: 88,
+            height: 88,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(width: 13),
+        Expanded(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                tab.icon,
-                color: selected ? tab.iconColor : tab.iconColor.withAlpha(210),
-                size: 16,
-              ),
-
-              const SizedBox(height: 4),
-
               Text(
-                tab.label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: selected ? Colors.white : Colors.white.withAlpha(205),
-                  fontSize: 10.2,
-                  height: 1,
-                  fontWeight: selected ? FontWeight.w800 : FontWeight.w700,
+                article.category.toUpperCase(),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: .5,
                 ),
               ),
-
-              const SizedBox(height: 8),
-
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
-                width: selected ? 46 : 0,
-                height: 3,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
+              const SizedBox(height: 5),
+              Text(
+                article.title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(height: 7),
+              Text(
+                '${article.source} · ${_date(article.publishedAt)}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontSize: 10,
+                  color: context.semanticColors.textDisabled,
                 ),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
+      ],
+    ),
+  );
 }
 
-// ===============================================================
-// MODÈLE D'ONGLET
-// ===============================================================
-
-class _ActualiteTabInfo {
-  final String label;
-  final IconData icon;
-  final Color iconColor;
-
-  const _ActualiteTabInfo({
-    required this.label,
-    required this.icon,
-    required this.iconColor,
-  });
-}
+String _date(DateTime value) =>
+    '${value.day.toString().padLeft(2, '0')}/${value.month.toString().padLeft(2, '0')}/${value.year}';

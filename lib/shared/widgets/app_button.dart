@@ -12,7 +12,6 @@ class AppButton extends StatelessWidget {
   final bool isLoading;
   final bool expand;
 
-<<<<<<< HEAD
   const AppButton({
     super.key,
     required this.text,
@@ -22,9 +21,6 @@ class AppButton extends StatelessWidget {
     this.isLoading = false,
     this.expand = true,
   });
-=======
-  const AppButton({super.key, required this.text, this.onPressed, this.icon});
->>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93
 
   @override
   Widget build(BuildContext context) {

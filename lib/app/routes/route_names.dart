@@ -1,103 +1,72 @@
 abstract final class RouteNames {
   const RouteNames._();
 
-<<<<<<< HEAD
+  // Authentication and application shell.
   static const splash = '/';
   static const onboarding = '/onboarding';
+  static const connexion = '/connexion';
+  static const creationCompte = '/creation-compte';
+  static const motDePasseOublie = '/mot-de-passe-oublie';
+  static const reinitialisation = '/reinitialisation';
+  static const waitingValidation = '/waiting-validation';
+  static const navigation = '/navigation';
+
+  // Main prototype modules.
+  static const accueil = '/accueil';
+  static const academie = '/academie';
+  static const mesCours = '/mes-cours';
+  static const semestre = '/semestre';
+  static const coursDetail = '/cours-detail';
+  static const mesNotes = '/mes-notes';
+  static const noteDetail = '/note-detail';
+  static const mesResultats = '/mes-resultats';
+  static const resultatDetail = '/resultat-detail';
+  static const emploiDuTemps = '/emploi-du-temps';
+  static const emploiDuTempsDetail = '/emploi-du-temps-detail';
+  static const mesDocuments = '/mes-documents';
+  static const documentDetail = '/document-detail';
+  static const monParcours = '/mon-parcours';
+
+  static const actualite = '/actualite';
+  static const actualiteDetail = '/actualite-detail';
+  static const evenements = '/evenements';
+
+  static const messagerie = '/messagerie';
+  static const conversation = '/conversation';
+  static const nouvelleDemande = '/nouvelle-demande';
+  static const teacherHome = '/enseignant';
+
+  static const monEspace = '/mon-espace';
+  static const profil = '/profil';
+  static const situationFinanciere = '/situation-financiere';
+  static const historiquePaiements = '/historique-paiements';
+  static const parametres = '/parametres';
+  static const modifierMotDePasse = '/modifier-mot-de-passe';
+  static const securiteCompte = '/securite-compte';
+  static const modifierTelephone = '/modifier-telephone';
+  static const modifierEmail = '/modifier-email';
+  static const activiteRecente = '/activite-recente';
+  static const notificationsPreferences = '/notifications-preferences';
+  static const informationsLegales = '/informations-legales';
+  static const sessionsActives = '/sessions-actives';
+  static const aide = '/aide';
+  static const aPropos = '/a-propos';
+
+  // Legacy aliases retained while the first-generation screens are migrated.
   static const activation = '/activation';
   static const login = '/login';
   static const createPassword = '/create-password';
   static const forgotPassword = '/forgot-password';
-=======
-  // ============================================================
-  // AUTHENTIFICATION
-  // ============================================================
->>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93
-
-  static const String splash = '/';
-  static const String onboarding = '/onboarding';
-  static const String connexion = '/connexion';
-  static const String creationCompte = '/creation-compte';
-  static const String motDePasseOublie = '/mot-de-passe-oublie';
-  static const String reinitialisation = '/reinitialisation';
-  static const String waitingValidation = '/waiting-validation';
-
-  // ============================================================
-  // NAVIGATION PRINCIPALE
-  // ============================================================
-
-<<<<<<< HEAD
+  static const dashboard = '/dashboard';
+  static const news = '/news';
+  static const newsDetail = '/news-detail';
+  static const events = '/events';
   static const academic = '/academic';
   static const timetable = '/timetable';
   static const results = '/results';
   static const subjectDetails = '/results/subject';
   static const documents = '/documents';
-=======
-  static const String navigation = '/navigation';
->>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93
-
-  // ============================================================
-  // ACCUEIL
-  // ============================================================
-
-  static const String accueil = '/accueil';
-
-<<<<<<< HEAD
-  static const navigation = '/navigation';
-  static const newsDetail = '/news-detail';
-=======
-  // ============================================================
-  // ACADEMIE
-  // ============================================================
-
-  static const String academie = '/academie';
-  static const String mesCours = '/mes-cours';
-  static const String semestre = '/semestre';
-  static const String coursDetail = '/cours-detail';
-  static const String mesNotes = '/mes-notes';
-  static const String noteDetail = '/note-detail';
-  static const String mesResultats = '/mes-resultats';
-  static const String resultatDetail = '/resultat-detail';
-  static const String emploiDuTemps = '/emploi-du-temps';
-  static const String emploiDuTempsDetail = '/emploi-du-temps-detail';
-  static const String mesDocuments = '/mes-documents';
-  static const String documentDetail = '/document-detail';
-  static const String monParcours = '/mon-parcours';
-
-  // ============================================================
-  // ACTUALITE
-  // ============================================================
-
-  static const String actualite = '/actualite';
-  static const String actualiteDetail = '/actualite-detail';
-  static const String evenements = '/evenements';
-
-  // ============================================================
-  // MESSAGERIE
-  // ============================================================
-
-  static const String messagerie = '/messagerie';
-  static const String conversation = '/conversation';
-  static const String nouvelleDemande = '/nouvelle-demande';
-
-  // ============================================================
-  // MON ESPACE
-  // ============================================================
-
-  static const String monEspace = '/mon-espace';
-  static const String profil = '/profil';
-  static const String situationFinanciere = '/situation-financiere';
-  static const String historiquePaiements = '/historique-paiements';
-  static const String parametres = '/parametres';
-  static const String modifierMotDePasse = '/modifier-mot-de-passe';
-  static const String securiteCompte = '/securite-compte';
-  static const String modifierTelephone = '/modifier-telephone';
-  static const String modifierEmail = '/modifier-email';
-  static const String activiteRecente = '/activite-recente';
-  static const String notificationsPreferences = '/notifications-preferences';
-  static const String informationsLegales = '/informations-legales';
-  static const String sessionsActives = '/sessions-actives';
-  static const String aide = '/aide';
-  static const String aPropos = '/a-propos';
->>>>>>> d061dc8b8ab474bae980863b8eb021f35012ec93
+  static const notifications = '/notifications';
+  static const profile = '/profile';
+  static const settings = '/settings';
 }

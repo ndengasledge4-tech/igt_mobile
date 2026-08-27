@@ -116,7 +116,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: selected ? bleu.withOpacity(0.08) : Colors.transparent,
+            color: selected ? bleu.withValues(alpha: 0.08) : Colors.transparent,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Text(

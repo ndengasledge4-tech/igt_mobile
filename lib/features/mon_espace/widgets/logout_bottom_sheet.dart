@@ -36,11 +36,7 @@ class LogoutBottomSheet extends StatelessWidget {
               color: Color(0xFFFFEBEE),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.logout,
-              color: AppColors.error,
-              size: 32,
-            ),
+            child: const Icon(Icons.logout, color: AppColors.error, size: 32),
           ),
           const SizedBox(height: 24),
           // Title
@@ -57,10 +53,7 @@ class LogoutBottomSheet extends StatelessWidget {
           const Text(
             "Voulez-vous vraiment vous déconnecter de\nvotre compte IGT ?",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14,
-              color: AppColors.secondaryText,
-            ),
+            style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
           ),
           const SizedBox(height: 32),
           // Buttons
@@ -77,12 +70,12 @@ class LogoutBottomSheet extends StatelessWidget {
                     duration: Duration(seconds: 2),
                   ),
                 );
-                
+
                 // Rediriger vers la page de connexion/inscription en vidant la pile
                 Navigator.pushNamedAndRemoveUntil(
-                  context, 
-                  RouteNames.connexion, 
-                  (route) => false
+                  context,
+                  RouteNames.connexion,
+                  (route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(

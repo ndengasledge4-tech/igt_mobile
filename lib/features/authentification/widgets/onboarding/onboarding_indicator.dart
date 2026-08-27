@@ -12,6 +12,7 @@ class OnboardingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(count, (index) {
@@ -24,7 +25,9 @@ class OnboardingIndicator extends StatelessWidget {
           width: selected ? 28 : 7,
           height: 7,
           decoration: BoxDecoration(
-            color: selected ? const Color(0xFF3F88C5) : const Color(0xFFDCE4EB),
+            color: selected
+                ? theme.colorScheme.primary
+                : theme.colorScheme.outlineVariant,
             borderRadius: BorderRadius.circular(10),
           ),
         );

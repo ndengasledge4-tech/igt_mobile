@@ -43,14 +43,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
           'importants au même endroit.',
       'background': const Color(0xFFFFF3DF),
     },
-    {
-      'image': 'assets/images/messaging.png',
-      'title': 'Échangez facilement\navec l’IGT.',
-      'description':
-          'Contactez les différents services de l’établissement '
-          'directement depuis l’application.',
-      'background': const Color(0xFFFCE8F0),
-    },
   ];
 
   @override
@@ -84,7 +76,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -133,7 +124,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
           ],
         ),
       ),

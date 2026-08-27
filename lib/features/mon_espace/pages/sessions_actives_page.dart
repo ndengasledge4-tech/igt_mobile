@@ -50,13 +50,10 @@ class SessionsActivesPage extends StatelessWidget {
           children: [
             const Text(
               "Gérez les appareils connectés à votre compte et déconnectez-vous si nécessaire.",
-              style: TextStyle(
-                fontSize: 14,
-                color: AppColors.secondaryText,
-              ),
+              style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
             ),
             const SizedBox(height: 24),
-            
+
             _buildSectionHeader("Ma session actuelle"),
             _buildCurrentSessionCard(),
             const SizedBox(height: 24),
@@ -86,15 +83,16 @@ class SessionsActivesPage extends StatelessWidget {
               ip: "102.54.12.89",
               icon: Icons.laptop,
             ),
-            
+
             const SizedBox(height: 16),
             _buildLogoutAllCard(),
-            
+
             const SizedBox(height: 24),
             _buildInfoCard(
               icon: Icons.info_outline,
               text: "Besoin d'aide ?",
-              subtext: "Si vous voyez une activité suspecte ou un appareil que vous ne reconnaissez pas, déconnectez-le immédiatement et modifiez votre mot de passe.",
+              subtext:
+                  "Si vous voyez une activité suspecte ou un appareil que vous ne reconnaissez pas, déconnectez-le immédiatement et modifiez votre mot de passe.",
             ),
             const SizedBox(height: 40),
           ],
@@ -123,7 +121,7 @@ class SessionsActivesPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Column(
         children: [
@@ -136,7 +134,11 @@ class SessionsActivesPage extends StatelessWidget {
                   color: AppColors.softBlue,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.smartphone, color: AppColors.primary, size: 28),
+                child: const Icon(
+                  Icons.smartphone,
+                  color: AppColors.primary,
+                  size: 28,
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -147,30 +149,55 @@ class SessionsActivesPage extends StatelessWidget {
                       children: [
                         const Text(
                           "iPhone 13",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                         const SizedBox(width: 8),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.1),
+                            color: AppColors.primary.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: const Text(
                             "Actuelle",
-                            style: TextStyle(color: AppColors.primary, fontSize: 10, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              color: AppColors.primary,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
                     ),
                     const Text(
                       "Application mobile • iOS 17.4",
-                      style: TextStyle(fontSize: 13, color: AppColors.secondaryText),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: AppColors.secondaryText,
+                      ),
                     ),
                     const SizedBox(height: 12),
-                    _buildDetailRow(Icons.access_time, "Connexion :", "Aujourd'hui à 09:41"),
-                    _buildDetailRow(Icons.location_on_outlined, "Lieu :", "Brazzaville, Congo"),
-                    _buildDetailRow(Icons.shield_outlined, "Adresse IP :", "197.210.54.23"),
+                    _buildDetailRow(
+                      Icons.access_time,
+                      "Connexion :",
+                      "Aujourd'hui à 09:41",
+                    ),
+                    _buildDetailRow(
+                      Icons.location_on_outlined,
+                      "Lieu :",
+                      "Brazzaville, Congo",
+                    ),
+                    _buildDetailRow(
+                      Icons.shield_outlined,
+                      "Adresse IP :",
+                      "197.210.54.23",
+                    ),
                   ],
                 ),
               ),
@@ -180,7 +207,7 @@ class SessionsActivesPage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.softBlue.withOpacity(0.5),
+              color: AppColors.softBlue.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -215,7 +242,7 @@ class SessionsActivesPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Column(
         children: [
@@ -237,15 +264,29 @@ class SessionsActivesPage extends StatelessWidget {
                   children: [
                     Text(
                       device,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
                     ),
                     Text(
                       details,
-                      style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.secondaryText,
+                      ),
                     ),
                     const SizedBox(height: 8),
-                    _buildDetailRow(Icons.access_time, "Dernière activité :", time),
-                    _buildDetailRow(Icons.location_on_outlined, "Lieu :", location),
+                    _buildDetailRow(
+                      Icons.access_time,
+                      "Dernière activité :",
+                      time,
+                    ),
+                    _buildDetailRow(
+                      Icons.location_on_outlined,
+                      "Lieu :",
+                      location,
+                    ),
                     _buildDetailRow(Icons.shield_outlined, "IP :", ip),
                   ],
                 ),
@@ -253,12 +294,17 @@ class SessionsActivesPage extends StatelessWidget {
               TextButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.logout, size: 14),
-                label: const Text("Déconnecter", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                label: const Text(
+                  "Déconnecter",
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                ),
                 style: TextButton.styleFrom(
                   foregroundColor: AppColors.error,
-                  backgroundColor: AppColors.error.withOpacity(0.05),
+                  backgroundColor: AppColors.error.withValues(alpha: 0.05),
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
               ),
             ],
@@ -275,9 +321,18 @@ class SessionsActivesPage extends StatelessWidget {
         children: [
           Icon(icon, size: 14, color: AppColors.hint),
           const SizedBox(width: 4),
-          Text(label, style: const TextStyle(fontSize: 11, color: AppColors.secondaryText)),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 11,
+              color: AppColors.secondaryText,
+            ),
+          ),
           const SizedBox(width: 4),
-          Text(value, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500)),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          ),
         ],
       ),
     );
@@ -287,19 +342,23 @@ class SessionsActivesPage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.error.withOpacity(0.05),
+        color: AppColors.error.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.error.withOpacity(0.1)),
+        border: Border.all(color: AppColors.error.withValues(alpha: 0.1)),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: AppColors.error.withOpacity(0.1),
+              color: AppColors.error.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Icon(Icons.delete_outline, color: AppColors.error, size: 24),
+            child: const Icon(
+              Icons.delete_outline,
+              color: AppColors.error,
+              size: 24,
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -308,11 +367,18 @@ class SessionsActivesPage extends StatelessWidget {
               children: const [
                 Text(
                   "Déconnecter toutes les autres sessions",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.error),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: AppColors.error,
+                  ),
                 ),
                 Text(
                   "Vous serez déconnecté de tous vos appareils sauf celui que vous utilisez actuellement.",
-                  style: TextStyle(fontSize: 11, color: AppColors.secondaryText),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: AppColors.secondaryText,
+                  ),
                 ),
               ],
             ),
@@ -323,13 +389,17 @@ class SessionsActivesPage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoCard({required IconData icon, required String text, required String subtext}) {
+  Widget _buildInfoCard({
+    required IconData icon,
+    required String text,
+    required String subtext,
+  }) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

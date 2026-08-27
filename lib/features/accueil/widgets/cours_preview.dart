@@ -110,7 +110,14 @@ class CourseCard extends StatelessWidget {
 
               const SizedBox(width: AppDimensions.xs),
 
-              Text(credits, style: AppTextStyles.caption),
+              Expanded(
+                child: Text(
+                  credits,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.caption,
+                ),
+              ),
             ],
           ),
         ],

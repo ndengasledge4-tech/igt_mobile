@@ -61,24 +61,28 @@ class ParametresPage extends StatelessWidget {
             _buildSectionHeader("COMPTE"),
             _buildGroupedCard([
               _buildSettingItem(
-                context, 
-                "Modifier mes informations", 
-                onTap: () => Navigator.pushNamed(context, RouteNames.profil)
+                context,
+                "Modifier mes informations",
+                onTap: () => Navigator.pushNamed(context, RouteNames.profil),
               ),
               _buildSettingItem(
-                context, 
-                "Modifier mon mot de passe", 
-                onTap: () => Navigator.pushNamed(context, RouteNames.modifierMotDePasse)
+                context,
+                "Modifier mon mot de passe",
+                onTap: () =>
+                    Navigator.pushNamed(context, RouteNames.modifierMotDePasse),
               ),
             ]),
             const SizedBox(height: 24),
-            
+
             _buildSectionHeader("NOTIFICATIONS"),
             _buildGroupedCard([
               _buildSettingItem(
-                context, 
+                context,
                 "Préférences de notifications",
-                onTap: () => Navigator.pushNamed(context, RouteNames.notificationsPreferences),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  RouteNames.notificationsPreferences,
+                ),
               ),
             ]),
             const SizedBox(height: 24),
@@ -86,14 +90,16 @@ class ParametresPage extends StatelessWidget {
             _buildSectionHeader("SÉCURITÉ"),
             _buildGroupedCard([
               _buildSettingItem(
-                context, 
+                context,
                 "Sécurité du compte",
-                onTap: () => Navigator.pushNamed(context, RouteNames.securiteCompte),
+                onTap: () =>
+                    Navigator.pushNamed(context, RouteNames.securiteCompte),
               ),
               _buildSettingItem(
-                context, 
+                context,
                 "Sessions actives",
-                onTap: () => Navigator.pushNamed(context, RouteNames.sessionsActives),
+                onTap: () =>
+                    Navigator.pushNamed(context, RouteNames.sessionsActives),
               ),
             ]),
             const SizedBox(height: 24),
@@ -102,9 +108,12 @@ class ParametresPage extends StatelessWidget {
             _buildGroupedCard([
               _buildSettingItem(context, "Version 1.0.0", showChevron: false),
               _buildSettingItem(
-                context, 
+                context,
                 "Informations légales",
-                onTap: () => Navigator.pushNamed(context, RouteNames.informationsLegales),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  RouteNames.informationsLegales,
+                ),
               ),
             ]),
             const SizedBox(height: 24),
@@ -113,9 +122,9 @@ class ParametresPage extends StatelessWidget {
             _buildGroupedCard([
               _buildSettingItem(
                 context,
-                "Déconnexion", 
-                textColor: AppColors.error, 
-                showChevron: true, 
+                "Déconnexion",
+                textColor: AppColors.error,
+                showChevron: true,
                 chevronColor: AppColors.error,
                 onTap: () => _showLogoutBottomSheet(context),
               ),
@@ -147,7 +156,7 @@ class ParametresPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
       ),
       child: Column(
         children: List.generate(items.length, (index) {
@@ -155,7 +164,12 @@ class ParametresPage extends StatelessWidget {
           return Column(
             children: [
               items[index],
-              const Divider(height: 1, color: AppColors.divider, indent: 16, endIndent: 16),
+              const Divider(
+                height: 1,
+                color: AppColors.divider,
+                indent: 16,
+                endIndent: 16,
+              ),
             ],
           );
         }),
@@ -166,8 +180,8 @@ class ParametresPage extends StatelessWidget {
   Widget _buildSettingItem(
     BuildContext context,
     String title, {
-    VoidCallback? onTap, 
-    Color? textColor, 
+    VoidCallback? onTap,
+    Color? textColor,
     bool showChevron = true,
     Color? chevronColor,
   }) {
@@ -182,8 +196,12 @@ class ParametresPage extends StatelessWidget {
           color: textColor ?? AppColors.text,
         ),
       ),
-      trailing: showChevron 
-          ? Icon(Icons.chevron_right, size: 18, color: chevronColor ?? AppColors.hint)
+      trailing: showChevron
+          ? Icon(
+              Icons.chevron_right,
+              size: 18,
+              color: chevronColor ?? AppColors.hint,
+            )
           : null,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
     );
