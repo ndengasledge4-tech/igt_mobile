@@ -53,14 +53,22 @@ class _ExerciceDetailPageState extends State<ExerciceDetailPage> {
                       const SizedBox(height: 18),
                       Row(
                         children: [
-                          Icon(
-                            Icons.schedule_rounded,
-                            size: 18,
-                            color: context.semanticColors.textSecondary,
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.schedule_rounded,
+                                  size: 18,
+                                  color: context.semanticColors.textSecondary,
+                                ),
+                                const SizedBox(width: 7),
+                                const Expanded(
+                                  child: Text('Durée estimée : 30 min'),
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(width: 7),
-                          const Text('Durée estimée : 30 min'),
-                          const Spacer(),
+                          const SizedBox(width: 12),
                           const Text(
                             '10 points',
                             style: TextStyle(fontWeight: FontWeight.w800),

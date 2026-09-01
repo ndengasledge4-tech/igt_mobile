@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
+import '../../../shared/widgets/app_header.dart';
+import '../../../shared/widgets/premium_ui.dart';
 
 class InformationsLegalesPage extends StatelessWidget {
   const InformationsLegalesPage({super.key});
@@ -16,89 +19,55 @@ class InformationsLegalesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 70,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Center(
-            child: InkWell(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.softBlue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: AppColors.primary,
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
-        title: const Text(
-          "Informations légales",
-          style: TextStyle(
-            color: AppColors.text,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: false,
+      appBar: const AppHeader.secondary(
+        title: 'Informations légales',
+        subtitle: 'Confidentialité et conditions',
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Consultez les informations légales et réglementaires relatives à l'application.",
-              style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
-            ),
-            const SizedBox(height: 24),
-
-            _buildGroupedLegalCard(context),
-            const SizedBox(height: 32),
-
-            const Text(
-              "À propos de l'application",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.text,
+        child: AppResponsiveContent(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Consultez les informations légales et réglementaires relatives à l'application.",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: context.semanticColors.textSecondary,
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 24),
 
-            _buildAboutCard(),
+              _buildGroupedLegalCard(context),
+              const SizedBox(height: 32),
 
-            const SizedBox(height: 32),
-            const Center(
-              child: Text(
-                "© 2025 IGT. Tous droits réservés.",
-                style: TextStyle(fontSize: 12, color: AppColors.hint),
+              Text(
+                "À propos de l'application",
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            ),
-            const SizedBox(height: 40),
-          ],
+              const SizedBox(height: 16),
+
+              _buildAboutCard(context),
+
+              const SizedBox(height: 32),
+              Center(
+                child: Text(
+                  "© 2025 IGT. Tous droits réservés.",
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: context.semanticColors.textDisabled,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildGroupedLegalCard(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
-      ),
+    return AppSurface(
+      padding: EdgeInsets.zero,
+      radius: 12,
       child: Column(
         children: [
           _buildLegalItem(
@@ -164,42 +133,41 @@ class InformationsLegalesPage extends StatelessWidget {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.softBlue,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(icon, color: AppColors.primary, size: 20),
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text,
+        child: Icon(
+          icon,
+          color: Theme.of(context).colorScheme.primary,
+          size: 20,
         ),
       ),
+      title: Text(title, style: Theme.of(context).textTheme.titleSmall),
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 2.0),
         child: Text(
           subtitle,
-          style: const TextStyle(fontSize: 11, color: AppColors.secondaryText),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: context.semanticColors.textSecondary,
+          ),
         ),
       ),
-      trailing: const Icon(
+      trailing: Icon(
         Icons.chevron_right,
         size: 18,
-        color: AppColors.hint,
+        color: context.semanticColors.textDisabled,
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
     );
   }
 
-  Widget _buildAboutCard() {
+  Widget _buildAboutCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
+        border: Border.all(color: context.semanticColors.border),
       ),
       child: Row(
         children: [
@@ -216,27 +184,25 @@ class InformationsLegalesPage extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   "IGT - Institut de Gestion et des Techniques",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.text,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   "Version 1.0.0",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.secondaryText,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: context.semanticColors.textSecondary,
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
                   "Dernière mise à jour : 15 mai 2025",
-                  style: TextStyle(fontSize: 11, color: AppColors.hint),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: 11,
+                    color: context.semanticColors.textDisabled,
+                  ),
                 ),
               ],
             ),

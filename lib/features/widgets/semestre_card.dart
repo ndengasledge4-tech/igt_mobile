@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../app/theme/semantic_colors.dart';
+
 /// ============================================================
 /// WIDGET : CARTE ANNÉE / MES COURS
 /// ============================================================
@@ -35,15 +37,13 @@ class SemestreCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
 
         decoration: BoxDecoration(
-          color: aucunCours ? const Color(0xFFF5F6F7) : Colors.white,
+          color: aucunCours
+              ? Theme.of(context).colorScheme.surfaceContainerHighest
+              : Theme.of(context).colorScheme.surface,
 
           borderRadius: BorderRadius.circular(18),
 
-          border: Border.all(
-            color: aucunCours
-                ? const Color(0xFFE1E3E6)
-                : const Color(0xFFE8EAED),
-          ),
+          border: Border.all(color: context.semanticColors.border),
         ),
 
         child: Row(
@@ -57,8 +57,8 @@ class SemestreCard extends StatelessWidget {
 
               decoration: BoxDecoration(
                 color: aucunCours
-                    ? const Color(0xFFE9EBED)
-                    : const Color(0xFFF1F6F9),
+                    ? Theme.of(context).colorScheme.surfaceContainerHighest
+                    : Theme.of(context).colorScheme.primaryContainer,
 
                 borderRadius: BorderRadius.circular(16),
               ),
@@ -93,7 +93,9 @@ class SemestreCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
-                      color: aucunCours ? Colors.black54 : Colors.black87,
+                      color: aucunCours
+                          ? context.semanticColors.textDisabled
+                          : context.semanticColors.textPrimary,
                     ),
                   ),
 
@@ -104,8 +106,8 @@ class SemestreCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 13,
                       color: aucunCours
-                          ? Colors.grey.shade500
-                          : Colors.grey.shade600,
+                          ? context.semanticColors.textDisabled
+                          : context.semanticColors.textSecondary,
                     ),
                   ),
 
@@ -118,7 +120,7 @@ class SemestreCard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
 
                       color: aucunCours
-                          ? Colors.grey.shade500
+                          ? context.semanticColors.textDisabled
                           : const Color(0xFF6BA66F),
                     ),
                   ),
@@ -142,7 +144,7 @@ class SemestreCard extends StatelessWidget {
 
                     color: statut == 'En cours'
                         ? const Color(0xFFD8893D)
-                        : Colors.grey.shade600,
+                        : context.semanticColors.textSecondary,
                   ),
                 ),
 
@@ -151,7 +153,9 @@ class SemestreCard extends StatelessWidget {
                 Icon(
                   Icons.chevron_right_rounded,
                   size: 22,
-                  color: aucunCours ? Colors.grey.shade400 : Colors.black54,
+                  color: aucunCours
+                      ? context.semanticColors.textDisabled
+                      : context.semanticColors.textSecondary,
                 ),
               ],
             ),

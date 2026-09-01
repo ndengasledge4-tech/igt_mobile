@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/widgets/app_header.dart';
+
 import '../../../app/theme/semantic_colors.dart';
 import '../../../shared/widgets/premium_ui.dart';
 import '../../communication/communication_store.dart';
@@ -17,17 +19,15 @@ class _NouvelleDemandePageState extends State<NouvelleDemandePage> {
   String? _subject;
   static const _services = [
     ('Scolarité', Icons.school_outlined),
-    ('Finances', Icons.account_balance_wallet_outlined),
-    ('Bibliothèque', Icons.local_library_outlined),
-    ('Service informatique', Icons.support_agent_outlined),
+    ('Service académique', Icons.menu_book_outlined),
     ('Administration', Icons.account_balance_outlined),
   ];
   static const _subjects = [
     'Question générale',
     'Document administratif',
     'Inscription',
-    'Paiement',
-    'Assistance technique',
+    'Cours ou planning',
+    'Notes ou résultats',
     'Autre demande',
   ];
 
@@ -42,7 +42,10 @@ class _NouvelleDemandePageState extends State<NouvelleDemandePage> {
     final ready =
         _service != null && _subject != null && _message.text.trim().isNotEmpty;
     return Scaffold(
-      appBar: AppBar(title: const Text('Nouvelle demande')),
+      appBar: const AppHeader.secondary(
+        title: 'Nouvelle demande',
+        subtitle: 'Contactez le service concerné',
+      ),
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -110,11 +113,22 @@ class _NouvelleDemandePageState extends State<NouvelleDemandePage> {
                 const AppSectionHeading(title: '2. Préciser la demande'),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
+                  key: const Key('request-subject-field'),
                   initialValue: _subject,
-                  decoration: const InputDecoration(labelText: 'Sujet'),
+                  isExpanded: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Objet de la demande',
+                  ),
                   items: [
                     for (final subject in _subjects)
-                      DropdownMenuItem(value: subject, child: Text(subject)),
+                      DropdownMenuItem(
+                        value: subject,
+                        child: Text(
+                          subject,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                   ],
                   onChanged: (value) => setState(() => _subject = value),
                 ),

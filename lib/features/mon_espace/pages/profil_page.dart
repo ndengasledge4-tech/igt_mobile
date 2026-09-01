@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
 import '../../../shared/widgets/app_button.dart';
+import '../../../shared/widgets/app_header.dart';
+import '../../../shared/widgets/premium_ui.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
@@ -38,66 +41,14 @@ class _ProfilPageState extends State<ProfilPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 70,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Center(
-            child: InkWell(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.softBlue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: AppColors.primary,
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
-        title: const Text(
-          "Mon profil",
-          style: TextStyle(
-            color: AppColors.text,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: false,
+      appBar: AppHeader.secondary(
+        title: 'Mon profil',
+        subtitle: _isEditing ? 'Modification en cours' : 'Identité étudiante',
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: Center(
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    _isEditing = !_isEditing;
-                  });
-                },
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: _isEditing ? AppColors.primary : AppColors.softBlue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    _isEditing ? Icons.close : Icons.edit_outlined,
-                    color: _isEditing ? Colors.white : AppColors.primary,
-                    size: 20,
-                  ),
-                ),
-              ),
-            ),
+          IconButton(
+            tooltip: _isEditing ? 'Annuler' : 'Modifier',
+            onPressed: () => setState(() => _isEditing = !_isEditing),
+            icon: Icon(_isEditing ? Icons.close : Icons.edit_outlined),
           ),
         ],
       ),
@@ -105,53 +56,56 @@ class _ProfilPageState extends State<ProfilPage> {
         child: Column(
           children: [
             // 2. EN-TÊTE DU PROFIL
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              color: AppColors.softBlue.withValues(alpha: 0.5),
-              child: Column(
-                children: [
-                  // Avatar
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(20),
+            AppResponsiveContent(
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: Column(
+                  children: [
+                    // Avatar
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        "JD",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      "JD",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
+                    const SizedBox(height: 16),
+                    Text(
+                      "Jean DUPONT",
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    "Jean DUPONT",
-                    style: TextStyle(
-                      color: AppColors.text,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                    const SizedBox(height: 4),
+                    Text(
+                      "2024IG001",
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: context.semanticColors.textSecondary,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    "2024IG001",
-                    style: TextStyle(
-                      color: AppColors.secondaryText,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            AppResponsiveContent(
               child: Column(
                 children: [
                   // 3. SECTION « INFORMATIONS PERSONNELLES »
@@ -174,20 +128,16 @@ class _ProfilPageState extends State<ProfilPage> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.semanticColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Informations personnelles",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColors.text,
-            ),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 20),
           if (!_isEditing) ...[
@@ -230,20 +180,16 @@ class _ProfilPageState extends State<ProfilPage> {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.semanticColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Informations académiques",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColors.text,
-            ),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 20),
           _buildInfoRow("Matricule", "2024IG001"),
@@ -270,17 +216,19 @@ class _ProfilPageState extends State<ProfilPage> {
         children: [
           Text(
             label,
-            style: const TextStyle(
-              color: AppColors.secondaryText,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: context.semanticColors.textSecondary,
               fontSize: 14,
             ),
           ),
-          Text(
-            value,
-            style: const TextStyle(
-              color: AppColors.text,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
+          Flexible(
+            child: Text(
+              value,
+              textAlign: TextAlign.end,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ],
@@ -289,9 +237,9 @@ class _ProfilPageState extends State<ProfilPage> {
   }
 
   Widget _buildDivider() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
-      child: Divider(color: AppColors.divider, height: 1),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Divider(color: context.semanticColors.border, height: 1),
     );
   }
 
@@ -305,8 +253,8 @@ class _ProfilPageState extends State<ProfilPage> {
       children: [
         Text(
           label,
-          style: const TextStyle(
-            color: AppColors.secondaryText,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: context.semanticColors.textSecondary,
             fontSize: 13,
             fontWeight: FontWeight.w500,
           ),
@@ -317,7 +265,7 @@ class _ProfilPageState extends State<ProfilPage> {
           decoration: InputDecoration(
             prefixIcon: Icon(icon, color: AppColors.primary, size: 20),
             filled: true,
-            fillColor: AppColors.softBlue.withValues(alpha: 0.3),
+            fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 12,

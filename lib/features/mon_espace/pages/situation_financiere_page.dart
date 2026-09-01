@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
+import '../../../shared/widgets/app_header.dart';
+import '../../../shared/widgets/premium_ui.dart';
 import '../widgets/paiement_card.dart';
 
 class SituationFinancierePage extends StatelessWidget {
@@ -8,108 +11,69 @@ class SituationFinancierePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 70,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Center(
-            child: InkWell(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.softBlue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: AppColors.primary,
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
-        title: const Text(
-          "Situation financière",
-          style: TextStyle(
-            color: AppColors.text,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: false,
+      appBar: const AppHeader.secondary(
+        title: 'Situation financière',
+        subtitle: 'Frais, règlements et échéances',
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 2. CARTE DE SYNTHÈSE FINANCIÈRE
-            _buildSynthesisCard(),
-            const SizedBox(height: 24),
+        child: AppResponsiveContent(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 2. CARTE DE SYNTHÈSE FINANCIÈRE
+              _buildSynthesisCard(context),
+              const SizedBox(height: 24),
 
-            // 4. FRAIS LIÉS À LA FORMATION
-            const Text(
-              "Détails des frais",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.text,
+              // 4. FRAIS LIÉS À LA FORMATION
+              Text(
+                "Détails des frais",
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            ),
-            const SizedBox(height: 12),
-            _buildFeesCard(),
-            const SizedBox(height: 24),
+              const SizedBox(height: 12),
+              _buildFeesCard(context),
+              const SizedBox(height: 24),
 
-            // 5. HISTORIQUE DES PAIEMENTS
-            const Text(
-              "Historique des paiements",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.text,
+              // 5. HISTORIQUE DES PAIEMENTS
+              Text(
+                "Historique des paiements",
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            ),
-            const SizedBox(height: 12),
-            const PaiementCard(
-              title: "Scolarité - Échéance 3 (Espèces)",
-              date: "15 Janvier 2024",
-              amount: "150.000 FCFA",
-              status: "Payé",
-              statusColor: AppColors.success,
-            ),
-            const PaiementCard(
-              title: "Scolarité - Échéance 2 (Chèque)",
-              date: "15 Décembre 2023",
-              amount: "150.000 FCFA",
-              status: "Payé",
-              statusColor: AppColors.success,
-            ),
-            const PaiementCard(
-              title: "Frais d'inscription (Espèces)",
-              date: "05 Octobre 2023",
-              amount: "50.000 FCFA",
-              status: "Payé",
-              statusColor: AppColors.success,
-            ),
-          ],
+              const SizedBox(height: 12),
+              const PaiementCard(
+                title: "Scolarité - Échéance 3 (Espèces)",
+                date: "15 Janvier 2024",
+                amount: "150.000 FCFA",
+                status: "Payé",
+                statusColor: AppColors.success,
+              ),
+              const PaiementCard(
+                title: "Scolarité - Échéance 2 (Chèque)",
+                date: "15 Décembre 2023",
+                amount: "150.000 FCFA",
+                status: "Payé",
+                statusColor: AppColors.success,
+              ),
+              const PaiementCard(
+                title: "Frais d'inscription (Espèces)",
+                date: "05 Octobre 2023",
+                amount: "50.000 FCFA",
+                status: "Payé",
+                statusColor: AppColors.success,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildSynthesisCard() {
+  Widget _buildSynthesisCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.semanticColors.border),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.02),
@@ -121,12 +85,16 @@ class SituationFinancierePage extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "État global",
-                style: TextStyle(color: AppColors.secondaryText, fontSize: 14),
+              Expanded(
+                child: Text(
+                  "État global",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: context.semanticColors.textSecondary,
+                  ),
+                ),
               ),
+              const SizedBox(width: 12),
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
@@ -150,11 +118,30 @@ class SituationFinancierePage extends StatelessWidget {
           const SizedBox(height: 20),
           Row(
             children: [
-              _buildSynthesisItem("Total à payer", "900.000", AppColors.text),
-              Container(width: 1, height: 40, color: AppColors.divider),
-              _buildSynthesisItem("Montant payé", "450.000", AppColors.success),
-              Container(width: 1, height: 40, color: AppColors.divider),
               _buildSynthesisItem(
+                context,
+                "Total à payer",
+                "900.000",
+                context.semanticColors.textPrimary,
+              ),
+              Container(
+                width: 1,
+                height: 40,
+                color: context.semanticColors.border,
+              ),
+              _buildSynthesisItem(
+                context,
+                "Montant payé",
+                "450.000",
+                context.semanticColors.success,
+              ),
+              Container(
+                width: 1,
+                height: 40,
+                color: context.semanticColors.border,
+              ),
+              _buildSynthesisItem(
+                context,
                 "Montant restant",
                 "450.000",
                 AppColors.error,
@@ -166,14 +153,19 @@ class SituationFinancierePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSynthesisItem(String label, String amount, Color amountColor) {
+  Widget _buildSynthesisItem(
+    BuildContext context,
+    String label,
+    String amount,
+    Color amountColor,
+  ) {
     return Expanded(
       child: Column(
         children: [
           Text(
             label,
-            style: const TextStyle(
-              color: AppColors.secondaryText,
+            style: TextStyle(
+              color: context.semanticColors.textSecondary,
               fontSize: 11,
             ),
             textAlign: TextAlign.center,
@@ -187,44 +179,46 @@ class SituationFinancierePage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Text(
+          Text(
             "FCFA",
-            style: TextStyle(color: AppColors.secondaryText, fontSize: 10),
+            style: TextStyle(
+              color: context.semanticColors.textSecondary,
+              fontSize: 10,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildFeesCard() {
+  Widget _buildFeesCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: context.semanticColors.border),
       ),
       child: Column(
         children: [
-          _buildFeeRow("Frais d'inscription", "50.000 FCFA"),
-          const Divider(height: 24, color: AppColors.divider),
-          _buildFeeRow("Scolarité annuelle", "850.000 FCFA"),
-          const Divider(height: 24, color: AppColors.divider),
+          _buildFeeRow(context, "Frais d'inscription", "50.000 FCFA"),
+          Divider(height: 24, color: context.semanticColors.border),
+          _buildFeeRow(context, "Scolarité annuelle", "850.000 FCFA"),
+          Divider(height: 24, color: context.semanticColors.border),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                "Total formation",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.text,
+            children: [
+              Expanded(
+                child: Text(
+                  "Total formation",
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
+              const SizedBox(width: 12),
               Text(
                 "900.000 FCFA",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],
@@ -234,18 +228,23 @@ class SituationFinancierePage extends StatelessWidget {
     );
   }
 
-  Widget _buildFeeRow(String label, String amount) {
+  Widget _buildFeeRow(BuildContext context, String label, String amount) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: const TextStyle(color: AppColors.secondaryText, fontSize: 14),
+        Expanded(
+          child: Text(
+            label,
+            style: TextStyle(
+              color: context.semanticColors.textSecondary,
+              fontSize: 14,
+            ),
+          ),
         ),
+        const SizedBox(width: 12),
         Text(
           amount,
-          style: const TextStyle(
-            color: AppColors.text,
+          style: TextStyle(
+            color: context.semanticColors.textPrimary,
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),

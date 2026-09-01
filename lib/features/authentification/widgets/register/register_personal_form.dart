@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../app/theme/semantic_colors.dart';
+
 class RegisterPersonalForm extends StatelessWidget {
   const RegisterPersonalForm({super.key});
 
@@ -8,58 +10,49 @@ class RegisterPersonalForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Informations personnelles',
-          style: TextStyle(
-            color: Color(0xFF26384D),
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 7),
+        Text(
+          'Renseignez les informations liées à votre dossier étudiant.',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: context.semanticColors.textSecondary,
           ),
         ),
-
-        const SizedBox(height: 7),
-
-        const Text(
-          'Renseignez les informations liées à votre dossier étudiant.',
-          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 14, height: 1.4),
-        ),
-
-        const SizedBox(height: 25),
-
+        const SizedBox(height: 24),
         _field(
+          context,
           label: 'Nom',
           hint: 'Votre nom',
           icon: Icons.person_outline_rounded,
         ),
-
         const SizedBox(height: 18),
-
         _field(
+          context,
           label: 'Prénom',
           hint: 'Votre prénom',
           icon: Icons.person_outline_rounded,
         ),
-
         const SizedBox(height: 18),
-
         _field(
+          context,
           label: 'Identifiant étudiant',
           hint: 'Ex : 2024IG001',
           icon: Icons.badge_outlined,
         ),
-
         const SizedBox(height: 18),
-
         _field(
+          context,
           label: 'Email',
           hint: 'email@igt.edu',
           icon: Icons.mail_outline_rounded,
           keyboardType: TextInputType.emailAddress,
         ),
-
         const SizedBox(height: 18),
-
         _field(
+          context,
           label: 'Téléphone',
           hint: 'Votre numéro de téléphone',
           icon: Icons.phone_outlined,
@@ -69,7 +62,8 @@ class RegisterPersonalForm extends StatelessWidget {
     );
   }
 
-  Widget _field({
+  Widget _field(
+    BuildContext context, {
     required String label,
     required String hint,
     required IconData icon,
@@ -78,47 +72,14 @@ class RegisterPersonalForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Color(0xFF263238),
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text(label, style: Theme.of(context).textTheme.labelLarge),
         const SizedBox(height: 9),
         TextField(
           keyboardType: keyboardType,
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: const TextStyle(color: Color(0xFF98A2B3), fontSize: 15),
-            prefixIcon: Icon(icon, color: const Color(0xFF7E8C9A)),
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 17,
-              vertical: 16,
-            ),
-            border: _border(),
-            enabledBorder: _border(),
-            focusedBorder: _focusedBorder(),
-          ),
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(hintText: hint, prefixIcon: Icon(icon)),
         ),
       ],
-    );
-  }
-
-  OutlineInputBorder _border() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(color: Color(0xFFDDE3EA)),
-    );
-  }
-
-  OutlineInputBorder _focusedBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(color: Color(0xFF4388C5), width: 1.5),
     );
   }
 }

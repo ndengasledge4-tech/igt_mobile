@@ -62,75 +62,87 @@ class AppStudentHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    return SafeArea(
-      bottom: false,
-      child: AppResponsiveContent(
-        padding: EdgeInsets.fromLTRB(
-          _responsiveHorizontalPadding(context),
-          18,
-          _responsiveHorizontalPadding(context),
-          4,
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: isDark
-                    ? AppColors.darkSurfaceElevated
-                    : AppColors.primarySoft,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: context.semanticColors.border),
-              ),
-              child: Text(
-                initials,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w700,
+    return DecoratedBox(
+      decoration: _headerDecoration(theme.brightness),
+      child: SafeArea(
+        bottom: false,
+        child: AppResponsiveContent(
+          padding: EdgeInsets.fromLTRB(
+            _responsiveHorizontalPadding(context),
+            18,
+            _responsiveHorizontalPadding(context),
+            18,
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.13),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.18),
+                  ),
+                ),
+                child: Text(
+                  initials,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(width: 13),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    greeting,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontSize: 19,
-                      letterSpacing: -0.2,
+              const SizedBox(width: 13),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      greeting,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: Colors.white,
+                        fontSize: 19,
+                        letterSpacing: -0.2,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    identity,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: context.semanticColors.textSecondary,
+                    const SizedBox(height: 2),
+                    Text(
+                      identity,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.72),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            if (secondaryAction != null) ...[
+              if (secondaryAction != null) ...[
+                const SizedBox(width: 8),
+                IconButtonTheme(
+                  data: IconButtonThemeData(
+                    style: IconButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.white.withValues(alpha: 0.12),
+                    ),
+                  ),
+                  child: secondaryAction!,
+                ),
+              ],
               const SizedBox(width: 8),
-              secondaryAction!,
+              _HeaderIconButton(
+                tooltip: 'Notifications',
+                icon: Icons.notifications_rounded,
+                onPressed: onNotifications,
+                badge: notificationCount,
+                onPrimary: true,
+              ),
             ],
-            const SizedBox(width: 8),
-            _HeaderIconButton(
-              tooltip: 'Notifications',
-              icon: Icons.notifications_rounded,
-              onPressed: onNotifications,
-              badge: notificationCount,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -160,78 +172,94 @@ class AppScreenHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final width = MediaQuery.sizeOf(context).width;
     final horizontal = _responsiveHorizontalPadding(context);
-    return SafeArea(
-      bottom: false,
-      child: AppResponsiveContent(
-        padding: EdgeInsets.fromLTRB(horizontal, 16, horizontal, 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (showBack) ...[
-              _HeaderIconButton(
-                tooltip: 'Retour',
-                icon: Icons.arrow_back_rounded,
-                onPressed: () => Navigator.maybePop(context),
+    return DecoratedBox(
+      decoration: _headerDecoration(theme.brightness),
+      child: SafeArea(
+        bottom: false,
+        child: AppResponsiveContent(
+          padding: EdgeInsets.fromLTRB(horizontal, 16, horizontal, 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (showBack) ...[
+                _HeaderIconButton(
+                  tooltip: 'Retour',
+                  icon: Icons.arrow_back_rounded,
+                  onPressed: () => Navigator.maybePop(context),
+                  onPrimary: true,
+                ),
+                const SizedBox(width: 10),
+              ],
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.13),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.18),
+                  ),
+                ),
+                child: Icon(icon, color: Colors.white, size: 23),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      eyebrow.toUpperCase(),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: const Color(0xFFE7C98F),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.8,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      title,
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        color: Colors.white,
+                        fontSize: width < 360 ? 22 : 25,
+                        letterSpacing: -0.4,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      subtitle,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.72),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (onSearch != null) ...[
+                const SizedBox(width: 8),
+                _HeaderIconButton(
+                  tooltip: 'Rechercher',
+                  icon: Icons.search_rounded,
+                  onPressed: onSearch!,
+                  onPrimary: true,
+                ),
+              ],
+              if (action != null) ...[
+                const SizedBox(width: 8),
+                IconButtonTheme(
+                  data: IconButtonThemeData(
+                    style: IconButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.white.withValues(alpha: 0.12),
+                    ),
+                  ),
+                  child: action!,
+                ),
+              ],
             ],
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: isDark
-                    ? AppColors.darkSurfaceElevated
-                    : AppColors.primarySoft,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: context.semanticColors.border),
-              ),
-              child: Icon(icon, color: theme.colorScheme.primary, size: 23),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    eyebrow.toUpperCase(),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: AppColors.secondary,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.8,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    title,
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      fontSize: width < 360 ? 22 : 25,
-                      letterSpacing: -0.4,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    subtitle,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: context.semanticColors.textSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (onSearch != null) ...[
-              const SizedBox(width: 8),
-              _HeaderIconButton(
-                tooltip: 'Rechercher',
-                icon: Icons.search_rounded,
-                onPressed: onSearch!,
-              ),
-            ],
-            if (action != null) ...[const SizedBox(width: 8), action!],
-          ],
+          ),
         ),
       ),
     );
@@ -243,12 +271,14 @@ class _HeaderIconButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onPressed;
   final int badge;
+  final bool onPrimary;
 
   const _HeaderIconButton({
     required this.tooltip,
     required this.icon,
     required this.onPressed,
     this.badge = 0,
+    this.onPrimary = false,
   });
 
   @override
@@ -257,10 +287,16 @@ class _HeaderIconButton extends StatelessWidget {
     return Tooltip(
       message: tooltip,
       child: Material(
-        color: theme.colorScheme.surface,
+        color: onPrimary
+            ? Colors.white.withValues(alpha: 0.12)
+            : theme.colorScheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
-          side: BorderSide(color: context.semanticColors.border),
+          side: BorderSide(
+            color: onPrimary
+                ? Colors.white.withValues(alpha: 0.18)
+                : context.semanticColors.border,
+          ),
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(15),
@@ -271,7 +307,7 @@ class _HeaderIconButton extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Icon(icon, size: 22),
+                Icon(icon, size: 22, color: onPrimary ? Colors.white : null),
                 if (badge > 0)
                   Positioned(
                     top: 8,
@@ -306,6 +342,23 @@ class _HeaderIconButton extends StatelessWidget {
     );
   }
 }
+
+BoxDecoration _headerDecoration(Brightness brightness) => BoxDecoration(
+  gradient: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: brightness == Brightness.dark
+        ? const [Color(0xFF081F33), AppColors.primaryStrong]
+        : const [AppColors.primaryStrong, AppColors.primary],
+  ),
+  boxShadow: [
+    BoxShadow(
+      color: AppColors.primaryStrong.withValues(alpha: 0.18),
+      blurRadius: 22,
+      offset: const Offset(0, 8),
+    ),
+  ],
+);
 
 double _responsiveHorizontalPadding(BuildContext context) {
   final width = MediaQuery.sizeOf(context).width;

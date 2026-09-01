@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
 
 class NewsActionButtons extends StatelessWidget {
   const NewsActionButtons({super.key});
@@ -17,8 +18,8 @@ class NewsActionButtons extends StatelessWidget {
               icon: const Icon(Icons.favorite_border),
               label: const Text("148 J'aime"),
               style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.secondaryText,
-                side: const BorderSide(color: AppColors.border),
+                foregroundColor: context.semanticColors.textSecondary,
+                side: BorderSide(color: context.semanticColors.border),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

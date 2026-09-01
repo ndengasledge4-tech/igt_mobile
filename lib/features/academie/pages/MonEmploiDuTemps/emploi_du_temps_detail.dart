@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../app/theme/colors.dart';
+import '../../../../app/theme/semantic_colors.dart';
+import '../../../../shared/widgets/app_header.dart';
+import '../../../../shared/widgets/premium_ui.dart';
 
 class EmploiDuTempsDetail extends StatelessWidget {
   final String matiere;
@@ -20,52 +23,16 @@ class EmploiDuTempsDetail extends StatelessWidget {
     final Color bleu = AppColors.primary;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FC),
-
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 30),
+      appBar: const AppHeader.secondary(
+        title: 'Détail du cours',
+        subtitle: 'Horaire, salle et enseignant',
+      ),
+      body: SingleChildScrollView(
+        child: AppResponsiveContent(
+          maxWidth: 720,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ========================================================
-              // RETOUR + TITRE
-              // ========================================================
-              Row(
-                children: [
-                  Container(
-                    width: 42,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: bleu,
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: const Icon(Icons.arrow_back, color: Colors.white),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(width: 14),
-
-                  const Expanded(
-                    child: Text(
-                      'Détail du cours',
-                      style: TextStyle(
-                        color: Color(0xFF172033),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 24),
-
               // ========================================================
               // CARTE PRINCIPALE
               // ========================================================
@@ -111,11 +78,17 @@ class EmploiDuTempsDetail extends StatelessWidget {
               // ========================================================
               // INFORMATIONS
               // ========================================================
-              _info(Icons.access_time, 'Horaire', horaire, bleu),
+              _info(context, Icons.access_time, 'Horaire', horaire, bleu),
 
-              _info(Icons.room_outlined, 'Salle', salle, bleu),
+              _info(context, Icons.room_outlined, 'Salle', salle, bleu),
 
-              _info(Icons.person_outline, 'Professeur', professeur, bleu),
+              _info(
+                context,
+                Icons.person_outline,
+                'Professeur',
+                professeur,
+                bleu,
+              ),
             ],
           ),
         ),
@@ -123,15 +96,21 @@ class EmploiDuTempsDetail extends StatelessWidget {
     );
   }
 
-  Widget _info(IconData icon, String titre, String valeur, Color bleu) {
+  Widget _info(
+    BuildContext context,
+    IconData icon,
+    String titre,
+    String valeur,
+    Color bleu,
+  ) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(17),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(color: context.semanticColors.border),
       ),
       child: Row(
         children: [
@@ -147,25 +126,29 @@ class EmploiDuTempsDetail extends StatelessWidget {
 
           const SizedBox(width: 14),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                titre,
-                style: const TextStyle(color: Color(0xFF8A9099), fontSize: 12),
-              ),
-
-              const SizedBox(height: 4),
-
-              Text(
-                valeur,
-                style: const TextStyle(
-                  color: Color(0xFF172033),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  titre,
+                  style: TextStyle(
+                    color: context.semanticColors.textSecondary,
+                    fontSize: 12,
+                  ),
                 ),
-              ),
-            ],
+
+                const SizedBox(height: 4),
+
+                Text(
+                  valeur,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

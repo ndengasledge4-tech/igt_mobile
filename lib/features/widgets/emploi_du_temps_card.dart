@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../app/theme/semantic_colors.dart';
+
 class EmploiDuTempsCard extends StatelessWidget {
   final String heure;
   final String matiere;
@@ -29,8 +31,8 @@ class EmploiDuTempsCard extends StatelessWidget {
               width: 68,
               child: Text(
                 heure,
-                style: const TextStyle(
-                  color: Color(0xFF687080),
+                style: TextStyle(
+                  color: context.semanticColors.textSecondary,
                   fontSize: 13,
                   height: 1.35,
                 ),
@@ -41,7 +43,7 @@ class EmploiDuTempsCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.fromLTRB(14, 12, 12, 12),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(12),
                   border: Border(left: BorderSide(color: couleur, width: 4)),
                 ),
@@ -50,8 +52,8 @@ class EmploiDuTempsCard extends StatelessWidget {
                   children: [
                     Text(
                       matiere,
-                      style: const TextStyle(
-                        color: Color(0xFF172033),
+                      style: TextStyle(
+                        color: context.semanticColors.textPrimary,
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
@@ -61,8 +63,8 @@ class EmploiDuTempsCard extends StatelessWidget {
 
                     Text(
                       details,
-                      style: const TextStyle(
-                        color: Color(0xFF687080),
+                      style: TextStyle(
+                        color: context.semanticColors.textSecondary,
                         fontSize: 12,
                       ),
                     ),

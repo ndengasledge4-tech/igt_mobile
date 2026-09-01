@@ -58,7 +58,13 @@ class CommunicationNotification {
       );
 }
 
-enum ConversationCategory { teachers, administration, services, groups }
+enum ConversationCategory {
+  teachers,
+  administration,
+  services,
+  groups,
+  assistant,
+}
 
 enum PresenceStatus { online, available, away, offline }
 
@@ -253,6 +259,51 @@ class CommunicationStore extends ChangeNotifier {
     notifyListeners();
   }
 
+  void sendServiceReply(
+    String conversationId,
+    String text, {
+    required String author,
+  }) {
+    final value = text.trim();
+    if (value.isEmpty) return;
+    final index = _conversations.indexWhere(
+      (item) => item.id == conversationId,
+    );
+    if (index < 0) return;
+    final conversation = _conversations[index];
+    _conversations[index] = conversation.copyWith(
+      messages: [
+        ...conversation.messages,
+        ChatMessage(
+          id: 'reply-${DateTime.now().microsecondsSinceEpoch}',
+          text: value,
+          sentAt: DateTime.now(),
+          sentByStudent: false,
+          author: author,
+        ),
+      ],
+    );
+    notifyListeners();
+  }
+
+  String assistantReplyFor(String question) {
+    final normalized = question.toLowerCase();
+    if (normalized.contains('prochain cours') ||
+        normalized.contains('emploi du temps')) {
+      return 'Votre prochain cours est Architecture logicielle, aujourd’hui de 10h15 à 12h15 en salle B12.';
+    }
+    if (normalized.contains('résultat') || normalized.contains('note')) {
+      return 'Vous pouvez consulter vos notes et résultats dans Académie, puis Mes résultats.';
+    }
+    if (normalized.contains('document') || normalized.contains('inscription')) {
+      return 'Pour votre inscription, prévoyez une pièce d’identité, une photo, vos relevés de notes et le justificatif de paiement.';
+    }
+    if (normalized.contains('examen')) {
+      return 'Les examens du semestre commencent le 16 septembre. Le planning détaillé sera publié dans Académie.';
+    }
+    return 'Je peux vous orienter sur les cours, les résultats, les inscriptions et le calendrier académique. Cette réponse est simulée pour la démonstration.';
+  }
+
   String createAdministrativeRequest({
     required String service,
     required String subject,
@@ -266,7 +317,7 @@ class CommunicationStore extends ChangeNotifier {
         name: service,
         role: subject,
         initials: _initials(service),
-        category: service == 'Bibliothèque' || service == 'Service informatique'
+        category: service == 'Service académique'
             ? ConversationCategory.services
             : ConversationCategory.administration,
         status: PresenceStatus.available,
@@ -328,7 +379,7 @@ class CommunicationStore extends ChangeNotifier {
           content:
               'Les inscriptions pédagogiques 2026–2027 sont ouvertes jusqu’au 4 septembre. Consultez les modalités et les pièces requises.',
           source: 'Direction de la scolarité',
-          date: now.subtract(const Duration(minutes: 24)),
+          date: now,
           kind: CommunicationNotificationKind.announcement,
           destination: NotificationDestination.news,
           targetId: 'rentree',
@@ -425,8 +476,8 @@ class CommunicationStore extends ChangeNotifier {
         ),
         UniversityConversation(
           id: 'admin-school',
-          name: 'Scolarité',
-          role: 'Administration',
+          name: 'Service de la scolarité',
+          role: 'Dossiers · inscriptions · attestations',
           initials: 'SC',
           category: ConversationCategory.administration,
           status: PresenceStatus.available,
@@ -438,6 +489,32 @@ class CommunicationStore extends ChangeNotifier {
               sentAt: now.subtract(const Duration(days: 1)),
               sentByStudent: false,
               author: 'Scolarité',
+            ),
+          ],
+        ),
+        UniversityConversation(
+          id: 'service-academic',
+          name: 'Service académique',
+          role: 'Cours · notes · planning',
+          initials: 'SA',
+          category: ConversationCategory.services,
+          status: PresenceStatus.available,
+          unreadCount: 1,
+          messages: [
+            ChatMessage(
+              id: 'a1',
+              text:
+                  'Le planning des évaluations du semestre est maintenant disponible.',
+              sentAt: now.subtract(const Duration(days: 1, hours: 3)),
+              sentByStudent: false,
+              author: 'Service académique',
+            ),
+            ChatMessage(
+              id: 'a2',
+              text: 'Merci, je vais le consulter dans mon espace Académie.',
+              sentAt: now.subtract(const Duration(days: 1, hours: 2)),
+              sentByStudent: true,
+              author: 'Aymen M.',
             ),
           ],
         ),
@@ -460,8 +537,8 @@ class CommunicationStore extends ChangeNotifier {
         ),
         UniversityConversation(
           id: 'group-l3',
-          name: 'L3 Génie Informatique',
-          role: 'Groupe A · 28 membres',
+          name: 'Licence 3 — Génie Informatique',
+          role: 'Groupe A · 42 membres',
           initials: 'L3',
           category: ConversationCategory.groups,
           status: PresenceStatus.online,
@@ -469,9 +546,34 @@ class CommunicationStore extends ChangeNotifier {
             ChatMessage(
               id: 'g1',
               text: 'Le groupe de projet se retrouve en salle B12 à 13 h.',
-              sentAt: now.subtract(const Duration(days: 3)),
+              sentAt: now.subtract(const Duration(hours: 7)),
               sentByStudent: false,
-              author: 'Délégué L3',
+              author: 'Grâce K.',
+            ),
+            ChatMessage(
+              id: 'g2',
+              text: 'Je partagerai le compte rendu après la réunion.',
+              sentAt: now.subtract(const Duration(hours: 6, minutes: 42)),
+              sentByStudent: false,
+              author: 'David N.',
+            ),
+          ],
+        ),
+        UniversityConversation(
+          id: 'igt-ai',
+          name: 'IGT-IA',
+          role: 'Assistant institutionnel · réponse simulée',
+          initials: 'IA',
+          category: ConversationCategory.assistant,
+          status: PresenceStatus.online,
+          messages: [
+            ChatMessage(
+              id: 'ia1',
+              text:
+                  'Bonjour Aymen. Je peux vous orienter dans les services et informations de l’IGT. Comment puis-je vous aider ?',
+              sentAt: now.subtract(const Duration(minutes: 36)),
+              sentByStudent: false,
+              author: 'IGT-IA',
             ),
           ],
         ),

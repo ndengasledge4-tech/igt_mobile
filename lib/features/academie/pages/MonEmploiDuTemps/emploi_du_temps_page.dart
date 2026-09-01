@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../app/theme/colors.dart';
+import '../../../../app/theme/semantic_colors.dart';
+import '../../../../shared/widgets/app_header.dart';
 import '../../../widgets/emploi_du_temps_card.dart';
 import 'emploi_du_temps_detail.dart';
 
@@ -18,82 +20,47 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FC),
-
-      body: SafeArea(
-        child: Column(
-          children: [
-            // ============================================================
-            // BARRE SUPÉRIEURE
-            // ============================================================
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-              child: Row(
-                children: [
-                  // Bouton retour
-                  IconButton(
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(
-                      minWidth: 32,
-                      minHeight: 32,
-                    ),
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: Color(0xFF172033),
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+      appBar: const AppHeader.secondary(
+        title: 'Mon emploi du temps',
+        subtitle: 'Cours et salles de la semaine',
+      ),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 880),
+          child: Column(
+            children: [
+              // ============================================================
+              // ONGLETS JOUR / SEMAINE / MOIS
+              // ============================================================
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: context.semanticColors.border),
                   ),
-
-                  const SizedBox(width: 14),
-
-                  const Text(
-                    'Mon emploi du temps',
-                    style: TextStyle(
-                      color: Color(0xFF172033),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Row(
+                    children: [
+                      _buildTab('Jour', 0),
+                      _buildTab('Semaine', 1),
+                      _buildTab('Mois', 2),
+                    ],
                   ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 8),
-
-            // ============================================================
-            // ONGLETS JOUR / SEMAINE / MOIS
-            // ============================================================
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                height: 52,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFE5E7EB)),
-                ),
-                child: Row(
-                  children: [
-                    _buildTab('Jour', 0),
-                    _buildTab('Semaine', 1),
-                    _buildTab('Mois', 2),
-                  ],
                 ),
               ),
-            ),
 
-            const SizedBox(height: 18),
+              const SizedBox(height: 18),
 
-            Expanded(
-              child: IndexedStack(
-                index: selectedView,
-                children: [_buildJour(), _buildSemaine(), _buildMois()],
+              Expanded(
+                child: IndexedStack(
+                  index: selectedView,
+                  children: [_buildJour(), _buildSemaine(), _buildMois()],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -122,7 +89,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
           child: Text(
             title,
             style: TextStyle(
-              color: selected ? bleu : const Color(0xFF687080),
+              color: selected ? bleu : context.semanticColors.textSecondary,
               fontSize: 14,
               fontWeight: selected ? FontWeight.bold : FontWeight.w500,
             ),
@@ -142,10 +109,9 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Lundi 17 novembre 2025',
-            style: TextStyle(
-              color: Color(0xFF172033),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontSize: 17,
               fontWeight: FontWeight.bold,
             ),
@@ -206,10 +172,9 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Semaine du 17 au 21 novembre',
-            style: TextStyle(
-              color: Color(0xFF172033),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
@@ -246,10 +211,10 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
             width: 70,
             padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
-              color: selected ? bleu : Colors.white,
+              color: selected ? bleu : Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
-                color: selected ? bleu : const Color(0xFFE5E7EB),
+                color: selected ? bleu : context.semanticColors.border,
               ),
             ),
             child: Column(
@@ -257,7 +222,9 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
                 Text(
                   jour,
                   style: TextStyle(
-                    color: selected ? Colors.white : const Color(0xFF687080),
+                    color: selected
+                        ? Colors.white
+                        : context.semanticColors.textSecondary,
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
                   ),
@@ -266,7 +233,9 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
                 Text(
                   date,
                   style: TextStyle(
-                    color: selected ? Colors.white : const Color(0xFF172033),
+                    color: selected
+                        ? Colors.white
+                        : context.semanticColors.textPrimary,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -288,7 +257,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
                     vertical: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
@@ -355,10 +324,9 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Novembre 2025',
-            style: TextStyle(
-              color: Color(0xFF172033),
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontSize: 17,
               fontWeight: FontWeight.bold,
             ),
@@ -369,9 +337,9 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: const Color(0xFFE5E7EB)),
+              border: Border.all(color: context.semanticColors.border),
             ),
             child: Column(
               children: [
@@ -419,7 +387,7 @@ class _EmploiDuTempsPageState extends State<EmploiDuTempsPage> {
                         style: TextStyle(
                           color: selected
                               ? Colors.white
-                              : const Color(0xFF172033),
+                              : context.semanticColors.textPrimary,
                           fontWeight: selected
                               ? FontWeight.bold
                               : FontWeight.normal,

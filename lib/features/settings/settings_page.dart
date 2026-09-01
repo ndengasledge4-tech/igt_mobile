@@ -4,6 +4,7 @@ import '../../app/theme/dimensions.dart';
 import '../../app/theme/theme_mode_scope.dart';
 import '../../shared/widgets/app_badge.dart';
 import '../../shared/widgets/app_card.dart';
+import '../../shared/widgets/app_header.dart';
 import '../../shared/widgets/app_page.dart';
 import '../../shared/widgets/app_section_header.dart';
 
@@ -13,7 +14,10 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Paramètres')),
+      appBar: const AppHeader.secondary(
+        title: 'Paramètres',
+        subtitle: 'Personnalisez votre expérience',
+      ),
       body: AppPage(
         scrollable: true,
         child: Column(

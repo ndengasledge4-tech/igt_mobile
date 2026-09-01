@@ -113,40 +113,38 @@ class _PrimaryGrade extends StatelessWidget {
   final double value;
   const _PrimaryGrade({required this.value});
   @override
-  Widget build(BuildContext context) => Expanded(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'MOYENNE',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: context.semanticColors.textSecondary,
-            fontWeight: FontWeight.w700,
-            letterSpacing: .7,
-          ),
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'MOYENNE',
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: context.semanticColors.textSecondary,
+          fontWeight: FontWeight.w700,
+          letterSpacing: .7,
         ),
-        const SizedBox(height: 5),
-        RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: value.toStringAsFixed(1).replaceAll('.', ','),
-                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                  fontSize: 34,
-                  fontFeatures: const [FontFeature.tabularFigures()],
-                ),
+      ),
+      const SizedBox(height: 5),
+      RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: value.toStringAsFixed(1).replaceAll('.', ','),
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                fontSize: 34,
+                fontFeatures: const [FontFeature.tabularFigures()],
               ),
-              TextSpan(
-                text: ' / 20',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: context.semanticColors.textSecondary,
-                ),
+            ),
+            TextSpan(
+              text: ' / 20',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: context.semanticColors.textSecondary,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
-    ),
+      ),
+    ],
   );
 }
 

@@ -4,6 +4,8 @@ import '../../app/routes/route_names.dart';
 import '../../app/theme/colors.dart';
 import '../../app/theme/semantic_colors.dart';
 import '../../shared/widgets/premium_ui.dart';
+import '../../shared/widgets/app_header.dart';
+import '../../shared/widgets/app_empty_state.dart';
 import '../actualite/pages/actualite_detail_page.dart';
 import '../actualite/pages/evenement_detail_page.dart';
 import '../communication/communication_store.dart';
@@ -20,31 +22,27 @@ class NotificationsPage extends StatelessWidget {
       builder: (context, _) {
         final groups = _grouped(store.notifications);
         return Scaffold(
-          appBar: AppBar(
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Notifications'),
-                Text(
-                  '${store.unreadNotifications} non lue${store.unreadNotifications > 1 ? 's' : ''}',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: context.semanticColors.textSecondary,
-                  ),
-                ),
-              ],
-            ),
+          appBar: AppHeader.secondary(
+            title: 'Notifications',
+            subtitle:
+                '${store.unreadNotifications} non lue${store.unreadNotifications > 1 ? 's' : ''}',
             actions: [
-              TextButton(
+              IconButton(
+                key: const Key('mark-all-notifications-read'),
+                tooltip: 'Tout marquer comme lu',
                 onPressed: store.unreadNotifications == 0
                     ? null
                     : store.markAllNotificationsRead,
-                child: const Text('Tout marquer comme lu'),
+                icon: const Icon(Icons.done_all_rounded),
               ),
-              const SizedBox(width: 8),
             ],
           ),
           body: groups.isEmpty
-              ? const Center(child: Text('Vous êtes à jour'))
+              ? const AppEmptyState(
+                  icon: Icons.notifications_none_rounded,
+                  title: 'Vous êtes à jour',
+                  message: 'Aucune nouvelle notification pour le moment.',
+                )
               : ListView(
                   padding: const EdgeInsets.only(bottom: 32),
                   children: [

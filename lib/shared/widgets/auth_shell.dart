@@ -11,6 +11,7 @@ class AuthShell extends StatelessWidget {
   final IconData icon;
   final Widget child;
   final bool showBack;
+  final VoidCallback? onBack;
 
   const AuthShell({
     super.key,
@@ -20,6 +21,7 @@ class AuthShell extends StatelessWidget {
     required this.icon,
     required this.child,
     this.showBack = true,
+    this.onBack,
   });
 
   @override
@@ -42,7 +44,8 @@ class AuthShell extends StatelessWidget {
                     children: [
                       if (showBack)
                         IconButton.filledTonal(
-                          onPressed: () => Navigator.maybePop(context),
+                          onPressed:
+                              onBack ?? () => Navigator.maybePop(context),
                           icon: const Icon(Icons.arrow_back_rounded),
                         )
                       else

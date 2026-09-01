@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
 import '../../../app/routes/route_names.dart';
+import '../../../shared/widgets/app_header.dart';
+import '../../../shared/widgets/premium_ui.dart';
 
 class SecuriteComptePage extends StatelessWidget {
   const SecuriteComptePage({super.key});
@@ -8,90 +11,62 @@ class SecuriteComptePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 70,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Center(
-            child: InkWell(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.softBlue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: AppColors.primary,
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
-        title: const Text(
-          "Sécurité du compte",
-          style: TextStyle(
-            color: AppColors.text,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: false,
+      appBar: const AppHeader.secondary(
+        title: 'Sécurité du compte',
+        subtitle: 'Accès, récupération et appareils',
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Gérez et renforcez la sécurité de votre compte pour protéger vos informations.",
-              style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
-            ),
-            const SizedBox(height: 24),
+        child: AppResponsiveContent(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Gérez et renforcez la sécurité de votre compte pour protéger vos informations.",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: context.semanticColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 24),
 
-            _buildSectionHeader("ÉTAT DE SÉCURITÉ"),
-            _buildSecurityStatusCard(),
-            const SizedBox(height: 24),
+              _buildSectionHeader(context, "ÉTAT DE SÉCURITÉ"),
+              _buildSecurityStatusCard(context),
+              const SizedBox(height: 24),
 
-            _buildSectionHeader("SÉCURITÉ DU COMPTE"),
-            _buildGroupedSecurityCard(context),
-            const SizedBox(height: 24),
+              _buildSectionHeader(context, "SÉCURITÉ DU COMPTE"),
+              _buildGroupedSecurityCard(context),
+              const SizedBox(height: 24),
 
-            _buildInfoCard(
-              icon: Icons.info_outline,
-              text: "Conseil de sécurité",
-              subtext:
-                  "Ne partagez jamais votre mot de passe et assurez-vous d'utiliser un mot de passe fort et unique.",
-            ),
-            const SizedBox(height: 40),
-          ],
+              _buildInfoCard(
+                context,
+                icon: Icons.info_outline,
+                text: "Conseil de sécurité",
+                subtext:
+                    "Ne partagez jamais votre mot de passe et assurez-vous d'utiliser un mot de passe fort et unique.",
+              ),
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 4.0, bottom: 12.0),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
-          color: AppColors.secondaryText,
+          color: context.semanticColors.textSecondary,
           letterSpacing: 0.5,
         ),
       ),
     );
   }
 
-  Widget _buildSecurityStatusCard() {
+  Widget _buildSecurityStatusCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -120,21 +95,16 @@ class SecuriteComptePage extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "Votre compte est sécurisé",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.text,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       "Aucune action requise pour le moment.",
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: AppColors.secondaryText,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: context.semanticColors.textSecondary,
                       ),
                     ),
                   ],
@@ -170,15 +140,13 @@ class SecuriteComptePage extends StatelessWidget {
   }
 
   Widget _buildGroupedSecurityCard(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
-      ),
+    return AppSurface(
+      padding: EdgeInsets.zero,
+      radius: 12,
       child: Column(
         children: [
           _buildSecurityItem(
+            context,
             icon: Icons.lock_outline,
             title: "Modifier le mot de passe",
             subtitle:
@@ -188,6 +156,7 @@ class SecuriteComptePage extends StatelessWidget {
           ),
           const Divider(height: 1, indent: 56),
           _buildSecurityItem(
+            context,
             icon: Icons.fingerprint,
             title: "Face ID ou Empreinte digitale",
             subtitle:
@@ -196,6 +165,7 @@ class SecuriteComptePage extends StatelessWidget {
           ),
           const Divider(height: 1, indent: 56),
           _buildSecurityItem(
+            context,
             icon: Icons.phone_android_outlined,
             title: "Téléphone de récupération",
             subtitle:
@@ -206,6 +176,7 @@ class SecuriteComptePage extends StatelessWidget {
           ),
           const Divider(height: 1, indent: 56),
           _buildSecurityItem(
+            context,
             icon: Icons.email_outlined,
             title: "Email de récupération",
             subtitle: "L'adresse e-mail utilisée pour récupérer votre compte.",
@@ -217,7 +188,8 @@ class SecuriteComptePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSecurityItem({
+  Widget _buildSecurityItem(
+    BuildContext context, {
     required IconData icon,
     required String title,
     required String subtitle,
@@ -226,28 +198,27 @@ class SecuriteComptePage extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     return ListTile(
-      onTap: onTap ?? () {},
+      onTap: onTap,
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.softBlue,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(icon, color: AppColors.primary, size: 20),
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text,
+        child: Icon(
+          icon,
+          color: Theme.of(context).colorScheme.primary,
+          size: 20,
         ),
       ),
+      title: Text(title, style: Theme.of(context).textTheme.titleSmall),
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 4.0),
         child: Text(
           subtitle,
-          style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: context.semanticColors.textSecondary,
+          ),
         ),
       ),
       trailing: Row(
@@ -256,15 +227,21 @@ class SecuriteComptePage extends StatelessWidget {
           if (trailingText != null)
             Text(
               trailingText,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: AppColors.text,
+                color: context.semanticColors.textSecondary,
               ),
             ),
           ?trailingWidget,
-          const SizedBox(width: 4),
-          const Icon(Icons.chevron_right, size: 18, color: AppColors.hint),
+          if (onTap != null) ...[
+            const SizedBox(width: 4),
+            Icon(
+              Icons.chevron_right,
+              size: 18,
+              color: context.semanticColors.textDisabled,
+            ),
+          ],
         ],
       ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -289,7 +266,8 @@ class SecuriteComptePage extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoCard({
+  Widget _buildInfoCard(
+    BuildContext context, {
     required IconData icon,
     required String text,
     required String subtext,
@@ -297,33 +275,25 @@ class SecuriteComptePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
+        border: Border.all(color: context.semanticColors.border),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: AppColors.hint, size: 20),
+          Icon(icon, color: Theme.of(context).colorScheme.primary, size: 20),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  text,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.text,
-                  ),
-                ),
+                Text(text, style: Theme.of(context).textTheme.titleSmall),
                 const SizedBox(height: 4),
                 Text(
                   subtext,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.secondaryText,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: context.semanticColors.textSecondary,
                   ),
                 ),
               ],

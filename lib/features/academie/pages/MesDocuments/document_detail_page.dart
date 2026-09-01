@@ -34,6 +34,7 @@ class _DocumentDetailPageState extends State<DocumentDetailPage> {
   _DownloadState _state = _DownloadState.idle;
   double _progress = 0;
   Timer? _timer;
+  bool _isFavorite = false;
 
   @override
   void dispose() {
@@ -133,9 +134,20 @@ class _DocumentDetailPageState extends State<DocumentDetailPage> {
                         ),
                       ),
                       IconButton(
-                        tooltip: 'Ajouter aux favoris',
-                        onPressed: () {},
-                        icon: const Icon(Icons.star_border_rounded),
+                        key: const Key('document-favorite-button'),
+                        tooltip: _isFavorite
+                            ? 'Retirer des favoris'
+                            : 'Ajouter aux favoris',
+                        onPressed: () =>
+                            setState(() => _isFavorite = !_isFavorite),
+                        icon: Icon(
+                          _isFavorite
+                              ? Icons.star_rounded
+                              : Icons.star_border_rounded,
+                          color: _isFavorite
+                              ? Theme.of(context).colorScheme.tertiary
+                              : null,
+                        ),
                       ),
                     ],
                   ),

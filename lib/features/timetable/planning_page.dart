@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../app/theme/colors.dart';
 import '../../app/theme/semantic_colors.dart';
 import '../../core/models/timetable_model.dart';
+import '../../shared/widgets/app_header.dart';
 import 'planning_store.dart';
 import 'teacher_planning_page.dart';
 
@@ -24,22 +25,9 @@ class _PlanningPageState extends State<PlanningPage> {
   Widget build(BuildContext context) => AnimatedBuilder(
     animation: store,
     builder: (context, _) => Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 72,
-        titleSpacing: 20,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Mon planning'),
-            const SizedBox(height: 3),
-            Text(
-              _period,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: context.semanticColors.textSecondary,
-              ),
-            ),
-          ],
-        ),
+      appBar: AppHeader.secondary(
+        title: 'Mon planning',
+        subtitle: _period,
         actions: [
           IconButton(
             tooltip: 'Choisir une date',
@@ -56,7 +44,6 @@ class _PlanningPageState extends State<PlanningPage> {
             ),
             icon: const Icon(Icons.co_present_rounded),
           ),
-          const SizedBox(width: 8),
         ],
       ),
       body: Column(

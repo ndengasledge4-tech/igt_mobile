@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../app/theme/semantic_colors.dart';
+
 class PasswordResetForm extends StatefulWidget {
   const PasswordResetForm({super.key});
 
@@ -16,13 +18,9 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Nouveau mot de passe',
-          style: TextStyle(
-            color: Color(0xFF263238),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 10),
         TextField(
@@ -42,27 +40,14 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
                     : Icons.visibility_off_outlined,
               ),
             ),
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 18,
-              vertical: 17,
-            ),
-            border: _border(),
-            enabledBorder: _border(),
-            focusedBorder: _focusedBorder(),
           ),
         ),
 
         const SizedBox(height: 22),
 
-        const Text(
+        Text(
           'Confirmer le mot de passe',
-          style: TextStyle(
-            color: Color(0xFF263238),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 10),
         TextField(
@@ -82,15 +67,6 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
                     : Icons.visibility_off_outlined,
               ),
             ),
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 18,
-              vertical: 17,
-            ),
-            border: _border(),
-            enabledBorder: _border(),
-            focusedBorder: _focusedBorder(),
           ),
         ),
 
@@ -99,43 +75,26 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
         Container(
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: const Color(0xFFF0F6FB),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(13),
+            border: Border.all(color: context.semanticColors.border),
           ),
-          child: const Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Votre mot de passe doit contenir :',
-                style: TextStyle(
-                  color: Color(0xFF526477),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: Theme.of(context).textTheme.labelLarge,
               ),
-              SizedBox(height: 8),
-              _PasswordRule(text: 'Au moins 8 caractères'),
-              _PasswordRule(text: 'Une lettre majuscule'),
-              _PasswordRule(text: 'Une lettre minuscule'),
-              _PasswordRule(text: 'Un chiffre'),
+              const SizedBox(height: 8),
+              const _PasswordRule(text: 'Au moins 8 caractères'),
+              const _PasswordRule(text: 'Une lettre majuscule'),
+              const _PasswordRule(text: 'Une lettre minuscule'),
+              const _PasswordRule(text: 'Un chiffre'),
             ],
           ),
         ),
       ],
-    );
-  }
-
-  OutlineInputBorder _border() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(14),
-      borderSide: const BorderSide(color: Color(0xFFDDE3EA)),
-    );
-  }
-
-  OutlineInputBorder _focusedBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(14),
-      borderSide: const BorderSide(color: Color(0xFF4388C5), width: 1.5),
     );
   }
 }
@@ -151,11 +110,19 @@ class _PasswordRule extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 5),
       child: Row(
         children: [
-          const Icon(Icons.circle, size: 6, color: Color(0xFF8A98A8)),
+          Icon(
+            Icons.circle,
+            size: 6,
+            color: context.semanticColors.textDisabled,
+          ),
           const SizedBox(width: 9),
-          Text(
-            text,
-            style: const TextStyle(color: Color(0xFF7C8A98), fontSize: 13),
+          Expanded(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: context.semanticColors.textSecondary,
+              ),
+            ),
           ),
         ],
       ),

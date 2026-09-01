@@ -149,7 +149,14 @@ class TeacherHomePage extends StatelessWidget {
                                   icon: Icons.groups_2_outlined,
                                   title: 'Groupes / classes',
                                   subtitle: 'L3 GI · Groupes A et B',
-                                  onTap: () {},
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute<void>(
+                                      builder: (_) => const ConversationPage(
+                                        conversationId: 'group-l3',
+                                        teacherMode: true,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                               SizedBox(

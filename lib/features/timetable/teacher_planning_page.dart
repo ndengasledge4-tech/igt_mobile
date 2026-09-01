@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../app/theme/semantic_colors.dart';
 import '../../core/models/timetable_model.dart';
+import '../../shared/widgets/app_header.dart';
 import 'planning_page.dart';
 import 'planning_store.dart';
 
@@ -24,17 +25,9 @@ class TeacherPlanningPage extends StatelessWidget {
                 .toList()
               ..sort((a, b) => a.start.compareTo(b.start));
         return Scaffold(
-          appBar: AppBar(
-            title: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Planning enseignant'),
-                Text(
-                  'Mode démonstration · données locales',
-                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
+          appBar: const AppHeader.secondary(
+            title: 'Planning enseignant',
+            subtitle: 'Mode démonstration · données locales',
           ),
           body: ListView(
             key: const Key('teacher-planning'),

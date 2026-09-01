@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/theme/semantic_colors.dart';
 import '../../../shared/widgets/premium_ui.dart';
+import '../../../shared/widgets/app_header.dart';
 import '../../communication/communication_store.dart';
 
 class EvenementDetailPage extends StatelessWidget {
@@ -16,7 +17,10 @@ class EvenementDetailPage extends StatelessWidget {
         final current = store.eventById(event.id);
         final upcoming = current.startsAt.isAfter(DateTime.now());
         return Scaffold(
-          appBar: AppBar(title: const Text('Détail de l’événement')),
+          appBar: const AppHeader.secondary(
+            title: 'Détail de l’événement',
+            subtitle: 'Informations et participation',
+          ),
           body: ListView(
             padding: EdgeInsets.zero,
             children: [
@@ -238,6 +242,9 @@ class _Info extends StatelessWidget {
   const _Info({required this.icon, required this.label});
   @override
   Widget build(BuildContext context) => Container(
+    constraints: BoxConstraints(
+      maxWidth: MediaQuery.sizeOf(context).width - 40,
+    ),
     padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
     decoration: BoxDecoration(
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -248,11 +255,13 @@ class _Info extends StatelessWidget {
       children: [
         Icon(icon, size: 16, color: Theme.of(context).colorScheme.primary),
         const SizedBox(width: 6),
-        Text(
-          label,
-          style: Theme.of(
-            context,
-          ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+        Flexible(
+          child: Text(
+            label,
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+          ),
         ),
       ],
     ),

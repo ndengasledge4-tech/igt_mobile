@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
+import '../../../shared/widgets/app_header.dart';
+import '../../../shared/widgets/premium_ui.dart';
 
 class ActiviteRecentePage extends StatelessWidget {
   const ActiviteRecentePage({super.key});
@@ -7,122 +10,100 @@ class ActiviteRecentePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 70,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Center(
-            child: InkWell(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.softBlue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: AppColors.primary,
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
-        title: const Text(
-          "Activité récente",
-          style: TextStyle(
-            color: AppColors.text,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: false,
+      appBar: const AppHeader.secondary(
+        title: 'Activité récente',
+        subtitle: 'Connexions et appareils',
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Consultez les appareils sur lesquels vous êtes connecté et l'historique de vos connexions.",
-              style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
-            ),
-            const SizedBox(height: 24),
+        child: AppResponsiveContent(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Consultez les appareils sur lesquels vous êtes connecté et l'historique de vos connexions.",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: context.semanticColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 24),
 
-            _buildSectionHeader("APPAREIL ACTUEL"),
-            _buildDeviceCard(
-              deviceName: "iPhone 15 Pro (Cet appareil)",
-              location: "Dakar, Sénégal",
-              lastActive: "En ligne maintenant",
-              icon: Icons.smartphone,
-              isCurrent: true,
-            ),
-            const SizedBox(height: 24),
-
-            _buildSectionHeader("APPAREILS CONNECTÉS"),
-            _buildGroupedCard([
-              _buildDeviceItem(
-                deviceName: "MacBook Pro 16\"",
+              _buildSectionHeader(context, "APPAREIL ACTUEL"),
+              _buildDeviceCard(
+                context,
+                deviceName: "iPhone 15 Pro (Cet appareil)",
                 location: "Dakar, Sénégal",
-                lastActive: "Connecté le 12 Fév 2024",
-                icon: Icons.laptop,
-              ),
-              _buildDeviceItem(
-                deviceName: "Samsung Galaxy S23",
-                location: "Saint-Louis, Sénégal",
-                lastActive: "Connecté le 05 Fév 2024",
+                lastActive: "En ligne maintenant",
                 icon: Icons.smartphone,
+                isCurrent: true,
               ),
-            ]),
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-            _buildSectionHeader("CONNEXIONS RÉCENTES"),
-            _buildGroupedCard([
-              _buildActivityItem(
-                title: "Connexion réussie",
-                subtitle: "Chrome sur Windows • Dakar",
-                date: "Aujourd'hui à 09:41",
-              ),
-              _buildActivityItem(
-                title: "Connexion réussie",
-                subtitle: "App Mobile • iPhone 15 Pro",
-                date: "Hier à 18:20",
-              ),
-              _buildActivityItem(
-                title: "Nouvel appareil détecté",
-                subtitle: "MacBook Pro • Dakar",
-                date: "12 Fév 2024 à 14:05",
-                isWarning: true,
-              ),
-            ]),
-            const SizedBox(height: 40),
-          ],
+              _buildSectionHeader(context, "APPAREILS CONNECTÉS"),
+              _buildGroupedCard(context, [
+                _buildDeviceItem(
+                  context,
+                  deviceName: "MacBook Pro 16\"",
+                  location: "Dakar, Sénégal",
+                  lastActive: "Connecté le 12 Fév 2024",
+                  icon: Icons.laptop,
+                ),
+                _buildDeviceItem(
+                  context,
+                  deviceName: "Samsung Galaxy S23",
+                  location: "Saint-Louis, Sénégal",
+                  lastActive: "Connecté le 05 Fév 2024",
+                  icon: Icons.smartphone,
+                ),
+              ]),
+              const SizedBox(height: 24),
+
+              _buildSectionHeader(context, "CONNEXIONS RÉCENTES"),
+              _buildGroupedCard(context, [
+                _buildActivityItem(
+                  context,
+                  title: "Connexion réussie",
+                  subtitle: "Chrome sur Windows • Dakar",
+                  date: "Aujourd'hui à 09:41",
+                ),
+                _buildActivityItem(
+                  context,
+                  title: "Connexion réussie",
+                  subtitle: "App Mobile • iPhone 15 Pro",
+                  date: "Hier à 18:20",
+                ),
+                _buildActivityItem(
+                  context,
+                  title: "Nouvel appareil détecté",
+                  subtitle: "MacBook Pro • Dakar",
+                  date: "12 Fév 2024 à 14:05",
+                  isWarning: true,
+                ),
+              ]),
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 4.0, bottom: 12.0),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
-          color: AppColors.secondaryText,
+          color: context.semanticColors.textSecondary,
           letterSpacing: 0.5,
         ),
       ),
     );
   }
 
-  Widget _buildDeviceCard({
+  Widget _buildDeviceCard(
+    BuildContext context, {
     required String deviceName,
     required String location,
     required String lastActive,
@@ -132,12 +113,12 @@ class ActiviteRecentePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isCurrent
               ? AppColors.primary.withValues(alpha: 0.3)
-              : AppColors.border.withValues(alpha: 0.5),
+              : context.semanticColors.border,
         ),
       ),
       child: Row(
@@ -145,10 +126,14 @@ class ActiviteRecentePage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: AppColors.softBlue,
+              color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icon, color: AppColors.primary, size: 24),
+            child: Icon(
+              icon,
+              color: Theme.of(context).colorScheme.primary,
+              size: 24,
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -165,9 +150,9 @@ class ActiviteRecentePage extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   "$location • $lastActive",
-                  style: const TextStyle(
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontSize: 12,
-                    color: AppColors.secondaryText,
+                    color: context.semanticColors.textSecondary,
                   ),
                 ),
               ],
@@ -180,12 +165,12 @@ class ActiviteRecentePage extends StatelessWidget {
     );
   }
 
-  Widget _buildGroupedCard(List<Widget> items) {
+  Widget _buildGroupedCard(BuildContext context, List<Widget> items) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
+        border: Border.all(color: context.semanticColors.border),
       ),
       child: Column(
         children: List.generate(items.length, (index) {
@@ -198,7 +183,8 @@ class ActiviteRecentePage extends StatelessWidget {
     );
   }
 
-  Widget _buildDeviceItem({
+  Widget _buildDeviceItem(
+    BuildContext context, {
     required String deviceName,
     required String location,
     required String lastActive,
@@ -208,10 +194,14 @@ class ActiviteRecentePage extends StatelessWidget {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.softBlue,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(icon, color: AppColors.primary, size: 20),
+        child: Icon(
+          icon,
+          color: Theme.of(context).colorScheme.primary,
+          size: 20,
+        ),
       ),
       title: Text(
         deviceName,
@@ -221,15 +211,16 @@ class ActiviteRecentePage extends StatelessWidget {
         "$location • $lastActive",
         style: const TextStyle(fontSize: 11),
       ),
-      trailing: const Icon(
+      trailing: Icon(
         Icons.chevron_right,
         size: 18,
-        color: AppColors.hint,
+        color: context.semanticColors.textDisabled,
       ),
     );
   }
 
-  Widget _buildActivityItem({
+  Widget _buildActivityItem(
+    BuildContext context, {
     required String title,
     required String subtitle,
     required String date,
@@ -239,12 +230,16 @@ class ActiviteRecentePage extends StatelessWidget {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isWarning ? const Color(0xFFFFEBEE) : AppColors.softBlue,
+          color: isWarning
+              ? Theme.of(context).colorScheme.errorContainer
+              : Theme.of(context).colorScheme.primaryContainer,
           shape: BoxShape.circle,
         ),
         child: Icon(
           isWarning ? Icons.warning_amber_rounded : Icons.login_rounded,
-          color: isWarning ? AppColors.error : AppColors.primary,
+          color: isWarning
+              ? Theme.of(context).colorScheme.error
+              : Theme.of(context).colorScheme.primary,
           size: 20,
         ),
       ),
@@ -253,7 +248,9 @@ class ActiviteRecentePage extends StatelessWidget {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
-          color: isWarning ? AppColors.error : AppColors.text,
+          color: isWarning
+              ? Theme.of(context).colorScheme.error
+              : context.semanticColors.textPrimary,
         ),
       ),
       subtitle: Column(
@@ -262,7 +259,10 @@ class ActiviteRecentePage extends StatelessWidget {
           Text(subtitle, style: const TextStyle(fontSize: 11)),
           Text(
             date,
-            style: const TextStyle(fontSize: 10, color: AppColors.hint),
+            style: TextStyle(
+              fontSize: 10,
+              color: context.semanticColors.textDisabled,
+            ),
           ),
         ],
       ),

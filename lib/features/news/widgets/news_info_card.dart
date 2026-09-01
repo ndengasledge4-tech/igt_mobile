@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
 
 class NewsInfoCard extends StatelessWidget {
   const NewsInfoCard({super.key});
 
-  Widget buildItem(IconData icon, String text) {
+  Widget buildItem(BuildContext context, IconData icon, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
@@ -17,7 +18,10 @@ class NewsInfoCard extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: AppColors.text, fontSize: 14),
+              style: TextStyle(
+                color: context.semanticColors.textPrimary,
+                fontSize: 14,
+              ),
             ),
           ),
         ],
@@ -30,19 +34,24 @@ class NewsInfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: AppColors.lightBlue,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         children: [
-          buildItem(Icons.calendar_today_outlined, "28 Juillet 2025 à 10h00"),
+          buildItem(
+            context,
+            Icons.calendar_today_outlined,
+            "28 Juillet 2025 à 10h00",
+          ),
 
           buildItem(
+            context,
             Icons.location_on_outlined,
             "Amphithéâtre Principal, Campus IGT",
           ),
 
-          buildItem(Icons.people_outline, "312 étudiants intéressés"),
+          buildItem(context, Icons.people_outline, "312 étudiants intéressés"),
         ],
       ),
     );

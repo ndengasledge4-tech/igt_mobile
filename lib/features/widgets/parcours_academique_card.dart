@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../app/theme/semantic_colors.dart';
+
 /// Carte contenant les informations académiques de l'étudiant.
 class ParcoursAcademiqueCard extends StatelessWidget {
   final String title;
@@ -17,9 +19,9 @@ class ParcoursAcademiqueCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: context.semanticColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,10 +29,10 @@ class ParcoursAcademiqueCard extends StatelessWidget {
           // Titre du bloc.
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
-              color: Colors.black87,
+              color: context.semanticColors.textPrimary,
             ),
           ),
 
@@ -54,7 +56,7 @@ class ParcoursAcademiqueCard extends StatelessWidget {
                           item['label'] ?? '',
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey.shade600,
+                            color: context.semanticColors.textSecondary,
                           ),
                         ),
                       ),
@@ -66,10 +68,10 @@ class ParcoursAcademiqueCard extends StatelessWidget {
                         child: Text(
                           item['value'] ?? '',
                           textAlign: TextAlign.right,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black87,
+                            color: context.semanticColors.textPrimary,
                           ),
                         ),
                       ),
@@ -79,7 +81,7 @@ class ParcoursAcademiqueCard extends StatelessWidget {
 
                 // Séparateur entre les informations.
                 if (index < items.length - 1)
-                  Divider(height: 1, color: Colors.grey.shade200),
+                  Divider(height: 1, color: context.semanticColors.border),
               ],
             );
           }),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
 import '../../../app/routes/route_names.dart';
 
 class LogoutBottomSheet extends StatelessWidget {
@@ -9,9 +10,9 @@ class LogoutBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(24),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
         ),
@@ -24,7 +25,7 @@ class LogoutBottomSheet extends StatelessWidget {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: AppColors.divider,
+              color: context.semanticColors.border,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -32,28 +33,26 @@ class LogoutBottomSheet extends StatelessWidget {
           // Icon
           Container(
             padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              color: Color(0xFFFFEBEE),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.errorContainer,
               shape: BoxShape.circle,
             ),
             child: const Icon(Icons.logout, color: AppColors.error, size: 32),
           ),
           const SizedBox(height: 24),
           // Title
-          const Text(
+          Text(
             "Se déconnecter ?",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: AppColors.text,
-            ),
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 12),
           // Subtitle
-          const Text(
+          Text(
             "Voulez-vous vraiment vous déconnecter de\nvotre compte IGT ?",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: context.semanticColors.textSecondary,
+            ),
           ),
           const SizedBox(height: 32),
           // Buttons
@@ -79,8 +78,8 @@ class LogoutBottomSheet extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFFEBEE),
-                foregroundColor: AppColors.error,
+                backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                foregroundColor: Theme.of(context).colorScheme.onErrorContainer,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),

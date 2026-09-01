@@ -88,9 +88,14 @@ abstract final class AppTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        backgroundColor: background,
-        foregroundColor: semanticColors.textPrimary,
-        titleTextStyle: textTheme.titleLarge,
+        backgroundColor: isDark ? AppColors.primaryStrong : AppColors.primary,
+        foregroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.white),
+        actionsIconTheme: const IconThemeData(color: Colors.white),
+        titleTextStyle: textTheme.titleMedium?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+        ),
         surfaceTintColor: Colors.transparent,
       ),
       cardTheme: CardThemeData(

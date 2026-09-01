@@ -7,6 +7,8 @@ import 'package:igt/features/academie/pages/MesCours/mes_cours_page.dart';
 import 'package:igt/features/academie/pages/MesCours/videos_page.dart';
 import 'package:igt/features/academie/pages/MesDocuments/document_detail_page.dart';
 import 'package:igt/features/academie/pages/MesResultats/mes_resultats_page.dart';
+import 'package:igt/features/academie/pages/MonEmploiDuTemps/emploi_du_temps_page.dart';
+import 'package:igt/features/academie/pages/MonParcours/mon_parcours_page.dart';
 
 Widget _app(Widget home, {ThemeMode mode = ThemeMode.light}) => MaterialApp(
   theme: AppTheme.lightTheme,
@@ -90,5 +92,20 @@ void main() {
     expect(find.textContaining('Téléchargement'), findsOneWidget);
     await tester.pump(const Duration(seconds: 2));
     expect(find.text('Téléchargé'), findsOneWidget);
+  });
+
+  testWidgets('academic secondary pages support compact dark mode', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 760);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    for (final page in const [MonParcoursPage(), EmploiDuTempsPage()]) {
+      await tester.pumpWidget(_app(page, mode: ThemeMode.dark));
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+    }
   });
 }

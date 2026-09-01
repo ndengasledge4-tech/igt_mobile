@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/theme/semantic_colors.dart';
 import '../../../shared/widgets/premium_ui.dart';
+import '../../../shared/widgets/app_header.dart';
 import '../../communication/communication_store.dart';
 import 'evenement_detail_page.dart';
 
@@ -33,7 +34,10 @@ class _EvenementsPageState extends State<EvenementsPage> {
                     : b.startsAt.compareTo(a.startsAt),
               );
         return Scaffold(
-          appBar: AppBar(title: const Text('Événements')),
+          appBar: const AppHeader.secondary(
+            title: 'Événements',
+            subtitle: 'Agenda de la vie étudiante',
+          ),
           body: ListView(
             padding: EdgeInsets.zero,
             children: [

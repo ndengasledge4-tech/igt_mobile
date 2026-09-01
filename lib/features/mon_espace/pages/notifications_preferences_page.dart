@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
+import '../../../shared/widgets/app_header.dart';
+import '../../../shared/widgets/premium_ui.dart';
 
 class NotificationsPreferencesPage extends StatefulWidget {
   const NotificationsPreferencesPage({super.key});
@@ -24,86 +27,50 @@ class _NotificationsPreferencesPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leadingWidth: 70,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Center(
-            child: InkWell(
-              onTap: () => Navigator.pop(context),
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.softBlue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.arrow_back,
-                  color: AppColors.primary,
-                  size: 20,
-                ),
-              ),
-            ),
-          ),
-        ),
-        title: const Text(
-          "Préférences de notifications",
-          style: TextStyle(
-            color: AppColors.text,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        centerTitle: false,
+      appBar: const AppHeader.secondary(
+        title: 'Préférences de notifications',
+        subtitle: 'Choisissez les alertes utiles',
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Gérez les types de notifications que vous souhaitez recevoir dans l'application",
-              style: TextStyle(fontSize: 14, color: AppColors.secondaryText),
-            ),
-            const SizedBox(height: 24),
-
-            const Text(
-              "Types de notifications",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.text,
+        child: AppResponsiveContent(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Gérez les types de notifications que vous souhaitez recevoir dans l'application",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: context.semanticColors.textSecondary,
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 24),
 
-            _buildGroupedPreferencesCard(),
-            const SizedBox(height: 24),
+              Text(
+                "Types de notifications",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 16),
 
-            _buildInfoCard(
-              icon: Icons.info_outline,
-              text: "Information",
-              subtext:
-                  "Vous recevrez toujours les notifications importantes même si certaines catégories sont désactivées.",
-            ),
-            const SizedBox(height: 40),
-          ],
+              _buildGroupedPreferencesCard(),
+              const SizedBox(height: 24),
+
+              _buildInfoCard(
+                icon: Icons.info_outline,
+                text: "Information",
+                subtext:
+                    "Vous recevrez toujours les notifications importantes même si certaines catégories sont désactivées.",
+              ),
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildGroupedPreferencesCard() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
-      ),
+    return AppSurface(
+      padding: EdgeInsets.zero,
+      radius: 12,
       child: Column(
         children: [
           _buildPreferenceItem(
@@ -175,22 +142,21 @@ class _NotificationsPreferencesPageState
       secondary: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: AppColors.softBlue,
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(icon, color: AppColors.primary, size: 20),
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-          color: AppColors.text,
+        child: Icon(
+          icon,
+          color: Theme.of(context).colorScheme.primary,
+          size: 20,
         ),
       ),
+      title: Text(title, style: Theme.of(context).textTheme.titleSmall),
       subtitle: Text(
         subtitle,
-        style: const TextStyle(fontSize: 12, color: AppColors.secondaryText),
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: context.semanticColors.textSecondary,
+        ),
       ),
       activeThumbColor: AppColors.primary,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -205,33 +171,25 @@ class _NotificationsPreferencesPageState
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border.withValues(alpha: 0.5)),
+        border: Border.all(color: context.semanticColors.border),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: AppColors.hint, size: 20),
+          Icon(icon, color: Theme.of(context).colorScheme.primary, size: 20),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  text,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.text,
-                  ),
-                ),
+                Text(text, style: Theme.of(context).textTheme.titleSmall),
                 const SizedBox(height: 4),
                 Text(
                   subtext,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.secondaryText,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: context.semanticColors.textSecondary,
                   ),
                 ),
               ],

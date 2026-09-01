@@ -55,6 +55,66 @@ void main() {
     expect(notifier.value, ThemeMode.light);
   });
 
+  testWidgets('the profile settings expose the manual theme control', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 760);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final notifier = AppThemeModeNotifier(ThemeMode.light);
+    addTearDown(notifier.dispose);
+
+    await tester.pumpWidget(
+      IgtApp(themeModeNotifier: notifier, initialRoute: RouteNames.parametres),
+    );
+
+    expect(find.text('Clair'), findsOneWidget);
+    expect(find.text('Sombre'), findsOneWidget);
+    expect(find.text('Système'), findsOneWidget);
+    await tester.tap(find.text('Sombre'));
+    await tester.pump();
+    expect(notifier.value, ThemeMode.dark);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('profile secondary pages render in compact dark mode', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(320, 760);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    const routes = [
+      RouteNames.profil,
+      RouteNames.situationFinanciere,
+      RouteNames.historiquePaiements,
+      RouteNames.parametres,
+      RouteNames.securiteCompte,
+      RouteNames.sessionsActives,
+      RouteNames.activiteRecente,
+      RouteNames.notificationsPreferences,
+      RouteNames.informationsLegales,
+      RouteNames.aide,
+      RouteNames.aPropos,
+      RouteNames.newsDetail,
+    ];
+
+    for (final route in routes) {
+      final notifier = AppThemeModeNotifier(ThemeMode.dark);
+      addTearDown(notifier.dispose);
+      await tester.pumpWidget(
+        IgtApp(themeModeNotifier: notifier, initialRoute: route),
+      );
+      await tester.pump();
+      expect(
+        tester.takeException(),
+        isNull,
+        reason: 'overflow or theme error on $route',
+      );
+    }
+  });
+
   testWidgets('a shared primary button can be rendered', (tester) async {
     await tester.pumpWidget(
       MaterialApp(

@@ -9,11 +9,13 @@ import '../../features/academie/pages/MesNotes/mes_notes_page.dart';
 import '../../features/academie/pages/MesNotes/note_detail_page.dart';
 import '../../features/academie/pages/MesResultats/mes_resultats_page.dart';
 import '../../features/academie/pages/MesResultats/resultat_detail_page.dart';
+import '../../features/academie/pages/MonEmploiDuTemps/emploi_du_temps_detail.dart';
 import '../../features/timetable/timetable_page.dart';
 import '../../features/academie/pages/MonParcours/mon_parcours_page.dart';
 import '../../features/academie/pages/academie_page.dart';
 import '../../features/accueil/pages/accueil_page.dart';
 import '../../features/actualite/pages/actualites_page.dart';
+import '../../features/actualite/pages/actualite_detail_page.dart';
 import '../../features/actualite/pages/evenements_page.dart';
 import '../../features/auth/activation/activation_screen.dart';
 import '../../features/auth/create_password/create_password_screen.dart';
@@ -27,6 +29,7 @@ import '../../features/authentification/pages/waiting_validation/waiting_validat
 import '../../features/messagerie/pages/messagerie_page.dart';
 import '../../features/messagerie/pages/conversation_page.dart';
 import '../../features/messagerie/pages/nouvelle_demande_page.dart';
+import '../../features/communication/communication_store.dart';
 import '../../features/teacher/teacher_home_page.dart';
 import '../../features/mon_espace/pages/a_propos_page.dart';
 import '../../features/mon_espace/pages/activite_recente_page.dart';
@@ -43,9 +46,7 @@ import '../../features/mon_espace/pages/profil_page.dart';
 import '../../features/mon_espace/pages/securite_compte_page.dart';
 import '../../features/mon_espace/pages/sessions_actives_page.dart';
 import '../../features/mon_espace/pages/situation_financiere_page.dart';
-import '../../features/news/news_detail_screen.dart';
 import '../../features/notifications/notifications_page.dart';
-import '../../features/settings/settings_page.dart';
 import '../../shared/navigation/navigation_page.dart';
 import 'route_names.dart';
 
@@ -99,6 +100,15 @@ abstract final class RouteGenerator {
       case RouteNames.emploiDuTemps:
       case RouteNames.timetable:
         return const TimetablePage();
+      case RouteNames.emploiDuTempsDetail:
+        final arguments = _arguments(settings);
+        return EmploiDuTempsDetail(
+          matiere: arguments['matiere'] as String? ?? 'Cours IGT',
+          horaire: arguments['horaire'] as String? ?? 'Horaire à confirmer',
+          salle: arguments['salle'] as String? ?? 'Salle à confirmer',
+          professeur:
+              arguments['professeur'] as String? ?? 'Enseignant à confirmer',
+        );
       case RouteNames.mesCours:
         return const MesCoursPage();
       case RouteNames.semestre:
@@ -140,11 +150,12 @@ abstract final class RouteGenerator {
       case RouteNames.actualite:
       case RouteNames.news:
         return const ActualitePage();
+      case RouteNames.actualiteDetail:
+      case RouteNames.newsDetail:
+        return ActualiteDetailPage(article: _article(settings));
       case RouteNames.evenements:
       case RouteNames.events:
         return const EvenementsPage();
-      case RouteNames.newsDetail:
-        return const NewsDetailScreen();
 
       case RouteNames.messagerie:
         return const MessageriePage();
@@ -169,9 +180,8 @@ abstract final class RouteGenerator {
       case RouteNames.historiquePaiements:
         return const HistoriquePaiementsPage();
       case RouteNames.parametres:
-        return const ParametresPage();
       case RouteNames.settings:
-        return const SettingsPage();
+        return const ParametresPage();
       case RouteNames.modifierMotDePasse:
         return const ModifierMotDePassePage();
       case RouteNames.securiteCompte:
@@ -203,6 +213,22 @@ abstract final class RouteGenerator {
     final arguments = settings.arguments;
     if (arguments is Map<String, Object?>) return arguments;
     return const {};
+  }
+
+  static CommunicationArticle _article(RouteSettings settings) {
+    final direct = settings.arguments;
+    if (direct is CommunicationArticle) return direct;
+    final arguments = _arguments(settings);
+    final embedded = arguments['article'];
+    if (embedded is CommunicationArticle) return embedded;
+    final id = direct is String
+        ? direct
+        : arguments['articleId'] as String? ?? 'rentree';
+    final articles = CommunicationStore.instance.articles;
+    return articles.firstWhere(
+      (article) => article.id == id,
+      orElse: () => articles.first,
+    );
   }
 }
 

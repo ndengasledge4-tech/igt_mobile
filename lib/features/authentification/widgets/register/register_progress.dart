@@ -12,6 +12,7 @@ class RegisterProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
     return Row(
       children: List.generate(totalSteps, (index) {
         final active = index < currentStep;
@@ -21,7 +22,7 @@ class RegisterProgress extends StatelessWidget {
             height: 5,
             margin: EdgeInsets.only(right: index == totalSteps - 1 ? 0 : 7),
             decoration: BoxDecoration(
-              color: active ? const Color(0xFF4388C5) : const Color(0xFFE0E7ED),
+              color: active ? scheme.primary : scheme.outlineVariant,
               borderRadius: BorderRadius.circular(20),
             ),
           ),

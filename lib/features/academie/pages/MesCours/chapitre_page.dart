@@ -56,23 +56,18 @@ class ChapitrePage extends StatelessWidget {
                       const SizedBox(height: 14),
                       const LinearProgressIndicator(value: .65, minHeight: 7),
                       const SizedBox(height: 14),
-                      Row(
+                      Wrap(
+                        spacing: 18,
+                        runSpacing: 8,
                         children: [
-                          Icon(
-                            Icons.schedule_rounded,
-                            size: 17,
-                            color: context.semanticColors.textSecondary,
+                          _ChapterMeta(
+                            icon: Icons.schedule_rounded,
+                            label: '25 min de lecture',
                           ),
-                          const SizedBox(width: 6),
-                          const Text('25 min de lecture'),
-                          const SizedBox(width: 18),
-                          Icon(
-                            Icons.attach_file_rounded,
-                            size: 17,
-                            color: context.semanticColors.textSecondary,
+                          _ChapterMeta(
+                            icon: Icons.attach_file_rounded,
+                            label: '6 ressources',
                           ),
-                          const SizedBox(width: 6),
-                          const Text('6 ressources'),
                         ],
                       ),
                     ],
@@ -141,5 +136,22 @@ class ChapitrePage extends StatelessWidget {
         ),
       ],
     ),
+  );
+}
+
+class _ChapterMeta extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const _ChapterMeta({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(icon, size: 17, color: context.semanticColors.textSecondary),
+      const SizedBox(width: 6),
+      Flexible(child: Text(label)),
+    ],
   );
 }

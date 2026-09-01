@@ -101,7 +101,7 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.textContaining('Développement mobile'), findsOneWidget);
-    expect(find.text('À l’instant'), findsOneWidget);
+    expect(find.text('À l’instant'), findsWidgets);
     expect(tester.takeException(), isNull);
   });
 

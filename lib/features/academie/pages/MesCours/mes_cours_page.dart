@@ -81,14 +81,20 @@ class _MesCoursPageState extends State<MesCoursPage> {
                           ),
                           const SizedBox(width: 10),
                           const Expanded(
-                            child: Row(
-                              children: [
-                                Text(
-                                  '1ère année',
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                ),
-                                Text(' · Semestre 6'),
-                              ],
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '1ère année',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  TextSpan(text: ' · Semestre 6'),
+                                ],
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           Text(

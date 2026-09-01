@@ -32,7 +32,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byType(MesCoursPage), findsOneWidget);
 
-    await tester.tap(find.text('1ère année').first);
+    await tester.tap(find.byKey(const Key('academic-period-selector')));
     await tester.pumpAndSettle();
     expect(find.byType(SemestrePage), findsOneWidget);
     expect(find.text('Semestre 1'), findsWidgets);

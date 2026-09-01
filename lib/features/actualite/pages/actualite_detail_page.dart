@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../app/theme/semantic_colors.dart';
 import '../../../shared/widgets/premium_ui.dart';
+import '../../../shared/widgets/app_header.dart';
 import '../../communication/communication_store.dart';
 
 class ActualiteDetailPage extends StatelessWidget {
@@ -10,7 +11,10 @@ class ActualiteDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Détail de la publication')),
+    appBar: const AppHeader.secondary(
+      title: 'Détail de la publication',
+      subtitle: 'Actualité officielle',
+    ),
     body: ListView(
       padding: EdgeInsets.zero,
       children: [

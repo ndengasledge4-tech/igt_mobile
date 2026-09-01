@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../app/routes/route_names.dart';
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/semantic_colors.dart';
 import '../../../app/theme/text_styles.dart';
 import '../../../shared/widgets/app_logo.dart';
+import '../../../shared/widgets/app_header.dart';
+import '../../../shared/widgets/premium_ui.dart';
 
 class AProposPage extends StatelessWidget {
   const AProposPage({super.key});
@@ -9,72 +15,85 @@ class AProposPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text("À propos"),
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
+      appBar: const AppHeader.secondary(
+        title: 'À propos',
+        subtitle: 'IGT Mobile Student',
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            const AppLogo(size: 100),
-            const SizedBox(height: 16),
-            const Text("IGT Mobile Student", style: AppTextStyles.headline2),
-            const Text("Version 1.0.0", style: AppTextStyles.caption),
-            const SizedBox(height: 40),
-            Text(
-              "L'application IGT Mobile Student est conçue pour faciliter la vie académique des étudiants de l'IGT. Elle permet d'accéder aux cours, notes, emplois du temps et de suivre sa situation financière en temps réel.",
-              textAlign: TextAlign.center,
-              style: AppTextStyles.body.copyWith(
-                color: AppColors.secondaryText,
+        child: AppResponsiveContent(
+          maxWidth: 720,
+          child: Column(
+            children: [
+              const AppLogo(size: 100),
+              const SizedBox(height: 16),
+              const Text("IGT Mobile Student", style: AppTextStyles.headline2),
+              const Text("Version 1.0.0", style: AppTextStyles.caption),
+              const SizedBox(height: 40),
+              Text(
+                "L'application IGT Mobile Student est conçue pour faciliter la vie académique des étudiants de l'IGT. Elle permet d'accéder aux cours, notes, emplois du temps et de suivre sa situation financière en temps réel.",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: context.semanticColors.textSecondary,
+                ),
               ),
-            ),
-            const SizedBox(height: 40),
-            _buildInfoCard(),
-            const SizedBox(height: 40),
-            const Text(
-              "© 2024 IGT - Tous droits réservés",
-              style: AppTextStyles.caption,
-            ),
-          ],
+              const SizedBox(height: 32),
+              _buildInfoCard(context),
+              const SizedBox(height: 40),
+              const Text(
+                "© 2024 IGT - Tous droits réservés",
+                style: AppTextStyles.caption,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildInfoCard() {
-    return Container(
+  Widget _buildInfoCard(BuildContext context) {
+    return AppSurface(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
-      ),
       child: Column(
         children: [
-          _buildLinkItem(Icons.web, "Site web", "https://igt.sn"),
-          const Divider(color: AppColors.divider),
           _buildLinkItem(
+            context,
+            Icons.web,
+            'Site web',
+            'https://igt.sn',
+            external: true,
+            onTap: () => _openExternal(context, Uri.parse('https://igt.sn')),
+          ),
+          Divider(color: context.semanticColors.border),
+          _buildLinkItem(
+            context,
             Icons.policy_outlined,
             "Politique de confidentialité",
             "",
+            onTap: () =>
+                Navigator.pushNamed(context, RouteNames.informationsLegales),
           ),
-          const Divider(color: AppColors.divider),
+          Divider(color: context.semanticColors.border),
           _buildLinkItem(
+            context,
             Icons.description_outlined,
             "Conditions générales d'utilisation",
             "",
+            onTap: () =>
+                Navigator.pushNamed(context, RouteNames.informationsLegales),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildLinkItem(IconData icon, String title, String subtitle) {
+  Widget _buildLinkItem(
+    BuildContext context,
+    IconData icon,
+    String title,
+    String subtitle, {
+    required VoidCallback onTap,
+    bool external = false,
+  }) {
     return ListTile(
       leading: Icon(icon, color: AppColors.primary),
       title: Text(
@@ -84,11 +103,23 @@ class AProposPage extends StatelessWidget {
       subtitle: subtitle.isNotEmpty
           ? Text(subtitle, style: AppTextStyles.caption)
           : null,
-      trailing: const Icon(Icons.open_in_new, size: 18, color: AppColors.hint),
+      trailing: Icon(
+        external ? Icons.open_in_new : Icons.chevron_right_rounded,
+        size: 18,
+        color: context.semanticColors.textDisabled,
+      ),
       contentPadding: EdgeInsets.zero,
-      onTap: () {
-        // Logique d'ouverture de lien
-      },
+      onTap: onTap,
+    );
+  }
+
+  Future<void> _openExternal(BuildContext context, Uri uri) async {
+    final opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (opened || !context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Impossible d’ouvrir le site pour le moment.'),
+      ),
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../app/theme/semantic_colors.dart';
+
 class RegisterPasswordForm extends StatefulWidget {
   const RegisterPasswordForm({super.key});
 
@@ -16,67 +18,48 @@ class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Sécurisez votre compte',
-          style: TextStyle(
-            color: Color(0xFF26384D),
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 7),
+        Text(
+          'Définissez le mot de passe qui sera utilisé pour vous connecter.',
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: context.semanticColors.textSecondary,
           ),
         ),
-
-        const SizedBox(height: 7),
-
-        const Text(
-          'Définissez le mot de passe qui sera utilisé '
-          'pour vous connecter.',
-          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 14, height: 1.4),
-        ),
-
-        const SizedBox(height: 25),
-
+        const SizedBox(height: 24),
         _passwordField(
           label: 'Mot de passe',
           hint: 'Votre mot de passe',
           obscure: _obscurePassword,
-          onVisibilityPressed: () {
-            setState(() {
-              _obscurePassword = !_obscurePassword;
-            });
-          },
+          onVisibilityPressed: () =>
+              setState(() => _obscurePassword = !_obscurePassword),
         ),
-
         const SizedBox(height: 18),
-
         _passwordField(
           label: 'Confirmer le mot de passe',
           hint: 'Confirmez votre mot de passe',
           obscure: _obscureConfirmation,
-          onVisibilityPressed: () {
-            setState(() {
-              _obscureConfirmation = !_obscureConfirmation;
-            });
-          },
+          onVisibilityPressed: () =>
+              setState(() => _obscureConfirmation = !_obscureConfirmation),
         ),
-
         const SizedBox(height: 20),
-
         Container(
+          width: double.infinity,
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: const Color(0xFFF0F6FB),
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(13),
+            border: Border.all(color: context.semanticColors.border),
           ),
           child: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Conseils de sécurité',
-                style: TextStyle(
-                  color: Color(0xFF526477),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(fontWeight: FontWeight.w700),
               ),
               SizedBox(height: 9),
               _Rule(text: 'Au moins 8 caractères'),
@@ -99,59 +82,28 @@ class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Color(0xFF263238),
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        Text(label, style: Theme.of(context).textTheme.labelLarge),
         const SizedBox(height: 9),
         TextField(
           obscureText: obscure,
+          textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: Color(0xFF98A2B3)),
-            prefixIcon: const Icon(
-              Icons.lock_outline_rounded,
-              color: Color(0xFF7E8C9A),
-            ),
+            prefixIcon: const Icon(Icons.lock_outline_rounded),
             suffixIcon: IconButton(
+              tooltip: obscure
+                  ? 'Afficher le mot de passe'
+                  : 'Masquer le mot de passe',
               onPressed: onVisibilityPressed,
               icon: Icon(
                 obscure
                     ? Icons.visibility_outlined
                     : Icons.visibility_off_outlined,
-                color: const Color(0xFF7E8C9A),
               ),
             ),
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 17,
-              vertical: 16,
-            ),
-            border: _border(),
-            enabledBorder: _border(),
-            focusedBorder: _focusedBorder(),
           ),
         ),
       ],
-    );
-  }
-
-  OutlineInputBorder _border() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(color: Color(0xFFDDE3EA)),
-    );
-  }
-
-  OutlineInputBorder _focusedBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(color: Color(0xFF4388C5), width: 1.5),
     );
   }
 }
@@ -167,11 +119,19 @@ class _Rule extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 5),
       child: Row(
         children: [
-          const Icon(Icons.circle, size: 6, color: Color(0xFF8A98A8)),
+          Icon(
+            Icons.circle,
+            size: 6,
+            color: context.semanticColors.textDisabled,
+          ),
           const SizedBox(width: 8),
-          Text(
-            text,
-            style: const TextStyle(color: Color(0xFF7C8A98), fontSize: 13),
+          Expanded(
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: context.semanticColors.textSecondary,
+              ),
+            ),
           ),
         ],
       ),
