@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../../../../app/routes/route_names.dart';
@@ -12,6 +14,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage>
     with SingleTickerProviderStateMixin {
+  Timer? _navigationTimer;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
@@ -31,40 +34,30 @@ class _SplashPageState extends State<SplashPage>
       curve: Curves.easeOut,
     );
 
-    _scaleAnimation = Tween<double>(
-      begin: 0.78,
-      end: 1.0,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeOutBack,
-      ),
+    _scaleAnimation = Tween<double>(begin: 0.78, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOutBack),
     );
 
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.08),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeOutCubic,
-      ),
-    );
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0.08), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeOutCubic,
+          ),
+        );
 
     _animationController.forward();
 
-    Future.delayed(const Duration(seconds: 3), () {
+    _navigationTimer = Timer(const Duration(seconds: 3), () {
       if (!mounted) return;
 
-      Navigator.pushReplacementNamed(
-        context,
-        RouteNames.onboarding,
-      );
+      Navigator.pushReplacementNamed(context, RouteNames.onboarding);
     });
   }
 
   @override
   void dispose() {
+    _navigationTimer?.cancel();
     _animationController.dispose();
     super.dispose();
   }
@@ -84,9 +77,7 @@ class _SplashPageState extends State<SplashPage>
             'assets/images/salles/igt.jpg',
             fit: BoxFit.cover,
             errorBuilder: (_, _, _) {
-              return Container(
-                color: AppColors.primaryDark,
-              );
+              return Container(color: AppColors.primaryDark);
             },
           ),
 
@@ -103,11 +94,7 @@ class _SplashPageState extends State<SplashPage>
                   AppColors.primary.withValues(alpha: 0.72),
                   AppColors.primaryDark.withValues(alpha: 0.94),
                 ],
-                stops: const [
-                  0.0,
-                  0.48,
-                  1.0,
-                ],
+                stops: const [0.0, 0.48, 1.0],
               ),
             ),
           ),
@@ -134,19 +121,13 @@ class _SplashPageState extends State<SplashPage>
           Positioned(
             top: -90,
             right: -70,
-            child: _buildCircle(
-              size: 220,
-              opacity: 0.08,
-            ),
+            child: _buildCircle(size: 220, opacity: 0.08),
           ),
 
           Positioned(
             bottom: 90,
             left: -100,
-            child: _buildCircle(
-              size: 250,
-              opacity: 0.06,
-            ),
+            child: _buildCircle(size: 250, opacity: 0.06),
           ),
 
           // =========================================================
@@ -155,9 +136,7 @@ class _SplashPageState extends State<SplashPage>
           SafeArea(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 28,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 28),
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: SlideTransition(
@@ -191,7 +170,7 @@ class _SplashPageState extends State<SplashPage>
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 32,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w700,
                             letterSpacing: -0.7,
                             height: 1.05,
                           ),
@@ -204,12 +183,10 @@ class _SplashPageState extends State<SplashPage>
                         // =================================================
                         Text(
                           'Votre espace étudiant,\n'
-                              'partout avec vous.',
+                          'partout avec vous.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.white.withValues(
-                              alpha: 0.88,
-                            ),
+                            color: Colors.white.withValues(alpha: 0.88),
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                             height: 1.45,
@@ -228,9 +205,7 @@ class _SplashPageState extends State<SplashPage>
                         Text(
                           'Chargement...',
                           style: TextStyle(
-                            color: Colors.white.withValues(
-                              alpha: 0.70,
-                            ),
+                            color: Colors.white.withValues(alpha: 0.70),
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             letterSpacing: 0.4,
@@ -247,12 +222,7 @@ class _SplashPageState extends State<SplashPage>
           // =========================================================
           // FOOTER
           // =========================================================
-          Positioned(
-            left: 24,
-            right: 24,
-            bottom: 22,
-            child: _buildFooter(),
-          ),
+          Positioned(left: 24, right: 24, bottom: 22, child: _buildFooter()),
         ],
       ),
     );
@@ -299,7 +269,7 @@ class _SplashPageState extends State<SplashPage>
           ],
         ),
         child: Image.asset(
-          'assets/logo/logo.png',
+          'assets/logo/Logo.png',
           fit: BoxFit.contain,
           errorBuilder: (_, _, _) {
             return const Icon(
@@ -319,10 +289,7 @@ class _SplashPageState extends State<SplashPage>
 
   Widget _buildBadge() {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 8,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.11),
         borderRadius: BorderRadius.circular(50),
@@ -369,15 +336,11 @@ class _SplashPageState extends State<SplashPage>
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.10),
         shape: BoxShape.circle,
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.20),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.20)),
       ),
       child: const CircularProgressIndicator(
         strokeWidth: 2.2,
-        valueColor: AlwaysStoppedAnimation<Color>(
-          Colors.white,
-        ),
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       ),
     );
   }
@@ -386,10 +349,7 @@ class _SplashPageState extends State<SplashPage>
   // CERCLES DECORATIFS
   // ===============================================================
 
-  Widget _buildCircle({
-    required double size,
-    required double opacity,
-  }) {
+  Widget _buildCircle({required double size, required double opacity}) {
     return Container(
       width: size,
       height: size,

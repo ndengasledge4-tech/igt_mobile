@@ -1,185 +1,220 @@
 import 'package:flutter/material.dart';
 
-// ============================================================
-// AUTHENTIFICATION
-// ============================================================
-import '../../features/Authentification/pages/forgot_password/mot_de_passe_oublie_page.dart';
-import '../../features/Authentification/pages/login/connexion_page.dart';
-import '../../features/Authentification/pages/onboarding/onboarding_page.dart';
-import '../../features/Authentification/pages/reinitialisation/reinitialisation_page.dart';
-import '../../features/Authentification/pages/register/creation_compte_page.dart';
-import '../../features/Authentification/pages/splash/splash_page.dart';
-import '../../features/Authentification/pages/waiting_validation/waiting_validation_page.dart';
-
-// ============================================================
-// NAVIGATION PRINCIPALE
-// ============================================================
-import '../../shared/navigation/navigation_page.dart';
-
-// ============================================================
-// ACCUEIL
-// ============================================================
-import '../../features/Accueil/pages/accueil_page.dart';
-
-// ============================================================
-// ACADEMIE
-// ============================================================
-import '../../features/Academie/pages/academie_page.dart';
-
-// ============================================================
-// ACTUALITE
-// ============================================================
-import '../../features/Actualite/pages/actualites_page.dart';
-
-// ============================================================
-// MESSAGERIE
-// ============================================================
-import '../../features/Messagerie/pages/messagerie_page.dart';
-
-// ============================================================
-// MON ESPACE
-// ============================================================
+import '../../features/academie/pages/MesCours/cours_detail_page.dart';
+import '../../features/academie/pages/MesCours/mes_cours_page.dart';
+import '../../features/academie/pages/MesCours/semestre_page.dart';
+import '../../features/academie/pages/MesDocuments/document_detail_page.dart';
+import '../../features/academie/pages/MesDocuments/mes_documents_page.dart';
+import '../../features/academie/pages/MesNotes/mes_notes_page.dart';
+import '../../features/academie/pages/MesNotes/note_detail_page.dart';
+import '../../features/academie/pages/MesResultats/mes_resultats_page.dart';
+import '../../features/academie/pages/MesResultats/resultat_detail_page.dart';
+import '../../features/timetable/timetable_page.dart';
+import '../../features/academie/pages/MonParcours/mon_parcours_page.dart';
+import '../../features/academie/pages/academie_page.dart';
+import '../../features/accueil/pages/accueil_page.dart';
+import '../../features/actualite/pages/actualites_page.dart';
+import '../../features/actualite/pages/evenements_page.dart';
+import '../../features/auth/activation/activation_screen.dart';
+import '../../features/auth/create_password/create_password_screen.dart';
+import '../../features/authentification/pages/forgot_password/mot_de_passe_oublie_page.dart';
+import '../../features/authentification/pages/login/connexion_page.dart';
+import '../../features/authentification/pages/onboarding/onboarding_page.dart';
+import '../../features/authentification/pages/register/creation_compte_page.dart';
+import '../../features/authentification/pages/reinitialisation/reinitialisation_page.dart';
+import '../../features/authentification/pages/splash/splash_page.dart';
+import '../../features/authentification/pages/waiting_validation/waiting_validation_page.dart';
+import '../../features/messagerie/pages/messagerie_page.dart';
+import '../../features/messagerie/pages/conversation_page.dart';
+import '../../features/messagerie/pages/nouvelle_demande_page.dart';
+import '../../features/teacher/teacher_home_page.dart';
+import '../../features/mon_espace/pages/a_propos_page.dart';
+import '../../features/mon_espace/pages/activite_recente_page.dart';
+import '../../features/mon_espace/pages/aide_page.dart';
+import '../../features/mon_espace/pages/historique_paiements_page.dart';
+import '../../features/mon_espace/pages/informations_legales_page.dart';
+import '../../features/mon_espace/pages/modifier_email_page.dart';
+import '../../features/mon_espace/pages/modifier_mot_de_passe_page.dart';
+import '../../features/mon_espace/pages/modifier_telephone_page.dart';
 import '../../features/mon_espace/pages/mon_espace_page.dart';
-
-
-
+import '../../features/mon_espace/pages/notifications_preferences_page.dart';
+import '../../features/mon_espace/pages/parametres_page.dart';
+import '../../features/mon_espace/pages/profil_page.dart';
+import '../../features/mon_espace/pages/securite_compte_page.dart';
+import '../../features/mon_espace/pages/sessions_actives_page.dart';
+import '../../features/mon_espace/pages/situation_financiere_page.dart';
+import '../../features/news/news_detail_screen.dart';
+import '../../features/notifications/notifications_page.dart';
+import '../../features/settings/settings_page.dart';
+import '../../shared/navigation/navigation_page.dart';
 import 'route_names.dart';
 
-class RouteGenerator {
+abstract final class RouteGenerator {
   const RouteGenerator._();
 
-  static Route<dynamic> generateRoute(
-      RouteSettings settings,
-      ) {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final page = _resolve(settings);
+    return MaterialPageRoute<void>(builder: (_) => page, settings: settings);
+  }
+
+  static Widget _resolve(RouteSettings settings) {
     switch (settings.name) {
-    // ========================================================
-    // AUTHENTIFICATION
-    // ========================================================
-
       case RouteNames.splash:
-        return MaterialPageRoute(
-          builder: (_) => const SplashPage(),
-          settings: settings,
-        );
-
+        return const SplashPage();
       case RouteNames.onboarding:
-        return MaterialPageRoute(
-          builder: (_) => const OnboardingPage(),
-          settings: settings,
-        );
-
+        return const OnboardingPage();
       case RouteNames.connexion:
-        return MaterialPageRoute(
-          builder: (_) => const ConnexionPage(),
-          settings: settings,
-        );
-
+      case RouteNames.login:
+        return const ConnexionPage();
       case RouteNames.creationCompte:
-        return MaterialPageRoute(
-          builder: (_) => const CreationComptePage(),
-          settings: settings,
-        );
-
+        return const CreationComptePage();
       case RouteNames.motDePasseOublie:
-        return MaterialPageRoute(
-          builder: (_) => const MotDePasseOubliePage(),
-          settings: settings,
-        );
-
+      case RouteNames.forgotPassword:
+        return const MotDePasseOubliePage();
       case RouteNames.reinitialisation:
-        return MaterialPageRoute(
-          builder: (_) => const ReinitialisationPage(),
-          settings: settings,
-        );
-
+        return const ReinitialisationPage();
       case RouteNames.waitingValidation:
-        return MaterialPageRoute(
-          builder: (_) => const WaitingValidationPage(),
-          settings: settings,
-        );
-
-
-
-    // ========================================================
-    // NAVIGATION PRINCIPALE
-    // ========================================================
+        return const WaitingValidationPage();
+      case RouteNames.activation:
+        return const ActivationScreen();
+      case RouteNames.createPassword:
+        return const CreatePasswordScreen();
 
       case RouteNames.navigation:
-        return _page(
-          const NavigationPage(),
-        );
-
-    // ============================================================
-    // ACCUEIL
-    // ============================================================
-
+      case RouteNames.dashboard:
+        return const NavigationPage();
       case RouteNames.accueil:
-        return _page(
-          const AccueilPage(),
-        );
+        return const AccueilPage();
 
-
-    // ============================================================
-    // ACADEMIE
-    // ============================================================
       case RouteNames.academie:
-        return _page(
-          const AcademiePage(),
+      case RouteNames.academic:
+        return const AcademiePage();
+      case RouteNames.monParcours:
+        return const MonParcoursPage();
+      case RouteNames.mesResultats:
+      case RouteNames.results:
+        return const MesResultatsPage();
+      case RouteNames.resultatDetail:
+        return const ResultatDetailPage();
+      case RouteNames.emploiDuTemps:
+      case RouteNames.timetable:
+        return const TimetablePage();
+      case RouteNames.mesCours:
+        return const MesCoursPage();
+      case RouteNames.semestre:
+        final arguments = _arguments(settings);
+        return SemestrePage(
+          annee: arguments['annee'] as String? ?? '1ère année',
+          semestres:
+              (arguments['semestres'] as List?)?.whereType<String>().toList() ??
+              const ['S1', 'S2'],
         );
+      case RouteNames.coursDetail:
+        return CoursDetailPage(
+          semestre: settings.arguments is String
+              ? settings.arguments! as String
+              : 'S1',
+        );
+      case RouteNames.mesDocuments:
+      case RouteNames.documents:
+        return const MesDocumentsPage();
+      case RouteNames.documentDetail:
+        final arguments = _arguments(settings);
+        return DocumentDetailPage(
+          titre: arguments['titre'] as String? ?? 'Document IGT',
+          type: arguments['type'] as String? ?? 'PDF',
+          date: arguments['date'] as String? ?? 'Date indisponible',
+          taille: arguments['taille'] as String? ?? 'Taille indisponible',
+        );
+      case RouteNames.mesNotes:
+        return const MesNotesPage();
+      case RouteNames.noteDetail:
+        final arguments = _arguments(settings);
+        return NoteDetailPage(
+          titre: arguments['titre'] as String? ?? '1ère année',
+          niveau: arguments['niveau'] as String? ?? 'Licence',
+        );
+      case RouteNames.subjectDetails:
+        return const ResultatDetailPage();
 
-
-    // ============================================================
-    // ACTUALITE
-    // ============================================================
       case RouteNames.actualite:
-        return _page(
-          const ActualitePage(),
-        );
+      case RouteNames.news:
+        return const ActualitePage();
+      case RouteNames.evenements:
+      case RouteNames.events:
+        return const EvenementsPage();
+      case RouteNames.newsDetail:
+        return const NewsDetailScreen();
 
-
-    // ============================================================
-    // MESSAGERIE
-    // ============================================================
       case RouteNames.messagerie:
-        return _page(
-          const MessageriePage(),
+        return const MessageriePage();
+      case RouteNames.conversation:
+        return ConversationPage(
+          conversationId: settings.arguments is String
+              ? settings.arguments! as String
+              : 'teacher-mariam',
         );
+      case RouteNames.nouvelleDemande:
+        return const NouvelleDemandePage();
+      case RouteNames.teacherHome:
+        return const TeacherHomePage();
 
-
-    // ============================================================
-    // MON ESPACE
-    // ============================================================
       case RouteNames.monEspace:
-        return _page(
-          const MonEspacePage(),
-        );
-
-    // ========================================================
-    // ROUTE INCONNUE
-    // ========================================================
-
+      case RouteNames.profile:
+        return const MonEspacePage();
+      case RouteNames.profil:
+        return const ProfilPage();
+      case RouteNames.situationFinanciere:
+        return const SituationFinancierePage();
+      case RouteNames.historiquePaiements:
+        return const HistoriquePaiementsPage();
+      case RouteNames.parametres:
+        return const ParametresPage();
+      case RouteNames.settings:
+        return const SettingsPage();
+      case RouteNames.modifierMotDePasse:
+        return const ModifierMotDePassePage();
+      case RouteNames.securiteCompte:
+        return const SecuriteComptePage();
+      case RouteNames.modifierTelephone:
+        return const ModifierTelephonePage();
+      case RouteNames.modifierEmail:
+        return const ModifierEmailPage();
+      case RouteNames.activiteRecente:
+        return const ActiviteRecentePage();
+      case RouteNames.notificationsPreferences:
+        return const NotificationsPreferencesPage();
+      case RouteNames.informationsLegales:
+        return const InformationsLegalesPage();
+      case RouteNames.sessionsActives:
+        return const SessionsActivesPage();
+      case RouteNames.aide:
+        return const AidePage();
+      case RouteNames.aPropos:
+        return const AProposPage();
+      case RouteNames.notifications:
+        return const NotificationsPage();
       default:
-        return _notFound();
+        return const _NotFoundPage();
     }
   }
 
-  static MaterialPageRoute _page(
-      Widget page,
-      ) {
-    return MaterialPageRoute(
-      builder: (_) => page,
-    );
+  static Map<String, Object?> _arguments(RouteSettings settings) {
+    final arguments = settings.arguments;
+    if (arguments is Map<String, Object?>) return arguments;
+    return const {};
   }
+}
 
-  static MaterialPageRoute _notFound() {
-    return MaterialPageRoute(
-      builder: (_) => const Scaffold(
-        body: Center(
-          child: Text(
-            '404\nPage introuvable',
-            textAlign: TextAlign.center,
-          ),
-        ),
+class _NotFoundPage extends StatelessWidget {
+  const _NotFoundPage();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Page introuvable')),
+      body: const Center(
+        child: Text('404\nPage introuvable', textAlign: TextAlign.center),
       ),
     );
   }

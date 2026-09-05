@@ -33,13 +33,9 @@ class RegisterHeader extends StatelessWidget {
         const SizedBox(height: 9),
         const Text(
           'Créez votre compte étudiant pour accéder\n'
-              'à votre espace personnel.',
+          'à votre espace personnel.',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xFF8A98A8),
-            fontSize: 16,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 16, height: 1.5),
         ),
       ],
     );

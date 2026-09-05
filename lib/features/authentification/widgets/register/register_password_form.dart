@@ -4,12 +4,10 @@ class RegisterPasswordForm extends StatefulWidget {
   const RegisterPasswordForm({super.key});
 
   @override
-  State<RegisterPasswordForm> createState() =>
-      _RegisterPasswordFormState();
+  State<RegisterPasswordForm> createState() => _RegisterPasswordFormState();
 }
 
-class _RegisterPasswordFormState
-    extends State<RegisterPasswordForm> {
+class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
   bool _obscurePassword = true;
   bool _obscureConfirmation = true;
 
@@ -31,12 +29,8 @@ class _RegisterPasswordFormState
 
         const Text(
           'Définissez le mot de passe qui sera utilisé '
-              'pour vous connecter.',
-          style: TextStyle(
-            color: Color(0xFF8A98A8),
-            fontSize: 14,
-            height: 1.4,
-          ),
+          'pour vous connecter.',
+          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 14, height: 1.4),
         ),
 
         const SizedBox(height: 25),
@@ -118,9 +112,7 @@ class _RegisterPasswordFormState
           obscureText: obscure,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(
-              color: Color(0xFF98A2B3),
-            ),
+            hintStyle: const TextStyle(color: Color(0xFF98A2B3)),
             prefixIcon: const Icon(
               Icons.lock_outline_rounded,
               color: Color(0xFF7E8C9A),
@@ -152,19 +144,14 @@ class _RegisterPasswordFormState
   OutlineInputBorder _border() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(
-        color: Color(0xFFDDE3EA),
-      ),
+      borderSide: const BorderSide(color: Color(0xFFDDE3EA)),
     );
   }
 
   OutlineInputBorder _focusedBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(
-        color: Color(0xFF4388C5),
-        width: 1.5,
-      ),
+      borderSide: const BorderSide(color: Color(0xFF4388C5), width: 1.5),
     );
   }
 }
@@ -172,9 +159,7 @@ class _RegisterPasswordFormState
 class _Rule extends StatelessWidget {
   final String text;
 
-  const _Rule({
-    required this.text,
-  });
+  const _Rule({required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -182,18 +167,11 @@ class _Rule extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 5),
       child: Row(
         children: [
-          const Icon(
-            Icons.circle,
-            size: 6,
-            color: Color(0xFF8A98A8),
-          ),
+          const Icon(Icons.circle, size: 6, color: Color(0xFF8A98A8)),
           const SizedBox(width: 8),
           Text(
             text,
-            style: const TextStyle(
-              color: Color(0xFF7C8A98),
-              fontSize: 13,
-            ),
+            style: const TextStyle(color: Color(0xFF7C8A98), fontSize: 13),
           ),
         ],
       ),

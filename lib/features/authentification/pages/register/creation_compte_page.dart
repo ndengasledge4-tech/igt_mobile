@@ -10,12 +10,10 @@ class CreationComptePage extends StatefulWidget {
   const CreationComptePage({super.key});
 
   @override
-  State<CreationComptePage> createState() =>
-      _CreationComptePageState();
+  State<CreationComptePage> createState() => _CreationComptePageState();
 }
 
-class _CreationComptePageState
-    extends State<CreationComptePage> {
+class _CreationComptePageState extends State<CreationComptePage> {
   int _currentStep = 1;
 
   void _nextStep() {
@@ -47,12 +45,7 @@ class _CreationComptePageState
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          contentPadding: const EdgeInsets.fromLTRB(
-            24,
-            28,
-            24,
-            20,
-          ),
+          contentPadding: const EdgeInsets.fromLTRB(24, 28, 24, 20),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -86,7 +79,7 @@ class _CreationComptePageState
 
               const Text(
                 'Votre demande de création de compte '
-                    'a été enregistrée.',
+                'a été enregistrée.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xFF8A98A8),
@@ -106,10 +99,8 @@ class _CreationComptePageState
 
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(
-                        builder: (_) => const ConnexionPage(),
-                      ),
-                          (route) => false,
+                      MaterialPageRoute(builder: (_) => const ConnexionPage()),
+                      (route) => false,
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -122,10 +113,7 @@ class _CreationComptePageState
                   ),
                   child: const Text(
                     'Retour à la connexion',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -147,35 +135,26 @@ class _CreationComptePageState
 
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(
-                  24,
-                  24,
-                  24,
-                  30,
-                ),
+                padding: const EdgeInsets.fromLTRB(24, 24, 24, 30),
                 child: Column(
                   children: [
                     const RegisterHeader(),
 
                     const SizedBox(height: 28),
 
-                    RegisterProgress(
-                      currentStep: _currentStep,
-                    ),
+                    RegisterProgress(currentStep: _currentStep),
 
                     const SizedBox(height: 30),
 
                     AnimatedSwitcher(
-                      duration: const Duration(
-                        milliseconds: 250,
-                      ),
+                      duration: const Duration(milliseconds: 250),
                       child: _currentStep == 1
                           ? const RegisterPersonalForm(
-                        key: ValueKey('personal'),
-                      )
+                              key: ValueKey('personal'),
+                            )
                           : const RegisterPasswordForm(
-                        key: ValueKey('password'),
-                      ),
+                              key: ValueKey('password'),
+                            ),
                     ),
 
                     const SizedBox(height: 30),
@@ -197,11 +176,7 @@ class _CreationComptePageState
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: Color(0xFFE6EAF0),
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFE6EAF0))),
       ),
       child: Row(
         children: [
@@ -250,19 +225,14 @@ class _CreationComptePageState
                 onPressed: _previousStep,
                 style: OutlinedButton.styleFrom(
                   foregroundColor: const Color(0xFF526477),
-                  side: const BorderSide(
-                    color: Color(0xFFD5DDE5),
-                  ),
+                  side: const BorderSide(color: Color(0xFFD5DDE5)),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
                 ),
                 child: const Text(
                   'Retour',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
@@ -285,9 +255,7 @@ class _CreationComptePageState
                 ),
               ),
               child: Text(
-                _currentStep == 1
-                    ? 'Continuer'
-                    : 'Créer mon compte',
+                _currentStep == 1 ? 'Continuer' : 'Créer mon compte',
                 style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
