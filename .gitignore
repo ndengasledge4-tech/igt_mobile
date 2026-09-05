@@ -33,6 +33,9 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# Documentation de travail locale — ne jamais versionner.
+/docs/
+
 # Symbolication related
 app.*.symbols
 

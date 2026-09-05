@@ -10,9 +10,7 @@ class NotesPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.md,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppDimensions.md),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(
@@ -21,20 +19,12 @@ class NotesPreview extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: AppColors.card,
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusMedium,
-          ),
-          border: Border.all(
-            color: AppColors.border,
-          ),
+          borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+          border: Border.all(color: AppColors.border),
         ),
         child: const Column(
           children: [
-            NoteRow(
-              subject: 'Algorithmique',
-              note: '16.5 / 20',
-              isGood: true,
-            ),
+            NoteRow(subject: 'Algorithmique', note: '16.5 / 20', isGood: true),
             Divider(),
             NoteRow(
               subject: 'Bases de données',
@@ -42,11 +32,7 @@ class NotesPreview extends StatelessWidget {
               isGood: false,
             ),
             Divider(),
-            NoteRow(
-              subject: 'Réseaux',
-              note: '18 / 20',
-              isGood: true,
-            ),
+            NoteRow(subject: 'Réseaux', note: '18 / 20', isGood: true),
           ],
         ),
       ),
@@ -69,24 +55,18 @@ class NoteRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: AppDimensions.sm,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: AppDimensions.sm),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             subject,
-            style: AppTextStyles.body.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600),
           ),
           Text(
             note,
             style: AppTextStyles.bodySmall.copyWith(
-              color: isGood
-                  ? AppColors.success
-                  : AppColors.warning,
+              color: isGood ? AppColors.success : AppColors.warning,
               fontWeight: FontWeight.w700,
             ),
           ),

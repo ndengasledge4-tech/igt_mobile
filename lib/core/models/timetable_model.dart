@@ -1,32 +1,83 @@
-class TimetableModel {
-  final String classId;
-  final String subjectId;
-  final String day;
-  final String startTime;
-  final String endTime;
-  final String room;
-  final String teacherName;
+enum PlanningItemType { course, td, tp, exam, event, deadline }
 
-  const TimetableModel({
-    required this.classId,
-    required this.subjectId,
-    required this.day,
-    required this.startTime,
-    required this.endTime,
+enum PlanningItemStatus { scheduled, confirmed, moved, cancelled, inProgress }
+
+class PlanningItem {
+  final String id;
+  final String subject;
+  final DateTime start;
+  final DateTime end;
+  final PlanningItemType type;
+  final PlanningItemStatus status;
+  final String teacher;
+  final String room;
+  final String? campus;
+  final String group;
+  final List<String> resources;
+  final String? lastChange;
+  final bool isRecentChange;
+
+  const PlanningItem({
+    required this.id,
+    required this.subject,
+    required this.start,
+    required this.end,
+    required this.type,
+    required this.status,
+    required this.teacher,
     required this.room,
-    required this.teacherName,
+    required this.group,
+    this.campus,
+    this.resources = const [],
+    this.lastChange,
+    this.isRecentChange = false,
   });
 
-  Map<String, dynamic> toMap({required String uid}) {
-    return {
-      'uid': uid,
-      'classId': classId,
-      'subjectId': subjectId,
-      'day': day.trim(),
-      'startTime': startTime.trim(),
-      'endTime': endTime.trim(),
-      'room': room.trim(),
-      'teacherName': teacherName.trim(),
-    };
-  }
+  PlanningItem copyWith({
+    DateTime? start,
+    DateTime? end,
+    PlanningItemStatus? status,
+    String? lastChange,
+    bool? isRecentChange,
+  }) => PlanningItem(
+    id: id,
+    subject: subject,
+    start: start ?? this.start,
+    end: end ?? this.end,
+    type: type,
+    status: status ?? this.status,
+    teacher: teacher,
+    room: room,
+    group: group,
+    campus: campus,
+    resources: resources,
+    lastChange: lastChange ?? this.lastChange,
+    isRecentChange: isRecentChange ?? this.isRecentChange,
+  );
+}
+
+enum SemesterMilestoneType {
+  teaching,
+  assessment,
+  exam,
+  defense,
+  holiday,
+  result,
+  institution,
+}
+
+class SemesterMilestone {
+  final String title;
+  final String subtitle;
+  final DateTime date;
+  final DateTime? endDate;
+  final SemesterMilestoneType type;
+
+  const SemesterMilestone({
+    required this.title,
+    required this.subtitle,
+    required this.date,
+    required this.type,
+    this.endDate,
+  });
 }

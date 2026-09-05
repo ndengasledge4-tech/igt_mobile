@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/theme/colors.dart';
+import '../../../app/theme/dimensions.dart';
 import '../../../app/theme/text_styles.dart';
-
-enum ConversationStatus { traite, enCours, ferme }
+import 'initials_avatar.dart';
+import 'status_badge.dart';
 
 class ConversationCard extends StatelessWidget {
   const ConversationCard({
@@ -14,7 +15,7 @@ class ConversationCard extends StatelessWidget {
     required this.lastMessage,
     required this.date,
     required this.status,
-    this.unreadCount = 0,
+    required this.unreadCount,
     this.onTap,
   });
 
@@ -23,83 +24,59 @@ class ConversationCard extends StatelessWidget {
   final String interlocutor;
   final String lastMessage;
   final String date;
-  final ConversationStatus status;
+  final String status;
   final int unreadCount;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final statusColors = _StatusColors.from(status);
-
-    return Material(
-      color: AppColors.card,
-      borderRadius: BorderRadius.circular(8),
+    return Card(
+      margin: EdgeInsets.zero,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(8),
-        child: Container(
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.border),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.03),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
+        child: Padding(
+          padding: const EdgeInsets.all(AppDimensions.md),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: AppColors.softBlue,
-                child: Text(
-                  initials,
-                  style: const TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
+              InitialsAvatar(initials: initials, size: 42),
+
+              const SizedBox(width: AppDimensions.sm),
+
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: Text(
                             interlocutor,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: AppTextStyles.label.copyWith(fontSize: 12),
+                            style: AppTextStyles.label,
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        Text(
-                          date,
-                          style: AppTextStyles.caption.copyWith(fontSize: 10),
-                        ),
+
+                        const SizedBox(width: AppDimensions.sm),
+
+                        Text(date, style: AppTextStyles.caption),
                       ],
                     ),
-                    const SizedBox(height: 4),
+
+                    const SizedBox(height: AppDimensions.xs),
+
                     Text(
                       subject,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.primaryDark,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
+                      style: AppTextStyles.caption.copyWith(
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: 6),
+
+                    const SizedBox(height: AppDimensions.xs),
+
                     Row(
                       children: [
                         Expanded(
@@ -107,17 +84,16 @@ class ConversationCard extends StatelessWidget {
                             lastMessage,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: AppTextStyles.caption.copyWith(fontSize: 11),
+                            style: AppTextStyles.caption,
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        _StatusPill(
-                          label: _statusLabel(status),
-                          foreground: statusColors.foreground,
-                          background: statusColors.background,
-                        ),
+
+                        const SizedBox(width: AppDimensions.xs),
+
+                        StatusBadge(status: status),
+
                         if (unreadCount > 0) ...[
-                          const SizedBox(width: 6),
+                          const SizedBox(width: AppDimensions.xs),
                           _UnreadBadge(count: unreadCount),
                         ],
                       ],
@@ -127,48 +103,6 @@ class ConversationCard extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  String _statusLabel(ConversationStatus status) {
-    switch (status) {
-      case ConversationStatus.traite:
-        return 'Traité';
-      case ConversationStatus.enCours:
-        return 'En cours';
-      case ConversationStatus.ferme:
-        return 'Fermé';
-    }
-  }
-}
-
-class _StatusPill extends StatelessWidget {
-  const _StatusPill({
-    required this.label,
-    required this.foreground,
-    required this.background,
-  });
-
-  final String label;
-  final Color foreground;
-  final Color background;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-      decoration: BoxDecoration(
-        color: background,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: foreground,
-          fontSize: 10,
-          fontWeight: FontWeight.w800,
         ),
       ),
     );
@@ -183,48 +117,22 @@ class _UnreadBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 20,
-      height: 20,
+      constraints: const BoxConstraints(minWidth: 18),
+      height: 18,
       alignment: Alignment.center,
-      decoration: const BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: AppDimensions.xs),
+      decoration: BoxDecoration(
         color: AppColors.primary,
-        shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusLarge),
       ),
       child: Text(
         '$count',
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 11,
-          fontWeight: FontWeight.w800,
+        style: AppTextStyles.caption.copyWith(
+          color: AppColors.white,
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
         ),
       ),
     );
-  }
-}
-
-class _StatusColors {
-  const _StatusColors({required this.foreground, required this.background});
-
-  final Color foreground;
-  final Color background;
-
-  factory _StatusColors.from(ConversationStatus status) {
-    switch (status) {
-      case ConversationStatus.traite:
-        return _StatusColors(
-          foreground: AppColors.success,
-          background: AppColors.success.withValues(alpha: 0.12),
-        );
-      case ConversationStatus.enCours:
-        return _StatusColors(
-          foreground: AppColors.warning,
-          background: AppColors.warning.withValues(alpha: 0.14),
-        );
-      case ConversationStatus.ferme:
-        return _StatusColors(
-          foreground: AppColors.secondaryText,
-          background: AppColors.divider,
-        );
-    }
   }
 }

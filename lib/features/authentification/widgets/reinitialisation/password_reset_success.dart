@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class PasswordResetSuccess extends StatelessWidget {
   final VoidCallback? onContinue;
 
-  const PasswordResetSuccess({
-    super.key,
-    this.onContinue,
-  });
+  const PasswordResetSuccess({super.key, this.onContinue});
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +39,9 @@ class PasswordResetSuccess extends StatelessWidget {
 
         const Text(
           'Votre mot de passe a été modifié avec succès.\n'
-              'Vous pouvez maintenant vous connecter.',
+          'Vous pouvez maintenant vous connecter.',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xFF8A98A8),
-            fontSize: 16,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 16, height: 1.5),
         ),
 
         const SizedBox(height: 34),
@@ -68,10 +61,7 @@ class PasswordResetSuccess extends StatelessWidget {
             ),
             child: const Text(
               'Se connecter',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
         ),

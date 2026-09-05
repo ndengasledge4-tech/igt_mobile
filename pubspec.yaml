@@ -1,5 +1,5 @@
 name: igt
-description: "A new Flutter project."
+description: "Prototype frontend du portail étudiant IGT Mobile."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -31,9 +31,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  # Icônes Phosphor
+  phosphoricons_flutter: ^1.0.0
 
+  # Ouverture des URLs / documents
+  url_launcher: ^6.3.2
+
+  # Icônes Cupertino
+  cupertino_icons: ^1.0.8
 
 dev_dependencies:
   flutter_test:
@@ -58,11 +63,25 @@ flutter:
   uses-material-design: true
 
   assets:
-     - assets/logo/
-     - assets/images/
-     - assets/images/salles/
-     - assets/images/dashboard/
-     - assets/images/news/
+    - assets/logo/
+    - assets/images/
+    - assets/images/salles/
+    - assets/images/dashboard/
+    - assets/images/news/
+    - assets/images/academie/
+    - assets/images/cours/
+
+  fonts:
+    - family: PlusJakartaSans
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/PlusJakartaSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/PlusJakartaSans-Bold.ttf
+          weight: 700
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

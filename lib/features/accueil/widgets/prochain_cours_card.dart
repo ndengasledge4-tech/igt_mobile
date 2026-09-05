@@ -10,22 +10,14 @@ class ProchainCoursCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.md,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppDimensions.md),
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(
-          AppDimensions.md,
-        ),
+        padding: const EdgeInsets.all(AppDimensions.md),
         decoration: BoxDecoration(
           color: AppColors.card,
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusMedium,
-          ),
-          border: Border.all(
-            color: AppColors.border,
-          ),
+          borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+          border: Border.all(color: AppColors.border),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,9 +27,7 @@ class ProchainCoursCard extends StatelessWidget {
               height: 52,
               decoration: BoxDecoration(
                 color: AppColors.softBlue,
-                borderRadius: BorderRadius.circular(
-                  AppDimensions.radiusSmall,
-                ),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
               ),
               alignment: Alignment.center,
               child: const Icon(
@@ -47,9 +37,7 @@ class ProchainCoursCard extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(
-              width: AppDimensions.sm,
-            ),
+            const SizedBox(width: AppDimensions.sm),
 
             Expanded(
               child: Column(
@@ -63,9 +51,7 @@ class ProchainCoursCard extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: AppDimensions.xs,
-                  ),
+                  const SizedBox(height: AppDimensions.xs),
 
                   Text(
                     'Algorithmique avancée',
@@ -75,9 +61,7 @@ class ProchainCoursCard extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: AppDimensions.xs,
-                  ),
+                  const SizedBox(height: AppDimensions.xs),
 
                   Row(
                     children: [
@@ -87,13 +71,8 @@ class ProchainCoursCard extends StatelessWidget {
                         color: AppColors.secondaryText,
                       ),
                       const SizedBox(width: 4),
-                      Text(
-                        '08h00 – 10h00',
-                        style: AppTextStyles.bodySmall,
-                      ),
-                      const SizedBox(
-                        width: AppDimensions.sm,
-                      ),
+                      Text('08h00 – 10h00', style: AppTextStyles.bodySmall),
+                      const SizedBox(width: AppDimensions.sm),
                       const Icon(
                         Icons.location_on_outlined,
                         size: 17,
@@ -110,9 +89,7 @@ class ProchainCoursCard extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(
-                    height: AppDimensions.xs,
-                  ),
+                  const SizedBox(height: AppDimensions.xs),
 
                   Text(
                     'Prof. Mahamadou COULIBALY',

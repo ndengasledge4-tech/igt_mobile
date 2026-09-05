@@ -12,27 +12,26 @@ class OnboardingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        count,
-            (index) {
-          final selected = index == currentIndex;
+      children: List.generate(count, (index) {
+        final selected = index == currentIndex;
 
-          return AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            margin: const EdgeInsets.symmetric(horizontal: 4),
-            width: selected ? 34 : 11,
-            height: 11,
-            decoration: BoxDecoration(
-              color: selected
-                  ? const Color(0xFF3F88C5)
-                  : const Color(0xFFE1E8EF),
-              borderRadius: BorderRadius.circular(20),
-            ),
-          );
-        },
-      ),
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 280),
+          curve: Curves.easeOutCubic,
+          margin: const EdgeInsets.symmetric(horizontal: 3),
+          width: selected ? 28 : 7,
+          height: 7,
+          decoration: BoxDecoration(
+            color: selected
+                ? theme.colorScheme.primary
+                : theme.colorScheme.outlineVariant,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        );
+      }),
     );
   }
 }

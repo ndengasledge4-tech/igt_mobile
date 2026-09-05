@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../pages/forgot_password/mot_de_passe_oublie_page.dart';
+
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
@@ -12,42 +14,24 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Identifiant / Email',
-          style: TextStyle(
-            color: Color(0xFF26384D),
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Text('Identifiant / Email', style: theme.textTheme.labelLarge),
 
         const SizedBox(height: 10),
 
         TextField(
           decoration: InputDecoration(
             hintText: 'ex: 2024IG001 ou email@igt.edu',
-            prefixIcon: const Icon(Icons.mail_outline),
-            filled: true,
-            fillColor: Colors.white,
-            border: _border(),
-            enabledBorder: _border(),
-            focusedBorder: _focusedBorder(),
+            prefixIcon: const Icon(Icons.person_rounded),
           ),
         ),
 
         const SizedBox(height: 22),
 
-        const Text(
-          'Mot de passe',
-          style: TextStyle(
-            color: Color(0xFF26384D),
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+        Text('Mot de passe', style: theme.textTheme.labelLarge),
 
         const SizedBox(height: 10),
 
@@ -55,7 +39,7 @@ class _LoginFormState extends State<LoginForm> {
           obscureText: _obscurePassword,
           decoration: InputDecoration(
             hintText: 'Votre mot de passe',
-            prefixIcon: const Icon(Icons.lock_outline),
+            prefixIcon: const Icon(Icons.lock_rounded),
             suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
@@ -64,37 +48,35 @@ class _LoginFormState extends State<LoginForm> {
               },
               icon: Icon(
                 _obscurePassword
-                    ? Icons.visibility_outlined
-                    : Icons.visibility_off_outlined,
+                    ? Icons.visibility_rounded
+                    : Icons.visibility_off_rounded,
               ),
             ),
-            filled: true,
-            fillColor: Colors.white,
-            border: _border(),
-            enabledBorder: _border(),
-            focusedBorder: _focusedBorder(),
           ),
         ),
+
+        Align(
+          alignment: Alignment.centerRight,
+          child: TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const MotDePasseOubliePage()),
+              );
+            },
+            child: Text(
+              'Mot de passe oublié ?',
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: theme.colorScheme.primary,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 12),
       ],
-    );
-  }
-
-  OutlineInputBorder _border() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(15),
-      borderSide: const BorderSide(
-        color: Color(0xFFDCE3E9),
-      ),
-    );
-  }
-
-  OutlineInputBorder _focusedBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(15),
-      borderSide: const BorderSide(
-        color: Color(0xFF3F88C5),
-        width: 1.5,
-      ),
     );
   }
 }

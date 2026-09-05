@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../pages/login/connexion_page.dart';
 import '../../widgets/onboarding/onboarding_bottom_button.dart';
 import '../../widgets/onboarding/onboarding_content.dart';
+import '../../widgets/onboarding/onboarding_header.dart';
 import '../../widgets/onboarding/onboarding_indicator.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -17,34 +18,30 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   int _currentPage = 0;
 
-  final List<Map<String, String>> _pages = [
+  final List<Map<String, dynamic>> _pages = [
     {
-      'icon': '🎓',
-      'title': 'Votre vie académique,\nsimplement.',
+      'image': 'assets/images/academic.png',
+      'title': 'Votre parcours académique,\nen toute simplicité.',
       'description':
-      'Accédez à tout votre parcours universitaire\ndepuis votre smartphone, à tout moment.',
-      'background': '0xFFEAF3FB',
+          'Retrouvez vos cours, résultats et informations académiques '
+          'directement depuis votre smartphone.',
+      'background': const Color(0xFFEAF3FB),
     },
     {
-      'icon': '📊',
-      'title': 'Retrouvez votre parcours\net vos résultats.',
+      'image': 'assets/images/results.png',
+      'title': 'Suivez vos résultats\nen un instant.',
       'description':
-      'Consultez vos notes, résultats, emploi du\ntemps et cours en quelques secondes.',
-      'background': '0xFFEAF7EA',
+          'Consultez vos notes, votre emploi du temps et vos cours '
+          'en quelques secondes.',
+      'background': const Color(0xFFEAF7EA),
     },
     {
-      'icon': '📰',
-      'title': 'Restez informé des\nactualités de l’IGT.',
+      'image': 'assets/images/news.png',
+      'title': 'Restez informé de\nla vie de l’IGT.',
       'description':
-      'Ne manquez plus aucune annonce,\névénement ou communication importante.',
-      'background': '0xFFFFF3DF',
-    },
-    {
-      'icon': '💬',
-      'title': 'Échangez facilement avec\nles services de l’IGT.',
-      'description':
-      'Contactez le secrétariat, le service académique\nou la direction directement depuis l’app.',
-      'background': '0xFFFCE8F0',
+          'Retrouvez toutes les actualités, annonces et événements '
+          'importants au même endroit.',
+      'background': const Color(0xFFFFF3DF),
     },
   ];
 
@@ -58,49 +55,34 @@ class _OnboardingPageState extends State<OnboardingPage> {
     if (_currentPage < _pages.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 350),
-        curve: Curves.easeInOut,
+        curve: Curves.easeOutCubic,
       );
     } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const ConnexionPage(),
-        ),
-      );
+      _goToLogin();
     }
   }
 
   void _skip() {
+    _goToLogin();
+  }
+
+  void _goToLogin() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (_) => const ConnexionPage(),
-      ),
+      MaterialPageRoute(builder: (_) => const ConnexionPage()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: _skip,
-                child: const Text(
-                  'Passer',
-                  style: TextStyle(
-                    color: Color(0xFF8492A0),
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
+            // HEADER
+            OnboardingHeader(onSkip: _skip),
 
+            // CONTENU
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -114,32 +96,35 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   final page = _pages[index];
 
                   return OnboardingContent(
-                    icon: page['icon']!,
-                    title: page['title']!,
-                    description: page['description']!,
-                    backgroundColor: Color(
-                      int.parse(page['background']!),
-                    ),
+                    image: page['image'] as String,
+                    title: page['title'] as String,
+                    description: page['description'] as String,
+                    backgroundColor: page['background'] as Color,
                   );
                 },
               ),
             ),
 
+            // INDICATEUR
             OnboardingIndicator(
               currentIndex: _currentPage,
               count: _pages.length,
             ),
 
-            const SizedBox(height: 28),
+            const SizedBox(height: 24),
 
-            OnboardingBottomButton(
-              label: _currentPage == _pages.length - 1
-                  ? 'Commencer'
-                  : 'Suivant',
-              onPressed: _nextPage,
+            // BOUTON
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: OnboardingBottomButton(
+                label: _currentPage == _pages.length - 1
+                    ? 'Commencer'
+                    : 'Suivant',
+                onPressed: _nextPage,
+              ),
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
           ],
         ),
       ),

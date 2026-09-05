@@ -1,228 +1,228 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme/colors.dart';
-import '../../../app/theme/text_styles.dart';
+import '../../../app/theme/semantic_colors.dart';
+import '../../../shared/widgets/premium_ui.dart';
+import '../../communication/communication_store.dart';
+import 'conversation_page.dart';
 
 class NouvelleDemandePage extends StatefulWidget {
   const NouvelleDemandePage({super.key});
-
   @override
   State<NouvelleDemandePage> createState() => _NouvelleDemandePageState();
 }
 
 class _NouvelleDemandePageState extends State<NouvelleDemandePage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _messageController = TextEditingController();
-  final List<String> _services = const [
-    'Secrétariat',
-    'Service académique',
-    'Administration',
-    'Support technique',
+  final _message = TextEditingController();
+  String? _service;
+  String? _subject;
+  static const _services = [
+    ('Scolarité', Icons.school_outlined),
+    ('Finances', Icons.account_balance_wallet_outlined),
+    ('Bibliothèque', Icons.local_library_outlined),
+    ('Service informatique', Icons.support_agent_outlined),
+    ('Administration', Icons.account_balance_outlined),
   ];
-
-  String? _selectedService;
-  bool _isLoading = false;
-  String? _errorMessage;
-  bool _isSuccess = false;
+  static const _subjects = [
+    'Question générale',
+    'Document administratif',
+    'Inscription',
+    'Paiement',
+    'Assistance technique',
+    'Autre demande',
+  ];
 
   @override
   void dispose() {
-    _messageController.dispose();
+    _message.dispose();
     super.dispose();
   }
 
-  Future<void> _submit() async {
-    setState(() {
-      _errorMessage = null;
-      _isSuccess = false;
-    });
-
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    setState(() => _isLoading = true);
-    await Future<void>.delayed(const Duration(milliseconds: 700));
-
-    if (!mounted) {
-      return;
-    }
-
-    setState(() {
-      _isLoading = false;
-      _isSuccess = true;
-      _messageController.clear();
-      _selectedService = null;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final ready =
+        _service != null && _subject != null && _message.text.trim().isNotEmpty;
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
-        title: const Text('Nouvelle demande'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            DropdownButtonFormField<String>(
-              initialValue: _selectedService,
-              decoration: _fieldDecoration('Service concerné'),
-              icon: const Icon(Icons.keyboard_arrow_down_rounded),
-              items: _services
-                  .map(
-                    (service) => DropdownMenuItem<String>(
-                      value: service,
-                      child: Text(service),
-                    ),
-                  )
-                  .toList(),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Sélectionnez un service.';
-                }
-                return null;
-              },
-              onChanged: _isLoading
-                  ? null
-                  : (value) {
-                      setState(() => _selectedService = value);
-                    },
-            ),
-            const SizedBox(height: 14),
-            TextFormField(
-              controller: _messageController,
-              enabled: !_isLoading,
-              minLines: 7,
-              maxLines: 9,
-              decoration: _fieldDecoration(
-                'Votre demande',
-              ).copyWith(alignLabelWithHint: true),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'Décrivez votre demande.';
-                }
-                if (value.trim().length < 12) {
-                  return 'Votre demande est trop courte.';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            if (_errorMessage != null) ...[
-              _FeedbackBanner(
-                text: _errorMessage!,
-                color: AppColors.error,
-                icon: Icons.error_outline,
-              ),
-              const SizedBox(height: 12),
-            ],
-            if (_isSuccess) ...[
-              const _FeedbackBanner(
-                text: 'Votre demande a été envoyée avec succès.',
-                color: AppColors.success,
-                icon: Icons.check_circle_outline,
-              ),
-              const SizedBox(height: 12),
-            ],
-            SizedBox(
-              height: 48,
-              child: FilledButton.icon(
-                onPressed: _isLoading ? null : _submit,
-                icon: _isLoading
-                    ? const SizedBox.square(
-                        dimension: 18,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
-                    : const Icon(Icons.send_rounded, size: 18),
-                label: Text(_isLoading ? 'Envoi...' : 'Envoyer'),
-                style: FilledButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: Colors.white,
-                  disabledBackgroundColor: AppColors.primaryLight,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  textStyle: AppTextStyles.button,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  InputDecoration _fieldDecoration(String label) {
-    return InputDecoration(
-      labelText: label,
-      labelStyle: AppTextStyles.label,
-      filled: true,
-      fillColor: Colors.white,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: AppColors.border),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: AppColors.primary),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: AppColors.error),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: AppColors.error),
-      ),
-    );
-  }
-}
-
-class _FeedbackBanner extends StatelessWidget {
-  const _FeedbackBanner({
-    required this.text,
-    required this.color,
-    required this.icon,
-  });
-
-  final String text;
-  final Color color;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
+      appBar: AppBar(title: const Text('Nouvelle demande')),
+      body: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          Icon(icon, color: color, size: 18),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: AppTextStyles.bodySmall.copyWith(
-                color: color,
-                fontWeight: FontWeight.w700,
-              ),
+          AppResponsiveContent(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: .08),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.forum_outlined,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          'Votre demande ouvrira une conversation suivie avec le service choisi.',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(height: 1.4),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                const AppSectionHeading(
+                  title: '1. Choisir un service',
+                  subtitle: 'Le bon interlocuteur répondra plus rapidement',
+                ),
+                const SizedBox(height: 12),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final width = constraints.maxWidth >= 600
+                        ? (constraints.maxWidth - 12) / 2
+                        : constraints.maxWidth;
+                    return Wrap(
+                      spacing: 12,
+                      runSpacing: 10,
+                      children: [
+                        for (final item in _services)
+                          SizedBox(
+                            width: width,
+                            child: _ServiceChoice(
+                              label: item.$1,
+                              icon: item.$2,
+                              selected: _service == item.$1,
+                              onTap: () => setState(() => _service = item.$1),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 26),
+                const AppSectionHeading(title: '2. Préciser la demande'),
+                const SizedBox(height: 12),
+                DropdownButtonFormField<String>(
+                  initialValue: _subject,
+                  decoration: const InputDecoration(labelText: 'Sujet'),
+                  items: [
+                    for (final subject in _subjects)
+                      DropdownMenuItem(value: subject, child: Text(subject)),
+                  ],
+                  onChanged: (value) => setState(() => _subject = value),
+                ),
+                const SizedBox(height: 14),
+                TextField(
+                  controller: _message,
+                  minLines: 5,
+                  maxLines: 8,
+                  onChanged: (_) => setState(() {}),
+                  decoration: const InputDecoration(
+                    labelText: 'Votre message',
+                    hintText:
+                        'Décrivez votre besoin avec les informations utiles…',
+                    alignLabelWithHint: true,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.lock_outline_rounded,
+                      size: 15,
+                      color: context.semanticColors.textDisabled,
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        'Échange visible uniquement par vous et le service destinataire.',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 11,
+                          color: context.semanticColors.textDisabled,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    key: const Key('send-administrative-request'),
+                    onPressed: ready ? _send : null,
+                    icon: const Icon(Icons.send_rounded),
+                    label: const Text('Envoyer la demande'),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
     );
   }
+
+  void _send() {
+    final id = CommunicationStore.instance.createAdministrativeRequest(
+      service: _service!,
+      subject: _subject!,
+      message: _message.text,
+    );
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute<void>(
+        builder: (_) => ConversationPage(conversationId: id),
+      ),
+    );
+  }
+}
+
+class _ServiceChoice extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final bool selected;
+  final VoidCallback onTap;
+  const _ServiceChoice({
+    required this.label,
+    required this.icon,
+    required this.selected,
+    required this.onTap,
+  });
+  @override
+  Widget build(BuildContext context) => AppSurface(
+    onTap: onTap,
+    color: selected
+        ? Theme.of(context).colorScheme.primary.withValues(alpha: .08)
+        : null,
+    padding: const EdgeInsets.all(14),
+    child: Row(
+      children: [
+        Container(
+          width: 42,
+          height: 42,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: .1),
+            borderRadius: BorderRadius.circular(13),
+          ),
+          child: Icon(icon, color: Theme.of(context).colorScheme.primary),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(label, style: Theme.of(context).textTheme.titleSmall),
+        ),
+        Icon(
+          selected ? Icons.check_circle_rounded : Icons.circle_outlined,
+          color: selected
+              ? Theme.of(context).colorScheme.primary
+              : context.semanticColors.textDisabled,
+        ),
+      ],
+    ),
+  );
 }

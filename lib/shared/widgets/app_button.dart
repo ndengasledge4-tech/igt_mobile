@@ -1,40 +1,80 @@
 import 'package:flutter/material.dart';
 
-import '../../app/theme/colors.dart';
-import '../../app/theme/text_styles.dart';
+import '../../app/theme/dimensions.dart';
+
+enum AppButtonVariant { primary, secondary, tonal, text, danger }
 
 class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final IconData? icon;
+  final AppButtonVariant variant;
+  final bool isLoading;
+  final bool expand;
 
   const AppButton({
     super.key,
     required this.text,
     this.onPressed,
     this.icon,
+    this.variant = AppButtonVariant.primary,
+    this.isLoading = false,
+    this.expand = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 52,
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: icon == null ? const SizedBox.shrink() : Icon(icon),
-        label: Text(
-          text,
-          style: AppTextStyles.title.copyWith(color: Colors.white),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
+    final callback = isLoading ? null : onPressed;
+    final label = AnimatedSwitcher(
+      duration: const Duration(milliseconds: 180),
+      child: isLoading
+          ? const SizedBox.square(
+              key: ValueKey('loading'),
+              dimension: AppDimensions.iconSmall,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+          : Row(
+              key: const ValueKey('label'),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (icon != null) ...[
+                  Icon(icon, size: AppDimensions.iconSmall),
+                  const SizedBox(width: AppDimensions.space8),
+                ],
+                Flexible(child: Text(text, overflow: TextOverflow.ellipsis)),
+              ],
+            ),
+    );
+    final scheme = Theme.of(context).colorScheme;
+
+    final button = switch (variant) {
+      AppButtonVariant.primary => ElevatedButton(
+        onPressed: callback,
+        child: label,
       ),
+      AppButtonVariant.secondary => OutlinedButton(
+        onPressed: callback,
+        child: label,
+      ),
+      AppButtonVariant.tonal => FilledButton.tonal(
+        onPressed: callback,
+        child: label,
+      ),
+      AppButtonVariant.text => TextButton(onPressed: callback, child: label),
+      AppButtonVariant.danger => ElevatedButton(
+        onPressed: callback,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: scheme.error,
+          foregroundColor: scheme.onError,
+        ),
+        child: label,
+      ),
+    };
+
+    return Semantics(
+      button: true,
+      label: text,
+      child: SizedBox(width: expand ? double.infinity : null, child: button),
     );
   }
 }

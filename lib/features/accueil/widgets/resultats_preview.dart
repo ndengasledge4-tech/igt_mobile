@@ -10,34 +10,19 @@ class ResultatsPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.md,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: AppDimensions.md),
       child: Row(
         children: const [
           Expanded(
-            child: ResultCard(
-              value: '15.2/20',
-              label: 'Moyenne',
-            ),
+            child: ResultCard(value: '15.2/20', label: 'Moyenne'),
           ),
-          SizedBox(
-            width: AppDimensions.sm,
-          ),
+          SizedBox(width: AppDimensions.sm),
           Expanded(
-            child: ResultCard(
-              value: '28/30',
-              label: 'Crédits',
-            ),
+            child: ResultCard(value: '28/30', label: 'Crédits'),
           ),
-          SizedBox(
-            width: AppDimensions.sm,
-          ),
+          SizedBox(width: AppDimensions.sm),
           Expanded(
-            child: ResultCard(
-              value: 'Bien',
-              label: 'Mention',
-            ),
+            child: ResultCard(value: 'Bien', label: 'Mention'),
           ),
         ],
       ),
@@ -49,11 +34,7 @@ class ResultCard extends StatelessWidget {
   final String value;
   final String label;
 
-  const ResultCard({
-    super.key,
-    required this.value,
-    required this.label,
-  });
+  const ResultCard({super.key, required this.value, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +42,8 @@ class ResultCard extends StatelessWidget {
       height: 110,
       decoration: BoxDecoration(
         color: AppColors.card,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusMedium,
-        ),
-        border: Border.all(
-          color: AppColors.border,
-        ),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -80,9 +57,7 @@ class ResultCard extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(
-            height: AppDimensions.xs,
-          ),
+          const SizedBox(height: AppDimensions.xs),
           Text(
             label,
             style: AppTextStyles.caption.copyWith(

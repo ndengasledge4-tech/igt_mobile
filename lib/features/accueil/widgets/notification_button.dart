@@ -19,10 +19,8 @@ class NotificationButton extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(
-                AppDimensions.radiusMedium,
-              ),
+              color: Colors.white.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(AppDimensions.radiusMedium),
             ),
             alignment: Alignment.center,
             child: const Icon(

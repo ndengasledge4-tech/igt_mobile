@@ -1,17 +1,33 @@
-# igt
+# IGT Mobile
 
-A new Flutter project.
+IGT Mobile est le prototype du portail étudiant de l’Institut de Gestion et de Technologie. Cette étape du projet est volontairement **frontend et mock** : les écrans servent à valider l’expérience, le design system et la navigation avant les travaux pratiques consacrés aux données réelles.
 
-## Getting Started
+## Architecture
 
-This project is a starting point for a Flutter application.
+- `lib/app/` : démarrage, routes, thèmes clair/sombre et état local du thème ;
+- `lib/features/` : écrans regroupés par domaine fonctionnel ;
+- `lib/shared/` : composants visuels et navigation réutilisables ;
+- `lib/mock/` : fixtures et données de démonstration, sans réseau ni CRUD ;
+- `lib/core/models/` : modèles existants destinés aux futures couches métier ;
+- `lib/core/controllers/`, `repositories/`, `services/` et `database/` : emplacements pédagogiques laissés volontairement vides.
 
-A few resources to get you started if this is your first Flutter project:
+Les couleurs, espacements, styles typographiques et thèmes se trouvent dans `lib/app/theme/`. Les assets locaux sont centralisés dans `lib/core/constants/assets.dart`.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Lancer le projet
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Prérequis : une installation Flutter compatible avec le SDK déclaré dans `pubspec.yaml`.
+
+```bash
+flutter pub get
+flutter run
+```
+
+## Qualité et tests
+
+```bash
+dart format .
+flutter analyze
+flutter test
+```
+
+Le thème peut être basculé entre clair, sombre et système depuis la page **Paramètres**. Ce choix n’est pas persisté : la persistance, l’authentification, Firebase/API, les repositories et les services seront implémentés ultérieurement par les étudiants.

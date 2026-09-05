@@ -1,178 +1,361 @@
 import 'package:flutter/material.dart';
 
-import '../../../app/theme/colors.dart';
-import '../../../app/theme/text_styles.dart';
-import '../widgets/conversation_card.dart';
-import '../widgets/message_bubble.dart';
+import '../../../app/theme/semantic_colors.dart';
+import '../../communication/communication_store.dart';
 
 class ConversationPage extends StatefulWidget {
+  final String conversationId;
+  final bool teacherMode;
   const ConversationPage({
     super.key,
-    required this.subject,
-    required this.interlocutor,
-    required this.status,
-    required this.messages,
+    required this.conversationId,
+    this.teacherMode = false,
   });
-
-  final String subject;
-  final String interlocutor;
-  final ConversationStatus status;
-  final List<ConversationMessage> messages;
 
   @override
   State<ConversationPage> createState() => _ConversationPageState();
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-  late final List<ConversationMessage> _messages;
-  final TextEditingController _messageController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _messages = List<ConversationMessage>.from(widget.messages);
-  }
+  final _controller = TextEditingController();
+  final _scrollController = ScrollController();
 
   @override
   void dispose() {
-    _messageController.dispose();
+    _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
-  }
-
-  void _sendMessage() {
-    final text = _messageController.text.trim();
-    if (text.isEmpty) {
-      return;
-    }
-
-    setState(() {
-      _messages.add(
-        ConversationMessage(text: text, time: 'Maintenant', isSentByUser: true),
-      );
-      _messageController.clear();
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
-        titleSpacing: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              widget.interlocutor,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              widget.subject,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                final message = _messages[index];
-                return MessageBubble(
-                  text: message.text,
-                  time: message.time,
-                  isSentByUser: message.isSentByUser,
-                );
-              },
-            ),
-          ),
-          SafeArea(
-            top: false,
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                border: Border(top: BorderSide(color: AppColors.border)),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _messageController,
-                      minLines: 1,
-                      maxLines: 4,
-                      textInputAction: TextInputAction.newline,
-                      decoration: InputDecoration(
-                        hintText: 'Écrire un message',
-                        hintStyle: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.hint,
-                        ),
-                        filled: true,
-                        fillColor: AppColors.lightBlue,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 10,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide.none,
+    final store = CommunicationStore.instance;
+    return AnimatedBuilder(
+      animation: store,
+      builder: (context, _) {
+        final conversation = store.conversationById(widget.conversationId);
+        return Scaffold(
+          appBar: AppBar(
+            titleSpacing: 0,
+            title: Row(
+              children: [
+                _ChatAvatar(
+                  initials: conversation.initials,
+                  status: conversation.status,
+                ),
+                const SizedBox(width: 11),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        conversation.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        '${conversation.role} · ${_statusLabel(conversation.status)}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 11,
+                          color: context.semanticColors.textSecondary,
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  const SizedBox(width: 10),
-                  SizedBox.square(
-                    dimension: 44,
-                    child: IconButton.filled(
-                      onPressed: _sendMessage,
-                      icon: const Icon(Icons.send_rounded, size: 18),
-                      style: IconButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+            actions: [
+              IconButton(
+                tooltip: 'Informations',
+                onPressed: () {},
+                icon: const Icon(Icons.info_outline_rounded),
+              ),
+              const SizedBox(width: 4),
+            ],
           ),
-        ],
-      ),
+          body: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  controller: _scrollController,
+                  padding: const EdgeInsets.fromLTRB(18, 14, 18, 24),
+                  itemCount: conversation.messages.length,
+                  itemBuilder: (context, index) {
+                    final message = conversation.messages[index];
+                    final previous = index > 0
+                        ? conversation.messages[index - 1]
+                        : null;
+                    final showDate =
+                        previous == null ||
+                        !_sameDay(previous.sentAt, message.sentAt);
+                    final sentByMe = widget.teacherMode
+                        ? !message.sentByStudent
+                        : message.sentByStudent;
+                    return Column(
+                      children: [
+                        if (showDate) _DateSeparator(date: message.sentAt),
+                        _MessageBubble(message: message, sentByMe: sentByMe),
+                        const SizedBox(height: 8),
+                      ],
+                    );
+                  },
+                ),
+              ),
+              _Composer(
+                controller: _controller,
+                onAttach: () => ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Pièce jointe ajoutée en mode prototype'),
+                  ),
+                ),
+                onSend: () {
+                  if (_controller.text.trim().isEmpty) return;
+                  store.sendMessage(
+                    widget.conversationId,
+                    _controller.text,
+                    asTeacher: widget.teacherMode,
+                  );
+                  _controller.clear();
+                  setState(() {});
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (_scrollController.hasClients) {
+                      _scrollController.animateTo(
+                        _scrollController.position.maxScrollExtent,
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeOut,
+                      );
+                    }
+                  });
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
-class ConversationMessage {
-  const ConversationMessage({
-    required this.text,
-    required this.time,
-    required this.isSentByUser,
-  });
-
-  final String text;
-  final String time;
-  final bool isSentByUser;
+class _ChatAvatar extends StatelessWidget {
+  final String initials;
+  final PresenceStatus status;
+  const _ChatAvatar({required this.initials, required this.status});
+  @override
+  Widget build(BuildContext context) => Stack(
+    clipBehavior: Clip.none,
+    children: [
+      Container(
+        width: 40,
+        height: 40,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          borderRadius: BorderRadius.circular(13),
+        ),
+        child: Text(
+          initials,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
+        ),
+      ),
+      Positioned(
+        right: -1,
+        bottom: -1,
+        child: Container(
+          width: 11,
+          height: 11,
+          decoration: BoxDecoration(
+            color: status == PresenceStatus.online
+                ? const Color(0xFF3E9B70)
+                : const Color(0xFF98A2B3),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Theme.of(context).colorScheme.surface,
+              width: 2,
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
 }
+
+class _DateSeparator extends StatelessWidget {
+  final DateTime date;
+  const _DateSeparator({required this.date});
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 14),
+    child: Row(
+      children: [
+        Expanded(child: Divider(color: Theme.of(context).dividerColor)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            _dayLabel(date),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 11,
+              color: context.semanticColors.textDisabled,
+            ),
+          ),
+        ),
+        Expanded(child: Divider(color: Theme.of(context).dividerColor)),
+      ],
+    ),
+  );
+}
+
+class _MessageBubble extends StatelessWidget {
+  final ChatMessage message;
+  final bool sentByMe;
+  const _MessageBubble({required this.message, required this.sentByMe});
+  @override
+  Widget build(BuildContext context) => Align(
+    alignment: sentByMe ? Alignment.centerRight : Alignment.centerLeft,
+    child: ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.sizeOf(context).width >= 700
+            ? 480
+            : MediaQuery.sizeOf(context).width * .78,
+      ),
+      child: Column(
+        crossAxisAlignment: sentByMe
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 11),
+            decoration: BoxDecoration(
+              color: sentByMe
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.only(
+                topLeft: const Radius.circular(17),
+                topRight: const Radius.circular(17),
+                bottomLeft: Radius.circular(sentByMe ? 17 : 5),
+                bottomRight: Radius.circular(sentByMe ? 5 : 17),
+              ),
+            ),
+            child: Text(
+              message.text,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: sentByMe
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSurface,
+                height: 1.45,
+              ),
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            '${message.sentAt.hour.toString().padLeft(2, '0')}:${message.sentAt.minute.toString().padLeft(2, '0')}${sentByMe ? '  ✓✓' : ''}',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 10,
+              color: context.semanticColors.textDisabled,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+class _Composer extends StatefulWidget {
+  final TextEditingController controller;
+  final VoidCallback onAttach;
+  final VoidCallback onSend;
+  const _Composer({
+    required this.controller,
+    required this.onAttach,
+    required this.onSend,
+  });
+  @override
+  State<_Composer> createState() => _ComposerState();
+}
+
+class _ComposerState extends State<_Composer> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_refresh);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_refresh);
+    super.dispose();
+  }
+
+  void _refresh() => setState(() {});
+  @override
+  Widget build(BuildContext context) => SafeArea(
+    top: false,
+    child: Container(
+      padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        border: Border(top: BorderSide(color: Theme.of(context).dividerColor)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          IconButton(
+            tooltip: 'Joindre un fichier',
+            onPressed: widget.onAttach,
+            icon: const Icon(Icons.attach_file_rounded),
+          ),
+          Expanded(
+            child: TextField(
+              controller: widget.controller,
+              minLines: 1,
+              maxLines: 4,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: const InputDecoration(
+                hintText: 'Écrire un message…',
+                isDense: true,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          IconButton(
+            tooltip: 'Envoyer',
+            onPressed: widget.controller.text.trim().isEmpty
+                ? null
+                : widget.onSend,
+            style: IconButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              disabledBackgroundColor: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest,
+            ),
+            icon: const Icon(Icons.send_rounded),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+bool _sameDay(DateTime a, DateTime b) =>
+    a.year == b.year && a.month == b.month && a.day == b.day;
+String _dayLabel(DateTime date) {
+  final now = DateTime.now();
+  if (_sameDay(now, date)) return 'Aujourd’hui';
+  if (_sameDay(now.subtract(const Duration(days: 1)), date)) return 'Hier';
+  return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
+}
+
+String _statusLabel(PresenceStatus status) => switch (status) {
+  PresenceStatus.online => 'En ligne',
+  PresenceStatus.available => 'Disponible',
+  PresenceStatus.away => 'Absent',
+  PresenceStatus.offline => 'Hors ligne',
+};
