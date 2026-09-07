@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class RegisterPasswordForm extends StatefulWidget {
-  const RegisterPasswordForm({super.key});
+  final TextEditingController passwordController;
+  final TextEditingController confirmationController;
+
+  const RegisterPasswordForm({
+    super.key,
+    required this.passwordController,
+    required this.confirmationController,
+  });
 
   @override
   State<RegisterPasswordForm> createState() => _RegisterPasswordFormState();
@@ -36,6 +43,7 @@ class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
         const SizedBox(height: 25),
 
         _passwordField(
+          controller: widget.passwordController,
           label: 'Mot de passe',
           hint: 'Votre mot de passe',
           obscure: _obscurePassword,
@@ -49,6 +57,7 @@ class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
         const SizedBox(height: 18),
 
         _passwordField(
+          controller: widget.confirmationController,
           label: 'Confirmer le mot de passe',
           hint: 'Confirmez votre mot de passe',
           obscure: _obscureConfirmation,
@@ -91,6 +100,7 @@ class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
   }
 
   Widget _passwordField({
+    required TextEditingController controller,
     required String label,
     required String hint,
     required bool obscure,
@@ -109,6 +119,7 @@ class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
         ),
         const SizedBox(height: 9),
         TextField(
+          controller: controller,
           obscureText: obscure,
           decoration: InputDecoration(
             hintText: hint,

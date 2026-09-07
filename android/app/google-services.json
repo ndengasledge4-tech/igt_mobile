@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "299529257771",
+    "project_id": "igt-mobile-b55be",
+    "storage_bucket": "igt-mobile-b55be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299529257771:android:cafaba4d7dfae29a73fb6e",
+        "android_client_info": {
+          "package_name": "com.horizondigitalafrica.igt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVfHVrw1FrP0a-zCs6YakqIq_DCZ7Sd0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

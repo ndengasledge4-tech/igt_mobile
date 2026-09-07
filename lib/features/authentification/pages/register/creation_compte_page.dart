@@ -6,6 +6,9 @@ import '../../widgets/register/register_personal_form.dart';
 import '../../widgets/register/register_progress.dart';
 import '../login/connexion_page.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import '../../../../core/controllers/auth_controller.dart';
+
 class CreationComptePage extends StatefulWidget {
   const CreationComptePage({super.key});
 
@@ -16,13 +19,61 @@ class CreationComptePage extends StatefulWidget {
 class _CreationComptePageState extends State<CreationComptePage> {
   int _currentStep = 1;
 
-  void _nextStep() {
+  final AuthController _authController = AuthController();
+
+  final TextEditingController _passwordController =
+  TextEditingController();
+
+  final TextEditingController _confirmationController =
+  TextEditingController();
+
+  final _lastNameController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _matriculeController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+
+  Future<void> _nextStep() async {
     if (_currentStep < 2) {
       setState(() {
         _currentStep++;
       });
-    } else {
+      return;
+    }
+
+    if (_passwordController.text != _confirmationController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Les mots de passe ne correspondent pas.'),
+        ),
+      );
+      return;
+    }
+
+    try {
+      await _authController.register(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+        matricule: _matriculeController.text.trim(),
+        nom: _lastNameController.text.trim(),
+        prenom: _firstNameController.text.trim(),
+        telephone: _phoneController.text.trim(),
+      );
+
+      if (!mounted) return;
+
       _showSuccess();
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.message ??
+                'Une erreur est survenue lors de la création du compte.',
+          ),
+        ),
+      );
     }
   }
 
@@ -149,12 +200,19 @@ class _CreationComptePageState extends State<CreationComptePage> {
                     AnimatedSwitcher(
                       duration: const Duration(milliseconds: 250),
                       child: _currentStep == 1
-                          ? const RegisterPersonalForm(
-                              key: ValueKey('personal'),
-                            )
-                          : const RegisterPasswordForm(
-                              key: ValueKey('password'),
-                            ),
+                          ? RegisterPersonalForm(
+                        key: const ValueKey('personal'),
+                        lastNameController: _lastNameController,
+                        firstNameController: _firstNameController,
+                        matriculeController: _matriculeController,
+                        emailController: _emailController,
+                        phoneController: _phoneController,
+                      )
+                          : RegisterPasswordForm(
+                        key: const ValueKey('password'),
+                        passwordController: _passwordController,
+                        confirmationController: _confirmationController,
+                      )
                     ),
 
                     const SizedBox(height: 30),

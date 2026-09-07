@@ -3,6 +3,9 @@ import java.util.Properties
 
 plugins {
     id("com.android.application")
+    // START: FlutterFire Configuration
+    id("com.google.gms.google-services")
+    // END: FlutterFire Configuration
 
     // Le plugin Flutter doit être appliqué après
     // les plugins Android et Kotlin.

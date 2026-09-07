@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 
 class RegisterPersonalForm extends StatelessWidget {
-  const RegisterPersonalForm({super.key});
+  final TextEditingController lastNameController;
+  final TextEditingController firstNameController;
+  final TextEditingController matriculeController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+
+  const RegisterPersonalForm({
+    super.key,
+    required this.lastNameController,
+    required this.firstNameController,
+    required this.matriculeController,
+    required this.emailController,
+    required this.phoneController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +40,7 @@ class RegisterPersonalForm extends StatelessWidget {
         const SizedBox(height: 25),
 
         _field(
+          controller: lastNameController,
           label: 'Nom',
           hint: 'Votre nom',
           icon: Icons.person_outline_rounded,
@@ -35,6 +49,7 @@ class RegisterPersonalForm extends StatelessWidget {
         const SizedBox(height: 18),
 
         _field(
+          controller: firstNameController,
           label: 'Prénom',
           hint: 'Votre prénom',
           icon: Icons.person_outline_rounded,
@@ -43,6 +58,7 @@ class RegisterPersonalForm extends StatelessWidget {
         const SizedBox(height: 18),
 
         _field(
+          controller: matriculeController,
           label: 'Identifiant étudiant',
           hint: 'Ex : 2024IG001',
           icon: Icons.badge_outlined,
@@ -51,6 +67,7 @@ class RegisterPersonalForm extends StatelessWidget {
         const SizedBox(height: 18),
 
         _field(
+          controller: emailController,
           label: 'Email',
           hint: 'email@igt.edu',
           icon: Icons.mail_outline_rounded,
@@ -60,6 +77,7 @@ class RegisterPersonalForm extends StatelessWidget {
         const SizedBox(height: 18),
 
         _field(
+          controller: phoneController,
           label: 'Téléphone',
           hint: 'Votre numéro de téléphone',
           icon: Icons.phone_outlined,
@@ -70,6 +88,7 @@ class RegisterPersonalForm extends StatelessWidget {
   }
 
   Widget _field({
+    required TextEditingController controller,
     required String label,
     required String hint,
     required IconData icon,
@@ -88,6 +107,7 @@ class RegisterPersonalForm extends StatelessWidget {
         ),
         const SizedBox(height: 9),
         TextField(
+          controller: controller,
           keyboardType: keyboardType,
           decoration: InputDecoration(
             hintText: hint,
