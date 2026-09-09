@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../app/routes/route_names.dart';
 
 class WaitingValidationPage extends StatelessWidget {
   const WaitingValidationPage({super.key});
@@ -99,7 +100,11 @@ class WaitingValidationPage extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                RouteNames.connexion,
+                (route) => false,
+              );
             },
             icon: const Icon(
               Icons.arrow_back_rounded,

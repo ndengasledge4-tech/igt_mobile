@@ -1,3 +1,4 @@
+import '../core/models/student_account_status.dart';
 import '../core/models/student_model.dart';
 
 abstract final class MockStudentData {
@@ -9,11 +10,11 @@ abstract final class MockStudentData {
     email: 'amira.nsimba@etudiant.igt.cd',
     phone: '+243 000 000 000',
     matricule: 'IGT-2025-0142',
+    accountStatus: StudentAccountStatus.active,
     formationId: 'licence-informatique',
     classId: 'l2-info',
     campusId: 'campus-principal',
     level: 'Licence 2',
     academicYear: '2025–2026',
-    accountStatus: 'active',
   );
 }
