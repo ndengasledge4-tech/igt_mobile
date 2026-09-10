@@ -56,7 +56,6 @@ class DefaultFirebaseOptions {
     projectId: 'igt-mobile-b55be',
     storageBucket: 'igt-mobile-b55be.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAl06YS7_EdhyTn0_t56c7SiHJMUOlU4WI',
     appId: '1:299529257771:ios:40c7acb6cd8b3e7673fb6e',
@@ -65,7 +64,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'igt-mobile-b55be.firebasestorage.app',
     iosBundleId: 'com.igtapp.igt',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAl06YS7_EdhyTn0_t56c7SiHJMUOlU4WI',
     appId: '1:299529257771:ios:40c7acb6cd8b3e7673fb6e',

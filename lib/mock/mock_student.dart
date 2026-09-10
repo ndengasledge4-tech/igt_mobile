@@ -1,5 +1,4 @@
 import '../core/models/student_model.dart';
-import '../core/models/student_model.dart';
 
 abstract final class MockStudentData {
   const MockStudentData._();

@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:igt/core/controllers/auth_controller.dart';
 import 'package:igt/core/controllers/registration_status.dart';
 import 'package:igt/core/exceptions/registration_exception.dart';
-import 'package:igt/core/models/student_account_status.dart';
 import 'package:igt/core/models/student_model.dart';
 import 'package:igt/core/repositories/auth_repository.dart';
 
