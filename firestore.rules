@@ -1,0 +1,93 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function owns(studentId) {
+      return signedIn() && request.auth.uid == studentId;
+    }
+
+    function validStudentCreation(studentId) {
+      let data = request.resource.data;
+      return owns(studentId)
+        && data.keys().hasAll([
+          'uid',
+          'firstName',
+          'lastName',
+          'fullName',
+          'email',
+          'phone',
+          'matricule',
+          'matriculeNormalized',
+          'role',
+          'accountStatus',
+          'createdAt'
+        ])
+        && data.keys().hasOnly([
+          'uid',
+          'firstName',
+          'lastName',
+          'fullName',
+          'email',
+          'phone',
+          'matricule',
+          'matriculeNormalized',
+          'role',
+          'accountStatus',
+          'createdAt',
+          'formationId',
+          'classId',
+          'campusId',
+          'level',
+          'academicYear'
+        ])
+        && data.uid == studentId
+        && data.uid == request.auth.uid
+        && data.email == request.auth.token.email
+        && data.role == 'student'
+        && data.accountStatus == 'pending'
+        && data.firstName is string
+        && data.firstName.size() >= 2
+        && data.lastName is string
+        && data.lastName.size() >= 2
+        && data.phone is string
+        && data.matricule is string
+        && data.matriculeNormalized is string
+        && data.createdAt == request.time;
+    }
+
+    match /students/{studentId} {
+      allow get: if owns(studentId);
+      allow list: if false;
+
+      allow create: if validStudentCreation(studentId)
+        && getAfter(
+          /databases/$(database)/documents/student_identifiers/$(request.resource.data.matriculeNormalized)
+        ).data.uid == studentId;
+
+      allow update, delete: if false;
+    }
+
+    match /student_identifiers/{matriculeNormalized} {
+      allow get: if signedIn();
+      allow list: if false;
+
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['uid', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.createdAt == request.time
+        && getAfter(
+          /databases/$(database)/documents/students/$(request.auth.uid)
+        ).data.matriculeNormalized == matriculeNormalized;
+
+      allow update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

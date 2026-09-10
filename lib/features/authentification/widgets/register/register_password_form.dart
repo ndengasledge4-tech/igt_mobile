@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/validators.dart';
+
 class RegisterPasswordForm extends StatefulWidget {
-  const RegisterPasswordForm({super.key});
+  const RegisterPasswordForm({
+    super.key,
+    required this.formKey,
+    required this.passwordController,
+    required this.confirmationController,
+  });
+
+  final GlobalKey<FormState> formKey;
+  final TextEditingController passwordController;
+  final TextEditingController confirmationController;
 
   @override
   State<RegisterPasswordForm> createState() => _RegisterPasswordFormState();
@@ -13,87 +24,90 @@ class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Sécurisez votre compte',
-          style: TextStyle(
-            color: Color(0xFF26384D),
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
+    return Form(
+      key: widget.formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Sécurisez votre compte',
+            style: TextStyle(
+              color: Color(0xFF26384D),
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
-
-        const SizedBox(height: 7),
-
-        const Text(
-          'Définissez le mot de passe qui sera utilisé '
-          'pour vous connecter.',
-          style: TextStyle(color: Color(0xFF8A98A8), fontSize: 14, height: 1.4),
-        ),
-
-        const SizedBox(height: 25),
-
-        _passwordField(
-          label: 'Mot de passe',
-          hint: 'Votre mot de passe',
-          obscure: _obscurePassword,
-          onVisibilityPressed: () {
-            setState(() {
-              _obscurePassword = !_obscurePassword;
-            });
-          },
-        ),
-
-        const SizedBox(height: 18),
-
-        _passwordField(
-          label: 'Confirmer le mot de passe',
-          hint: 'Confirmez votre mot de passe',
-          obscure: _obscureConfirmation,
-          onVisibilityPressed: () {
-            setState(() {
-              _obscureConfirmation = !_obscureConfirmation;
-            });
-          },
-        ),
-
-        const SizedBox(height: 20),
-
-        Container(
-          padding: const EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF0F6FB),
-            borderRadius: BorderRadius.circular(13),
+          const SizedBox(height: 7),
+          const Text(
+            'Définissez le mot de passe qui sera utilisé pour vous connecter.',
+            style: TextStyle(
+              color: Color(0xFF8A98A8),
+              fontSize: 14,
+              height: 1.4,
+            ),
           ),
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Conseils de sécurité',
-                style: TextStyle(
-                  color: Color(0xFF526477),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
+          const SizedBox(height: 25),
+          _passwordField(
+            label: 'Mot de passe',
+            hint: 'Votre mot de passe',
+            controller: widget.passwordController,
+            obscure: _obscurePassword,
+            validator: Validators.password,
+            onVisibilityPressed: () {
+              setState(() => _obscurePassword = !_obscurePassword);
+            },
+          ),
+          const SizedBox(height: 18),
+          _passwordField(
+            label: 'Confirmer le mot de passe',
+            hint: 'Confirmez votre mot de passe',
+            controller: widget.confirmationController,
+            obscure: _obscureConfirmation,
+            validator: (value) => Validators.passwordConfirmation(
+              value,
+              widget.passwordController.text,
+            ),
+            onVisibilityPressed: () {
+              setState(() => _obscureConfirmation = !_obscureConfirmation);
+            },
+          ),
+          const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF0F6FB),
+              borderRadius: BorderRadius.circular(13),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Conseils de sécurité',
+                  style: TextStyle(
+                    color: Color(0xFF526477),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
-              SizedBox(height: 9),
-              _Rule(text: 'Au moins 8 caractères'),
-              _Rule(text: 'Une lettre majuscule'),
-              _Rule(text: 'Une lettre minuscule'),
-              _Rule(text: 'Un chiffre'),
-            ],
+                SizedBox(height: 9),
+                _Rule(text: 'Au moins 8 caractères'),
+                _Rule(text: 'Une lettre majuscule'),
+                _Rule(text: 'Une lettre minuscule'),
+                _Rule(text: 'Un chiffre'),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Widget _passwordField({
     required String label,
     required String hint,
+    required TextEditingController controller,
     required bool obscure,
+    required String? Function(String?) validator,
     required VoidCallback onVisibilityPressed,
   }) {
     return Column(
@@ -108,11 +122,14 @@ class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
           ),
         ),
         const SizedBox(height: 9),
-        TextField(
+        TextFormField(
+          controller: controller,
+          validator: validator,
           obscureText: obscure,
+          textInputAction: TextInputAction.next,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(color: Color(0xFF98A2B3)),
             prefixIcon: const Icon(
               Icons.lock_outline_rounded,
               color: Color(0xFF7E8C9A),
@@ -141,25 +158,21 @@ class _RegisterPasswordFormState extends State<RegisterPasswordForm> {
     );
   }
 
-  OutlineInputBorder _border() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(color: Color(0xFFDDE3EA)),
-    );
-  }
+  OutlineInputBorder _border() => OutlineInputBorder(
+    borderRadius: BorderRadius.circular(13),
+    borderSide: const BorderSide(color: Color(0xFFDDE3EA)),
+  );
 
-  OutlineInputBorder _focusedBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(13),
-      borderSide: const BorderSide(color: Color(0xFF4388C5), width: 1.5),
-    );
-  }
+  OutlineInputBorder _focusedBorder() => OutlineInputBorder(
+    borderRadius: BorderRadius.circular(13),
+    borderSide: const BorderSide(color: Color(0xFF4388C5), width: 1.5),
+  );
 }
 
 class _Rule extends StatelessWidget {
-  final String text;
-
   const _Rule({required this.text});
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {

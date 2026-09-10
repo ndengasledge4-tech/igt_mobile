@@ -25,6 +25,8 @@ class StudentModel {
     required this.accountStatus,
   });
 
+  String? get normalizedMatricule => null;
+
   Map<String, dynamic> toMap({required String uid}) {
     return {
       'uid': uid,
