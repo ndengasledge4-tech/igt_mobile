@@ -25,7 +25,8 @@ class StudentModel {
     required this.accountStatus,
   });
 
-  String? get normalizedMatricule => null;
+  String get normalizedMatricule =>
+      matricule.trim().toUpperCase().replaceAll(RegExp(r'\s+'), '');
 
   Map<String, dynamic> toMap({required String uid}) {
     return {
@@ -36,6 +37,7 @@ class StudentModel {
       'email': email.trim().toLowerCase(),
       'phone': phone.trim(),
       'matricule': matricule.trim(),
+      'matriculeNormalized': normalizedMatricule,
       'formationId': formationId,
       'classId': classId,
       'campusId': campusId,
